@@ -33,7 +33,7 @@
     .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,0.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
     .container{max-width:1200px;margin:auto;padding:24px}
     header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px}
-    header img.signature{height:32px;width:auto;object-fit:contain;cursor:pointer}
+    header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block}
     nav{display:flex;gap:20px;align-items:center}
     nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer}
     nav a:hover{opacity:1;text-decoration:underline}
@@ -169,7 +169,9 @@
   <div class="top-band">
     <div class="container">
       <header>
-        <img src="signature.png" alt="Signature" class="signature" onclick="goHome()" />
+        <a href="#home" onclick="goHome()" style="display:inline-block;">
+          <img src="signature.png" alt="Signature" class="signature" />
+        </a>
         <nav>
           <div class="menu">
             <a href="#" onclick="toggleMenu(event, 'about-menu')">About ▾</a>
