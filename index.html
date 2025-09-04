@@ -34,7 +34,7 @@
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.1);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
       z-index: 0;
@@ -59,7 +59,7 @@
 
     /* ===== Landing (homepage) ===== */
     .landing{position:relative;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:1}
-    .hook{font-size:clamp(32px,7vw,80px);font-weight:900;letter-spacing:1px;text-align:center;color:var(--fg);padding:0 16px;z-index:2;position:relative}
+    .hook{font-size:clamp(32px,7vw,80px);font-weight:900;letter-spacing:1px;text-align:center;color:var(--fg);padding:0 16px;z-index:2;position:relative;background:rgba(255,255,255,0.12);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border-radius:16px}
     .hook em{color:var(--brand);font-style:normal}
 
     /* Airplane overlay */
@@ -71,11 +71,11 @@
     .page::before {
       content: "";
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 70px; left: 0; right: 0; bottom: 0; /* commence au niveau de Youssef Chabbou */
       background: var(--overlay);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
-      border-radius: 18px;
+      border-radius: 32px 32px 16px 16px;
       z-index: -1;
     }
     .hero h1{font-size:44px;line-height:1.1;margin:0 0 12px;color:var(--brand)}
