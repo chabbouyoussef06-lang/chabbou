@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Youssef Chabbou — Aerospace | TU Braunschweig</title>
+  <meta name="description" content="Mechanical engineering student specializing in aerospace at TU Braunschweig. Design, simulation, and intelligent systems."/>
+  <style>
+    :root{
+      --bg:#ffffff; --fg:#1f2937; --muted:#6b7280; --brand:#0b5fa5; --card:#f8fafc; --ring:#dbeafe;
+    }
+    [data-theme="dark"]{
+      --bg:#0d1117; --fg:#e6edf3; --muted:#8b949e; --brand:#58a6ff; --card:#161b22; --ring:#30363d;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;display:flex;flex-direction:column;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;transition:background .3s,color .3s}
+
+    /* ===== Background image full screen ===== */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('background.jpg') no-repeat center center;
+      background-size: cover;
+      z-index: -2;
+    }
+
+    /* Blur overlay behind hook text */
+    .landing::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 0;
+    }
+
+    /* ===== Top translucent blue band ===== */
+    .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,0.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
+    .container{max-width:1200px;margin:auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px}
+    header img.signature{height:32px;width:auto;object-fit:contain;cursor:pointer}
+    nav{display:flex;gap:20px;align-items:center}
+    nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer}
+    nav a:hover{opacity:1;text-decoration:underline}
+
+    /* Menus + animated submenus */
+    .menu{position:relative}
+    .submenu{position:absolute;top:100%;left:0;background:var(--card);border:1px solid var(--ring);border-radius:8px;min-width:160px;box-shadow:0 6px 18px rgba(0,0,0,.08);opacity:0;transform:translateY(-10px);transition:opacity .25s ease, transform .25s ease;display:none}
+    .submenu.show{display:block;opacity:1;transform:translateY(0)}
+    .submenu a{display:block;padding:6px 10px;color:var(--fg);text-decoration:none;cursor:default}
+    .submenu a:hover{background:var(--ring)}
+    .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s}
+
+    /* ===== Landing (homepage) ===== */
+    .landing{position:relative;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:1}
+    .hook{font-size:clamp(32px,7vw,80px);font-weight:900;letter-spacing:1px;text-align:center;color:var(--fg);padding:0 16px;z-index:2;position:relative}
+    .hook em{color:var(--brand);font-style:normal}
+
+    /* Airplane overlay */
+    .flight-stage{position:absolute;inset:0;pointer-events:none;z-index:1}
+    .plane{position:absolute;left:0;bottom:0;width:64px;height:64px;opacity:.9;filter:drop-shadow(0 4px 10px rgba(0,0,0,.25))}
+
+    /* Content area below landing */
+    .page{max-width:1200px;margin:0 auto;padding:48px 24px 24px;background:rgba(255,255,255,0.85);z-index:1;position:relative}
+    .hero h1{font-size:44px;line-height:1.1;margin:0 0 12px;color:var(--brand)}
+    .subtitle{font-size:20px;font-weight:600;margin:0 0 24px}
+    .lead{max-width:820px;margin:0 auto 28px;color:var(--muted);font-size:18px}
+    .buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+    .btn{padding:10px 16px;border-radius:12px;border:1px solid var(--ring);text-decoration:none;color:var(--fg);background:var(--card);transition:background .3s,color .3s}
+    .btn.primary{background:var(--brand);color:white;border-color:transparent}
+
+    /* Footer band */
+    .footer-band{background-color:rgba(11,95,165,0.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
+  </style>
+  <script>
+    function toggleTheme(){
+      const html = document.documentElement;
+      const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+      html.dataset.theme = next;
+      try { localStorage.setItem('theme', next); } catch(e){}
+      document.documentElement.style.colorScheme = next;
+      const btn = document.getElementById('themeToggle');
+      if(btn){ btn.textContent = (next==='dark') ? '☀︎ Day' : '☾ Night'; }
+    }
+
+    function toggleMenu(e, id){
+      e.preventDefault();
+      const m=document.getElementById(id);
+      const isOpen=m.classList.contains('show');
+      document.querySelectorAll('.submenu').forEach(sm=>{ sm.classList.remove('show'); sm.style.display='none'; });
+      if(!isOpen){ m.style.display='block'; requestAnimationFrame(()=>m.classList.add('show')); }
+    }
+    function closeMenusOnInteraction(ev){
+      const inside = ev.target && ev.target.closest && ev.target.closest('.menu');
+      if(!inside){ document.querySelectorAll('.submenu').forEach(m=>{ m.classList.remove('show'); setTimeout(()=>m.style.display='none',250); }); }
+    }
+    document.addEventListener('click', closeMenusOnInteraction);
+    document.addEventListener('scroll', ()=> closeMenusOnInteraction({target:null}), {passive:true});
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenusOnInteraction({target:null}); });
+
+    // Scroll-to-top on signature click (return to landing)
+    function goHome(){ window.scrollTo({top:0, behavior:'smooth'}); }
+
+    // ===== Airplane scroll animation on landing =====
+    function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+    function animatePlane(){
+      const landing = document.querySelector('.landing');
+      const plane = document.querySelector('.plane');
+      if(!landing || !plane) return;
+      const h = window.innerHeight; // landing is 100vh
+      const y = window.scrollY;     // how much user scrolled
+      const p = clamp(y / h, 0, 1); // progress 0→1 during first screen scroll
+
+      // Horizontal travel: from 0 to ~65vw
+      const xMax = Math.min(0.65*window.innerWidth, 900);
+      const x = p * xMax;
+
+      // Exponential climb after crossing mid (p>0.35)
+      let climb = 0;
+      const startClimb = 0.35; // after passing the hook text area
+      if(p > startClimb){
+        const pp = (p - startClimb) / (1 - startClimb); // 0→1
+        const k = 3.2; // curvature
+        climb = - (Math.expm1(k*pp) / Math.expm1(k)) * (0.55*window.innerHeight); // up to -55vh
+      }
+
+      const base = -12;
+      const translateX = x;
+      const translateY = base + climb;
+      plane.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${Math.max(-25, -5 - p*35)}deg)`;
+      plane.style.opacity = (p < 1 ? 0.95 : 0);
+    }
+    window.addEventListener('scroll', animatePlane, {passive:true});
+    window.addEventListener('resize', animatePlane);
+    document.addEventListener('DOMContentLoaded', animatePlane);
+
+    (function(){
+      let initial = 'light';
+      try {
+        const stored = localStorage.getItem('theme');
+        if(stored){ initial = stored; }
+        else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){ initial = 'dark'; }
+      } catch(e){}
+      document.documentElement.dataset.theme = initial;
+      document.documentElement.style.colorScheme = initial;
+      const btn = document.getElementById('themeToggle');
+      if(btn){ btn.textContent = (initial==='dark') ? '☀︎ Day' : '☾ Night'; }
+    })();
+  </script>
+</head>
+<body data-theme="light">
+  <div class="top-band">
+    <div class="container">
+      <header>
+        <img src="signature.png" alt="Signature" class="signature" onclick="goHome()" />
+        <nav>
+          <div class="menu">
+            <a href="#" onclick="toggleMenu(event, 'about-menu')">About ▾</a>
+            <div id="about-menu" class="submenu">
+              <a>Who I Am</a>
+              <a>Background</a>
+              <a>Curriculum Vitae</a>
+              <a>Certifications</a>
+            </div>
+          </div>
+          <a>Skills</a>
+          <div class="menu">
+            <a href="#" onclick="toggleMenu(event, 'projects-menu')">Projects ▾</a>
+            <div id="projects-menu" class="submenu">
+              <a>Projects realized</a>
+              <a>Future projects</a>
+            </div>
+          </div>
+          <a>Contact</a>
+        </nav>
+        <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
+      </header>
+    </div>
+  </div>
+
+  <!-- ===== Landing / Homepage ===== -->
+  <section class="landing" id="home">
+    <h1 class="hook">Wings are made of <em>ideas</em></h1>
+
+    <!-- Airplane overlay (inline SVG, transparent background) -->
+    <div class="flight-stage" aria-hidden="true">
+      <svg class="plane" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 36l22 0 20-12 4 4-14 10 0 6 10 4-2 4-12-4-6 4-4-2 4-6-12-10z" fill="#0b5fa5"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ===== Rest of site ===== -->
+  <main class="page" id="main">
+    <div class="hero">
+      <h2 class="hook" style="margin-top:240px; margin-bottom:426px; text-align:center; font-size:clamp(28px,6vw,60px); font-weight:800; color:var(--fg);">Wings are made of <em style='color:var(--brand); font-style:normal;'>Ideas</em></h2>
+      <h1>Youssef Chabbou</h1>
+      <p class="subtitle">Mechanical Engineering Student — Aerospace Specialization (TU Braunschweig)</p>
+      <p class="lead">Passionate about aviation and intelligent systems. Building skills in <b>design</b>, <b>simulation</b>, and <b>programming</b> to contribute to sustainable aerospace projects.</p>
+      <div class="buttons">
+        <a class="btn primary" href="files/CV_Youssef_Chabbou.pdf" target="_blank">Download CV</a>
+        <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="mailto:you@email.com">Email</a>
+      </div>
+      <div class="history-text">
+        <p>Au lendemain de la Seconde Guerre mondiale, l'industrie aéronautique mondiale est dominée par les États-Unis. Douglas, Boeing et Lockheed bénéficient de l’important effort de guerre américain entre 1939 et 1945 et construisent un grand nombre d'appareils militaires quadrimoteurs à pistons, dont les versions civiles commerciales (DC-6, Boeing 377, Constellation, etc.) connaissent un grand succès commercial. L’arrivée des turboréacteurs marque le début de l'ère des avions à réaction, et les plus récents appareils (DC-8, Boeing 707, Boeing 720) dominent le marché aérien. En Europe, les infrastructures de l'industrie aéronautique ont été en partie détruites pendant la guerre[7], mais la production reprend vite et les premiers appareils équipés de turboréacteurs (Caravelle de Sud-Aviation, Trident de Hawker-Siddeley, VC10 de Vickers, BAC 1-11 de British Aircraft Corporation, etc.) sortent dans les années 1950. Ils ne rencontrent cependant pas le même succès que leurs concurrents américains, se vendent beaucoup moins et ne parviennent pas à s'introduire sur le marché des États-Unis[8].</p>
+        <p>F-BOHC, Sud SE-210 Caravelle III d'Air France. Dans les années 1960, le transport aérien de masse est en pleine expansion, et une étude de la FAA prévoit un triplement du trafic entre 1965 et 1971 pour un marché s'élevant à 1 610 appareils[9]. Au salon du Bourget de 1965, les principales compagnies aériennes européennes mènent des discussions officieuses sur leurs besoins en courts et moyens-courriers, nécessaires pour réagir face à la croissance du trafic[10]. Les constructeurs américains se lancent dans la construction de gros-porteurs (Lockheed L-1011, Boeing 747, etc.) tandis que, afin d'éviter une concurrence frontale, les Européens s'intéressent à un marché différent, celui des courts-courriers de deux-cents places, plus adaptés aux courtes liaisons, mais denses, rencontrées en Europe, et cherchent à développer l'idée des « air bus » (« bus des airs »)[10].</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="footer-band">© 2025 Youssef Chabbou</div>
+</body>
+</html>
