@@ -29,17 +29,6 @@
       z-index: -2;
     }
 
-    /* Subtle blur overlay only for hook */
-    .landing::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      z-index: 0;
-    }
-
     /* ===== Top translucent blue band ===== */
     .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,0.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
     .container{max-width:1200px;margin:auto;padding:24px}
@@ -59,7 +48,7 @@
 
     /* ===== Landing (homepage) ===== */
     .landing{position:relative;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:1}
-    .hook{font-size:clamp(32px,7vw,80px);font-weight:900;letter-spacing:1px;text-align:center;color:var(--fg);padding:0 16px;z-index:2;position:relative;background:rgba(255,255,255,0.12);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border-radius:16px}
+    .hook{font-size:clamp(32px,7vw,80px);font-weight:900;letter-spacing:1px;text-align:center;color:var(--fg);padding:0 16px;z-index:2;position:relative}
     .hook em{color:var(--brand);font-style:normal}
 
     /* Airplane overlay */
@@ -71,7 +60,7 @@
     .page::before {
       content: "";
       position: absolute;
-      top: 70px; left: 0; right: 0; bottom: 0; /* commence au niveau de Youssef Chabbou */
+      top: 120px; left: 0; right: 0; bottom: 0; /* commence 1cm au-dessus de Youssef Chabbou */
       background: var(--overlay);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
