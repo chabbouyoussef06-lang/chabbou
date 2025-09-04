@@ -19,7 +19,6 @@
     html,body{height:100%}
     body{margin:0;display:flex;flex-direction:column;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;transition:background .3s,color .3s}
 
-    /* ===== Background image full screen ===== */
     body::before {
       content: "";
       position: fixed;
@@ -29,16 +28,14 @@
       z-index: -2;
     }
 
-    /* ===== Top translucent blue band ===== */
     .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,0.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
     .container{max-width:1200px;margin:auto;padding:24px}
     header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px}
     header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block}
-    nav{display:flex;gap:40px;align-items:center} /* encore un peu plus d'espacement */
+    nav{display:flex;gap:40px;align-items:center}
     nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer}
     nav a:hover{opacity:1;text-decoration:underline}
 
-    /* Menus + animated submenus */
     .menu{position:relative}
     .submenu{position:absolute;top:100%;left:0;background:var(--card);border:1px solid var(--ring);border-radius:8px;min-width:160px;box-shadow:0 6px 18px rgba(0,0,0,.08);opacity:0;transform:translateY(-10px);transition:opacity .25s ease, transform .25s ease;display:none}
     .submenu.show{display:block;opacity:1;transform:translateY(0)}
@@ -46,21 +43,23 @@
     .submenu a:hover{background:var(--ring)}
     .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s}
 
-    /* ===== Landing (homepage) ===== */
     .landing{position:relative;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:1}
-    .hook{font-size:clamp(32px,7vw,80px);font-weight:900;letter-spacing:1px;text-align:center;color:var(--fg);padding:0 16px;z-index:2;position:relative}
+    .hook{font-size:clamp(32px,7vw,80px);font-weight:900;letter-spacing:1px;text-align:center;color:var(--fg);padding:20px 32px;z-index:2;position:relative;
+      background:rgba(255,255,255,0.25);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      border-radius:20px;
+    }
     .hook em{color:var(--brand);font-style:normal}
 
-    /* Airplane overlay */
     .flight-stage{position:absolute;inset:0;pointer-events:none;z-index:1}
     .plane{position:absolute;left:0;bottom:0;width:64px;height:64px;opacity:.9;filter:drop-shadow(0 4px 10px rgba(0,0,0,.25))}
 
-    /* Content area below landing with overlay */
     .page{max-width:1200px;margin:0 auto;padding:48px 24px 24px;z-index:1;position:relative}
     .page::before {
       content: "";
       position: absolute;
-      top: var(--overlay-top, 120px); left: 0; right: 0; bottom: 0; /* commence 1cm au-dessus de Youssef Chabbou */
+      top: var(--overlay-top, 120px); left: 0; right: 0; bottom: 0;
       background: var(--overlay);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
@@ -74,7 +73,6 @@
     .btn{padding:10px 16px;border-radius:12px;border:1px solid var(--ring);text-decoration:none;color:var(--fg);background:var(--card);transition:background .3s,color .3s}
     .btn.primary{background:var(--brand);color:white;border-color:transparent}
 
-    /* Footer band */
     .footer-band{background-color:rgba(11,95,165,0.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
   </style>
   <script>
@@ -103,32 +101,25 @@
     document.addEventListener('scroll', ()=> closeMenusOnInteraction({target:null}), {passive:true});
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenusOnInteraction({target:null}); });
 
-    // Scroll-to-top on signature click (return to landing)
     function goHome(){ window.scrollTo({top:0, behavior:'smooth'}); }
 
-    // ===== Airplane scroll animation on landing =====
     function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
     function animatePlane(){
       const landing = document.querySelector('.landing');
       const plane = document.querySelector('.plane');
       if(!landing || !plane) return;
-      const h = window.innerHeight; // landing is 100vh
-      const y = window.scrollY;     // how much user scrolled
-      const p = clamp(y / h, 0, 1); // progress 0→1 during first screen scroll
-
-      // Horizontal travel: from 0 to ~65vw
+      const h = window.innerHeight;
+      const y = window.scrollY;
+      const p = clamp(y / h, 0, 1);
       const xMax = Math.min(0.65*window.innerWidth, 900);
       const x = p * xMax;
-
-      // Exponential climb after crossing mid (p>0.35)
       let climb = 0;
-      const startClimb = 0.35; // after passing the hook text area
+      const startClimb = 0.35;
       if(p > startClimb){
-        const pp = (p - startClimb) / (1 - startClimb); // 0→1
-        const k = 3.2; // curvature
-        climb = - (Math.expm1(k*pp) / Math.expm1(k)) * (0.55*window.innerHeight); // up to -55vh
+        const pp = (p - startClimb) / (1 - startClimb);
+        const k = 3.2;
+        climb = - (Math.expm1(k*pp) / Math.expm1(k)) * (0.55*window.innerHeight);
       }
-
       const base = -12;
       const translateX = x;
       const translateY = base + climb;
@@ -139,12 +130,11 @@
     window.addEventListener('resize', animatePlane);
     document.addEventListener('DOMContentLoaded', animatePlane);
 
-    // === Overlay starts exactly above the H1 "Youssef Chabbou" ===
     function updateOverlayTop(){
       const page = document.querySelector('.page');
       const h1 = document.querySelector('.hero h1');
       if(!page || !h1) return;
-      const start = Math.max(0, h1.offsetTop - page.offsetTop - 6); // commence juste au-dessus du titre
+      const start = Math.max(0, h1.offsetTop - page.offsetTop - 6);
       document.documentElement.style.setProperty('--overlay-top', start + 'px');
     }
     window.addEventListener('load', updateOverlayTop);
@@ -197,11 +187,8 @@
     </div>
   </div>
 
-  <!-- ===== Landing / Homepage ===== -->
   <section class="landing" id="home">
     <h1 class="hook">Wings are made of <em>ideas</em></h1>
-
-    <!-- Airplane overlay (inline SVG, transparent background) -->
     <div class="flight-stage" aria-hidden="true">
       <svg class="plane" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
         <path d="M2 36l22 0 20-12 4 4-14 10 0 6 10 4-2 4-12-4-6 4-4-2 4-6-12-10z" fill="#0b5fa5"/>
@@ -209,7 +196,6 @@
     </div>
   </section>
 
-  <!-- ===== Rest of site ===== -->
   <main class="page" id="main">
     <div class="hero">
       <h2 class="hook" style="margin-top:240px; margin-bottom:426px; text-align:center; font-size:clamp(28px,6vw,60px); font-weight:800; color:var(--fg);">Wings are made of <em style='color:var(--brand); font-style:normal;'>Ideas</em></h2>
