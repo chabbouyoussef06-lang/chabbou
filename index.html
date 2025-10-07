@@ -134,6 +134,28 @@
       .submenu{ max-width: calc(100vw - 24px); overflow-wrap: anywhere; left: 0; right: auto; }
       html, body{ overflow-x: hidden; }
     }
+  
+
+    /* ===== Corporate alternating sections ===== */
+    .sections{max-width:1200px;margin:0 auto;padding:40px 24px 64px}
+    .alt-section{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;align-items:center;margin:36px 0}
+    .alt-section.reverse{grid-template-columns:1fr 1.05fr}
+    .alt-card{background:rgba(255,255,255,0.72); /* semi-transparent white */
+      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+      border:1px solid var(--ring);border-radius:20px;padding:24px 22px;box-shadow:0 8px 24px rgba(0,0,0,.08);color:var(--fg)}
+    [data-theme="dark"] .alt-card{background:rgba(0,0,0,0.55)}
+    .alt-eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+    .alt-title{font-size:clamp(20px,2.6vw,32px);line-height:1.2;margin:0 0 10px;color:var(--fg)}
+    .alt-text{margin:0;color:var(--muted)}
+    .alt-media{border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.12);border:1px solid var(--ring)}
+    .alt-media img{display:block;width:100%;height:auto}
+
+    @media (max-width: 900px){
+      .alt-section,.alt-section.reverse{grid-template-columns:1fr}
+      .alt-section.reverse .alt-card{order:2}
+      .alt-section.reverse .alt-media{order:1}
+    }
+
   </style>
   <script>
     function toggleTheme(){
@@ -257,20 +279,66 @@
   </section>
 
   <main class="page" id="main">
-    <div class="hero">
-      <h2 class="hook" style="margin-top:240px; margin-bottom:426px; font-size:clamp(28px,6vw,60px); font-weight:800; color:var(--fg); text-align:center; margin-left:auto; margin-right:auto;">Wings are made of <em style='color:var(--brand); font-style:normal;'>Ideas</em></h2>
-      <h1>Youssef Chabbou</h1>
-      <p class="subtitle">Mechanical Engineering Student — Aerospace Specialization (TU Braunschweig)</p>
-      <p class="lead">Passionate about aviation and intelligent systems. Building skills in <b>design</b>, <b>simulation</b>, and <b>programming</b> to contribute to sustainable aerospace projects.</p>
-      <div class="buttons">
-        <a class="btn primary" href="files/CV_Youssef_Chabbou.pdf" target="_blank">Download CV</a>
-        <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="mailto:you@email.com">Email</a>
-      </div>
-      <div class="history-text">
-        <p>Au lendemain de la Seconde Guerre mondiale, l'industrie aéronautique mondiale est dominée par les États-Unis. Douglas, Boeing et Lockheed bénéficient de l’important effort de guerre américain entre 1939 et 1945 et construisent un grand nombre d'appareils militaires quadrimoteurs à pistons, dont les versions civiles commerciales (DC-6, Boeing 377, Constellation, etc.) connaissent un grand succès commercial. L’arrivée des turboréacteurs marque le début de l'ère des avions à réaction, et les plus récents appareils (DC-8, Boeing 707, Boeing 720) dominent le marché aérien. En Europe, les infrastructures de l'industrie aéronautique ont été en partie détruites pendant la guerre[7], mais la production reprend vite et les premiers appareils équipés de turboréacteurs (Caravelle de Sud-Aviation, Trident de Hawker-Siddeley, VC10 de Vickers, BAC 1-11 de British Aircraft Corporation, etc.) sortent dans les années 1950. Ils ne rencontrent cependant pas le même succès que leurs concurrents américains, se vendent beaucoup moins et ne parviennent pas à s'introduire sur le marché des États-Unis[8].</p>
-        <p>F-BOHC, Sud SE-210 Caravelle III d'Air France. Dans les années 1960, le transport aérien de masse est en pleine expansion, et une étude de la FAA prévoit un triplement du trafic entre 1965 et 1971 pour un marché s'élevant à 1 610 appareils[9]. Au salon du Bourget de 1965, les principales compagnies aériennes européennes mènent des discussions officieuses sur leurs besoins en courts et moyens-courriers, nécessaires pour réagir face à la croissance du trafic[10]. Les constructeurs américains se lancent dans la construction de gros-porteurs (Lockheed L-1011, Boeing 747, etc.) tandis que, afin d'éviter une concurrence frontale, les Européens s'intéressent à un marché différent, celui des courts-courriers de deux-cents places, plus adaptés aux courtes liaisons, mais denses, rencontrées en Europe, et cherchent à développer l'idée des « air bus » (« bus des airs »)[10].</p>
-      </div>
+    <div class="sections">
+      <!-- Section 1: Texte gauche / Image droite -->
+      <section class="alt-section">
+        <div class="alt-card">
+          <p class="alt-eyebrow">Perspective</p>
+          <h3 class="alt-title">Shaping the future of aerospace with bold ideas</h3>
+          <p class="alt-text">We explore horizons where engineering meets imagination. Ambitious goals, measured execution.</p>
+        </div>
+        <figure class="alt-media"><img src="images/hero-aerial.jpg" alt="Aerial sky with contrails"></figure>
+      </section>
+
+      <!-- Section 2: Image gauche / Texte droite -->
+      <section class="alt-section reverse">
+        <figure class="alt-media"><img src="images/wing-geometry.jpg" alt="Wing geometry"></figure>
+        <div class="alt-card">
+          <p class="alt-eyebrow">Design Language</p>
+          <h3 class="alt-title">Where form follows flight</h3>
+          <p class="alt-text">Clean lines, purposeful structures, and a constant search for efficiency and grace.</p>
+        </div>
+      </section>
+
+      <!-- Section 3: Texte gauche / Image droite -->
+      <section class="alt-section">
+        <div class="alt-card">
+          <p class="alt-eyebrow">Principles</p>
+          <h3 class="alt-title">Sustainability · Performance · Intelligence</h3>
+          <p class="alt-text">Technology is meaningful when it respects resources, elevates performance, and learns from its environment.</p>
+        </div>
+        <figure class="alt-media"><img src="images/clouds.jpg" alt="Cloud layers"></figure>
+      </section>
+
+      <!-- Section 4: Image gauche / Texte droite -->
+      <section class="alt-section reverse">
+        <figure class="alt-media"><img src="images/metal-rivets.jpg" alt="Metal texture and rivets"></figure>
+        <div class="alt-card">
+          <p class="alt-eyebrow">Craft</p>
+          <h3 class="alt-title">Precision in every detail</h3>
+          <p class="alt-text">From sketches to prototypes, every decision carries weight. Robust design, quiet confidence.</p>
+        </div>
+      </section>
+
+      <!-- Section 5: Texte gauche / Image droite -->
+      <section class="alt-section">
+        <div class="alt-card">
+          <p class="alt-eyebrow">People</p>
+          <h3 class="alt-title">Collaboration is our strongest engine</h3>
+          <p class="alt-text">We move faster together—bridging disciplines, tools, and perspectives.</p>
+        </div>
+        <figure class="alt-media"><img src="images/team.jpg" alt="Team silhouettes"></figure>
+      </section>
+
+      <!-- Section 6: Image gauche / Texte droite (final) -->
+      <section class="alt-section reverse">
+        <figure class="alt-media"><img src="images/stars.jpg" alt="Night sky"></figure>
+        <div class="alt-card">
+          <p class="alt-eyebrow">Outlook</p>
+          <h3 class="alt-title">Ideas are wings — the sky is only the beginning</h3>
+          <p class="alt-text">This space evolves. New chapters, new experiments, same obsession with flight.</p>
+        </div>
+      </section>
     </div>
   </main>
 
