@@ -25,23 +25,7 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: url('background.jpg') no-repeat center center;
       background-size: cover;
-      z-index: -3;
-      filter: saturate(.9) contrast(.9) brightness(.68);
-    }
-    /* Scrim global par-dessus l'image pour garantir la lisibilité du texte/images */
-    body::after{
-      content:""; position: fixed; inset:0; z-index:-2;
-      background:
-        radial-gradient(1200px 1200px at 10% -10%, rgba(0,0,0,.25), transparent 60%),
-        radial-gradient(1200px 1200px at 110% 10%, rgba(0,0,0,.18), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.10) 40%, rgba(0,0,0,.22) 100%);
-      pointer-events:none;
-    }
-    [data-theme="dark"] body::after{
-      background:
-        radial-gradient(1200px 1200px at 10% -10%, rgba(0,0,0,.35), transparent 60%),
-        radial-gradient(1200px 1200px at 110% 10%, rgba(0,0,0,.28), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.18) 40%, rgba(0,0,0,.25) 100%);
+      z-index: -2;
     }
 
     .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,0.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
@@ -77,10 +61,9 @@
       content: "";
       position: absolute;
       top: var(--overlay-top, 120px); left: 0; right: 0; bottom: 0;
-      background:
-        linear-gradient(180deg, color-mix(in oklab, var(--brand) 14%, transparent) 0%, transparent 35%, color-mix(in oklab, var(--brand) 12%, transparent) 85%);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, var(--overlay) 0%, color-mix(in oklab, var(--overlay) 65%, transparent) 40%, var(--overlay) 85%);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border-radius: 36px 36px 20px 20px;
       z-index: -1;
     }
@@ -160,15 +143,15 @@
 
     /* Cartes "glass" plus légères (moins 2010) */
     .alt-card{
-      background: rgba(255,255,255,0.38);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(255,255,255,0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-radius: 24px;
       padding: 28px 26px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.12), 0 1px 0 rgba(255,255,255,.22) inset;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08), 0 1px 0 rgba(255,255,255,.18) inset;
       color: var(--fg);
     }
-    [data-theme="dark"] .alt-card{ background: rgba(0,0,0,0.45); box-shadow: 0 10px 34px rgba(0,0,0,.45), 0 1px 0 rgba(255,255,255,.05) inset; }
+    [data-theme="dark"] .alt-card{ background: rgba(0,0,0,0.38); box-shadow: 0 10px 30px rgba(0,0,0,.35), 0 1px 0 rgba(255,255,255,.06) inset; }
 
     /* Étiquette moderne (pill) */
     .alt-eyebrow{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg);margin:0 0 10px;padding:4px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));}
@@ -197,13 +180,6 @@
       .alt-section.reverse .alt-media{order:1}
     }
 
-  
-    /* Contraste renforcé pour accessibilité */
-    @media (prefers-contrast: more){
-      .alt-card{ background: rgba(255,255,255,0.55); }
-      [data-theme="dark"] .alt-card{ background: rgba(0,0,0,0.62); }
-      body::after{ background: linear-gradient(180deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,.16) 40%, rgba(0,0,0,.28) 100%); }
-    }
   </style>
   <script>
     function toggleTheme(){
