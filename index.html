@@ -112,6 +112,28 @@
 
       html, body{ overflow-x: hidden; }
     }
+  
+
+    /* ==== MOBILE OVERRIDES (aligner header sur une seule ligne & bannière non-sticky) ==== */
+    @media (max-width: 640px){
+      .container{ padding: 10px 12px; }
+      .top-band{ position: static; }
+
+      header{ flex-wrap: nowrap; gap: 6px; }
+      header > * { min-width: 0; }
+      header img.signature{ height: 28px; }
+
+      nav{
+        flex: 1 1 auto;
+        display: flex; align-items: center; justify-content: center;
+        flex-wrap: nowrap; gap: 10px; min-width: 0;
+      }
+      nav a{ font-size: 12px; line-height: 1.1; white-space: nowrap; }
+      .toggle{ padding: 4px 8px; font-size: 12px; }
+
+      .submenu{ max-width: calc(100vw - 24px); overflow-wrap: anywhere; left: 0; right: auto; }
+      html, body{ overflow-x: hidden; }
+    }
   </style>
   <script>
     function toggleTheme(){
