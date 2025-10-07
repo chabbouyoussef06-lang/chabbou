@@ -57,16 +57,7 @@
     .plane{position:absolute;left:0;bottom:0;width:64px;height:64px;opacity:.9;filter:drop-shadow(0 4px 10px rgba(0,0,0,.25))}
 
     .page{max-width:1200px;margin:0 auto;padding:48px 24px 24px;z-index:1;position:relative}
-    .page::before {
-      content: "";
-      position: absolute;
-      top: var(--overlay-top, 120px); left: 0; right: 0; bottom: 0;
-      background: linear-gradient(180deg, var(--overlay) 0%, color-mix(in oklab, var(--overlay) 65%, transparent) 40%, var(--overlay) 85%);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-radius: 36px 36px 20px 20px;
-      z-index: -1;
-    }
+    .page::before { display:none; }
     .hero h1{font-size:44px;line-height:1.1;margin:0 0 12px;color:var(--brand)}
     .subtitle{font-size:20px;font-weight:600;margin:0 0 24px}
     .lead{max-width:820px;margin:0 auto 28px;color:var(--muted);font-size:18px}
@@ -138,7 +129,7 @@
 
     /* ===== Corporate alternating sections (modernisé 2025) ===== */
     .sections{max-width:1200px;margin:0 auto;padding:56px 24px 96px}
-    .alt-section{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center;margin:54px 0}
+    .alt-section{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;margin:96px 0;min-height:520px}
     .alt-section.reverse{grid-template-columns:1fr 1.05fr}
 
     /* Cartes "glass" plus légères (moins 2010) */
@@ -180,6 +171,22 @@
       .alt-section.reverse .alt-media{order:1}
     }
 
+  
+    /* ===== Full-screen sections with scroll snap (desktop) ===== */
+    html{ scroll-behavior: smooth; }
+    body{ scroll-snap-type: y mandatory; scroll-padding-top: var(--snap-top, 72px); }
+    .landing, .alt-section{ scroll-snap-align: start; }
+
+    /* Make each alt-section fill the viewport on desktop */
+    .sections{ padding: 0; }
+    .alt-section{ min-height: 100svh; margin: 0; gap: 56px; }
+
+    /* Keep it comfortable on mobile */
+    @media (max-width: 900px){
+      body{ scroll-snap-type: none; scroll-padding-top: 0; }
+      .sections{ padding: 40px 16px 72px; }
+      .alt-section{ min-height: auto; margin: 56px 0; gap: 32px; }
+    }
   </style>
   <script>
     function toggleTheme(){
@@ -376,6 +383,18 @@
         entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
       }, {threshold: 0.15});
       document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+    })();
+  </script>
+  <script>
+    // Set scroll snap top padding equal to banner height (handles sticky header)
+    (function(){
+      function setSnapTop(){
+        const band = document.querySelector('.top-band');
+        if(!band) return;
+        document.documentElement.style.setProperty('--snap-top', band.offsetHeight + 'px');
+      }
+      window.addEventListener('load', setSnapTop);
+      window.addEventListener('resize', setSnapTop);
     })();
   </script>
 </body>
