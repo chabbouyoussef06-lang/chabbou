@@ -251,6 +251,61 @@
       if(btn){ btn.textContent = (initial==='dark') ? '☀︎ Day' : '☾ Night'; }
     })();
   </script>
+  <!-- Added language switcher UI (no edits to existing lines; only appended) -->
+  <style>
+    /* Language switcher sits just left of the Night toggle; same styling via .toggle */
+    .lang-menu { display:inline-block; }
+    .lang-menu .toggle { padding:4px 8px; border-radius:8px; }
+    /* a few pixels spacing from the Night button */
+    .lang-menu { display:inline-block; margin-right:4px; } }
+    @media (max-width: 640px){
+      .lang-menu { display:inline-block; margin-right:4px; } }
+      .lang-menu .toggle{ font-size:12px; padding:4px 8px; }
+    }
+  </style>
+  <script>
+    // Create language dropdown just to the left of the Night toggle without modifying existing markup
+    document.addEventListener('DOMContentLoaded', function(){
+      try{
+        var themeBtn = document.getElementById('themeToggle');
+        if(!themeBtn || !themeBtn.parentNode) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'menu lang-menu';
+        var btn = document.createElement('button');
+        btn.id = 'langToggle';
+        btn.className = 'toggle';
+        btn.type = 'button';
+        btn.setAttribute('aria-haspopup','true');
+        btn.textContent = 'EN ▾'; // default label
+        var menu = document.createElement('div');
+        menu.id = 'lang-menu';
+        menu.className = 'submenu';
+        // Order requested: English default, then Deutsch, Arabic before French
+        menu.innerHTML = `
+          <a href="/">English</a>
+          <a href="/de/">Deutsch</a>
+          <a href="/ar/">العربية</a>
+          <a href="/fr/">Français</a>
+        `;
+        wrap.appendChild(btn);
+        wrap.appendChild(menu);
+        themeBtn.parentNode.insertBefore(wrap, themeBtn); // insert just to the left of Night button
+
+        // Click handler reuses existing toggleMenu() behavior
+        btn.addEventListener('click', function(e){ toggleMenu(e, 'lang-menu'); });
+
+        // Set label from current path if already on a localized page
+        try{
+          var p = (location.pathname || '').toLowerCase();
+          var code = 'EN';
+          if(p.indexOf('/de') === 0) code = 'DE';
+          else if(p.indexOf('/ar') === 0) code = 'AR';
+          else if(p.indexOf('/fr') === 0) code = 'FR';
+          btn.textContent = code + ' ▾';
+        }catch(_e){}
+      }catch(_e){}
+    });
+  </script>
 </head>
 <body data-theme="light">
   <div class="top-band">
