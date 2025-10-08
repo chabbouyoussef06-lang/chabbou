@@ -306,6 +306,12 @@
       }catch(_e){}
     });
   </script>
+
+  <!-- ✅ APPEND-ONLY ACCESSIBILITY FIX: improve card body text contrast in LIGHT MODE -->
+  <style>
+    /* Increase readability of grey copy inside cards without touching titles */
+    [data-theme="light"] .alt-card .alt-text{ color:#374151; } /* gray-700 */
+  </style>
 </head>
 <body data-theme="light">
   <div class="top-band">
