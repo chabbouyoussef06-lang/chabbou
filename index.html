@@ -307,10 +307,14 @@
     });
   </script>
 
-  <!-- ✅ APPEND-ONLY ACCESSIBILITY FIX: improve card body text contrast in LIGHT MODE -->
+  <!-- ✅ AJOUT ACCESSIBILITÉ (DAY) : texte des cartes plus lisible en mode clair -->
   <style>
-    /* Increase readability of grey copy inside cards without touching titles */
     [data-theme="light"] .alt-card .alt-text{ color:#374151; } /* gray-700 */
+  </style>
+
+  <!-- ✅ AJOUT ACCESSIBILITÉ (NIGHT) : texte des cartes plus lisible en mode sombre -->
+  <style>
+    [data-theme="dark"] .alt-card .alt-text{ color:#c9d1d9; } /* gris clair GitHub-like pour #161b22 */
   </style>
 </head>
 <body data-theme="light">
