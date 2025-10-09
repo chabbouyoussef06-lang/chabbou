@@ -1,1 +1,63 @@
+{
+  "meta": { "title": "Youssef Chabbou — Portfolio" },
+  "nav": {
+    "about": "Über mich",
+    "about_menu": {
+      "who": "Wer ich bin",
+      "background": "Werdegang",
+      "cv": "Lebenslauf",
+      "certs": "Zertifizierungen"
+    },
+    "skills": "Fähigkeiten",
+    "projects": "Projekte",
+    "projects_menu": {
+      "realized": "Umgesetzte Projekte",
+      "future": "Zukünftige Projekte"
+    },
+    "contact": "Kontakt"
+  },
+  "sections": {
+    "perspective": {
+      "eyebrow": "Perspektive",
+      "title": "Die Zukunft der Luft- und Raumfahrt mit mutigen Ideen gestalten",
+      "text": "Horizonte erkunden, wo Ingenieurwesen auf Vorstellungskraft trifft. Ambitionierte Ziele, besonnene Umsetzung."
+    },
+    "learning": {
+      "eyebrow": "Lebenslanges Lernen",
+      "title": "Wo Neugier Wachstum antreibt",
+      "text": "Endlose Entdeckung, zielgerichtete Praxis und das stetige Streben nach Wissen und Meisterschaft."
+    },
+    "principles": {
+      "eyebrow": "Grundsätze",
+      "title": "Kreativität · Wachstum · Präzision",
+      "text": "Lernen ist sinnvoll, wenn es Horizonte erweitert, Fähigkeiten schärft und Theorie mit realen Herausforderungen verbindet."
+    },
+    "design": {
+      "eyebrow": "Gestalten mit Sinn",
+      "title": "Präzision in jedem Detail",
+      "text": "Vom Skizzenblock bis zum Prototyp: Jede Entscheidung hat Gewicht. Robustes Design, leise Zuversicht."
+    },
+    "teamwork": {
+      "eyebrow": "Teamarbeit",
+      "title": "Zusammenarbeit ist der stärkste Antrieb",
+      "text": "Gemeinsam kommen wir schneller voran und schlagen Brücken zwischen Disziplinen, Werkzeugen und Perspektiven."
+    },
+    "worldview": {
+      "eyebrow": "Weltbild",
+      "title": "Ingenieurwesen ohne Grenzen",
+      "text": "Innovation gedeiht, wenn sich Wissen über Länder, Kulturen und Perspektiven hinweg anpasst – der Beweis, dass Ideen keine Grenzen kennen."
+    }
+  },
+  "alts": {
+    "hero_aerial": "Himmel mit Kondensstreifen",
+    "wing_geometry": "Tragflächengeometrie",
+    "cloud_layers": "Wolkenschichten",
+    "metal_texture": "Metallstruktur und Nieten",
+    "team_silhouettes": "Team-Silhouetten",
+    "night_sky": "Nachthimmel"
+  },
+  "footer": {
+    "created_by": "Diese Website wurde vollständig von ihrem Eigentümer, Youssef Chabbou, mittels KI-unterstützter Entwicklung erstellt."
+  }
+}
 
