@@ -16,6 +16,10 @@
     },
     "contact": "Contact"
   },
+  "ui": {
+    "theme_day": "☀︎ Jour",
+    "theme_night": "☾ Nuit"
+  },
   "sections": {
     "perspective": {
       "eyebrow": "Perspective",
@@ -48,16 +52,7 @@
       "text": "L’innovation s’épanouit lorsque le savoir s’adapte aux pays, aux cultures et aux points de vue, prouvant que les idées n’ont pas de frontières."
     }
   },
-  "alts": {
-    "hero_aerial": "Ciel aérien avec traînées",
-    "wing_geometry": "Géométrie d’aile",
-    "cloud_layers": "Couches nuageuses",
-    "metal_texture": "Texture métallique et rivets",
-    "team_silhouettes": "Silhouettes d’équipe",
-    "night_sky": "Ciel nocturne"
-  },
   "footer": {
     "created_by": "Ce site a été entièrement créé par son propriétaire, Youssef Chabbou, grâce à un développement augmenté par l’IA."
   }
 }
-
