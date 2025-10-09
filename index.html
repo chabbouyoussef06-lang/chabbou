@@ -102,7 +102,7 @@
 </style>
 
 <script>
-// --- helpers i18n pour le bouton thème ---
+/* ===== Helpers i18n pour le bouton thème ===== */
 function i18nGet(key, fallback){
   try{
     let v = window.__i18nDict;
@@ -116,19 +116,20 @@ function updateThemeLabel(){
   const isDark = (document.documentElement.dataset.theme === 'dark');
   const day  = i18nGet('ui.theme_day','☀︎ Day');
   const night= i18nGet('ui.theme_night','☾ Night');
-  btn.textContent = isDark ? day : night; // si dark -> proposer "Jour/Tag/نهار"
+  btn.textContent = isDark ? day : night; // si dark -> proposer Day libellé localisé
 }
 
+/* ===== Thème ===== */
 function toggleTheme(){
   const html=document.documentElement;
   const next=html.dataset.theme==='dark'?'light':'dark';
   html.dataset.theme=next;
   try{localStorage.setItem('theme',next);}catch(e){}
   document.documentElement.style.colorScheme=next;
-  const btn=document.getElementById('themeToggle');
-  if (btn) updateThemeLabel();
+  if (document.getElementById('themeToggle')) updateThemeLabel();
 }
 
+/* ===== Menus ===== */
 function toggleMenu(e,id){
   e.preventDefault();
   const m=document.getElementById(id);
@@ -137,7 +138,6 @@ function toggleMenu(e,id){
   document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
   if(!isOpen){m.style.display='block';requestAnimationFrame(()=>m.classList.add('show'));}
 }
-
 function closeMenusOnInteraction(ev){
   const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
   if(!inside){document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show');setTimeout(()=>m.style.display='none',250);});}
@@ -146,9 +146,9 @@ document.addEventListener('click',closeMenusOnInteraction);
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
+/* ===== Divers ===== */
 function goHome(){window.scrollTo({top:0,behavior:'smooth'});}
 function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
-
 function animatePlane(){
   const landing=document.querySelector('.landing');
   const plane=document.querySelector('.plane');
@@ -172,9 +172,9 @@ window.addEventListener('scroll',animatePlane,{passive:true});
 window.addEventListener('resize',animatePlane);
 document.addEventListener('DOMContentLoaded',animatePlane);
 
-// Initial theme + language menu setup
+/* ===== Init thème + languette ===== */
 document.addEventListener('DOMContentLoaded',function(){
-  // theme on first load
+  // thème initial
   let initial='light';
   try{
     const stored=localStorage.getItem('theme');
@@ -183,15 +183,18 @@ document.addEventListener('DOMContentLoaded',function(){
   }catch(e){}
   document.documentElement.dataset.theme=initial;
   document.documentElement.style.colorScheme=initial;
-  const themeBtn=document.getElementById('themeToggle');
-  if (themeBtn) updateThemeLabel();
+  if (document.getElementById('themeToggle')) updateThemeLabel();
 
-  // build language menu next to theme button
+  // languette à droite du bouton thème
+  const themeBtn=document.getElementById('themeToggle');
   if(!themeBtn||!themeBtn.parentNode) return;
+
   const wrap=document.createElement('div');
   wrap.className='menu lang-menu';
+
   const btn=document.createElement('button');
   btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
+
   const menu=document.createElement('div');
   menu.id='lang-menu';menu.className='submenu';
   menu.innerHTML = `
@@ -205,28 +208,18 @@ document.addEventListener('DOMContentLoaded',function(){
   themeBtn.parentNode.insertBefore(wrap,themeBtn);
   btn.addEventListener('click',function(e){toggleMenu(e,'lang-menu');});
 
-  // rendre les liens du sous-menu cliquables pour changer la langue
+  // clic sur une langue
   menu.addEventListener('click', function(e){
     const a = e.target.closest('a[data-lang]');
     if (!a) return;
     e.preventDefault();
     if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
-    closeMenusOnInteraction({target:null}); // refermer après clic
-    // mettre à jour le label EN ▾ selon la langue
+    closeMenusOnInteraction({target:null});
     try{
       const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
       btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾';
     }catch(_e){}
   });
-
-  // set code label from current lang (sans dépendre du path)
-  try{
-    const urlLang = new URLSearchParams(location.search).get("lang");
-    const saved   = localStorage.getItem("lang");
-    const lang    = (urlLang || saved || (navigator.language||'').slice(0,2) || 'en').toLowerCase();
-    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
-    btn.textContent = (map[lang] || 'EN') + ' ▾';
-  }catch(_e){}
 });
 </script>
 </head>
@@ -353,22 +346,36 @@ document.addEventListener('DOMContentLoaded',function(){
   <!-- Loader i18n -->
   <script>
 (() => {
-  // Langues avec fichiers JSON (on ne met PAS 'en' ici)
+  // Langues avec JSON (on ne met PAS 'en' ici)
   const SUPPORTED = ["fr","de","ar"];
-  // Par défaut = anglais de base (sans JSON)
+  // Par défaut → anglais (sans JSON) SI aucun ?lang= dans l'URL
   const DEFAULT = "en";
+
+  // === Cache des textes originaux (pour pouvoir revenir à EN proprement)
+  function snapshotOriginals(){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      if(!el.dataset.i18nOriginal){
+        el.dataset.i18nOriginal = el.textContent;
+      }
+    });
+    // (on pourrait ajouter ici le cache d'attributs si un jour tu traduis alt/title)
+  }
+  snapshotOriginals();
 
   const get = (o, path) => path.split('.').reduce((a,k)=> (a && a[k]!=null) ? a[k] : undefined, o);
 
   function currentLang() {
-    const urlLang = new URLSearchParams(location.search).get("lang");
-    const saved   = localStorage.getItem("lang");
-    const nav     = (navigator.language||"").slice(0,2).toLowerCase();
-    // on accepte 'en' explicitement, sinon on retombe sur 'en'
-    if (urlLang && (SUPPORTED.includes(urlLang) || urlLang === 'en')) return urlLang;
-    if (saved   && (SUPPORTED.includes(saved)   || saved   === 'en')) return saved;
-    if (nav     && (SUPPORTED.includes(nav)     || nav     === 'en')) return nav;
-    return DEFAULT; // 'en'
+    const params = new URLSearchParams(location.search);
+    const hasParam = params.has("lang");
+    const urlLang = params.get("lang");
+    // Si PAS de ?lang= → on force EN (ignorer localStorage)
+    if (!hasParam) return DEFAULT;
+
+    // Si ?lang= existe → on le respecte (en, fr, de, ar)
+    if (urlLang === 'en' || SUPPORTED.includes(urlLang)) return urlLang;
+
+    // Valeur inconnue → EN
+    return DEFAULT;
   }
 
   async function loadDict(lang) {
@@ -378,72 +385,77 @@ document.addEventListener('DOMContentLoaded',function(){
   }
 
   function applyDict(dict) {
-    // textes
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       const val = get(dict, key);
       if (val != null) el.textContent = val;
     });
 
-    // attributs (si besoin un jour)
-    document.querySelectorAll("*").forEach(el => {
-      for (const a of Array.from(el.attributes)) {
-        if (!a.name.startsWith("data-i18n-attr-")) continue;
-        const htmlAttr = a.name.replace("data-i18n-attr-","");
-        const key = a.value;
-        const val = get(dict, key);
-        if (val != null) el.setAttribute(htmlAttr, val);
-      }
-    });
-
-    // <title> + <html lang>
     const metaTitle = get(dict, "meta.title");
     if (metaTitle) document.title = metaTitle;
     document.documentElement.setAttribute("lang", current);
 
-    // expose dict pour le bouton thème + rafraîchir son libellé
     window.__i18nDict = dict;
+    if (window.updateThemeLabel) updateThemeLabel();
+  }
+
+  function restoreEnglish(){
+    // restaurer chaque texte original
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      if (el.dataset.i18nOriginal != null) el.textContent = el.dataset.i18nOriginal;
+    });
+    // nettoyer éventuelles traductions d'attributs si tu en ajoutes plus tard
+    window.__i18nDict = {}; // plus de dictionnaire
+    document.documentElement.setAttribute("lang", "en");
     if (window.updateThemeLabel) updateThemeLabel();
   }
 
   let current = currentLang();
 
   function setLang(lang) {
-    // si non supporté et différent d'anglais → tomber sur 'en'
+    // normaliser
     if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
     current = lang;
-    localStorage.setItem("lang", lang);
 
-    // met à jour ?lang= sans casser #home
+    // mettre ?lang= dans l'URL sans casser l'ancre
     const u = new URL(location.href);
     u.searchParams.set("lang", lang);
     history.replaceState({}, "", u.pathname + u.search + location.hash);
 
-    // Anglais de base : pas de fetch JSON, on réinitialise juste
     if (lang === 'en') {
-      document.documentElement.setAttribute("lang", "en");
-      window.__i18nDict = {}; // pas de traductions, on garde le texte d'origine
-      if (window.updateThemeLabel) updateThemeLabel();
+      restoreEnglish();
       return;
     }
-
-    // Autres langues : charger le JSON
-    loadDict(lang).then(applyDict).catch(console.error);
+    // charger dict et appliquer
+    loadDict(lang).then(applyDict).catch(err=>{
+      console.error(err);
+      // si dict absent, on retombe en anglais
+      restoreEnglish();
+    });
   }
 
-  // exposé pour la languette “EN ▾”
+  // exposer pour le menu
   window.setLangFromMenu = setLang;
 
-  // boutons/éléments avec data-lang (ex: FR/DE/AR/EN)
+  // init UI (languette visible correcte au chargement)
+  (function initLangToggleLabel(){
+    const btn = document.getElementById('langToggle');
+    if (!btn) return;
+    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+    const lang = current;
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
+  })();
+
+  // Appliquer la langue courante au chargement
+  setLang(current);
+
+  // Clicks sur éléments [data-lang] (sécurité supplémentaire)
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-lang]");
     if (!b) return;
     e.preventDefault();
     setLang(b.getAttribute("data-lang"));
   });
-
-  // init
-  setLang(current);
 })();
   </script>
 </body>
