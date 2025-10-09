@@ -3,6 +3,46 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+/* ===== A11Y: Contraste amélioré pour la lecture (jour + nuit) ===== */
+
+/* Cartes un peu plus opaques pour éviter "gris sur gris" */
+.alt-card{
+  background: rgba(255,255,255,0.65); /* avant ~0.28 */
+}
+
+/* Mode sombre : fond plus lisible + textes plus clairs */
+[data-theme="dark"] .alt-card{
+  background: rgba(0,0,0,0.55); /* avant ~0.38 */
+}
+
+/* Texte des paragraphes: couleurs plus nettes (jour + nuit) */
+.alt-card .alt-text{
+  color: #111827; /* gris très foncé lisible sur clair */
+}
+[data-theme="dark"] .alt-card .alt-text{
+  color: #eaeef5; /* proche blanc sur sombre */
+}
+
+/* Optionnel: titres un peu plus contrastés aussi */
+.alt-card .alt-title{
+  color: var(--fg);
+}
+[data-theme="dark"] .alt-card .alt-title{
+  color: #f3f6fb;
+}
+
+/* La pastille "alt-eyebrow" garde une bonne lisibilité en sombre */
+[data-theme="dark"] .alt-eyebrow{
+  color: #e6edf3;
+}
+
+/* La colonne photos: fond plus discret pour ne pas "griser" l'ensemble */
+.stacked-photos{
+  background: rgba(255,255,255,0.12);
+}
+[data-theme="dark"] .stacked-photos{
+  background: rgba(0,0,0,0.18);
+}
 
 <style>
   :root{
