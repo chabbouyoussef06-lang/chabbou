@@ -41,25 +41,22 @@
   .page{max-width:1200px;margin:0 auto;padding:48px 24px 24px;z-index:1;position:relative}
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
-  /* ===== Styles sections (alignement & hauteurs) ===== */
+  /* sections, cartes et galerie */
   .sections{max-width:1200px;margin:0 auto;padding:32px 24px 96px}
   .alt-section{
     display:grid;
     grid-template-columns:1.05fr 1fr;
     gap:36px;
-    align-items:stretch;        /* même hauteur */
+    align-items:stretch;
     margin:54px 0
   }
-  .alt-section.reverse{grid-template-columns:1fr 1.05fr}
-
   .alt-card{
     background:rgba(255,255,255,.28);
     backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
     border-radius:24px;padding:28px 26px;
     box-shadow:0 10px 30px rgba(0,0,0,.08),0 1px 0 rgba(255,255,255,.18) inset;
     color:var(--fg);
-    height:100%;                /* occupe toute la hauteur */
-    display:flex;flex-direction:column;justify-content:flex-start
+    height:100%;display:flex;flex-direction:column
   }
   [data-theme="dark"] .alt-card{
     background:rgba(0,0,0,.38);
@@ -69,28 +66,20 @@
   [data-theme="dark"] .alt-eyebrow{background:linear-gradient(90deg,rgba(88,166,255,.25),rgba(88,166,255,.08))}
   .alt-title{font-size:clamp(22px,2.8vw,36px);line-height:1.18;margin:0 0 12px;color:var(--fg)}
   .alt-text{margin:0;color:var(--muted);font-size:16px}
-  [data-theme="light"] .alt-card .alt-text{color:#374151}
-  [data-theme="dark"] .alt-card .alt-text{color:#c9d1d9}
 
-  .alt-media{
-    border-radius:26px;overflow:hidden;
-    box-shadow:0 18px 40px rgba(0,0,0,.16);
-    height:100%                 /* même hauteur que la carte */
-  }
-
-  /* galerie = même hauteur que la carte, images qui remplissent */
-  .stacked-photos{
-    display:flex;flex-direction:column;
-    height:100%;gap:16px;padding:16px;background:rgba(255,255,255,.18)
-  }
+  .alt-media{border-radius:26px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.16);height:100%}
+  .stacked-photos{display:flex;flex-direction:column;height:100%;gap:16px;padding:16px;background:rgba(255,255,255,.18)}
   [data-theme="dark"] .stacked-photos{background:rgba(0,0,0,.25)}
   .stacked-photos figure{margin:0;flex:1;overflow:hidden;border-radius:18px}
   .stacked-photos img{width:100%;height:100%;object-fit:cover;display:block}
 
-  /* ancres simples en dessous */
-  section.anchor{scroll-margin-top:96px;margin:40px 0;padding:24px 0;border-top:1px solid var(--ring)}
-  .section-title{font-size:28px;margin:0 0 10px;color:var(--brand)} /* bleu marine */
+  /* ancres sous-sections */
+  section.anchor{scroll-margin-top:120px;margin:40px 0;padding:24px 0;border-top:1px solid var(--ring)}
+  .section-title{font-size:28px;margin:0 0 10px;color:var(--brand)}
   .section-text{margin:0;color:var(--muted);font-size:16px}
+
+  /* ancrage propre pour tout élément id cible */
+  section[id]{scroll-margin-top:120px}
 
   /* Lang menu */
   .lang-menu{display:inline-block;margin-right:4px}
@@ -98,9 +87,7 @@
 
   @media(max-width:900px){
     .sections{padding:40px 16px 72px}
-    .alt-section,.alt-section.reverse{grid-template-columns:1fr}
-    .alt-section.reverse .alt-card{order:2}
-    .alt-section.reverse .alt-media{order:1}
+    .alt-section{grid-template-columns:1fr}
   }
   @media(max-width:640px){
     .container{padding:12px 16px}
@@ -116,7 +103,6 @@
 </style>
 
 <script>
-/* ===== Helpers i18n pour le bouton thème ===== */
 function i18nGet(key, fallback){
   try{
     let v = window.__i18nDict;
@@ -132,8 +118,6 @@ function updateThemeLabel(){
   const night= i18nGet('ui.theme_night','☾ Night');
   btn.textContent = isDark ? day : night;
 }
-
-/* ===== Thème ===== */
 function toggleTheme(){
   const html=document.documentElement;
   const next=html.dataset.theme==='dark'?'light':'dark';
@@ -142,8 +126,6 @@ function toggleTheme(){
   document.documentElement.style.colorScheme=next;
   if (document.getElementById('themeToggle')) updateThemeLabel();
 }
-
-/* ===== Menus ===== */
 function toggleMenu(e,id){
   e.preventDefault();
   const m=document.getElementById(id);
@@ -160,7 +142,6 @@ document.addEventListener('click',closeMenusOnInteraction);
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
-/* ===== Init thème + languette ===== */
 document.addEventListener('DOMContentLoaded',function(){
   let initial='light';
   try{
@@ -228,7 +209,7 @@ document.addEventListener('DOMContentLoaded',function(){
             <a href="about.html" data-i18n="nav.about">About</a>
             <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'about-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
             <div id="about-menu" class="submenu">
-              <a href="about.html#who" data-i18n="nav.about_menu.who">Who I Am</a>
+              <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
               <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
               <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
               <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
@@ -256,46 +237,37 @@ document.addEventListener('DOMContentLoaded',function(){
 
   <main class="page" id="main">
     <div class="sections">
-      <!-- ===== PROFILE / ex “Who I Am” ===== -->
-      <section id="who" class="alt-section reveal">
-        <!-- Carte texte -->
+      <!-- ===== PROFILE (ex Who I Am) ===== -->
+      <section id="profile" class="alt-section reveal">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Profile</p>
-          <h3 class="alt-title" data-i18n="about.sections.who.title">
-            Born and raised in Tunisia
-          </h3>
+          <h3 class="alt-title" data-i18n="about.sections.who.title">Born and raised in Tunisia</h3>
           <p class="alt-text" data-i18n="about.sections.who.tn">
             A Mediterranean crossroads where history shaped open minds. From Carthage’s legacy to vibrant craftsmanship and engineering talent today, Tunisia taught me curiosity, resilience, and a taste for precise, beautiful work.
           </p>
 
-          <h4 class="alt-title" style="font-size:20px;margin-top:18px" data-i18n="about.sections.who.flight_title">
-            First flight, first spark (2011)
-          </h4>
+          <h4 class="alt-title" style="font-size:20px;margin-top:18px" data-i18n="about.sections.who.flight_title">First flight, first spark (2011)</h4>
           <p class="alt-text" data-i18n="about.sections.who.flight_text">
             I was seven, facing an Airbus A320 I never imagined so large. The engines felt monumental. Take-off scared me; cruise won me over. That mix of power and calm never left me—and it quietly set my path toward aerospace.
           </p>
 
-          <h4 class="alt-title" style="font-size:20px;margin-top:18px" data-i18n="about.sections.who.maker_title">
-            Making things my way
-          </h4>
+          <h4 class="alt-title" style="font-size:20px;margin-top:18px" data-i18n="about.sections.who.maker_title">Making things my way</h4>
           <p class="alt-text" data-i18n="about.sections.who.maker_text">
             Even as a kid, I customized my toys—nothing standard for long. I liked to tweak, refine, and give parts a purpose. That habit of building and improving became my way of thinking.
           </p>
 
-          <h4 class="alt-title" style="font-size:20px;margin-top:18px" data-i18n="about.sections.who.now_title">
-            Today
-          </h4>
+          <h4 class="alt-title" style="font-size:20px;margin-top:18px" data-i18n="about.sections.who.now_title">Today</h4>
           <p class="alt-text" data-i18n="about.sections.who.now_text">
             I’m currently based in Germany, growing through studies and early professional projects. It’s a grounded, steady journey—focused on learning, teamwork, and turning ideas into dependable aerospace work.
           </p>
         </div>
 
-        <!-- Galerie / photos à droite (liens corrigés) -->
+        <!-- Galerie (images à la racine) -->
         <div class="alt-media">
           <div class="stacked-photos">
-            <figure><img src="photos/tunisia-skyline.jpg" alt="Tunisia — Mediterranean light"></figure>
-            <figure><img src="photos/first-flight-seat.jpg" alt="Childhood travel moment"></figure>
-            <figure><img src="photos/workbench-toys.jpg" alt="Tinkering on custom toys"></figure>
+            <figure><img src="tunisia-skyline.jpg" alt="Tunisia — Mediterranean light"></figure>
+            <figure><img src="first-flight-seat.jpg" alt="Childhood travel moment"></figure>
+            <figure><img src="workbench-toys.jpg" alt="Tinkering on custom toys"></figure>
           </div>
         </div>
       </section>
