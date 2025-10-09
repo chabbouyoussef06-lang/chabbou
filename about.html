@@ -3,46 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-/* ===== A11Y: Contraste amélioré pour la lecture (jour + nuit) ===== */
-
-/* Cartes un peu plus opaques pour éviter "gris sur gris" */
-.alt-card{
-  background: rgba(255,255,255,0.65); /* avant ~0.28 */
-}
-
-/* Mode sombre : fond plus lisible + textes plus clairs */
-[data-theme="dark"] .alt-card{
-  background: rgba(0,0,0,0.55); /* avant ~0.38 */
-}
-
-/* Texte des paragraphes: couleurs plus nettes (jour + nuit) */
-.alt-card .alt-text{
-  color: #111827; /* gris très foncé lisible sur clair */
-}
-[data-theme="dark"] .alt-card .alt-text{
-  color: #eaeef5; /* proche blanc sur sombre */
-}
-
-/* Optionnel: titres un peu plus contrastés aussi */
-.alt-card .alt-title{
-  color: var(--fg);
-}
-[data-theme="dark"] .alt-card .alt-title{
-  color: #f3f6fb;
-}
-
-/* La pastille "alt-eyebrow" garde une bonne lisibilité en sombre */
-[data-theme="dark"] .alt-eyebrow{
-  color: #e6edf3;
-}
-
-/* La colonne photos: fond plus discret pour ne pas "griser" l'ensemble */
-.stacked-photos{
-  background: rgba(255,255,255,0.12);
-}
-[data-theme="dark"] .stacked-photos{
-  background: rgba(0,0,0,0.18);
-}
 
 <style>
   :root{
@@ -81,7 +41,7 @@
   .page{max-width:1200px;margin:0 auto;padding:48px 24px 24px;z-index:1;position:relative}
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
-  /* sections, cartes et galerie */
+  /* ===== Sections, cartes et galerie ===== */
   .sections{max-width:1200px;margin:0 auto;padding:32px 24px 96px}
   .alt-section{
     display:grid;
@@ -90,35 +50,42 @@
     align-items:stretch;
     margin:54px 0
   }
+
+  /* Cartes : fond assombri et TEXTE BLANC (jour + nuit) */
   .alt-card{
-    background:rgba(255,255,255,.28);
-    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    background: rgba(0,0,0,0.58);  /* lisible sur background clair */
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border-radius:24px;padding:28px 26px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08),0 1px 0 rgba(255,255,255,.18) inset;
-    color:var(--fg);
+    box-shadow:0 10px 30px rgba(0,0,0,.18),0 1px 0 rgba(255,255,255,.12) inset;
+    color:#fff;                   /* force le texte en blanc */
     height:100%;display:flex;flex-direction:column
   }
   [data-theme="dark"] .alt-card{
-    background:rgba(0,0,0,.38);
-    box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset
+    background: rgba(0,0,0,0.62); /* légèrement plus sombre en nuit */
+    box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;
+    color:#fff;                   /* blanc en nuit aussi */
   }
-  .alt-eyebrow{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg);margin:0 0 10px;padding:4px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(11,95,165,.18),rgba(11,95,165,.06))}
-  [data-theme="dark"] .alt-eyebrow{background:linear-gradient(90deg,rgba(88,166,255,.25),rgba(88,166,255,.08))}
-  .alt-title{font-size:clamp(22px,2.8vw,36px);line-height:1.18;margin:0 0 12px;color:var(--fg)}
-  .alt-text{margin:0;color:var(--muted);font-size:16px}
+
+  .alt-eyebrow{
+    display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:#fff;margin:0 0 10px;padding:4px 10px;border-radius:999px;
+    background: linear-gradient(90deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
+  }
+  .alt-title{font-size:clamp(22px,2.8vw,36px);line-height:1.18;margin:0 0 12px;color:#fff}
+  .alt-text{margin:0;color:#fff;font-size:16px}      /* <<< texte des paragraphes en blanc */
 
   .alt-media{border-radius:26px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.16);height:100%}
-  .stacked-photos{display:flex;flex-direction:column;height:100%;gap:16px;padding:16px;background:rgba(255,255,255,.18)}
-  [data-theme="dark"] .stacked-photos{background:rgba(0,0,0,.25)}
+  .stacked-photos{display:flex;flex-direction:column;height:100%;gap:16px;padding:16px;background:rgba(255,255,255,0.12)}
+  [data-theme="dark"] .stacked-photos{background:rgba(0,0,0,0.18)}
   .stacked-photos figure{margin:0;flex:1;overflow:hidden;border-radius:18px}
   .stacked-photos img{width:100%;height:100%;object-fit:cover;display:block}
 
-  /* ancres sous-sections */
+  /* Ancres sous-sections (titres bleu marine) */
   section.anchor{scroll-margin-top:120px;margin:40px 0;padding:24px 0;border-top:1px solid var(--ring)}
   .section-title{font-size:28px;margin:0 0 10px;color:var(--brand)}
   .section-text{margin:0;color:var(--muted);font-size:16px}
 
-  /* ancrage propre pour tout élément id cible */
+  /* Ancrage propre pour tout élément ciblé (#profile, #background, etc.) */
   section[id]{scroll-margin-top:120px}
 
   /* Lang menu */
@@ -277,7 +244,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
   <main class="page" id="main">
     <div class="sections">
-      <!-- ===== PROFILE (ex Who I Am) ===== -->
+      <!-- ===== PROFILE ===== -->
       <section id="profile" class="alt-section reveal">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Profile</p>
