@@ -80,6 +80,9 @@
   .lang-menu{display:inline-block;margin-right:4px}
   .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
 
+  /* ancrage propre (sticky header) */
+  section[id]{scroll-margin-top:120px}
+
   @media(max-width:900px){
     .sections{padding:40px 16px 72px}
     .alt-section,.alt-section.reverse{grid-template-columns:1fr}
@@ -240,22 +243,22 @@ document.addEventListener('DOMContentLoaded',function(){
         </a>
 
         <nav>
-          <!-- About : page + sous-menu vers ses ancres -->
+          <!-- About : page + sous-menu (Profile en premier) -->
           <div class="menu">
             <a href="about.html" data-i18n="nav.about">About</a>
             <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'about-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
             <div id="about-menu" class="submenu">
-              <a href="about.html#who" data-i18n="nav.about_menu.who">Who I Am</a>
+              <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
               <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
               <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
               <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
             </div>
           </div>
 
-          <!-- Skills : page dédiée -->
+          <!-- Skills -->
           <a href="skills.html" data-i18n="nav.skills">Skills</a>
 
-          <!-- Projects : page + sous-menu vers ses ancres -->
+          <!-- Projects -->
           <div class="menu">
             <a href="projects.html" data-i18n="nav.projects">Projects</a>
             <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
@@ -265,7 +268,7 @@ document.addEventListener('DOMContentLoaded',function(){
             </div>
           </div>
 
-          <!-- Contact : page dédiée -->
+          <!-- Contact -->
           <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
 
@@ -274,7 +277,7 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
 
-  <!-- CONTENU DE LA PAGE D'ACCUEIL (inchangé) -->
+  <!-- CONTENU ACCUEIL (inchangé) -->
   <main class="page" id="main">
     <div class="sections">
       <section class="alt-section reveal">
