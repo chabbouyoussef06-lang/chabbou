@@ -1,58 +1,75 @@
 {
-  "meta": { "title": "Youssef Chabbou — Portfolio" },
-  "nav": {
-    "about": "À propos",
-    "about_menu": {
-      "who": "Qui je suis",
-      "background": "Parcours",
-      "cv": "Curriculum vitæ",
-      "certs": "Certifications"
-    },
-    "skills": "Compétences",
-    "projects": "Projets",
-    "projects_menu": {
-      "realized": "Projets réalisés",
-      "future": "Projets futurs"
-    },
-    "contact": "Contact"
-  },
+  "meta": { "title": "Youssef Chabbou" },
   "ui": {
     "theme_day": "☀︎ Jour",
     "theme_night": "☾ Nuit"
   },
+  "nav": {
+    "about": "À propos",
+    "skills": "Compétences",
+    "projects": "Projets",
+    "contact": "Contact",
+    "about_menu": {
+      "who": "Profil",
+      "background": "Parcours",
+      "cv": "Curriculum Vitae",
+      "certs": "Certifications"
+    },
+    "projects_menu": {
+      "realized": "Réalisations",
+      "future": "Projets futurs"
+    }
+  },
   "sections": {
     "perspective": {
       "eyebrow": "Perspective",
-      "title": "Façonner l’avenir de l’aéronautique avec des idées audacieuses",
-      "text": "Explorer les horizons où l’ingénierie rencontre l’imagination. Objectifs ambitieux, exécution maîtrisée."
+      "title": "Façonner l’aéronautique avec des idées audacieuses",
+      "text": "Là où l’ingénierie rencontre l’imagination. Ambition mesurée, exécution rigoureuse."
     },
     "learning": {
       "eyebrow": "Apprentissage continu",
-      "title": "Là où la curiosité alimente la progression",
-      "text": "Découverte sans fin, pratique intentionnelle et quête permanente de connaissance et de maîtrise."
+      "title": "La curiosité alimente la progression",
+      "text": "Découverte, pratique intentionnelle et recherche du geste juste."
     },
     "principles": {
       "eyebrow": "Principes",
       "title": "Créativité · Progression · Précision",
-      "text": "L’apprentissage a du sens lorsqu’il élargit les horizons, affine les compétences et relie la théorie aux défis du réel."
+      "text": "Apprendre, c’est élargir le champ, affiner les compétences et relier théorie et concret."
     },
     "design": {
       "eyebrow": "Concevoir avec intention",
       "title": "La précision dans chaque détail",
-      "text": "Des croquis aux prototypes, chaque décision compte. Conception robuste, assurance silencieuse."
+      "text": "Du croquis au prototype : chaque décision compte. Des choix solides, en confiance."
     },
     "teamwork": {
-      "eyebrow": "Esprit d’équipe",
+      "eyebrow": "Travail d’équipe",
       "title": "La collaboration est le moteur le plus puissant",
-      "text": "Ensemble, nous avançons plus vite, en reliant disciplines, outils et perspectives."
+      "text": "Aller plus vite ensemble, croiser les disciplines et les points de vue."
     },
     "worldview": {
-      "eyebrow": "Vision du monde",
+      "eyebrow": "Vision",
       "title": "Ingénierie sans frontières",
-      "text": "L’innovation s’épanouit lorsque le savoir s’adapte aux pays, aux cultures et aux points de vue, prouvant que les idées n’ont pas de frontières."
+      "text": "L’innovation grandit quand le savoir circule entre pays et cultures."
+    }
+  },
+  "about": {
+    "sections": {
+      "who": {
+        "title": "Né et grandi en Tunisie",
+        "tn": "Carrefour méditerranéen, héritière de Carthage et d’un savoir-faire vivant : curiosité, résilience et sens de l’ouvrage précis.",
+        "flight_title": "Premier vol, première étincelle (2011)",
+        "flight_text": "À sept ans, face à un Airbus A320 immense. Décollage appréhendé, croisière apaisante : le déclic pour l’aérien.",
+        "maker_title": "Fabriquer à ma manière",
+        "maker_text": "Enfant, je personnalisais mes jouets : ajuster, améliorer, donner un rôle à chaque pièce.",
+        "now_title": "Aujourd’hui",
+        "now_text": "Basé en Allemagne, entre études et premiers projets : apprentissage, esprit d’équipe, résultats fiables."
+      },
+      "background": { "text": "" },
+      "cv": { "text": "" },
+      "certs": { "text": "" }
     }
   },
   "footer": {
-    "created_by": "Ce site a été entièrement créé par son propriétaire, Youssef Chabbou, grâce à un développement augmenté par l’IA."
+    "created_by": "Ce site a été entièrement créé par son propriétaire,\nYoussef Chabbou, grâce à un développement assisté par IA."
   }
 }
