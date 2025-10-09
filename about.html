@@ -44,10 +44,40 @@
 
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
-  /* Sections vides (ancres) */
+  /* ===== Sections & cartes (mêmes styles que l'accueil) ===== */
   .sections{max-width:1200px;margin:0 auto;padding:32px 24px 96px}
+  .alt-section{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center;margin:54px 0}
+  .alt-section.reverse{grid-template-columns:1fr 1.05fr}
+  .alt-card{
+    background:rgba(255,255,255,.28);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-radius:24px;padding:28px 26px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08),0 1px 0 rgba(255,255,255,.18) inset;
+    color:var(--fg)
+  }
+  [data-theme="dark"] .alt-card{
+    background:rgba(0,0,0,.38);
+    box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset
+  }
+  .alt-eyebrow{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg);margin:0 0 10px;padding:4px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(11,95,165,.18),rgba(11,95,165,.06))}
+  [data-theme="dark"] .alt-eyebrow{background:linear-gradient(90deg,rgba(88,166,255,.25),rgba(88,166,255,.08))}
+  .alt-title{font-size:clamp(22px,2.8vw,36px);line-height:1.18;margin:0 0 12px;color:var(--fg)}
+  .alt-text{margin:0;color:var(--muted);font-size:16px}
+  [data-theme="light"] .alt-card .alt-text{color:#374151}
+  [data-theme="dark"] .alt-card .alt-text{color:#c9d1d9}
+  .alt-media{border-radius:26px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.16)}
+  .alt-media img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;transform:scale(1.02);transition:transform .6s ease}
+  .alt-media:hover img{transform:scale(1.06)}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+
+  /* Petite galerie verticale à droite */
+  .stacked-photos{display:grid;gap:16px}
+  .stacked-photos figure{margin:0}
+  .stacked-photos img{aspect-ratio:16/11}
+
+  /* Sections vides simples (ancres) */
   section.anchor{scroll-margin-top:96px;margin:40px 0;padding:24px 0;border-top:1px solid var(--ring)}
-  section.anchor:first-of-type{margin-top:8px}
   .section-title{font-size:28px;margin:0 0 10px}
   .section-text{margin:0;color:var(--muted);font-size:16px}
 
@@ -55,6 +85,13 @@
   .lang-menu{display:inline-block;margin-right:4px}
   .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
 
+  @media(max-width:900px){
+    .sections{padding:40px 16px 72px}
+    .alt-section,.alt-section.reverse{grid-template-columns:1fr}
+    .alt-section.reverse .alt-card{order:2}
+    .alt-section.reverse .alt-media{order:1}
+    .alt-media img{aspect-ratio:16/11}
+  }
   @media(max-width:640px){
     .container{padding:12px 16px}
     .top-band{position:static}
@@ -181,7 +218,6 @@ document.addEventListener('DOMContentLoaded',function(){
         </a>
 
         <nav>
-          <!-- About principal = cette page -->
           <div class="menu">
             <a href="about.html" data-i18n="nav.about">About</a>
             <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'about-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
@@ -193,19 +229,18 @@ document.addEventListener('DOMContentLoaded',function(){
             </div>
           </div>
 
-          <!-- autres liens (exemples, adapte si tu as d'autres pages plus tard) -->
-          <a href="index.html#skills" data-i18n="nav.skills">Skills</a>
+          <a href="skills.html" data-i18n="nav.skills">Skills</a>
 
           <div class="menu">
-            <a href="index.html#projects" data-i18n="nav.projects">Projects</a>
+            <a href="projects.html" data-i18n="nav.projects">Projects</a>
             <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
             <div id="projects-menu" class="submenu">
-              <a href="index.html#projects-realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-              <a href="index.html#projects-future" data-i18n="nav.projects_menu.future">Future projects</a>
+              <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+              <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
             </div>
           </div>
 
-          <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
 
         <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
@@ -213,17 +248,58 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
 
-  <!-- Contenu ABOUT vide (tu rempliras plus tard) -->
   <main class="page" id="main">
     <h1 data-i18n="about.title">About</h1>
     <p class="lead" data-i18n="about.lead">This page introduces who I am, my background, CV, and certifications.</p>
 
     <div class="sections">
-      <section id="who" class="anchor">
-        <h2 class="section-title" data-i18n="nav.about_menu.who">Who I Am</h2>
-        <p class="section-text" data-i18n="about.sections.who.text"></p>
+      <!-- ===== WHO I AM — moderne & aéré ===== -->
+      <section id="who" class="alt-section reveal">
+        <!-- Carte texte -->
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Who I Am</p>
+
+          <h3 class="alt-title" data-i18n="about.sections.who.title">
+            Born and raised in Tunisia
+          </h3>
+          <p class="alt-text" data-i18n="about.sections.who.tn">
+            A Mediterranean crossroads where history shaped open minds. From Carthage’s legacy to vibrant craftsmanship and engineering talent today, Tunisia taught me curiosity, resilience, and a taste for precise, beautiful work.
+          </p>
+
+          <h4 class="alt-title" style="font-size:20px;margin-top:18px" data-i18n="about.sections.who.flight_title">
+            First flight, first spark (2011)
+          </h4>
+          <p class="alt-text" data-i18n="about.sections.who.flight_text">
+            I was seven, facing an Airbus A320 I never imagined so large. The engines felt monumental. Take-off scared me; cruise won me over. That mix of power and calm never left me—and it quietly set my path toward aerospace.
+          </p>
+
+          <h4 class="alt-title" style="font-size:20px;margin-top:18px" data-i18n="about.sections.who.maker_title">
+            Making things my way
+          </h4>
+          <p class="alt-text" data-i18n="about.sections.who.maker_text">
+            Even as a kid, I customized my toys—nothing standard for long. I liked to tweak, refine, and give parts a purpose. That habit of building and improving became my way of thinking.
+          </p>
+
+          <h4 class="alt-title" style="font-size:20px;margin-top:18px" data-i18n="about.sections.who.now_title">
+            Today
+          </h4>
+          <p class="alt-text" data-i18n="about.sections.who.now_text">
+            I’m currently based in Germany, growing through studies and early professional projects. It’s a grounded, steady journey—focused on learning, teamwork, and turning ideas into dependable aerospace work.
+          </p>
+        </div>
+
+        <!-- Galerie / photos à droite -->
+        <div class="alt-media">
+          <div class="stacked-photos">
+            <!-- Remplace ces images quand tu veux -->
+            <figure><img src="photos/tunisia-skyline.jpg" alt="Tunisia — Mediterranean light"></figure>
+            <figure><img src="photos/first-flight-seat.jpg" alt="Childhood travel moment"></figure>
+            <figure><img src="photos/workbench-toys.jpg" alt="Tinkering on custom toys"></figure>
+          </div>
+        </div>
       </section>
 
+      <!-- ===== autres sections vides pour plus tard ===== -->
       <section id="background" class="anchor">
         <h2 class="section-title" data-i18n="nav.about_menu.background">Background</h2>
         <p class="section-text" data-i18n="about.sections.background.text"></p>
@@ -232,8 +308,6 @@ document.addEventListener('DOMContentLoaded',function(){
       <section id="cv" class="anchor">
         <h2 class="section-title" data-i18n="nav.about_menu.cv">Curriculum Vitae</h2>
         <p class="section-text" data-i18n="about.sections.cv.text"></p>
-        <!-- Exemple de lien CV plus tard -->
-        <!-- <a class="btn" href="cv.pdf" target="_blank" rel="noopener" data-i18n="about.sections.cv.download">Download CV</a> -->
       </section>
 
       <section id="certs" class="anchor">
@@ -346,6 +420,21 @@ document.addEventListener('DOMContentLoaded',function(){
     setLang(b.getAttribute("data-lang"));
   });
 })();
+  </script>
+
+  <!-- Révélations au scroll -->
+  <script>
+    (function(){
+      const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced){
+        document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+        return;
+      }
+      const io=new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+      },{threshold:0.15});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    })();
   </script>
 </body>
 </html>
