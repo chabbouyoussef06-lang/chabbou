@@ -83,17 +83,17 @@
   [data-theme="dark"] .alt-text{color:#eaeef5}
 
   .alt-media{border-radius:26px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.16);height:100%}
-  .stacked-photos{display:flex;flex-direction:column;height:100%;gap:16px;padding:16px;background:rgba(255,255,255,0.10)}
+  .stacked-photos{display:grid;grid-template-rows:1fr 1fr;height:100%;gap:16px;padding:16px;background:rgba(255,255,255,0.10)}
   [data-theme="dark"] .stacked-photos{background:rgba(0,0,0,0.18)}
-  .stacked-photos figure{margin:0;flex:1;overflow:hidden;border-radius:18px}
+  .stacked-photos figure{margin:0;overflow:hidden;border-radius:18px}
   .stacked-photos img{width:100%;height:100%;object-fit:cover;display:block}
 
-  /* Ancres sous-sections (titres bleu marine) */
+  /* Ancres (CV/Certifs) */
   section.anchor{scroll-margin-top:120px;margin:40px 0;padding:24px 0;border-top:1px solid var(--ring)}
   .section-title{font-size:28px;margin:0 0 10px;color:var(--brand)}
   .section-text{margin:0;color:var(--muted);font-size:16px}
 
-  /* Ancrage propre pour tout élément ciblé (#profile, #background, etc.) */
+  /* Ancrage propre */
   section[id]{scroll-margin-top:120px}
 
   /* Lang menu */
@@ -277,22 +277,51 @@ document.addEventListener('DOMContentLoaded',function(){
           </p>
         </div>
 
-        <!-- Galerie (images à la racine) -->
         <div class="alt-media">
-          <div class="stacked-photos">
+          <div class="stacked-photos" style="grid-template-rows: 1fr 1fr;">
             <figure><img src="tunisia-skyline.jpg" alt="Tunisia — Mediterranean light"></figure>
             <figure><img src="first-flight-seat.jpg" alt="Childhood travel moment"></figure>
-            <figure><img src="workbench-toys.jpg" alt="Tinkering on custom toys"></figure>
           </div>
         </div>
       </section>
 
-      <!-- ===== autres sections (titres en bleu marine) ===== -->
-      <section id="background" class="anchor">
-        <h2 class="section-title" data-i18n="nav.about_menu.background">Background</h2>
-        <p class="section-text" data-i18n="about.sections.background.text"></p>
+      <!-- ===== BACKGROUND (nouvelle carte + 2 photos) ===== -->
+      <section id="background" class="alt-section reverse reveal">
+        <div class="alt-media">
+          <div class="stacked-photos" style="grid-template-rows: 1fr 1fr;">
+            <figure><img src="school-tunis.jpg" alt="School years in Tunis"></figure>
+            <figure><img src="interact-club.jpg" alt="Club & volunteer activities"></figure>
+          </div>
+        </div>
+
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
+
+          <h3 class="alt-title" data-i18n="about.sections.background.title">Parcours en bref</h3>
+
+          <h4 class="alt-title" style="font-size:18px;margin-top:6px" data-i18n="about.sections.background.p1_title">École primaire & secondaire — Tunis</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p1">
+            Études à Tunis. Anglais commencé à 7 ans. Participation régulière à des clubs sportifs, associatifs et intellectuels.
+          </p>
+
+          <h4 class="alt-title" style="font-size:18px;margin-top:14px" data-i18n="about.sections.background.p2_title">Lycée Pilote El Menzah 8</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p2">
+            Passage par un lycée exigeant — mentionné avec humilité. Début de l’allemand à 17 ans.
+          </p>
+
+          <h4 class="alt-title" style="font-size:18px;margin-top:14px" data-i18n="about.sections.background.p3_title">Engagement associatif</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p3">
+            Entrée dans un club caritatif (Interact), puis rôle de responsable. Une école de terrain : organisation, service, équipe.
+          </p>
+
+          <h4 class="alt-title" style="font-size:18px;margin-top:14px" data-i18n="about.sections.background.p4_title">Études supérieures en Allemagne</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p4">
+            Départ pour l’Allemagne pour le supérieur. Cap sur des bases solides et un apprentissage régulier, sans répétitions inutiles avec la section précédente.
+          </p>
+        </div>
       </section>
 
+      <!-- ===== autres sections (titres en bleu marine) ===== -->
       <section id="cv" class="anchor">
         <h2 class="section-title" data-i18n="nav.about_menu.cv">Curriculum Vitae</h2>
         <p class="section-text" data-i18n="about.sections.cv.text"></p>
@@ -332,7 +361,7 @@ document.addEventListener('DOMContentLoaded',function(){
   function currentLang() {
     const params = new URLSearchParams(location.search);
     const hasParam = params.has("lang");
-    theLang  = params.get("lang");
+    const theLang  = params.get("lang");
     if (!hasParam) return DEFAULT;
     if (theLang === 'en' || SUPPORTED.includes(theLang)) return theLang;
     return DEFAULT;
