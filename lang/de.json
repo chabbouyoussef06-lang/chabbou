@@ -16,6 +16,10 @@
     },
     "contact": "Kontakt"
   },
+  "ui": {
+    "theme_day": "☀︎ Tag",
+    "theme_night": "☾ Nacht"
+  },
   "sections": {
     "perspective": {
       "eyebrow": "Perspektive",
@@ -48,16 +52,7 @@
       "text": "Innovation gedeiht, wenn sich Wissen über Länder, Kulturen und Perspektiven hinweg anpasst – der Beweis, dass Ideen keine Grenzen kennen."
     }
   },
-  "alts": {
-    "hero_aerial": "Himmel mit Kondensstreifen",
-    "wing_geometry": "Tragflächengeometrie",
-    "cloud_layers": "Wolkenschichten",
-    "metal_texture": "Metallstruktur und Nieten",
-    "team_silhouettes": "Team-Silhouetten",
-    "night_sky": "Nachthimmel"
-  },
   "footer": {
     "created_by": "Diese Website wurde vollständig von ihrem Eigentümer, Youssef Chabbou, mittels KI-unterstützter Entwicklung erstellt."
   }
 }
-
