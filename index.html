@@ -116,7 +116,7 @@ function updateThemeLabel(){
   const isDark = (document.documentElement.dataset.theme === 'dark');
   const day  = i18nGet('ui.theme_day','☀︎ Day');
   const night= i18nGet('ui.theme_night','☾ Night');
-  btn.textContent = isDark ? day : night; // si dark -> proposer Day libellé localisé
+  btn.textContent = isDark ? day : night;
 }
 
 /* ===== Thème ===== */
@@ -220,6 +220,14 @@ document.addEventListener('DOMContentLoaded',function(){
       btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾';
     }catch(_e){}
   });
+
+  // label au chargement selon ?lang=
+  try{
+    const params=new URLSearchParams(location.search);
+    const lang = params.has('lang') ? (params.get('lang')||'en').toLowerCase() : 'en';
+    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
+  }catch(_e){}
 });
 </script>
 </head>
@@ -232,31 +240,33 @@ document.addEventListener('DOMContentLoaded',function(){
         </a>
 
         <nav>
+          <!-- About : page + sous-menu vers ses ancres -->
           <div class="menu">
-            <a href="#" onclick="toggleMenu(event,'about-menu')">
-              <span data-i18n="nav.about">About</span> ▾
-            </a>
+            <a href="about.html" data-i18n="nav.about">About</a>
+            <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'about-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
             <div id="about-menu" class="submenu">
-              <a data-i18n="nav.about_menu.who">Who I Am</a>
-              <a data-i18n="nav.about_menu.background">Background</a>
-              <a data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
-              <a data-i18n="nav.about_menu.certs">Certifications</a>
+              <a href="about.html#who" data-i18n="nav.about_menu.who">Who I Am</a>
+              <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
+              <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
+              <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
             </div>
           </div>
 
-          <a data-i18n="nav.skills">Skills</a>
+          <!-- Skills : page dédiée -->
+          <a href="skills.html" data-i18n="nav.skills">Skills</a>
 
+          <!-- Projects : page + sous-menu vers ses ancres -->
           <div class="menu">
-            <a href="#" onclick="toggleMenu(event,'projects-menu')">
-              <span data-i18n="nav.projects">Projects</span> ▾
-            </a>
+            <a href="projects.html" data-i18n="nav.projects">Projects</a>
+            <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
             <div id="projects-menu" class="submenu">
-              <a data-i18n="nav.projects_menu.realized">Projects realized</a>
-              <a data-i18n="nav.projects_menu.future">Future projects</a>
+              <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+              <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
             </div>
           </div>
 
-          <a data-i18n="nav.contact">Contact</a>
+          <!-- Contact : page dédiée -->
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
 
         <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
@@ -264,6 +274,7 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
 
+  <!-- CONTENU DE LA PAGE D'ACCUEIL (inchangé) -->
   <main class="page" id="main">
     <div class="sections">
       <section class="alt-section reveal">
@@ -343,22 +354,19 @@ document.addEventListener('DOMContentLoaded',function(){
     })();
   </script>
 
-  <!-- Loader i18n -->
+  <!-- Loader i18n (EN par défaut, restore propre) -->
   <script>
 (() => {
-  // Langues avec JSON (on ne met PAS 'en' ici)
-  const SUPPORTED = ["fr","de","ar"];
-  // Par défaut → anglais (sans JSON) SI aucun ?lang= dans l'URL
-  const DEFAULT = "en";
+  const SUPPORTED = ["fr","de","ar"]; // langues avec JSON
+  const DEFAULT = "en"; // anglais natif
 
-  // === Cache des textes originaux (pour pouvoir revenir à EN proprement)
+  // Cache des textes originaux pour revenir à EN
   function snapshotOriginals(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
       if(!el.dataset.i18nOriginal){
         el.dataset.i18nOriginal = el.textContent;
       }
     });
-    // (on pourrait ajouter ici le cache d'attributs si un jour tu traduis alt/title)
   }
   snapshotOriginals();
 
@@ -367,14 +375,9 @@ document.addEventListener('DOMContentLoaded',function(){
   function currentLang() {
     const params = new URLSearchParams(location.search);
     const hasParam = params.has("lang");
-    const urlLang = params.get("lang");
-    // Si PAS de ?lang= → on force EN (ignorer localStorage)
-    if (!hasParam) return DEFAULT;
-
-    // Si ?lang= existe → on le respecte (en, fr, de, ar)
+    const urlLang  = params.get("lang");
+    if (!hasParam) return DEFAULT; // pas de ?lang= -> EN
     if (urlLang === 'en' || SUPPORTED.includes(urlLang)) return urlLang;
-
-    // Valeur inconnue → EN
     return DEFAULT;
   }
 
@@ -390,22 +393,18 @@ document.addEventListener('DOMContentLoaded',function(){
       const val = get(dict, key);
       if (val != null) el.textContent = val;
     });
-
     const metaTitle = get(dict, "meta.title");
     if (metaTitle) document.title = metaTitle;
     document.documentElement.setAttribute("lang", current);
-
     window.__i18nDict = dict;
     if (window.updateThemeLabel) updateThemeLabel();
   }
 
   function restoreEnglish(){
-    // restaurer chaque texte original
     document.querySelectorAll("[data-i18n]").forEach(el=>{
       if (el.dataset.i18nOriginal != null) el.textContent = el.dataset.i18nOriginal;
     });
-    // nettoyer éventuelles traductions d'attributs si tu en ajoutes plus tard
-    window.__i18nDict = {}; // plus de dictionnaire
+    window.__i18nDict = {};
     document.documentElement.setAttribute("lang", "en");
     if (window.updateThemeLabel) updateThemeLabel();
   }
@@ -413,23 +412,17 @@ document.addEventListener('DOMContentLoaded',function(){
   let current = currentLang();
 
   function setLang(lang) {
-    // normaliser
     if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
     current = lang;
 
-    // mettre ?lang= dans l'URL sans casser l'ancre
+    // met à jour ?lang=
     const u = new URL(location.href);
     u.searchParams.set("lang", lang);
     history.replaceState({}, "", u.pathname + u.search + location.hash);
 
-    if (lang === 'en') {
-      restoreEnglish();
-      return;
-    }
-    // charger dict et appliquer
+    if (lang === 'en') { restoreEnglish(); return; }
     loadDict(lang).then(applyDict).catch(err=>{
       console.error(err);
-      // si dict absent, on retombe en anglais
       restoreEnglish();
     });
   }
@@ -437,7 +430,7 @@ document.addEventListener('DOMContentLoaded',function(){
   // exposer pour le menu
   window.setLangFromMenu = setLang;
 
-  // init UI (languette visible correcte au chargement)
+  // init label languette
   (function initLangToggleLabel(){
     const btn = document.getElementById('langToggle');
     if (!btn) return;
@@ -446,10 +439,10 @@ document.addEventListener('DOMContentLoaded',function(){
     btn.textContent = (map[lang] || 'EN') + ' ▾';
   })();
 
-  // Appliquer la langue courante au chargement
+  // appliquer la langue courante
   setLang(current);
 
-  // Clicks sur éléments [data-lang] (sécurité supplémentaire)
+  // sécurité : clics sur [data-lang]
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-lang]");
     if (!b) return;
