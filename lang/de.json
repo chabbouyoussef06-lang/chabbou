@@ -1,58 +1,75 @@
 {
-  "meta": { "title": "Youssef Chabbou — Portfolio" },
-  "nav": {
-    "about": "Über mich",
-    "about_menu": {
-      "who": "Wer ich bin",
-      "background": "Werdegang",
-      "cv": "Lebenslauf",
-      "certs": "Zertifizierungen"
-    },
-    "skills": "Fähigkeiten",
-    "projects": "Projekte",
-    "projects_menu": {
-      "realized": "Umgesetzte Projekte",
-      "future": "Zukünftige Projekte"
-    },
-    "contact": "Kontakt"
-  },
+  "meta": { "title": "Youssef Chabbou" },
   "ui": {
     "theme_day": "☀︎ Tag",
     "theme_night": "☾ Nacht"
   },
+  "nav": {
+    "about": "Über mich",
+    "skills": "Fähigkeiten",
+    "projects": "Projekte",
+    "contact": "Kontakt",
+    "about_menu": {
+      "who": "Profil",
+      "background": "Werdegang",
+      "cv": "Lebenslauf",
+      "certs": "Zertifikate"
+    },
+    "projects_menu": {
+      "realized": "Realisierte Projekte",
+      "future": "Zukünftige Projekte"
+    }
+  },
   "sections": {
     "perspective": {
       "eyebrow": "Perspektive",
-      "title": "Die Zukunft der Luft- und Raumfahrt mit mutigen Ideen gestalten",
-      "text": "Horizonte erkunden, wo Ingenieurwesen auf Vorstellungskraft trifft. Ambitionierte Ziele, besonnene Umsetzung."
+      "title": "Luft- und Raumfahrt mit kühnen Ideen formen",
+      "text": "Wo Engineering auf Vorstellungskraft trifft. Ambitioniert, aber präzise umgesetzt."
     },
     "learning": {
       "eyebrow": "Lebenslanges Lernen",
-      "title": "Wo Neugier Wachstum antreibt",
-      "text": "Endlose Entdeckung, zielgerichtete Praxis und das stetige Streben nach Wissen und Meisterschaft."
+      "title": "Neugier treibt Wachstum",
+      "text": "Entdecken, gezielt üben, und den sauberen Handgriff suchen."
     },
     "principles": {
-      "eyebrow": "Grundsätze",
+      "eyebrow": "Prinzipien",
       "title": "Kreativität · Wachstum · Präzision",
-      "text": "Lernen ist sinnvoll, wenn es Horizonte erweitert, Fähigkeiten schärft und Theorie mit realen Herausforderungen verbindet."
+      "text": "Lernen verbindet Weitblick, geschärfte Fähigkeiten und Praxisnähe."
     },
     "design": {
-      "eyebrow": "Gestalten mit Sinn",
+      "eyebrow": "Gestalten mit Zweck",
       "title": "Präzision in jedem Detail",
-      "text": "Vom Skizzenblock bis zum Prototyp: Jede Entscheidung hat Gewicht. Robustes Design, leise Zuversicht."
+      "text": "Vom Skizzenbuch zum Prototyp: Jede Entscheidung zählt. Robust und ruhig."
     },
     "teamwork": {
       "eyebrow": "Teamarbeit",
       "title": "Zusammenarbeit ist der stärkste Antrieb",
-      "text": "Gemeinsam kommen wir schneller voran und schlagen Brücken zwischen Disziplinen, Werkzeugen und Perspektiven."
+      "text": "Schneller vorankommen, Disziplinen und Perspektiven verbinden."
     },
     "worldview": {
       "eyebrow": "Weltbild",
       "title": "Ingenieurwesen ohne Grenzen",
-      "text": "Innovation gedeiht, wenn sich Wissen über Länder, Kulturen und Perspektiven hinweg anpasst – der Beweis, dass Ideen keine Grenzen kennen."
+      "text": "Innovation wächst, wenn Wissen zwischen Ländern und Kulturen fließt."
+    }
+  },
+  "about": {
+    "sections": {
+      "who": {
+        "title": "In Tunesien geboren und aufgewachsen",
+        "tn": "Mittelmeer-Drehscheibe mit lebendiger Tradition: Neugier, Widerstandskraft und Sinn für präzise Arbeit.",
+        "flight_title": "Erster Flug, erster Funke (2011)",
+        "flight_text": "Mit sieben vor einem riesigen Airbus A320. Start war aufregend, Reiseflug beruhigend – der Funke für die Luftfahrt.",
+        "maker_title": "Dinge auf meine Art bauen",
+        "maker_text": "Als Kind habe ich Spielzeuge angepasst: verfeinern, verbessern, jeder Teil mit Zweck.",
+        "now_title": "Heute",
+        "now_text": "Mit Sitz in Deutschland – Studium und erste Projekte: Lernen, Teamgeist, verlässliche Ergebnisse."
+      },
+      "background": { "text": "" },
+      "cv": { "text": "" },
+      "certs": { "text": "" }
     }
   },
   "footer": {
-    "created_by": "Diese Website wurde vollständig von ihrem Eigentümer, Youssef Chabbou, mittels KI-unterstützter Entwicklung erstellt."
+    "created_by": "Diese Website wurde vollständig vom Eigentümer,\nYoussef Chabbou, mit KI-unterstützter Entwicklung erstellt."
   }
 }
