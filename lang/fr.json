@@ -1,1 +1,63 @@
+{
+  "meta": { "title": "Youssef Chabbou — Portfolio" },
+  "nav": {
+    "about": "À propos",
+    "about_menu": {
+      "who": "Qui je suis",
+      "background": "Parcours",
+      "cv": "Curriculum vitæ",
+      "certs": "Certifications"
+    },
+    "skills": "Compétences",
+    "projects": "Projets",
+    "projects_menu": {
+      "realized": "Projets réalisés",
+      "future": "Projets futurs"
+    },
+    "contact": "Contact"
+  },
+  "sections": {
+    "perspective": {
+      "eyebrow": "Perspective",
+      "title": "Façonner l’avenir de l’aéronautique avec des idées audacieuses",
+      "text": "Explorer les horizons où l’ingénierie rencontre l’imagination. Objectifs ambitieux, exécution maîtrisée."
+    },
+    "learning": {
+      "eyebrow": "Apprentissage continu",
+      "title": "Là où la curiosité alimente la progression",
+      "text": "Découverte sans fin, pratique intentionnelle et quête permanente de connaissance et de maîtrise."
+    },
+    "principles": {
+      "eyebrow": "Principes",
+      "title": "Créativité · Progression · Précision",
+      "text": "L’apprentissage a du sens lorsqu’il élargit les horizons, affine les compétences et relie la théorie aux défis du réel."
+    },
+    "design": {
+      "eyebrow": "Concevoir avec intention",
+      "title": "La précision dans chaque détail",
+      "text": "Des croquis aux prototypes, chaque décision compte. Conception robuste, assurance silencieuse."
+    },
+    "teamwork": {
+      "eyebrow": "Esprit d’équipe",
+      "title": "La collaboration est le moteur le plus puissant",
+      "text": "Ensemble, nous avançons plus vite, en reliant disciplines, outils et perspectives."
+    },
+    "worldview": {
+      "eyebrow": "Vision du monde",
+      "title": "Ingénierie sans frontières",
+      "text": "L’innovation s’épanouit lorsque le savoir s’adapte aux pays, aux cultures et aux points de vue, prouvant que les idées n’ont pas de frontières."
+    }
+  },
+  "alts": {
+    "hero_aerial": "Ciel aérien avec traînées",
+    "wing_geometry": "Géométrie d’aile",
+    "cloud_layers": "Couches nuageuses",
+    "metal_texture": "Texture métallique et rivets",
+    "team_silhouettes": "Silhouettes d’équipe",
+    "night_sky": "Ciel nocturne"
+  },
+  "footer": {
+    "created_by": "Ce site a été entièrement créé par son propriétaire, Youssef Chabbou, grâce à un développement augmenté par l’IA."
+  }
+}
 
