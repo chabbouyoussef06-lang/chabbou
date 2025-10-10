@@ -1,185 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Contact</title>
+
+<link rel="preload" as="image" href="background.jpg"/>
 
 <style>
   :root{
     --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85);
-    --edge:24px;--card-pad:26px;
+    --edge:24px; --card-pad:26px; --sticky-h:80px; --anchor-offset: calc(var(--sticky-h) + 24px);
   }
   [data-theme="dark"]{
     --bg:#0d1117;--fg:#e6edf3;--muted:#8b949e;--brand:#58a6ff;--card:#161b22;--ring:#30363d;--overlay:rgba(0,0,0,0.7)
   }
 
   *{box-sizing:border-box}
-  html,body{height:100%;margin:0;padding:0;overflow-x:hidden;}
+  html,body{height:100%}
+  html,body{
+    max-width:100%;
+    overflow-x:hidden;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    background:var(--bg); color:var(--fg);
+  }
+  img,svg{max-width:100%; height:auto}
 
   body{
-    position:relative;z-index:0;
+    margin:0;display:flex;flex-direction:column;min-height:100vh;
     font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif;
-    background:var(--bg);color:var(--fg);line-height:1.6;
+    line-height:1.6;transition:background .3s,color .3s
   }
+  body::before{content:"";position:fixed;inset:0;z-index:-2;background:url('background.jpg') no-repeat center/cover}
 
-  body::before{
-    content:"";position:fixed;inset:0;z-index:-1;
-    background:url('background.jpg') no-repeat center/cover;
-    pointer-events:none;
-  }
+  .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
+  .container{max-width:1200px;margin:0 auto;padding:24px var(--edge)}
+  header{display:flex;align-items:center;justify-content:space-between;min-height:40px}
+  header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block}
+  nav{display:flex;gap:40px;align-items:center;min-width:0}
+  nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer}
+  nav a:hover{text-decoration:underline;opacity:1}
+  .menu{position:relative;max-width:100%}
+  .submenu{position:absolute;top:100%;left:0;background:var(--card);border:1px solid var(--ring);border-radius:8px;min-width:160px;box-shadow:0 6px 18px rgba(0,0,0,.08);opacity:0;transform:translateY(-10px);transition:opacity .25s,transform .25s;display:none}
+  .submenu.show{display:block;opacity:1;transform:translateY(0)}
+  .submenu a{display:block;padding:6px 10px;color:var(--fg);text-decoration:none;cursor:default}
+  .submenu a:hover{background:var(--ring)}
+  .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s}
 
-  .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);z-index:1000}
-  header{display:flex;align-items:center;justify-content:space-between;padding:10px var(--edge);}
-  header img{height:40px;width:auto}
-  nav{display:flex;gap:30px;align-items:center;}
-  nav a{text-decoration:none;color:var(--fg);font-weight:500;opacity:.9;}
-  nav a:hover{opacity:1;text-decoration:underline;}
-  .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:6px 10px;border-radius:8px;cursor:pointer;}
-
-  .page{max-width:1200px;margin:0 auto;padding:32px var(--edge);}
+  .page{max-width:1200px;margin:0 auto;padding:32px var(--edge) 24px;z-index:1;position:relative;width:100%}
+  .sections{max-width:1200px;margin:0 auto;padding:16px 0 72px}
+  /* GRILLE rétractable */
   .alt-section{
     display:grid;
-    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    gap:32px;align-items:start;
+    grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+    gap:28px; align-items:start; margin:32px 0; width:100%;
   }
+
   .alt-card{
     background:rgba(255,255,255,0.75);
-    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-    border-radius:24px;padding:24px var(--card-pad);
-    box-shadow:0 8px 25px rgba(0,0,0,.15);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-radius:24px; padding:22px var(--card-pad);
+    box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
+    color:#111827; display:flex; flex-direction:column;
+    max-width:100%; width:100%; min-width:0;
+    word-break:break-word; overflow-wrap:anywhere;
   }
-  [data-theme="dark"] .alt-card{background:rgba(0,0,0,0.55);color:#eaeef5;}
-  .alt-eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(90deg,rgba(11,95,165,.18),rgba(11,95,165,.06));padding:6px 14px;border-radius:999px;display:inline-block;margin-bottom:8px;}
-  .alt-title{font-size:clamp(22px,2.8vw,36px);margin:0 0 10px;color:var(--fg);}
-  .alt-text{font-size:16px;margin:0 0 8px;color:var(--fg);}
-  .info-stack{display:flex;flex-direction:column;gap:12px;}
-  .info-row{display:flex;align-items:center;gap:10px;}
-  .info-row a{text-decoration:none;color:var(--fg);}
-  .info-row a:hover{text-decoration:underline;}
-  .info-muted{color:var(--muted);font-size:14px;}
+  [data-theme="dark"] .alt-card{
+    background:rgba(0,0,0,0.55); box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset; color:#eaeef5;
+  }
 
-  form{display:flex;flex-direction:column;gap:12px;}
-  .label{font-weight:600;font-size:14px;}
-  input,textarea{width:100%;border:1px solid var(--ring);border-radius:10px;padding:10px;font:inherit;background:rgba(255,255,255,0.9);}
-  textarea{min-height:120px;resize:vertical;}
-  input[type="file"]{padding:6px;}
-  .submit{background:linear-gradient(180deg,var(--brand),#0a5695);color:#fff;font-weight:700;border:none;padding:12px 18px;border-radius:999px;cursor:pointer;}
-  .submit:hover{opacity:.95;}
-  .hint{font-size:12px;color:var(--muted);}
-  .status{font-size:14px;margin-top:4px;}
-  .status.ok{color:#0a7f3f;}
-  .status.err{color:#b00020;}
+  .alt-eyebrow{
+    display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    margin:0 0 6px; padding:6px 14px;border-radius:999px;
+    color:#0f172a;background:linear-gradient(90deg,rgba(11,95,165,.18),rgba(11,95,165,.06))
+  }
+  [data-theme="dark"] .alt-eyebrow{color:#e6eef8;background:linear-gradient(180deg,rgba(2,6,23,.88),rgba(2,6,23,.72));border:1px solid rgba(88,166,255,.28)}
 
-  .footer-band{background:rgba(11,95,165,.6);color:#fff;padding:16px;margin-top:40px;text-align:left;}
+  .alt-title{font-size:clamp(22px,2.6vw,34px);line-height:1.2;margin:0 0 8px;color:var(--fg)}
+  .alt-text{margin:0 0 8px;font-size:16px;line-height:1.5}
 
+  /* Let’s connect – plus compact */
+  .info-stack{display:flex;flex-direction:column;gap:10px;min-width:0}
+  .info-row{display:flex;align-items:center;gap:10px;margin:0;min-width:0}
+  .info-row a{color:var(--fg);text-decoration:none;min-width:0}
+  .info-row a:hover{text-decoration:underline}
+  .info-muted{color:var(--muted); font-size:14px}
+
+  /* Formulaire – éléments rétractables */
+  form.contact-form{display:grid;grid-template-columns:1fr;gap:10px;min-width:0}
+  .field{display:flex;flex-direction:column;gap:6px;min-width:0}
+  .label{font-weight:600;font-size:14px}
+  .input,.textarea,.file{
+    background:rgba(255,255,255,0.9);border:1px solid var(--ring);border-radius:12px;
+    padding:10px 12px;font:inherit;color:inherit;outline:none;
+    width:100%;max-width:100%;min-width:0;
+  }
+  .textarea{min-height:136px;resize:vertical}
+  /* iOS file input : empêche la largeur imposée + ellipses */
+  .file{display:block;white-space:nowrap; text-overflow:ellipsis; overflow:hidden}
+  .file::-webkit-file-upload-button{margin-right:8px}
+
+  .submit{
+    display:inline-flex;align-items:center;gap:10px;justify-content:center;
+    padding:12px 18px;border-radius:999px;border:0;background:linear-gradient(180deg,var(--brand),#0a5695);
+    color:#fff;font-weight:700;cursor:pointer;box-shadow:0 8px 18px rgba(11,95,165,.25)
+  }
+  .submit:disabled{opacity:.7;cursor:not-allowed}
+  .hint{font-size:12px;color:var(--muted)}
+  .status{margin-top:6px;font-size:14px}
+  .status.ok{color:#0a7f3f}.status.err{color:#b00020}
+
+  .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
+
+  /* Mobile */
   @media(max-width:900px){
-    .alt-section{grid-template-columns:1fr;gap:20px;}
-    .page{padding:20px;}
-    .alt-card{margin-inline:12px;overflow:hidden;}
+    :root{ --anchor-offset: 72px; }
+    .alt-section{grid-template-columns:1fr; gap:18px; margin:22px 0;}
+    .container, .page{padding-left:16px; padding-right:16px;}
+    /* iOS: on isole la carte pour éviter tout crop de blur/arrondis au bord droit */
+    .alt-card{padding:18px; margin-inline:12px; overflow:hidden;}
   }
-  @supports (-webkit-touch-callout:none){
-    @media(max-width:480px){.alt-card{margin-inline:12px;}}
+  @media(max-width:420px){
+    /* garde-fou pour très petits écrans ou zoom texte */
+    .alt-card{ contain:content; border-radius:20px; margin-inline:10px; }
+  }
+  /* Ciblage Safari iOS : ajoute un léger inset si besoin */
+  @supports (-webkit-touch-callout: none) {
+    @media (max-width: 480px) {
+      .alt-card{ margin-inline:12px; }
+    }
   }
 </style>
 
 <script>
-function toggleTheme(){
-  const html=document.documentElement;
-  const next=html.dataset.theme==='dark'?'light':'dark';
-  html.dataset.theme=next;
-  try{localStorage.setItem('theme',next);}catch(e){}
-}
+/* utilitaires communs (comme about.html) */
+function i18nGet(key, fallback){ try{ let v=window.__i18nDict; for(const p of key.split('.')) v=v&&v[p]; return v ?? fallback; }catch(e){ return fallback; } }
+function updateThemeLabel(){ const btn=document.getElementById('themeToggle'); if(!btn) return;
+  const isDark=(document.documentElement.dataset.theme==='dark');
+  btn.textContent = isDark ? i18nGet('ui.theme_day','☀︎ Day') : i18nGet('ui.theme_night','☾ Night'); }
+function toggleTheme(){ const html=document.documentElement; const next=html.dataset.theme==='dark'?'light':'dark';
+  html.dataset.theme=next; try{localStorage.setItem('theme',next);}catch(e){}; document.documentElement.style.colorScheme=next; updateThemeLabel(); }
+function toggleMenu(e,id){ e.preventDefault(); const m=document.getElementById(id); if(!m) return;
+  const isOpen=m.classList.contains('show'); document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
+  if(!isOpen){ m.style.display='block'; requestAnimationFrame(()=>m.classList.add('show')); } }
+function closeMenusOnInteraction(ev){ const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
+  if(!inside){ document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show'); setTimeout(()=>m.style.display='none',250);}); } }
+document.addEventListener('click',closeMenusOnInteraction,{passive:true});
+document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
+document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInteraction({target:null}); });
 
-document.addEventListener("DOMContentLoaded",()=>{
-  let theme='light';
+/* i18n – mêmes JSON que about.html (+ meta.contact_title) */
+(() => {
+  const SUPPORTED=["fr","de","ar"]; const DEFAULT="en";
+  function snapshotOriginals(){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      if(!el.dataset.i18nOriginal) el.dataset.i18nOriginal=el.textContent;
+    });
+  } snapshotOriginals();
+  const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k]!=null?a[k]:undefined,o);
+  function currentLang(){ const params=new URLSearchParams(location.search); const l=(params.get("lang")||"").toLowerCase(); if(!params.has("lang")) return DEFAULT; return (l==='en'||SUPPORTED.includes(l))?l:DEFAULT; }
+  async function loadDict(lang){ const res=await fetch(`lang/${lang}.json`,{cache:"no-cache"}); if(!res.ok) throw new Error("Missing lang file: "+lang); return res.json(); }
+  function applyDict(dict,lang){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{ const key=el.getAttribute("data-i18n"); const val=get(dict,key); if(val!=null) el.textContent=val; });
+    const metaTitle=get(dict,"meta.contact_title"); if(metaTitle) document.title=metaTitle;
+    document.documentElement.setAttribute("lang",lang); window.__i18nDict=dict; window.__currentLang=lang; updateThemeLabel();
+  }
+  function restoreEnglish(){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      if(el.dataset.i18nOriginal!=null) el.textContent=el.dataset.i18nOriginal;
+    });
+    window.__i18nDict={}; window.__currentLang="en"; document.documentElement.setAttribute("lang","en"); updateThemeLabel();
+  }
+  let current=currentLang();
+  function setLang(lang){
+    if(lang!=='en' && !SUPPORTED.includes(lang)) lang='en';
+    current=lang; const u=new URL(location.href); u.searchParams.set("lang",lang);
+    history.replaceState({}, "", u.pathname+u.search+location.hash);
+    if(lang==='en'){ restoreEnglish(); return; }
+    loadDict(lang).then(d=>applyDict(d,lang)).catch(()=>restoreEnglish());
+  }
+  window.setLangFromMenu=setLang;
+
+  (function initLangToggleLabel(){
+    const btn=document.getElementById('langToggle'); if(!btn) return; const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; const lang=currentLang(); btn.textContent=(map[lang]||'EN')+' ▾';
+  })();
+
+  if(current==='en') restoreEnglish(); else setLang(current);
+
+  document.addEventListener("click",e=>{
+    const b=e.target.closest("[data-lang]"); if(!b) return;
+    e.preventDefault(); setLang(b.getAttribute("data-lang"));
+  },{passive:true});
+})();
+
+/* Formulaire – Formspree par défaut */
+document.addEventListener('DOMContentLoaded', () => {
+  // thème initial
+  let initial='light';
   try{
     const stored=localStorage.getItem('theme');
-    if(stored) theme=stored;
-    else if(window.matchMedia("(prefers-color-scheme: dark)").matches) theme='dark';
+    if(stored){initial=stored;} else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){initial='dark';}
   }catch(e){}
-  document.documentElement.dataset.theme=theme;
+  document.documentElement.dataset.theme=initial; document.documentElement.style.colorScheme=initial; updateThemeLabel();
 
-  const form=document.getElementById("contactForm");
-  const status=document.getElementById("formStatus");
-  form.addEventListener("submit",async(e)=>{
+  // sélecteur de langue à côté du thème
+  const themeBtn=document.getElementById('themeToggle');
+  if(themeBtn && themeBtn.parentNode){
+    const wrap=document.createElement('div'); wrap.className='menu lang-menu';
+    const btn=document.createElement('button'); btn.id='langToggle'; btn.className='toggle'; btn.type='button'; btn.setAttribute('aria-haspopup','true'); btn.textContent='EN ▾';
+    const menu=document.createElement('div'); menu.id='lang-menu'; menu.className='submenu';
+    menu.innerHTML = `
+      <a href="#" data-lang="en">English</a>
+      <a href="#" data-lang="de">Deutsch</a>
+      <a href="#" data-lang="ar">العربية</a>
+      <a href="#" data-lang="fr">Français</a>
+    `;
+    wrap.appendChild(btn); wrap.appendChild(menu);
+    themeBtn.parentNode.insertBefore(wrap, themeBtn);
+    btn.addEventListener('click',e=>toggleMenu(e,'lang-menu'));
+  }
+
+  // Pré-remplir e-mail si déjà saisi
+  const emailInput = document.getElementById('fromEmail');
+  try{ const saved = localStorage.getItem('visitor_email'); if(saved && emailInput) emailInput.value = saved; }catch(e){}
+
+  const form = document.getElementById('contactForm');
+  const statusEl = document.getElementById('formStatus');
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    status.textContent="Sending...";
-    const data=new FormData(form);
+    statusEl.className='status'; statusEl.textContent=i18nGet('contact.form.sending','Sending…');
+
+    const formData = new FormData(form);
+    try{ localStorage.setItem('visitor_email', formData.get('email') || ''); }catch(e){}
+
     try{
-      const r=await fetch("https://formspree.io/f/XXXXXXXX",{method:"POST",body:data,headers:{Accept:"application/json"}});
-      if(r.ok){status.textContent="Message sent successfully!";status.className="status ok";form.reset();}
-      else{status.textContent="Error sending message.";status.className="status err";}
-    }catch{status.textContent="Network error.";status.className="status err";}
+      // ⚠️ Remplace par ton endpoint Formspree / autre
+      const resp = await fetch('https://formspree.io/f/XXXXXXXX', { method:'POST', body: formData, headers: { 'Accept': 'application/json' } });
+      if(resp.ok){
+        form.reset(); statusEl.className='status ok';
+        statusEl.textContent=i18nGet('contact.form.success','Message sent successfully. Thank you!');
+      }else{
+        statusEl.className='status err';
+        statusEl.textContent=i18nGet('contact.form.error','Sending failed. Please try again or email me directly.');
+      }
+    }catch(err){
+      statusEl.className='status err';
+      statusEl.textContent=i18nGet('contact.form.error_network','Network error. Please try again.');
+    }
   });
 });
 </script>
 </head>
+  <!-- Fix discret : remet le background sans rien changer d'autre -->
+<style>
+  /* remet le calque de fond et le place juste derrière le contenu */
+  body { position: relative; } /* n’altère pas la mise en page */
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    background: url('background.jpg') no-repeat center/cover;
+    z-index: -1;                 /* au-dessus du fond uni du body, derrière le contenu */
+    pointer-events: none;
+  }
+  /* Safari iOS : solidifie le rendu du calque fixe */
+  @supports (-webkit-touch-callout: none) {
+    body::before{ transform: translateZ(0); will-change: transform; }
+  }
+</style>
 
 <body data-theme="light">
   <div class="top-band">
-    <header>
-      <a href="index.html#home"><img src="signature.png" alt="Signature"></a>
-      <nav>
-        <a href="about.html">About</a>
-        <a href="skills.html">Skills</a>
-        <a href="projects.html">Projects</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <button class="toggle" onclick="toggleTheme()">☾ Night</button>
-    </header>
+    <div class="container">
+      <header>
+        <a href="index.html#home" style="display:inline-block">
+          <img src="signature.png" alt="Signature" class="signature" fetchpriority="high"/>
+        </a>
+
+        <nav>
+          <div class="menu">
+            <a href="about.html" data-i18n="nav.about">About</a>
+            <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'about-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
+            <div id="about-menu" class="submenu">
+              <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
+              <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
+              <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
+              <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
+            </div>
+          </div>
+          <a href="skills.html" data-i18n="nav.skills">Skills</a>
+          <div class="menu">
+            <a href="projects.html" data-i18n="nav.projects">Projects</a>
+            <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
+            <div id="projects-menu" class="submenu">
+              <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+              <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
+            </div>
+          </div>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        </nav>
+
+        <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
+      </header>
+    </div>
   </div>
 
   <main class="page">
-    <section class="alt-section">
-      <!-- Informations -->
-      <div class="alt-card">
-        <p class="alt-eyebrow">Contact</p>
-        <h1 class="alt-title">Let’s connect</h1>
-        <p class="alt-text info-muted">
-          You can reach me on LinkedIn or via e-mail. I’m based in Braunschweig, Germany.
-        </p>
-        <div class="info-stack">
-          <div class="info-row">
-            <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.8v2.1h.1c.5-.9 1.8-2.1 3.8-2.1 4.1 0 4.8 2.7 4.8 6.2V24h-4v-7.1c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V24h-4V8.5z"/></svg>
-            <a href="https://de.linkedin.com/in/youssef-chabbou-aa3782374" target="_blank" rel="noopener">LinkedIn Profile</a>
-          </div>
-          <div class="info-row">
-            <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8.236l8 6.764 8-6.764V18H4z"/></svg>
-            <a href="mailto:Youssefchabbou@outlook.com">Youssefchabbou@outlook.com</a>
-          </div>
-          <div class="info-row">
-            <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-            <span>Braunschweig, Germany</span>
+    <div class="sections">
+      <section class="alt-section">
+        <!-- Colonne GAUCHE : infos -->
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="contact.info.eyebrow">Contact</p>
+          <h1 class="alt-title" data-i18n="contact.info.title">Let’s connect</h1>
+          <p class="alt-text info-muted" data-i18n="contact.info.desc">
+            You can reach me on LinkedIn or via e-mail. I’m based in Braunschweig, Germany.
+          </p>
+
+          <div class="info-stack">
+            <!-- LinkedIn -->
+            <div class="info-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.8v2.1h.1c.5-.9 1.8-2.1 3.8-2.1 4.1 0 4.8 2.7 4.8 6.2V24h-4v-7.1c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V24h-4V8.5z"/>
+              </svg>
+              <a href="https://de.linkedin.com/in/youssef-chabbou-aa3782374" target="_blank" rel="noopener noreferrer" data-i18n="contact.info.linkedin">
+                LinkedIn Profile
+              </a>
+            </div>
+
+            <!-- E-mail -->
+            <div class="info-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8.236l8 6.764 8-6.764V18H4z"/></svg>
+              <a href="mailto:Youssefchabbou@outlook.com">Youssefchabbou@outlook.com</a>
+            </div>
+
+            <!-- Localisation -->
+            <div class="info-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+              <span>Braunschweig, Germany</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Formulaire -->
-      <div class="alt-card">
-        <p class="alt-eyebrow">Send a message</p>
-        <h2 class="alt-title">Contact form</h2>
-        <form id="contactForm" enctype="multipart/form-data">
-          <label class="label">Your e-mail</label>
-          <input type="email" name="email" placeholder="you@example.com" required />
-          <label class="label">Subject</label>
-          <input type="text" name="subject" placeholder="Topic..." required />
-          <label class="label">Message</label>
-          <textarea name="message" placeholder="Write your message..." required></textarea>
-          <label class="label">Attachment</label>
-          <input type="file" name="attachment" />
-          <button type="submit" class="submit">Send</button>
-          <div id="formStatus" class="status"></div>
-        </form>
-        <p class="hint">Your data will only be used to process your message.</p>
-      </div>
-    </section>
+        <!-- Colonne DROITE : formulaire -->
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="contact.form.eyebrow">Send a message</p>
+          <h2 class="alt-title" data-i18n="contact.form.title">Contact form</h2>
+
+          <form id="contactForm" class="contact-form" enctype="multipart/form-data">
+            <div class="field">
+              <label class="label" for="fromEmail" data-i18n="contact.form.email_label">Your e-mail</label>
+              <input class="input" id="fromEmail" name="email" type="email" autocomplete="email" required
+                     placeholder="you@example.com" data-i18n="contact.form.email_ph"/>
+            </div>
+
+            <div class="field">
+              <label class="label" for="subject" data-i18n="contact.form.subject_label">Subject</label>
+              <input class="input" id="subject" name="subject" type="text" required
+                     placeholder="Topic…" data-i18n="contact.form.subject_ph"/>
+            </div>
+
+            <div class="field">
+              <label class="label" for="message" data-i18n="contact.form.message_label">Message</label>
+              <textarea class="textarea" id="message" name="message" required
+                        placeholder="Write your message…" data-i18n="contact.form.message_ph"></textarea>
+            </div>
+
+            <div class="field">
+              <label class="label" for="attachment" data-i18n="contact.form.attachment_label">Attachment</label>
+              <input class="file" id="attachment" name="attachment" type="file" />
+              <span class="hint" data-i18n="contact.form.attachment_hint">Optional. Attach relevant file(s).</span>
+            </div>
+
+            <input type="hidden" name="_to" value="Youssefchabbou@outlook.com"/>
+
+            <button class="submit" type="submit" data-i18n="contact.form.send_btn">Send</button>
+            <div id="formStatus" class="status" aria-live="polite"></div>
+          </form>
+
+          <p class="hint" style="margin-top:10px" data-i18n="contact.form.privacy_hint">
+            Your data will only be used to process your message.
+          </p>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <div class="footer-band">
-    © 2025 Youssef Chabbou
-    <span style="float:right;font-size:12px;color:rgba(255,255,255,0.75)">
-      This website was entirely created by its owner,<br>Youssef Chabbou, using AI-Augmented Development.
+  <div class="footer-band">© 2025 Youssef Chabbou
+    <span data-i18n="footer.created_by" style="font-size:12px;color:rgba(255,255,255,0.75);float:right;text-align:right;line-height:1.4;">
+      This website was entirely created by its owner,<br/>Youssef Chabbou, using AI-Augmented Development.
     </span>
   </div>
 </body>
