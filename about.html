@@ -9,6 +9,8 @@
     --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85);
     --edge:24px;
     --card-pad:26px;
+    --sticky-h:80px;       /* hauteur approximative de l’en-tête collant */
+    --anchor-offset: calc(var(--sticky-h) + 24px);
   }
   [data-theme="dark"]{
     --bg:#0d1117;--fg:#e6edf3;--muted:#8b949e;--brand:#58a6ff;--card:#161b22;--ring:#30363d;--overlay:rgba(0,0,0,0.7)
@@ -136,19 +138,17 @@
   .btn-download:active{transform:translateY(1px)}
   .btn-download svg{width:18px;height:18px;flex:0 0 18px}
 
-  /* ancres */
-  section.anchor{scroll-margin-top:120px;margin:40px 0;padding:8px 0}
-
-  .lang-menu{display:inline-block;margin-right:4px}
-  .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
+  /* === Ancrage corrigé : on compense la barre sticky === */
+  .anchor{scroll-margin-top: var(--anchor-offset)}  /* toutes les sections avec .anchor s’alignent au début */
 
   @media(max-width:900px){
     .alt-section{grid-template-columns:1fr}
     /* sur mobile : pas de hauteur forcée (les colonnes deviennent des rangées) */
     #background .alt-media{height:auto !important}
+    :root{ --anchor-offset: 72px; }
   }
   @media(max-width:640px){
-    :root{ --edge:16px }
+    :root{ --edge:16px; --anchor-offset: 64px; }
     .container{padding:12px 16px}
     .top-band{position:static}
     header{flex-wrap:wrap;gap:8px}
@@ -226,8 +226,7 @@ function syncBackgroundHeights(){
   // Mesure la hauteur réelle de la carte (texte)
   const target = card.getBoundingClientRect().height;
 
-  // Sécurité si pas encore rendu
-  if(target < 10) return;
+  if(target < 10) return; // sécurité
 
   // Fixe la hauteur média pour égaler la carte
   media.style.height = target + 'px';
@@ -270,8 +269,7 @@ document.addEventListener('DOMContentLoaded', function(){
       if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
       closeMenusOnInteraction({target:null});
       try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
-      // après changement de langue le texte peut changer de hauteur
-      setTimeout(syncBackgroundHeights, 60);
+      setTimeout(syncBackgroundHeights, 60); // texte changé => recalcule
     });
     try{
       const params=new URLSearchParams(location.search);
@@ -335,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <div class="sections">
 
       <!-- ===== PROFILE ===== -->
-      <section id="profile" class="alt-section reveal">
+      <section id="profile" class="alt-section reveal anchor">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Profile</p>
           <h3 class="alt-title" data-i18n="about.sections.who.title">Born and raised in Tunisia</h3>
@@ -367,8 +365,8 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
       </section>
 
-      <!-- ===== BACKGROUND (corrigée : médias = même hauteur que la carte) ===== -->
-      <section id="background" class="alt-section reveal">
+      <!-- ===== BACKGROUND ===== -->
+      <section id="background" class="alt-section reveal anchor">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
 
@@ -492,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function(){
     window.__i18nDict=dict; window.__currentLang=lang;
     if(window.updateThemeLabel) updateThemeLabel();
     updateLinks(lang);
-    // la traduction peut changer la hauteur de texte
+    setTimeout(()=>{ window.scrollBy(0,0); },0); /* évite un offset sporadique */
     setTimeout(syncBackgroundHeights, 60);
   }
 
