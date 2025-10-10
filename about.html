@@ -147,6 +147,28 @@
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
     html,body{overflow-x:hidden}
   }
+
+  /* ============
+     CORRECTION ciblée de la section #background
+     - On casse la hauteur égale des colonnes
+     - La carte texte devient auto-hauteur (pas 100%)
+     - Les photos deviennent compactes en 16:9
+  ============ */
+  #background{ align-items:start; }                 /* n’étire plus les colonnes */
+  #background .alt-card{ height:auto; }             /* la carte suit la hauteur du texte */
+  #background .alt-media{ height:auto; align-self:start; } /* la galerie ne force plus la hauteur */
+  #background .stacked-photos{ 
+    height:auto; 
+    grid-auto-rows:auto; 
+    padding:12px; 
+  }
+  #background .stacked-photos figure{
+    aspect-ratio:16/9;   /* paysage */
+    height:auto;
+  }
+  #background .stacked-photos img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
 </style>
 
 <script>
@@ -303,7 +325,7 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
       </section>
 
-      <!-- ===== BACKGROUND ===== -->
+      <!-- ===== BACKGROUND (corrigée) ===== -->
       <section id="background" class="alt-section reveal">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
@@ -324,8 +346,9 @@ document.addEventListener('DOMContentLoaded',function(){
           </p>
         </div>
 
+        <!-- galerie raccourcie & indépendante de la hauteur du texte -->
         <div class="alt-media">
-          <div class="stacked-photos" style="grid-template-rows: 1fr 1fr;">
+          <div class="stacked-photos"><!-- pas de height forcée ici -->
             <figure><img src="school-tunis.jpg" alt="School years in Tunis"></figure>
             <figure><img src="interact-club.jpg" alt="Club & volunteer activities"></figure>
           </div>
