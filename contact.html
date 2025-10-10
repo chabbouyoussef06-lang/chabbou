@@ -251,25 +251,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-</head>
-  <!-- Fix discret : remet le background sans rien changer d'autre -->
+  <!-- ADD-ON (non destructif) : réactive le background -->
 <style>
-  /* remet le calque de fond et le place juste derrière le contenu */
-  body { position: relative; } /* n’altère pas la mise en page */
+  /* assure un calque de fond fixe derrière tout le contenu */
+  body { position: relative; } /* n'altère pas la mise en page existante */
   body::before{
     content:"";
     position: fixed;
     inset: 0;
     background: url('background.jpg') no-repeat center/cover;
-    z-index: -1;                 /* au-dessus du fond uni du body, derrière le contenu */
+    z-index: -1;                 /* derrière le contenu, au-dessus du fond uni */
     pointer-events: none;
   }
-  /* Safari iOS : solidifie le rendu du calque fixe */
+
+  /* iOS Safari : stabilise le rendu avec blur/arrondis */
   @supports (-webkit-touch-callout: none) {
     body::before{ transform: translateZ(0); will-change: transform; }
   }
 </style>
 
+</head>
 <body data-theme="light">
   <div class="top-band">
     <div class="container">
