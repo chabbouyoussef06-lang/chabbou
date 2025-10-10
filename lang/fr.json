@@ -1,6 +1,7 @@
 {
   "meta": {
-    "title": "À propos — Youssef Chabbou"
+    "title": "À propos — Youssef Chabbou",
+    "contact_title": "Contact — Youssef Chabbou"
   },
   "ui": {
     "theme_day": "☀︎ Jour",
@@ -55,6 +56,31 @@
       "certs": {
         "admin_service": "Certificat de service administratif au sein d’une organisation humanitaire"
       }
+    }
+  },
+  "contact": {
+    "info": {
+      "eyebrow": "Contact",
+      "title": "Entrons en contact",
+      "desc": "Vous pouvez me joindre sur LinkedIn ou par e-mail. Je suis basé à Brunswick (Braunschweig), Allemagne.",
+      "linkedin": "Profil LinkedIn"
+    },
+    "form": {
+      "eyebrow": "Envoyer un message",
+      "title": "Formulaire de contact",
+      "email_label": "Votre e-mail",
+      "email_ph": "vous@exemple.com",
+      "subject_label": "Objet",
+      "subject_ph": "Sujet…",
+      "message_label": "Message",
+      "message_ph": "Écrivez votre message…",
+      "attachment_label": "Pièce jointe",
+      "attachment_hint": "Optionnel. Ajoutez des fichier(s) pertinent(s).",
+      "send_btn": "Envoyer",
+      "sending": "Envoi…",
+      "success": "Message envoyé avec succès. Merci !",
+      "error": "Échec de l’envoi. Veuillez réessayer ou contactez-moi par e-mail.",
+      "error_network": "Erreur réseau. Veuillez réessayer."
     }
   }
 }
