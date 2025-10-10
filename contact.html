@@ -133,7 +133,7 @@
   }
 </style>
 
-<!-- 👉 ADD-ON NON DESTRUCTIF : force l'affichage du background image -->
+<!-- ✅ ADD-ON non destructif : force l'affichage du background image -->
 <style>
   /* On neutralise les fonds unis pour voir l'image derrière */
   html { background: transparent !important; }
@@ -145,7 +145,7 @@
     position: fixed;
     inset: 0;
     background: url('background.jpg') no-repeat center/cover;
-    z-index: -1;         /* plus haut que -2, toujours derrière le contenu */
+    z-index: -1;           /* plus haut que -2, toujours derrière le contenu */
     pointer-events: none;
     transform: translateZ(0);
     will-change: transform;
@@ -172,39 +172,66 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
 /* i18n – mêmes JSON que about.html (+ meta.contact_title) */
 (() => {
   const SUPPORTED=["fr","de","ar"]; const DEFAULT="en";
+
   function snapshotOriginals(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
       if(!el.dataset.i18nOriginal) el.dataset.i18nOriginal=el.textContent;
     });
   } snapshotOriginals();
+
   const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k]!=null?a[k]:undefined,o);
-  function currentLang(){ const params=new URLSearchParams(location.search); const l=(params.get("lang")||"").toLowerCase(); if(!params.has("lang")) return DEFAULT; return (l==='en'||SUPPORTED.includes(l))?l:DEFAULT; }
-  async function loadDict(lang){ const res=await fetch(`lang/${lang}.json`,{cache:"no-cache"}); if(!res.ok) throw new Error("Missing lang file: "+lang); return res.json(); }
-  function applyDict(dict,lang){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{ const key=el.getAttribute("data-i18n"); const val=get(dict,key); if(val!=null) el.textContent=val; });
-    const metaTitle=get(dict,"meta.contact_title"); if(metaTitle) document.title=metaTitle;
-    document.documentElement.setAttribute("lang",lang); window.__i18nDict=dict; window.__currentLang=lang; updateThemeLabel();
+
+  function currentLang(){
+    const params=new URLSearchParams(location.search);
+    const l=(params.get("lang")||"").toLowerCase();
+    if(!params.has("lang")) return DEFAULT;
+    return (l==='en'||SUPPORTED.includes(l))?l:DEFAULT;
   }
+
+  async function loadDict(lang){
+    const res=await fetch(`lang/${lang}.json`,{cache:"no-cache"});
+    if(!res.ok) throw new Error("Missing lang file: "+lang);
+    return res.json();
+  }
+
+  function applyDict(dict,lang){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      const key=el.getAttribute("data-i18n"); const val=get(dict,key);
+      if(val!=null) el.textContent=val;
+    });
+    const metaTitle=get(dict,"meta.contact_title"); if(metaTitle) document.title=metaTitle;
+    document.documentElement.setAttribute("lang",lang);
+    window.__i18nDict=dict; window.__currentLang=lang;
+    updateThemeLabel();
+  }
+
   function restoreEnglish(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
       if(el.dataset.i18nOriginal!=null) el.textContent=el.dataset.i18nOriginal;
     });
-    window.__i18nDict={}; window.__currentLang="en"; document.documentElement.setAttribute("lang","en"); updateThemeLabel();
+    window.__i18nDict={}; window.__currentLang="en";
+    document.documentElement.setAttribute("lang","en");
+    updateThemeLabel();
   }
-  let current=currentLang();
+
+  /* Correctif : revenir proprement à l’anglais */
   function setLang(lang){
     if(lang!=='en' && !SUPPORTED.includes(lang)) lang='en';
-    current=lang; const u=new URL(location.href); u.searchParams.set("lang",lang);
+    const u=new URL(location.href); u.searchParams.set("lang",lang);
     history.replaceState({}, "", u.pathname+u.search+location.hash);
     if(lang==='en'){ restoreEnglish(); return; }
     loadDict(lang).then(d=>applyDict(d,lang)).catch(()=>restoreEnglish());
   }
+
   window.setLangFromMenu=setLang;
 
   (function initLangToggleLabel(){
-    const btn=document.getElementById('langToggle'); if(!btn) return; const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; const lang=currentLang(); btn.textContent=(map[lang]||'EN')+' ▾';
+    const btn=document.getElementById('langToggle'); if(!btn) return;
+    const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; const lang=currentLang();
+    btn.textContent=(map[lang]||'EN')+' ▾';
   })();
 
+  const current=currentLang();
   if(current==='en') restoreEnglish(); else setLang(current);
 
   document.addEventListener("click",e=>{
