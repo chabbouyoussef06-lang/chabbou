@@ -45,31 +45,31 @@
   .sections{max-width:1200px;margin:0 auto;padding:32px 24px 96px}
   .alt-section{
     display:grid;
-    grid-template-columns:1.05fr 1fr;
+    grid-template-columns:1.05fr 1fr; /* texte (gauche) / photos (droite) */
     gap:36px;
     align-items:stretch;
     margin:54px 0
   }
 
-  /* Jour : carte claire, texte foncé / Nuit : carte sombre, texte clair */
+  /* Cartes */
   .alt-card{
-    background: rgba(255,255,255,0.75); /* jour */
+    background: rgba(255,255,255,0.75);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border-radius:24px;padding:28px 26px;
     box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
-    color:#111827; /* texte lisible (jour) */
+    color:#111827;
     height:100%;display:flex;flex-direction:column
   }
   [data-theme="dark"] .alt-card{
-    background: rgba(0,0,0,0.55); /* nuit */
+    background: rgba(0,0,0,0.55);
     box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;
-    color:#eaeef5; /* texte lisible (nuit) */
+    color:#eaeef5;
   }
 
   .alt-eyebrow{
     display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
     margin:0 0 10px;padding:4px 10px;border-radius:999px;
-    color:#0f172a; /* jour */
+    color:#0f172a;
     background: linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
   }
   [data-theme="dark"] .alt-eyebrow{
@@ -93,10 +93,27 @@
   .section-title{font-size:28px;margin:0 0 10px;color:var(--brand)}
   .section-text{margin:0;color:var(--muted);font-size:16px}
 
-  /* Ancrage propre */
+  /* ===== CV bands ===== */
+  .cv-card{background:rgba(255,255,255,0.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:20px;padding:18px 20px;margin-bottom:18px;color:#0f172a}
+  [data-theme="dark"] .cv-card{background:rgba(0,0,0,0.55);color:#eaeef5}
+  .cv-row{
+    display:flex;align-items:center;justify-content:space-between;
+    border:1px solid var(--ring);border-radius:16px;padding:14px 16px;margin:12px 0;
+    background:rgba(255,255,255,0.65)
+  }
+  [data-theme="dark"] .cv-row{background:rgba(0,0,0,0.45)}
+  .cv-label{font-weight:600}
+  .cv-actions{display:flex;gap:12px}
+  .btn{
+    padding:10px 16px;border-radius:12px;border:1px solid var(--ring);
+    background:var(--brand);color:#fff;text-decoration:none;font-weight:600;
+    transition:transform .06s ease,opacity .2s ease
+  }
+  .btn:hover{opacity:.95}
+  .btn:active{transform:translateY(1px)}
+
   section[id]{scroll-margin-top:120px}
 
-  /* Lang menu */
   .lang-menu{display:inline-block;margin-right:4px}
   .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
 
@@ -252,7 +269,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
   <main class="page" id="main">
     <div class="sections">
-      <!-- ===== PROFILE ===== -->
+      <!-- ===== PROFILE (texte gauche / photos droite) ===== -->
       <section id="profile" class="alt-section reveal">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Profile</p>
@@ -285,46 +302,55 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
       </section>
 
-      <!-- ===== BACKGROUND (nouvelle carte + 2 photos) ===== -->
-      <section id="background" class="alt-section reverse reveal">
+      <!-- ===== BACKGROUND (texte gauche / photos droite) ===== -->
+      <section id="background" class="alt-section reveal">
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
+          <h3 class="alt-title" data-i18n="about.sections.background.title">Background</h3>
+
+          <h4 class="alt-title" style="font-size:18px;margin-top:6px" data-i18n="about.sections.background.p1_title">Childhood</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p1">
+            I completed my primary education in Tunis, where I began learning English at the age of seven. During this period, I regularly took part in various sports, associative, and intellectual clubs.
+          </p>
+
+          <h4 class="alt-title" style="font-size:18px;margin-top:14px" data-i18n="about.sections.background.p2_title">High School Years</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p2">
+            I attended the elite school Lycée Pilote El Menzah 8, where I strengthened my academic foundation, particularly in mathematics and physics, and started learning German at the age of seventeen. Throughout these years, I was also an active member of the charitable club Interact, which helped me develop valuable soft skills such as teamwork, communication, and leadership.
+          </p>
+
+          <h4 class="alt-title" style="font-size:18px;margin-top:14px" data-i18n="about.sections.background.p3_title">Higher Education in Germany</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p3">
+            After high school, I moved to Germany to pursue my university studies — a new and exciting chapter in my academic and personal journey.
+          </p>
+        </div>
+
         <div class="alt-media">
           <div class="stacked-photos" style="grid-template-rows: 1fr 1fr;">
             <figure><img src="school-tunis.jpg" alt="School years in Tunis"></figure>
             <figure><img src="interact-club.jpg" alt="Club & volunteer activities"></figure>
           </div>
         </div>
-
-        <div class="alt-card">
-          <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
-
-          <h3 class="alt-title" data-i18n="about.sections.background.title">Parcours en bref</h3>
-
-          <h4 class="alt-title" style="font-size:18px;margin-top:6px" data-i18n="about.sections.background.p1_title">École primaire & secondaire — Tunis</h4>
-          <p class="alt-text" data-i18n="about.sections.background.p1">
-            Études à Tunis. Anglais commencé à 7 ans. Participation régulière à des clubs sportifs, associatifs et intellectuels.
-          </p>
-
-          <h4 class="alt-title" style="font-size:18px;margin-top:14px" data-i18n="about.sections.background.p2_title">Lycée Pilote El Menzah 8</h4>
-          <p class="alt-text" data-i18n="about.sections.background.p2">
-            Passage par un lycée exigeant — mentionné avec humilité. Début de l’allemand à 17 ans.
-          </p>
-
-          <h4 class="alt-title" style="font-size:18px;margin-top:14px" data-i18n="about.sections.background.p3_title">Engagement associatif</h4>
-          <p class="alt-text" data-i18n="about.sections.background.p3">
-            Entrée dans un club caritatif (Interact), puis rôle de responsable. Une école de terrain : organisation, service, équipe.
-          </p>
-
-          <h4 class="alt-title" style="font-size:18px;margin-top:14px" data-i18n="about.sections.background.p4_title">Études supérieures en Allemagne</h4>
-          <p class="alt-text" data-i18n="about.sections.background.p4">
-            Départ pour l’Allemagne pour le supérieur. Cap sur des bases solides et un apprentissage régulier, sans répétitions inutiles avec la section précédente.
-          </p>
-        </div>
       </section>
 
-      <!-- ===== autres sections (titres en bleu marine) ===== -->
+      <!-- ===== CV ===== -->
       <section id="cv" class="anchor">
-        <h2 class="section-title" data-i18n="nav.about_menu.cv">Curriculum Vitae</h2>
-        <p class="section-text" data-i18n="about.sections.cv.text"></p>
+        <div class="cv-card">
+          <h2 class="section-title" data-i18n="about.sections.cv.title">Curriculum Vitae</h2>
+        </div>
+
+        <div class="cv-row">
+          <div class="cv-label" data-i18n="about.sections.cv.row_basic">Curriculum Vitae</div>
+          <div class="cv-actions">
+            <a id="cv-basic-btn" class="btn" href="#" target="_blank" rel="noopener" data-i18n="ui.download">Download</a>
+          </div>
+        </div>
+
+        <div class="cv-row">
+          <div class="cv-label" data-i18n="about.sections.cv.row_extended">Curriculum Vitae — Extended version</div>
+          <div class="cv-actions">
+            <a id="cv-extended-btn" class="btn" href="#" target="_blank" rel="noopener" data-i18n="ui.download">Download</a>
+          </div>
+        </div>
       </section>
 
       <section id="certs" class="anchor">
@@ -341,11 +367,17 @@ document.addEventListener('DOMContentLoaded',function(){
     </span>
   </div>
 
-  <!-- Loader i18n (EN par défaut, restore propre) -->
+  <!-- Loader i18n + CV links -->
   <script>
 (() => {
   const SUPPORTED = ["fr","de","ar"];
   const DEFAULT = "en";
+  const PDF_MAP = {
+    en: { basic: "curriculum_vitae.pdf", extended: "extended_curriculum_vitae.pdf" },
+    de: { basic: "lebenslauf.pdf",       extended: "erweiterter_lebenslauf.pdf" },
+    fr: { basic: "cv.pdf",               extended: "cv_détaillé.pdf" },
+    ar: { basic: "السيرة_الذاتية.pdf",   extended: "السيرة_الذاتية_الموسعة.pdf" }
+  };
 
   function snapshotOriginals(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
@@ -361,7 +393,7 @@ document.addEventListener('DOMContentLoaded',function(){
   function currentLang() {
     const params = new URLSearchParams(location.search);
     const hasParam = params.has("lang");
-    const theLang  = params.get("lang");
+    const theLang  = (params.get("lang")||"").toLowerCase();
     if (!hasParam) return DEFAULT;
     if (theLang === 'en' || SUPPORTED.includes(theLang)) return theLang;
     return DEFAULT;
@@ -373,7 +405,7 @@ document.addEventListener('DOMContentLoaded',function(){
     return res.json();
   }
 
-  function applyDict(dict) {
+  function applyDict(dict, lang) {
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       const val = get(dict, key);
@@ -381,9 +413,11 @@ document.addEventListener('DOMContentLoaded',function(){
     });
     const metaTitle = get(dict, "meta.title");
     if (metaTitle) document.title = metaTitle;
-    document.documentElement.setAttribute("lang", current);
+    document.documentElement.setAttribute("lang", lang);
     window.__i18nDict = dict;
+    window.__currentLang = lang;
     if (window.updateThemeLabel) updateThemeLabel();
+    updateCVLinks(lang);
   }
 
   function restoreEnglish(){
@@ -391,8 +425,18 @@ document.addEventListener('DOMContentLoaded',function(){
       if (el.dataset.i18nOriginal != null) el.textContent = el.dataset.i18nOriginal;
     });
     window.__i18nDict = {};
+    window.__currentLang = "en";
     document.documentElement.setAttribute("lang", "en");
     if (window.updateThemeLabel) updateThemeLabel();
+    updateCVLinks("en");
+  }
+
+  function updateCVLinks(lang){
+    const map = PDF_MAP[lang] || PDF_MAP.en;
+    const basic = document.getElementById("cv-basic-btn");
+    const ext   = document.getElementById("cv-extended-btn");
+    if (basic) basic.href = map.basic;
+    if (ext)   ext.href   = map.extended;
   }
 
   let current = currentLang();
@@ -406,7 +450,7 @@ document.addEventListener('DOMContentLoaded',function(){
     history.replaceState({}, "", u.pathname + u.search + location.hash);
 
     if (lang === 'en') { restoreEnglish(); return; }
-    loadDict(lang).then(applyDict).catch(err=>{
+    loadDict(lang).then(dict=>applyDict(dict, lang)).catch(err=>{
       console.error(err);
       restoreEnglish();
     });
@@ -422,7 +466,8 @@ document.addEventListener('DOMContentLoaded',function(){
     btn.textContent = (map[lang] || 'EN') + ' ▾';
   })();
 
-  setLang(current);
+  // init
+  if (current === 'en') restoreEnglish(); else setLang(current);
 
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-lang]");
