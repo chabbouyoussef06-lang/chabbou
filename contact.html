@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Contact</title>
 
 <link rel="preload" as="image" href="background.jpg"/>
@@ -18,13 +18,19 @@
 
   *{box-sizing:border-box}
   html,body{height:100%}
-  html,body{max-width:100%; overflow-x:hidden;} /* empêche tout débordement horizontal */
+  html,body{
+    max-width:100%;
+    overflow-x:hidden;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    background:var(--bg); color:var(--fg);
+  }
+  img,svg{max-width:100%; height:auto}
 
   body{
     margin:0;display:flex;flex-direction:column;min-height:100vh;
     font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif;
-    background:var(--bg);color:var(--fg);line-height:1.6;
-    transition:background .3s,color .3s
+    line-height:1.6;transition:background .3s,color .3s
   }
   body::before{content:"";position:fixed;inset:0;z-index:-2;background:url('background.jpg') no-repeat center/cover}
 
@@ -32,10 +38,10 @@
   .container{max-width:1200px;margin:0 auto;padding:24px var(--edge)}
   header{display:flex;align-items:center;justify-content:space-between;min-height:40px}
   header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block}
-  nav{display:flex;gap:40px;align-items:center}
+  nav{display:flex;gap:40px;align-items:center;min-width:0}
   nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer}
   nav a:hover{text-decoration:underline;opacity:1}
-  .menu{position:relative; max-width:100%}
+  .menu{position:relative;max-width:100%}
   .submenu{position:absolute;top:100%;left:0;background:var(--card);border:1px solid var(--ring);border-radius:8px;min-width:160px;box-shadow:0 6px 18px rgba(0,0,0,.08);opacity:0;transform:translateY(-10px);transition:opacity .25s,transform .25s;display:none}
   .submenu.show{display:block;opacity:1;transform:translateY(0)}
   .submenu a{display:block;padding:6px 10px;color:var(--fg);text-decoration:none;cursor:default}
@@ -44,20 +50,25 @@
 
   .page{max-width:1200px;margin:0 auto;padding:32px var(--edge) 24px;z-index:1;position:relative;width:100%}
   .sections{max-width:1200px;margin:0 auto;padding:16px 0 72px}
+  /* GRILLE rétractable */
   .alt-section{
-    display:grid;grid-template-columns:1.05fr 1fr;
-    gap:28px; align-items:start; margin:32px 0; /* marges réduites */
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+    gap:28px; align-items:start; margin:32px 0; width:100%;
   }
 
   .alt-card{
-    background:rgba(255,255,255,0.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-    border-radius:24px;padding:22px var(--card-pad);
-    box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;color:#111827;
-    display:flex;flex-direction:column;max-width:100%;
-    overflow:visible; /* évite tout clipping interne */
-    word-break:break-word; overflow-wrap:anywhere; /* liens/mots très longs */
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-radius:24px; padding:22px var(--card-pad);
+    box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
+    color:#111827; display:flex; flex-direction:column;
+    max-width:100%; width:100%; min-width:0;
+    word-break:break-word; overflow-wrap:anywhere;
   }
-  [data-theme="dark"] .alt-card{background:rgba(0,0,0,0.55);box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;color:#eaeef5}
+  [data-theme="dark"] .alt-card{
+    background:rgba(0,0,0,0.55); box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset; color:#eaeef5;
+  }
 
   .alt-eyebrow{
     display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
@@ -67,24 +78,29 @@
   [data-theme="dark"] .alt-eyebrow{color:#e6eef8;background:linear-gradient(180deg,rgba(2,6,23,.88),rgba(2,6,23,.72));border:1px solid rgba(88,166,255,.28)}
 
   .alt-title{font-size:clamp(22px,2.6vw,34px);line-height:1.2;margin:0 0 8px;color:var(--fg)}
-  .alt-text{margin:0 0 8px;font-size:16px;line-height:1.5} /* texte plus compact */
+  .alt-text{margin:0 0 8px;font-size:16px;line-height:1.5}
 
-  /* Zone infos (Let’s connect) – espaces resserrés */
-  .info-stack{display:flex;flex-direction:column;gap:10px}
-  .info-row{display:flex;align-items:center;gap:10px;margin:0}
-  .info-row a{color:var(--fg);text-decoration:none}
+  /* Let’s connect – plus compact */
+  .info-stack{display:flex;flex-direction:column;gap:10px;min-width:0}
+  .info-row{display:flex;align-items:center;gap:10px;margin:0;min-width:0}
+  .info-row a{color:var(--fg);text-decoration:none;min-width:0}
   .info-row a:hover{text-decoration:underline}
   .info-muted{color:var(--muted); font-size:14px}
 
-  /* Formulaire */
-  form.contact-form{display:grid;grid-template-columns:1fr;gap:10px}
-  .field{display:flex;flex-direction:column;gap:6px}
+  /* Formulaire – éléments rétractables */
+  form.contact-form{display:grid;grid-template-columns:1fr;gap:10px;min-width:0}
+  .field{display:flex;flex-direction:column;gap:6px;min-width:0}
   .label{font-weight:600;font-size:14px}
   .input,.textarea,.file{
     background:rgba(255,255,255,0.9);border:1px solid var(--ring);border-radius:12px;
-    padding:10px 12px;font:inherit;color:inherit;outline:none;max-width:100%;
+    padding:10px 12px;font:inherit;color:inherit;outline:none;
+    width:100%;max-width:100%;min-width:0;
   }
   .textarea{min-height:136px;resize:vertical}
+  /* iOS file input : empêche la largeur imposée + ellipses */
+  .file{display:block;white-space:nowrap; text-overflow:ellipsis; overflow:hidden}
+  .file::-webkit-file-upload-button{margin-right:8px}
+
   .submit{
     display:inline-flex;align-items:center;gap:10px;justify-content:center;
     padding:12px 18px;border-radius:999px;border:0;background:linear-gradient(180deg,var(--brand),#0a5695);
@@ -97,26 +113,28 @@
 
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
-  /* Mobile tweaks */
+  /* Mobile */
   @media(max-width:900px){
     :root{ --anchor-offset: 72px; }
     .alt-section{grid-template-columns:1fr; gap:18px; margin:22px 0;}
-    .container, .page{padding-left:16px; padding-right:16px;} /* pas de cumul de padding */
+    .container, .page{padding-left:16px; padding-right:16px;}
+    /* iOS: on isole la carte pour éviter tout crop de blur/arrondis au bord droit */
+    .alt-card{padding:18px; margin-inline:12px; overflow:hidden;}
   }
-  @media(max-width:640px){
-    :root{ --edge:16px; --anchor-offset:64px; }
-    .top-band{position:static}
-    header{flex-wrap:wrap;gap:8px}
-    header img.signature{height:28px}
-    nav{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-start;min-width:0}
-    nav a{font-size:14px;line-height:1.2;white-space:nowrap}
-    .toggle{padding:6px 10px;font-size:14px}
-    .submenu{max-width:calc(100vw - 24px);left:0;right:auto}
+  @media(max-width:420px){
+    /* garde-fou pour très petits écrans ou zoom texte */
+    .alt-card{ contain:content; border-radius:20px; margin-inline:10px; }
+  }
+  /* Ciblage Safari iOS : ajoute un léger inset si besoin */
+  @supports (-webkit-touch-callout: none) {
+    @media (max-width: 480px) {
+      .alt-card{ margin-inline:12px; }
+    }
   }
 </style>
 
 <script>
-/* utilitaires communs (identiques à about.html) */
+/* utilitaires communs (comme about.html) */
 function i18nGet(key, fallback){ try{ let v=window.__i18nDict; for(const p of key.split('.')) v=v&&v[p]; return v ?? fallback; }catch(e){ return fallback; } }
 function updateThemeLabel(){ const btn=document.getElementById('themeToggle'); if(!btn) return;
   const isDark=(document.documentElement.dataset.theme==='dark');
@@ -132,7 +150,7 @@ document.addEventListener('click',closeMenusOnInteraction,{passive:true});
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInteraction({target:null}); });
 
-/* i18n – mêmes clés/JSON que about.html, + meta.contact_title */
+/* i18n – mêmes JSON que about.html (+ meta.contact_title) */
 (() => {
   const SUPPORTED=["fr","de","ar"]; const DEFAULT="en";
   function snapshotOriginals(){
@@ -176,7 +194,7 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
   },{passive:true});
 })();
 
-/* Formulaire */
+/* Formulaire – Formspree par défaut */
 document.addEventListener('DOMContentLoaded', () => {
   // thème initial
   let initial='light';
@@ -186,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }catch(e){}
   document.documentElement.dataset.theme=initial; document.documentElement.style.colorScheme=initial; updateThemeLabel();
 
-  // Lang menu à côté du thème
+  // sélecteur de langue à côté du thème
   const themeBtn=document.getElementById('themeToggle');
   if(themeBtn && themeBtn.parentNode){
     const wrap=document.createElement('div'); wrap.className='menu lang-menu';
@@ -273,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <main class="page">
     <div class="sections">
       <section class="alt-section">
-        <!-- Colonne GAUCHE : infos compactes -->
+        <!-- Colonne GAUCHE : infos -->
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="contact.info.eyebrow">Contact</p>
           <h1 class="alt-title" data-i18n="contact.info.title">Let’s connect</h1>
