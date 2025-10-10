@@ -106,7 +106,7 @@
   .block-align{ padding-left:var(--edge); padding-right:var(--edge) }
   .inset-left{ margin-left: calc(var(--edge) + var(--card-pad)); }
 
-  /* ===== Bandes CV + bouton ===== */
+  /* ===== Bandes CV/Certif + bouton ===== */
   .cv-row{
     display:flex;align-items:center;justify-content:space-between;
     border:1px solid var(--ring);border-radius:18px;padding:16px 18px;margin:14px 0;
@@ -335,7 +335,6 @@ document.addEventListener('DOMContentLoaded',function(){
       <!-- ===== CV ===== -->
       <section id="cv" class="anchor">
         <div class="block-align">
-          <!-- aligné comme l’intérieur des cartes -->
           <div class="eyebrow-stack inset-left">
             <span class="alt-eyebrow" data-i18n="about.sections.cv.ribbon">Curriculum Vitae</span>
           </div>
@@ -351,7 +350,7 @@ document.addEventListener('DOMContentLoaded',function(){
           <div class="cv-row">
             <div class="cv-label" data-i18n="about.sections.cv.row_extended">Curriculum Vitae — Extended version</div>
             <a id="cv-extended-btn" class="btn-download" href="#" target="_blank" rel="noopener" data-i18n="ui.download">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0  1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
               <span data-i18n="ui.download">Download</span>
             </a>
           </div>
@@ -364,7 +363,17 @@ document.addEventListener('DOMContentLoaded',function(){
           <div class="eyebrow-stack inset-left">
             <span class="alt-eyebrow" data-i18n="nav.about_menu.certs">Certifications</span>
           </div>
-          <!-- contenu futur -->
+
+          <!-- Bande certification (même style que CV) -->
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.certs.admin_service">
+              Certificate for Administrative Service within a Humanitarian Organization
+            </div>
+            <a id="cert-admin-btn" class="btn-download" href="certification_0722.pdf" target="_blank" rel="noopener" data-i18n="ui.download">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -419,7 +428,7 @@ document.addEventListener('DOMContentLoaded',function(){
     document.documentElement.setAttribute("lang",lang);
     window.__i18nDict=dict; window.__currentLang=lang;
     if(window.updateThemeLabel) updateThemeLabel();
-    updateCVLinks(lang);
+    updateLinks(lang);
   }
 
   function restoreEnglish(){
@@ -429,14 +438,17 @@ document.addEventListener('DOMContentLoaded',function(){
     window.__i18nDict={}; window.__currentLang="en";
     document.documentElement.setAttribute("lang","en");
     if(window.updateThemeLabel) updateThemeLabel();
-    updateCVLinks("en");
+    updateLinks("en");
   }
 
-  function updateCVLinks(lang){
+  function updateLinks(lang){
     const map=PDF_MAP[lang] || PDF_MAP.en;
     const b=document.getElementById("cv-basic-btn");
     const e=document.getElementById("cv-extended-btn");
     if(b) b.href=map.basic; if(e) e.href=map.extended;
+    // Certification -> même PDF pour toutes les langues
+    const c=document.getElementById("cert-admin-btn");
+    if(c) c.href="certification_0722.pdf";
   }
 
   let current=currentLang();
