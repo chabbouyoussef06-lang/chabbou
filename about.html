@@ -92,7 +92,7 @@
   .stacked-photos figure{margin:0;overflow:hidden;border-radius:18px}
   .stacked-photos img{width:100%;height:100%;object-fit:cover;display:block}
 
-  /* ===== Titre "pile" pour CV : petit fond blanc sous le ruban bleu ===== */
+  /* ===== Titre "pile" : petit fond blanc sous le ruban bleu ===== */
   .eyebrow-stack{display:inline-block;position:relative;margin:6px 0 18px}
   .eyebrow-stack::before{
     content:"";position:absolute;inset:-6px -10px;
@@ -102,13 +102,16 @@
   }
   .eyebrow-stack .alt-eyebrow{position:relative;z-index:1;margin:0}
 
+  /* ===== Groupes pour aligner les titres avec les sections ===== */
+  .cv-group, .certs-group{max-width:1200px;margin:0 auto;padding:0 24px}
+
   /* ===== Bandes CV + bouton moderne ===== */
   .cv-row{
     display:flex;align-items:center;justify-content:space-between;
     border:1px solid var(--ring);border-radius:18px;padding:16px 18px;margin:14px 0;
-    background:rgba(255,255,255,0.90);   /* ⬅︎ plus opaque */
+    background:rgba(255,255,255,0.90);   /* lisible en clair */
   }
-  [data-theme="dark"] .cv-row{background:rgba(0,0,0,0.65)} /* ⬅︎ plus opaque en dark */
+  [data-theme="dark"] .cv-row{background:rgba(0,0,0,0.65)} /* lisible en sombre */
   .cv-label{font-weight:700;font-size:22px}
   .btn-download{
     display:inline-flex;align-items:center;gap:10px;
@@ -125,7 +128,6 @@
 
   /* Ancres : pas de ligne de séparation */
   section.anchor{scroll-margin-top:120px;margin:40px 0;padding:8px 0}
-
   section[id]{scroll-margin-top:120px}
 
   .lang-menu{display:inline-block;margin-right:4px}
@@ -134,6 +136,7 @@
   @media(max-width:900px){
     .sections{padding:40px 16px 72px}
     .alt-section{grid-template-columns:1fr}
+    .cv-group,.certs-group{padding:0 16px}
   }
   @media(max-width:640px){
     .container{padding:12px 16px}
@@ -345,32 +348,39 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
       </section>
 
-      <!-- ===== CV : ruban bleu seul avec petit fond blanc + 2 bandes ===== -->
+      <!-- ===== CV : ruban bleu aligné + 2 bandes ===== -->
       <section id="cv" class="anchor">
-        <div class="eyebrow-stack">
-          <span class="alt-eyebrow" data-i18n="about.sections.cv.ribbon">Curriculum Vitae</span>
-        </div>
+        <div class="cv-group">
+          <div class="eyebrow-stack">
+            <span class="alt-eyebrow" data-i18n="about.sections.cv.ribbon">Curriculum Vitae</span>
+          </div>
 
-        <div class="cv-row">
-          <div class="cv-label" data-i18n="about.sections.cv.row_basic">Curriculum Vitae</div>
-          <a id="cv-basic-btn" class="btn-download" href="#" target="_blank" rel="noopener" data-i18n="ui.download">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
-            <span data-i18n="ui.download">Download</span>
-          </a>
-        </div>
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.cv.row_basic">Curriculum Vitae</div>
+            <a id="cv-basic-btn" class="btn-download" href="#" target="_blank" rel="noopener" data-i18n="ui.download">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
 
-        <div class="cv-row">
-          <div class="cv-label" data-i18n="about.sections.cv.row_extended">Curriculum Vitae — Extended version</div>
-          <a id="cv-extended-btn" class="btn-download" href="#" target="_blank" rel="noopener" data-i18n="ui.download">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
-            <span data-i18n="ui.download">Download</span>
-          </a>
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.cv.row_extended">Curriculum Vitae — Extended version</div>
+            <a id="cv-extended-btn" class="btn-download" href="#" target="_blank" rel="noopener" data-i18n="ui.download">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
         </div>
       </section>
 
+      <!-- ===== CERTIFICATIONS : même style que CV ===== -->
       <section id="certs" class="anchor">
-        <h2 class="alt-title" style="color:var(--brand);font-size:28px" data-i18n="nav.about_menu.certs">Certifications</h2>
-        <p class="alt-text" data-i18n="about.sections.certs.text"></p>
+        <div class="certs-group">
+          <div class="eyebrow-stack">
+            <span class="alt-eyebrow" data-i18n="nav.about_menu.certs">Certifications</span>
+          </div>
+          <!-- contenu à venir -->
+        </div>
       </section>
     </div>
   </main>
