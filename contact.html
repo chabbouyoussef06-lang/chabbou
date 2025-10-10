@@ -177,7 +177,8 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
     document.querySelectorAll("[data-i18n]").forEach(el=>{
       if(!el.dataset.i18nOriginal) el.dataset.i18nOriginal=el.textContent;
     });
-  } snapshotOriginals();
+  } document.addEventListener('DOMContentLoaded', snapshotOriginals);
+
 
   const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k]!=null?a[k]:undefined,o);
 
