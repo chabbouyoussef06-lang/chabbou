@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- ADD-ON (non destructif) : réactive le background -->
+<style>
+  /* assure un calque de fond fixe derrière tout le contenu */
+  body { position: relative; } /* n'altère pas la mise en page existante */
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    background: url('background.jpg') no-repeat center/cover;
+    z-index: -1;                 /* derrière le contenu, au-dessus du fond uni */
+    pointer-events: none;
+  }
+
+  /* iOS Safari : stabilise le rendu avec blur/arrondis */
+  @supports (-webkit-touch-callout: none) {
+    body::before{ transform: translateZ(0); will-change: transform; }
+  }
+</style>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Contact</title>
@@ -251,25 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-  <!-- ADD-ON (non destructif) : réactive le background -->
-<style>
-  /* assure un calque de fond fixe derrière tout le contenu */
-  body { position: relative; } /* n'altère pas la mise en page existante */
-  body::before{
-    content:"";
-    position: fixed;
-    inset: 0;
-    background: url('background.jpg') no-repeat center/cover;
-    z-index: -1;                 /* derrière le contenu, au-dessus du fond uni */
-    pointer-events: none;
-  }
-
-  /* iOS Safari : stabilise le rendu avec blur/arrondis */
-  @supports (-webkit-touch-callout: none) {
-    body::before{ transform: translateZ(0); will-change: transform; }
-  }
-</style>
-
 </head>
 <body data-theme="light">
   <div class="top-band">
