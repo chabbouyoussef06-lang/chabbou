@@ -1,8 +1,14 @@
 {
-  "meta": { "title": "Youssef Chabbou" },
+  "meta": {
+    "title": "À propos — Youssef Chabbou"
+  },
   "ui": {
     "theme_day": "☀︎ Jour",
-    "theme_night": "☾ Nuit"
+    "theme_night": "☾ Nuit",
+    "download": "Télécharger"
+  },
+  "footer": {
+    "created_by": "Ce site a été entièrement créé par son propriétaire,\nYoussef Chabbou, avec un développement assisté par IA."
   },
   "nav": {
     "about": "À propos",
@@ -12,64 +18,43 @@
     "about_menu": {
       "who": "Profil",
       "background": "Parcours",
-      "cv": "Curriculum Vitae",
+      "cv": "Curriculum vitae",
       "certs": "Certifications"
     },
     "projects_menu": {
-      "realized": "Réalisations",
-      "future": "Projets futurs"
-    }
-  },
-  "sections": {
-    "perspective": {
-      "eyebrow": "Perspective",
-      "title": "Façonner l’aéronautique avec des idées audacieuses",
-      "text": "Là où l’ingénierie rencontre l’imagination. Ambition mesurée, exécution rigoureuse."
-    },
-    "learning": {
-      "eyebrow": "Apprentissage continu",
-      "title": "La curiosité alimente la progression",
-      "text": "Découverte, pratique intentionnelle et recherche du geste juste."
-    },
-    "principles": {
-      "eyebrow": "Principes",
-      "title": "Créativité · Progression · Précision",
-      "text": "Apprendre, c’est élargir le champ, affiner les compétences et relier théorie et concret."
-    },
-    "design": {
-      "eyebrow": "Concevoir avec intention",
-      "title": "La précision dans chaque détail",
-      "text": "Du croquis au prototype : chaque décision compte. Des choix solides, en confiance."
-    },
-    "teamwork": {
-      "eyebrow": "Travail d’équipe",
-      "title": "La collaboration est le moteur le plus puissant",
-      "text": "Aller plus vite ensemble, croiser les disciplines et les points de vue."
-    },
-    "worldview": {
-      "eyebrow": "Vision",
-      "title": "Ingénierie sans frontières",
-      "text": "L’innovation grandit quand le savoir circule entre pays et cultures."
+      "realized": "Projets réalisés",
+      "future": "Projets à venir"
     }
   },
   "about": {
     "sections": {
       "who": {
         "title": "Né et grandi en Tunisie",
-        "tn": "Carrefour méditerranéen, héritière de Carthage et d’un savoir-faire vivant : curiosité, résilience et sens de l’ouvrage précis.",
+        "tn": "Carrefour méditerranéen où l’histoire a forgé des esprits ouverts. De l’héritage de Carthage au savoir-faire actuel, la Tunisie m’a appris la curiosité, la résilience et le goût du travail précis et soigné.",
         "flight_title": "Premier vol, première étincelle (2011)",
-        "flight_text": "À sept ans, face à un Airbus A320 immense. Décollage appréhendé, croisière apaisante : le déclic pour l’aérien.",
-        "maker_title": "Fabriquer à ma manière",
-        "maker_text": "Enfant, je personnalisais mes jouets : ajuster, améliorer, donner un rôle à chaque pièce.",
+        "flight_text": "À sept ans, face à un Airbus A320 bien plus grand que je ne l’imaginais. Les réacteurs m’ont impressionné. Le décollage m’a fait peur, puis la croisière m’a conquis. Ce mélange de puissance et de calme ne m’a jamais quitté.",
+        "maker_title": "Fabriquer, modifier, améliorer",
+        "maker_text": "Enfant déjà, je personnalisais mes jouets : rien ne restait standard. Ajuster, affiner, donner un rôle à chaque pièce — c’est devenu ma façon de penser.",
         "now_title": "Aujourd’hui",
-        "now_text": "Basé en Allemagne, entre études et premiers projets : apprentissage, esprit d’équipe, résultats fiables."
+        "now_text": "Basé en Allemagne, j’évolue entre études et premiers projets. Une progression solide, centrée sur l’apprentissage, l’esprit d’équipe et la fiabilité des résultats."
       },
-      "background": { "text": "" },
-      "cv": { "text": "" },
-      "certs": { "text": "" }
+      "background": {
+        "eyebrow": "Parcours",
+        "p1_title": "Enfance",
+        "p1": "J’ai effectué ma scolarité primaire à Tunis, où j’ai commencé l’anglais à l’âge de sept ans. Pendant cette période, je participais régulièrement à des clubs sportifs, associatifs et intellectuels.",
+        "p2_title": "Lycée",
+        "p2": "J’ai fréquenté le lycée d’excellence Lycée Pilote El Menzah 8, où j’ai consolidé mes bases en mathématiques et en physique et commencé l’allemand à 17 ans. J’ai également été actif au club caritatif Interact, développant esprit d’équipe, communication et leadership.",
+        "p3_title": "Études supérieures en Allemagne",
+        "p3": "Après le lycée, je suis parti en Allemagne pour mes études universitaires — une nouvelle étape stimulante sur les plans académique et personnel."
+      },
+      "cv": {
+        "ribbon": "Curriculum vitae",
+        "row_basic": "Curriculum vitae",
+        "row_extended": "Curriculum vitae — version détaillée"
+      },
+      "certs": {
+        "admin_service": "Certificat de service administratif au sein d’une organisation humanitaire"
+      }
     }
-  },
-  "footer": {
-    "created_by": "Ce site a été entièrement créé par son propriétaire,\nYoussef Chabbou, grâce à un développement assisté par IA."
   }
 }
