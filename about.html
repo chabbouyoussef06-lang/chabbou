@@ -4,12 +4,15 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<!-- Précharge l’image de fond pour éviter le flash -->
+<link rel="preload" as="image" href="background.jpg" />
+
 <style>
   :root{
     --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85);
     --edge:24px;
     --card-pad:26px;
-    --sticky-h:80px;       /* hauteur approximative de l’en-tête collant */
+    --sticky-h:80px;
     --anchor-offset: calc(var(--sticky-h) + 24px);
   }
   [data-theme="dark"]{
@@ -45,11 +48,10 @@
   .page{max-width:1200px;margin:0 auto;padding:48px var(--edge) 24px;z-index:1;position:relative}
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
-  /* ===== Sections, cartes, galerie ===== */
   .sections{max-width:1200px;margin:0 auto;padding:32px 0 96px}
   .alt-section{
     display:grid;
-    grid-template-columns:1.05fr 1fr; /* texte (gauche) / photos (droite) */
+    grid-template-columns:1.05fr 1fr;
     gap:36px;align-items:stretch;margin:54px 0;
     padding:0 var(--edge);
   }
@@ -67,7 +69,6 @@
     color:#eaeef5;
   }
 
-  /* ===== Ruban (eyebrow) ===== */
   .alt-eyebrow{
     display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
     margin:0 0 10px;padding:6px 14px;border-radius:999px;
@@ -92,19 +93,10 @@
   .stacked-photos{display:grid;grid-template-rows:1fr 1fr;height:100%;gap:16px;padding:16px;background:rgba(255,255,255,0.10)}
   [data-theme="dark"] .stacked-photos{background:rgba(0,0,0,0.18)}
   .stacked-photos figure{margin:0;overflow:hidden;border-radius:18px}
-  .stacked-photos img{width:100%;height:100%;object-fit:cover;display:block}
-
-  /* === Effet moderne mini-zoom sur les photos === */
-  .stacked-photos figure img{
-    transition: transform .35s ease, filter .35s ease;
-    will-change: transform;
-  }
+  .stacked-photos img{width:100%;height:100%;object-fit:cover;display:block;transition: transform .35s ease, filter .35s ease;will-change: transform}
   .stacked-photos figure:hover img,
-  .stacked-photos figure:focus-within img{
-    transform: scale(1.04);
-  }
+  .stacked-photos figure:focus-within img{transform: scale(1.04)}
 
-  /* ===== Effet “pile” (fond blanc sous le ruban) ===== */
   .eyebrow-stack{display:inline-block;position:relative;margin:6px 0 18px}
   .eyebrow-stack::before{
     content:"";position:absolute;inset:-6px -10px;
@@ -113,11 +105,9 @@
   }
   .eyebrow-stack .alt-eyebrow{position:relative;z-index:1;margin:0}
 
-  /* ===== Alignement : même départ que le contenu des cartes ===== */
   .block-align{ padding-left:var(--edge); padding-right:var(--edge) }
   .inset-left{ margin-left: calc(var(--edge) + var(--card-pad)); }
 
-  /* ===== Bandes CV/Certif + bouton ===== */
   .cv-row{
     display:flex;align-items:center;justify-content:space-between;
     border:1px solid var(--ring);border-radius:18px;padding:16px 18px;margin:14px 0;
@@ -138,12 +128,10 @@
   .btn-download:active{transform:translateY(1px)}
   .btn-download svg{width:18px;height:18px;flex:0 0 18px}
 
-  /* === Ancrage corrigé : on compense la barre sticky === */
-  .anchor{scroll-margin-top: var(--anchor-offset)}  /* toutes les sections avec .anchor s’alignent au début */
+  .anchor{scroll-margin-top: var(--anchor-offset)}
 
   @media(max-width:900px){
     .alt-section{grid-template-columns:1fr}
-    /* sur mobile : pas de hauteur forcée (les colonnes deviennent des rangées) */
     #background .alt-media{height:auto !important}
     :root{ --anchor-offset: 72px; }
   }
@@ -160,18 +148,19 @@
     html,body{overflow-x:hidden}
   }
 
-  /* === Corrections ciblées BACKGROUND === */
-  #background{ align-items:start; }                 /* stop à la hauteur égale forcée */
-  #background .alt-card{ height:auto; }             /* carte = hauteur du contenu */
-  #background .alt-media{ height:auto; }            /* sera synchronisée en JS */
+  /* Corrections ciblées BACKGROUND (rendu inchangé) */
+  #background{ align-items:start; }
+  #background .alt-card{ height:auto; }
+  #background .alt-media{ height:auto; }
   #background .stacked-photos{ height:100%; grid-template-rows:1fr 1fr; }
   #background .stacked-photos figure{ height:100%; }
   #background .stacked-photos img{ object-fit:cover; }
 </style>
 
 <script>
+/* Utilitaires i18n + thème (comportement inchangé) */
 function i18nGet(key, fallback){
-  try{ let v = window.__i18nDict; for (const p of key.split('.')) v = v && v[p]; return v || fallback; }
+  try{ let v = window.__i18nDict; for (const p of key.split('.')) v = v && v[p]; return v ?? fallback; }
   catch(e){ return fallback; }
 }
 function updateThemeLabel(){
@@ -202,7 +191,7 @@ function closeMenusOnInteraction(ev){
   const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
   if(!inside){document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show');setTimeout(()=>m.style.display='none',250);});}
 }
-document.addEventListener('click',closeMenusOnInteraction);
+document.addEventListener('click',closeMenusOnInteraction,{passive:true});
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
@@ -215,28 +204,15 @@ function syncBackgroundHeights(){
   const media = section.querySelector('.alt-media');
   if(!card || !media) return;
 
-  // Réinitialise avant mesure
   media.style.height = '';
 
-  if(isSingleColumn){
-    // En layout mobile (1 colonne), on laisse le flux naturel
-    return;
-  }
+  if(isSingleColumn) return;
 
-  // Mesure la hauteur réelle de la carte (texte)
   const target = card.getBoundingClientRect().height;
-
-  if(target < 10) return; // sécurité
-
-  // Fixe la hauteur média pour égaler la carte
+  if(target < 10) return;
   media.style.height = target + 'px';
 }
-
-// petit utilitaire "debounce"
-function debounce(fn, ms){
-  let t; return function(){ clearTimeout(t); t=setTimeout(()=>fn.apply(this,arguments), ms); };
-}
-
+const debounce=(fn,ms)=>{let t;return function(){clearTimeout(t);t=setTimeout(()=>fn.apply(this,arguments),ms)}}
 document.addEventListener('DOMContentLoaded', function(){
   let initial='light';
   try{
@@ -269,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function(){
       if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
       closeMenusOnInteraction({target:null});
       try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
-      setTimeout(syncBackgroundHeights, 60); // texte changé => recalcule
+      setTimeout(syncBackgroundHeights, 60);
     });
     try{
       const params=new URLSearchParams(location.search);
@@ -278,15 +254,10 @@ document.addEventListener('DOMContentLoaded', function(){
     }catch(_e){}
   }
 
-  // synchronise à l'init
   syncBackgroundHeights();
-
-  // resynchronise après chargement des images et des polices
-  window.addEventListener('load', syncBackgroundHeights, {once:true});
+  window.addEventListener('load', syncBackgroundHeights, {once:true, passive:true});
   document.fonts && document.fonts.ready && document.fonts.ready.then(()=>syncBackgroundHeights());
-
-  // resynchronise au resize (debounce)
-  window.addEventListener('resize', debounce(syncBackgroundHeights, 120));
+  window.addEventListener('resize', debounce(syncBackgroundHeights, 120), {passive:true});
 });
 </script>
 </head>
@@ -295,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <div class="container">
       <header>
         <a href="index.html#home" style="display:inline-block">
-          <img src="signature.png" alt="Signature" class="signature" />
+          <img src="signature.png" alt="Signature" class="signature" fetchpriority="high" />
         </a>
 
         <nav>
@@ -359,8 +330,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
         <div class="alt-media">
           <div class="stacked-photos" style="grid-template-rows: 1fr 1fr;">
-            <figure><img src="tunisia-skyline.jpg" alt="Tunisia — Mediterranean light"></figure>
-            <figure><img src="first-flight-seat.jpg" alt="Childhood travel moment"></figure>
+            <figure><img src="tunisia-skyline.jpg" alt="Tunisia — Mediterranean light" loading="lazy" decoding="async"></figure>
+            <figure><img src="first-flight-seat.jpg" alt="Childhood travel moment" loading="lazy" decoding="async"></figure>
           </div>
         </div>
       </section>
@@ -388,8 +359,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
         <div class="alt-media">
           <div class="stacked-photos">
-            <figure><img src="school-tunis.jpg" alt="School years in Tunis" onload="syncBackgroundHeights()"></figure>
-            <figure><img src="interact-club.jpg" alt="Club & volunteer activities" onload="syncBackgroundHeights()"></figure>
+            <figure><img src="school-tunis.jpg" alt="School years in Tunis" loading="lazy" decoding="async" onload="syncBackgroundHeights()"></figure>
+            <figure><img src="interact-club.jpg" alt="Club & volunteer activities" loading="lazy" decoding="async" onload="syncBackgroundHeights()"></figure>
           </div>
         </div>
       </section>
@@ -412,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <div class="cv-row">
             <div class="cv-label" data-i18n="about.sections.cv.row_extended">Curriculum Vitae — Extended version</div>
             <a id="cv-extended-btn" class="btn-download" href="#" target="_blank" rel="noopener" data-i18n="ui.download">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0  1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
               <span data-i18n="ui.download">Download</span>
             </a>
           </div>
@@ -490,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function(){
     window.__i18nDict=dict; window.__currentLang=lang;
     if(window.updateThemeLabel) updateThemeLabel();
     updateLinks(lang);
-    setTimeout(()=>{ window.scrollBy(0,0); },0); /* évite un offset sporadique */
+    setTimeout(()=>{ window.scrollBy(0,0); },0);
     setTimeout(syncBackgroundHeights, 60);
   }
 
@@ -537,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function(){
   document.addEventListener("click",e=>{
     const b=e.target.closest("[data-lang]"); if(!b) return;
     e.preventDefault(); setLang(b.getAttribute("data-lang"));
-  });
+  },{passive:true});
 })();
   </script>
 
