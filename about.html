@@ -72,7 +72,6 @@
     color:#0f172a;
     background: linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
   }
-  /* Mode nuit : même style sombre/bleu que “Profile/Background” */
   [data-theme="dark"] .alt-eyebrow{
     color:#e6eef8;
     background: linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));
@@ -112,8 +111,7 @@
     border:1px solid var(--ring);border-radius:18px;padding:16px 18px;margin:14px 0;
     background:rgba(255,255,255,0.90);
   }
-  [data-theme="dark"] .cv-row{background:rgba(0,0,0,0.78)} /* lisible en sombre */
-
+  [data-theme="dark"] .cv-row{background:rgba(0,0,0,0.78)}
   .cv-label{font-weight:700;font-size:22px}
   .btn-download{
     display:inline-flex;align-items:center;gap:10px;
@@ -134,7 +132,11 @@
   .lang-menu{display:inline-block;margin-right:4px}
   .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
 
-  @media(max-width:900px){ .alt-section{grid-template-columns:1fr} }
+  @media(max-width:900px){
+    .alt-section{grid-template-columns:1fr}
+    /* sur mobile : pas de hauteur forcée (les colonnes deviennent des rangées) */
+    #background .alt-media{height:auto !important}
+  }
   @media(max-width:640px){
     :root{ --edge:16px }
     .container{padding:12px 16px}
@@ -148,27 +150,13 @@
     html,body{overflow-x:hidden}
   }
 
-  /* ============
-     CORRECTION ciblée de la section #background
-     - On casse la hauteur égale des colonnes
-     - La carte texte devient auto-hauteur (pas 100%)
-     - Les photos deviennent compactes en 16:9
-  ============ */
-  #background{ align-items:start; }                 /* n’étire plus les colonnes */
-  #background .alt-card{ height:auto; }             /* la carte suit la hauteur du texte */
-  #background .alt-media{ height:auto; align-self:start; } /* la galerie ne force plus la hauteur */
-  #background .stacked-photos{ 
-    height:auto; 
-    grid-auto-rows:auto; 
-    padding:12px; 
-  }
-  #background .stacked-photos figure{
-    aspect-ratio:16/9;   /* paysage */
-    height:auto;
-  }
-  #background .stacked-photos img{
-    width:100%; height:100%; object-fit:cover; display:block;
-  }
+  /* === Corrections ciblées BACKGROUND === */
+  #background{ align-items:start; }                 /* stop à la hauteur égale forcée */
+  #background .alt-card{ height:auto; }             /* carte = hauteur du contenu */
+  #background .alt-media{ height:auto; }            /* sera synchronisée en JS */
+  #background .stacked-photos{ height:100%; grid-template-rows:1fr 1fr; }
+  #background .stacked-photos figure{ height:100%; }
+  #background .stacked-photos img{ object-fit:cover; }
 </style>
 
 <script>
@@ -208,7 +196,39 @@ document.addEventListener('click',closeMenusOnInteraction);
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
-document.addEventListener('DOMContentLoaded',function(){
+/* ----- Synchronisation de hauteur pour BACKGROUND ----- */
+function syncBackgroundHeights(){
+  const section = document.getElementById('background');
+  if(!section) return;
+  const isSingleColumn = window.matchMedia('(max-width: 900px)').matches;
+  const card = section.querySelector('.alt-card');
+  const media = section.querySelector('.alt-media');
+  if(!card || !media) return;
+
+  // Réinitialise avant mesure
+  media.style.height = '';
+
+  if(isSingleColumn){
+    // En layout mobile (1 colonne), on laisse le flux naturel
+    return;
+  }
+
+  // Mesure la hauteur réelle de la carte (texte)
+  const target = card.getBoundingClientRect().height;
+
+  // Sécurité si pas encore rendu
+  if(target < 10) return;
+
+  // Fixe la hauteur média pour égaler la carte
+  media.style.height = target + 'px';
+}
+
+// petit utilitaire "debounce"
+function debounce(fn, ms){
+  let t; return function(){ clearTimeout(t); t=setTimeout(()=>fn.apply(this,arguments), ms); };
+}
+
+document.addEventListener('DOMContentLoaded', function(){
   let initial='light';
   try{
     const stored=localStorage.getItem('theme');
@@ -220,33 +240,45 @@ document.addEventListener('DOMContentLoaded',function(){
   updateThemeLabel();
 
   const themeBtn=document.getElementById('themeToggle');
-  if(!themeBtn||!themeBtn.parentNode) return;
+  if(themeBtn && themeBtn.parentNode){
+    const wrap=document.createElement('div'); wrap.className='menu lang-menu';
+    const btn=document.createElement('button');
+    btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
+    const menu=document.createElement('div'); menu.id='lang-menu';menu.className='submenu';
+    menu.innerHTML = `
+      <a href="#" data-lang="en">English</a>
+      <a href="#" data-lang="de">Deutsch</a>
+      <a href="#" data-lang="ar">العربية</a>
+      <a href="#" data-lang="fr">Français</a>
+    `;
+    wrap.appendChild(btn);wrap.appendChild(menu);
+    themeBtn.parentNode.insertBefore(wrap,themeBtn);
+    btn.addEventListener('click',e=>toggleMenu(e,'lang-menu'));
+    menu.addEventListener('click', function(e){
+      const a = e.target.closest('a[data-lang]'); if (!a) return;
+      e.preventDefault();
+      if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
+      closeMenusOnInteraction({target:null});
+      try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
+      // après changement de langue le texte peut changer de hauteur
+      setTimeout(syncBackgroundHeights, 60);
+    });
+    try{
+      const params=new URLSearchParams(location.search);
+      const lang=params.has('lang')?(params.get('lang')||'en').toLowerCase():'en';
+      const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[lang]||'EN')+' ▾';
+    }catch(_e){}
+  }
 
-  const wrap=document.createElement('div'); wrap.className='menu lang-menu';
-  const btn=document.createElement('button');
-  btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
-  const menu=document.createElement('div'); menu.id='lang-menu';menu.className='submenu';
-  menu.innerHTML = `
-    <a href="#" data-lang="en">English</a>
-    <a href="#" data-lang="de">Deutsch</a>
-    <a href="#" data-lang="ar">العربية</a>
-    <a href="#" data-lang="fr">Français</a>
-  `;
-  wrap.appendChild(btn);wrap.appendChild(menu);
-  themeBtn.parentNode.insertBefore(wrap,themeBtn);
-  btn.addEventListener('click',e=>toggleMenu(e,'lang-menu'));
-  menu.addEventListener('click', function(e){
-    const a = e.target.closest('a[data-lang]'); if (!a) return;
-    e.preventDefault();
-    if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
-    closeMenusOnInteraction({target:null});
-    try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
-  });
-  try{
-    const params=new URLSearchParams(location.search);
-    const lang=params.has('lang')?(params.get('lang')||'en').toLowerCase():'en';
-    const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[lang]||'EN')+' ▾';
-  }catch(_e){}
+  // synchronise à l'init
+  syncBackgroundHeights();
+
+  // resynchronise après chargement des images et des polices
+  window.addEventListener('load', syncBackgroundHeights, {once:true});
+  document.fonts && document.fonts.ready && document.fonts.ready.then(()=>syncBackgroundHeights());
+
+  // resynchronise au resize (debounce)
+  window.addEventListener('resize', debounce(syncBackgroundHeights, 120));
 });
 </script>
 </head>
@@ -325,7 +357,7 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
       </section>
 
-      <!-- ===== BACKGROUND (corrigée) ===== -->
+      <!-- ===== BACKGROUND (corrigée : médias = même hauteur que la carte) ===== -->
       <section id="background" class="alt-section reveal">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
@@ -346,11 +378,10 @@ document.addEventListener('DOMContentLoaded',function(){
           </p>
         </div>
 
-        <!-- galerie raccourcie & indépendante de la hauteur du texte -->
         <div class="alt-media">
-          <div class="stacked-photos"><!-- pas de height forcée ici -->
-            <figure><img src="school-tunis.jpg" alt="School years in Tunis"></figure>
-            <figure><img src="interact-club.jpg" alt="Club & volunteer activities"></figure>
+          <div class="stacked-photos">
+            <figure><img src="school-tunis.jpg" alt="School years in Tunis" onload="syncBackgroundHeights()"></figure>
+            <figure><img src="interact-club.jpg" alt="Club & volunteer activities" onload="syncBackgroundHeights()"></figure>
           </div>
         </div>
       </section>
@@ -387,7 +418,6 @@ document.addEventListener('DOMContentLoaded',function(){
             <span class="alt-eyebrow" data-i18n="nav.about_menu.certs">Certifications</span>
           </div>
 
-          <!-- Bande certification (même style que CV) -->
           <div class="cv-row">
             <div class="cv-label" data-i18n="about.sections.certs.admin_service">
               Certificate for Administrative Service within a Humanitarian Organization
@@ -452,6 +482,8 @@ document.addEventListener('DOMContentLoaded',function(){
     window.__i18nDict=dict; window.__currentLang=lang;
     if(window.updateThemeLabel) updateThemeLabel();
     updateLinks(lang);
+    // la traduction peut changer la hauteur de texte
+    setTimeout(syncBackgroundHeights, 60);
   }
 
   function restoreEnglish(){
@@ -462,6 +494,7 @@ document.addEventListener('DOMContentLoaded',function(){
     document.documentElement.setAttribute("lang","en");
     if(window.updateThemeLabel) updateThemeLabel();
     updateLinks("en");
+    setTimeout(syncBackgroundHeights, 60);
   }
 
   function updateLinks(lang){
@@ -469,7 +502,6 @@ document.addEventListener('DOMContentLoaded',function(){
     const b=document.getElementById("cv-basic-btn");
     const e=document.getElementById("cv-extended-btn");
     if(b) b.href=map.basic; if(e) e.href=map.extended;
-    // Certification -> même PDF pour toutes les langues
     const c=document.getElementById("cert-admin-btn");
     if(c) c.href="certification_0722.pdf";
   }
