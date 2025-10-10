@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Contact</title>
 
+<!-- Préchargement du background -->
 <link rel="preload" as="image" href="background.jpg"/>
 
 <style>
@@ -32,6 +33,7 @@
     font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif;
     line-height:1.6;transition:background .3s,color .3s
   }
+  /* calque BG (version d’origine conservée) */
   body::before{content:"";position:fixed;inset:0;z-index:-2;background:url('background.jpg') no-repeat center/cover}
 
   .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
@@ -133,7 +135,7 @@
   }
 </style>
 
-<!-- ✅ ADD-ON non destructif : force l'affichage du background image -->
+<!-- ADD-ON NON DESTRUCTIF : force l'affichage du background image sans retirer le style d'origine -->
 <style>
   /* On neutralise les fonds unis pour voir l'image derrière */
   html { background: transparent !important; }
@@ -154,22 +156,42 @@
 
 <script>
 /* utilitaires communs (comme about.html) */
-function i18nGet(key, fallback){ try{ let v=window.__i18nDict; for(const p of key.split('.')) v=v&&v[p]; return v ?? fallback; }catch(e){ return fallback; } }
-function updateThemeLabel(){ const btn=document.getElementById('themeToggle'); if(!btn) return;
-  const isDark=(document.documentElement.dataset.theme==='dark');
-  btn.textContent = isDark ? i18nGet('ui.theme_day','☀︎ Day') : i18nGet('ui.theme_night','☾ Night'); }
-function toggleTheme(){ const html=document.documentElement; const next=html.dataset.theme==='dark'?'light':'dark';
-  html.dataset.theme=next; try{localStorage.setItem('theme',next);}catch(e){}; document.documentElement.style.colorScheme=next; updateThemeLabel(); }
-function toggleMenu(e,id){ e.preventDefault(); const m=document.getElementById(id); if(!m) return;
-  const isOpen=m.classList.contains('show'); document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
-  if(!isOpen){ m.style.display='block'; requestAnimationFrame(()=>m.classList.add('show')); } }
-function closeMenusOnInteraction(ev){ const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
-  if(!inside){ document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show'); setTimeout(()=>m.style.display='none',250);}); } }
+function i18nGet(key, fallback){
+  try{ let v = window.__i18nDict; for (const p of key.split('.')) v = v && v[p]; return v ?? fallback; }
+  catch(e){ return fallback; }
+}
+function updateThemeLabel(){
+  const btn = document.getElementById('themeToggle'); if (!btn) return;
+  const isDark = (document.documentElement.dataset.theme === 'dark');
+  btn.textContent = isDark ? i18nGet('ui.theme_day','☀︎ Day') : i18nGet('ui.theme_night','☾ Night');
+}
+function toggleTheme(){
+  const html=document.documentElement;
+  const next=html.dataset.theme==='dark'?'light':'dark';
+  html.dataset.theme=next;
+  try{localStorage.setItem('theme',next);}catch(e){}
+  document.documentElement.style.colorScheme=next;
+  updateThemeLabel();
+}
+function toggleMenu(e,id){
+  e.preventDefault();
+  const m=document.getElementById(id);
+  if(!m) return;
+  const isOpen=m.classList.contains('show');
+  document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
+  if(!isOpen){m.style.display='block';requestAnimationFrame(()=>m.classList.add('show'));}
+}
+function closeMenusOnInteraction(ev){
+  const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
+  if(!inside){document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show');setTimeout(()=>m.style.display='none',250);});}
+}
 document.addEventListener('click',closeMenusOnInteraction,{passive:true});
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
-document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInteraction({target:null}); });
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
+</script>
 
-/* i18n – mêmes JSON que about.html (+ meta.contact_title) */
+<!-- i18n – mêmes JSON que about.html (+ meta.contact_title) AVEC correctif retour anglais -->
+<script>
 (() => {
   const SUPPORTED=["fr","de","ar"]; const DEFAULT="en";
 
@@ -214,20 +236,32 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
     updateThemeLabel();
   }
 
-  /* Correctif : revenir proprement à l’anglais */
-  function setLang(lang){
+  async function setLang(lang){
+    // normalise la langue
     if(lang!=='en' && !SUPPORTED.includes(lang)) lang='en';
+
+    // met à jour l’URL (?lang=…)
     const u=new URL(location.href); u.searchParams.set("lang",lang);
     history.replaceState({}, "", u.pathname+u.search+location.hash);
+
+    // 🟢 retour à l'anglais = on restaure les textes d'origine du HTML (menus inclus)
     if(lang==='en'){ restoreEnglish(); return; }
-    loadDict(lang).then(d=>applyDict(d,lang)).catch(()=>restoreEnglish());
+
+    // langues JSON
+    try {
+      const dict = await loadDict(lang);
+      applyDict(dict,lang);
+    } catch {
+      restoreEnglish();
+    }
   }
 
   window.setLangFromMenu=setLang;
 
   (function initLangToggleLabel(){
     const btn=document.getElementById('langToggle'); if(!btn) return;
-    const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; const lang=currentLang();
+    const map={en:'EN',fr:'FR',de:'DE',ar:'AR'};
+    const lang=currentLang();
     btn.textContent=(map[lang]||'EN')+' ▾';
   })();
 
@@ -239,8 +273,10 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
     e.preventDefault(); setLang(b.getAttribute("data-lang"));
   },{passive:true});
 })();
+</script>
 
-/* Formulaire – Formspree par défaut */
+<!-- Initialisation thème + menu langues + formulaire (Formspree/équivalent) -->
+<script>
 document.addEventListener('DOMContentLoaded', () => {
   // thème initial
   let initial='light';
@@ -250,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }catch(e){}
   document.documentElement.dataset.theme=initial; document.documentElement.style.colorScheme=initial; updateThemeLabel();
 
-  // sélecteur de langue à côté du thème
+  // sélecteur de langue à côté du thème (même approche que about.html)
   const themeBtn=document.getElementById('themeToggle');
   if(themeBtn && themeBtn.parentNode){
     const wrap=document.createElement('div'); wrap.className='menu lang-menu';
@@ -271,45 +307,44 @@ document.addEventListener('DOMContentLoaded', () => {
   const emailInput = document.getElementById('fromEmail');
   try{ const saved = localStorage.getItem('visitor_email'); if(saved && emailInput) emailInput.value = saved; }catch(e){}
 
+  // Gestion formulaire
   const form = document.getElementById('contactForm');
   const statusEl = document.getElementById('formStatus');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    statusEl.className='status'; statusEl.textContent=i18nGet('contact.form.sending','Sending…');
+  if(form){
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if(statusEl){ statusEl.className='status'; statusEl.textContent=i18nGet('contact.form.sending','Sending…'); }
 
-    const formData = new FormData(form);
-    try{ localStorage.setItem('visitor_email', formData.get('email') || ''); }catch(e){}
+      const formData = new FormData(form);
+      try{ localStorage.setItem('visitor_email', formData.get('email') || ''); }catch(e){}
 
-    try{
-      // ⚠️ Remplace par ton endpoint Formspree / autre
-      const resp = await fetch('https://formspree.io/f/XXXXXXXX', { method:'POST', body: formData, headers: { 'Accept': 'application/json' } });
-      if(resp.ok){
-        form.reset(); statusEl.className='status ok';
-        statusEl.textContent=i18nGet('contact.form.success','Message sent successfully. Thank you!');
-      }else{
-        statusEl.className='status err';
-        statusEl.textContent=i18nGet('contact.form.error','Sending failed. Please try again or email me directly.');
+      try{
+        // ⚠️ Remplace par ton endpoint Formspree / autre
+        const resp = await fetch('https://formspree.io/f/XXXXXXXX', { method:'POST', body: formData, headers: { 'Accept': 'application/json' } });
+        if(resp.ok){
+          form.reset(); if(statusEl){ statusEl.className='status ok'; statusEl.textContent=i18nGet('contact.form.success','Message sent successfully. Thank you!'); }
+        }else{
+          if(statusEl){ statusEl.className='status err'; statusEl.textContent=i18nGet('contact.form.error','Sending failed. Please try again or email me directly.'); }
+        }
+      }catch(err){
+        if(statusEl){ statusEl.className='status err'; statusEl.textContent=i18nGet('contact.form.error_network','Network error. Please try again.'); }
       }
-    }catch(err){
-      statusEl.className='status err';
-      statusEl.textContent=i18nGet('contact.form.error_network','Network error. Please try again.');
-    }
-  });
+    });
+  }
 });
 </script>
 </head>
-<body data-theme="light">
+<body>
   <div class="top-band">
     <div class="container">
       <header>
-        <a href="index.html#home" style="display:inline-block">
-          <img src="signature.png" alt="Signature" class="signature" fetchpriority="high"/>
+        <a href="index.html#home">
+          <img src="signature.png" class="signature" alt="Signature"/>
         </a>
-
         <nav>
           <div class="menu">
             <a href="about.html" data-i18n="nav.about">About</a>
-            <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'about-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
+            <button class="toggle" type="button" onclick="toggleMenu(event,'about-menu')">▾</button>
             <div id="about-menu" class="submenu">
               <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
               <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
@@ -320,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="skills.html" data-i18n="nav.skills">Skills</a>
           <div class="menu">
             <a href="projects.html" data-i18n="nav.projects">Projects</a>
-            <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
+            <button class="toggle" type="button" onclick="toggleMenu(event,'projects-menu')">▾</button>
             <div id="projects-menu" class="submenu">
               <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
               <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
@@ -328,7 +363,6 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
-
         <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
       </header>
     </div>
@@ -337,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <main class="page">
     <div class="sections">
       <section class="alt-section">
-        <!-- Colonne GAUCHE : infos -->
+        <!-- Colonne gauche -->
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="contact.info.eyebrow">Contact</p>
           <h1 class="alt-title" data-i18n="contact.info.title">Let’s connect</h1>
@@ -346,31 +380,32 @@ document.addEventListener('DOMContentLoaded', () => {
           </p>
 
           <div class="info-stack">
-            <!-- LinkedIn -->
             <div class="info-row">
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.8v2.1h.1c.5-.9 1.8-2.1 3.8-2.1 4.1 0 4.8 2.7 4.8 6.2V24h-4v-7.1c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V24h-4V8.5z"/>
               </svg>
-              <a href="https://de.linkedin.com/in/youssef-chabbou-aa3782374" target="_blank" rel="noopener noreferrer" data-i18n="contact.info.linkedin">
-                LinkedIn Profile
-              </a>
+              <a href="https://de.linkedin.com/in/youssef-chabbou-aa3782374"
+                 target="_blank" rel="noopener noreferrer"
+                 data-i18n="contact.info.linkedin">LinkedIn Profile</a>
             </div>
 
-            <!-- E-mail -->
             <div class="info-row">
-              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8.236l8 6.764 8-6.764V18H4z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8.236l8 6.764 8-6.764V18H4z"/>
+              </svg>
               <a href="mailto:Youssefchabbou@outlook.com">Youssefchabbou@outlook.com</a>
             </div>
 
-            <!-- Localisation -->
             <div class="info-row">
-              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+              </svg>
               <span>Braunschweig, Germany</span>
             </div>
           </div>
         </div>
 
-        <!-- Colonne DROITE : formulaire -->
+        <!-- Colonne droite -->
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="contact.form.eyebrow">Send a message</p>
           <h2 class="alt-title" data-i18n="contact.form.title">Contact form</h2>
@@ -378,45 +413,53 @@ document.addEventListener('DOMContentLoaded', () => {
           <form id="contactForm" class="contact-form" enctype="multipart/form-data">
             <div class="field">
               <label class="label" for="fromEmail" data-i18n="contact.form.email_label">Your e-mail</label>
-              <input class="input" id="fromEmail" name="email" type="email" autocomplete="email" required
-                     placeholder="you@example.com" data-i18n="contact.form.email_ph"/>
+              <input class="input" id="fromEmail" name="email" type="email"
+                     autocomplete="email" required
+                     placeholder="you@example.com"
+                     data-i18n="contact.form.email_ph"/>
             </div>
 
             <div class="field">
               <label class="label" for="subject" data-i18n="contact.form.subject_label">Subject</label>
-              <input class="input" id="subject" name="subject" type="text" required
-                     placeholder="Topic…" data-i18n="contact.form.subject_ph"/>
+              <input class="input" id="subject" name="subject" type="text"
+                     required placeholder="Topic…" data-i18n="contact.form.subject_ph"/>
             </div>
 
             <div class="field">
               <label class="label" for="message" data-i18n="contact.form.message_label">Message</label>
               <textarea class="textarea" id="message" name="message" required
-                        placeholder="Write your message…" data-i18n="contact.form.message_ph"></textarea>
+                        placeholder="Write your message…"
+                        data-i18n="contact.form.message_ph"></textarea>
             </div>
 
             <div class="field">
               <label class="label" for="attachment" data-i18n="contact.form.attachment_label">Attachment</label>
-              <input class="file" id="attachment" name="attachment" type="file" />
-              <span class="hint" data-i18n="contact.form.attachment_hint">Optional. Attach relevant file(s).</span>
+              <input class="file" id="attachment" name="attachment" type="file"/>
+              <span class="hint" data-i18n="contact.form.attachment_hint">
+                Optional – Attach relevant file(s)
+              </span>
             </div>
 
             <input type="hidden" name="_to" value="Youssefchabbou@outlook.com"/>
-
             <button class="submit" type="submit" data-i18n="contact.form.send_btn">Send</button>
             <div id="formStatus" class="status" aria-live="polite"></div>
           </form>
 
-          <p class="hint" style="margin-top:10px" data-i18n="contact.form.privacy_hint">
-            Your data will only be used to process your message.
+          <p class="hint" style="margin-top:10px"
+             data-i18n="contact.form.privacy_hint">
+             Your data will only be used to process your message.
           </p>
         </div>
       </section>
     </div>
   </main>
 
-  <div class="footer-band">© 2025 Youssef Chabbou
-    <span data-i18n="footer.created_by" style="font-size:12px;color:rgba(255,255,255,0.75);float:right;text-align:right;line-height:1.4;">
-      This website was entirely created by its owner,<br/>Youssef Chabbou, using AI-Augmented Development.
+  <div class="footer-band">
+    © 2025 Youssef Chabbou
+    <span data-i18n="footer.created_by"
+          style="font-size:12px;color:rgba(255,255,255,0.75);float:right;text-align:right;line-height:1.4;">
+      This website was entirely created by its owner,<br/>
+      Youssef Chabbou, using AI-Augmented Development.
     </span>
   </div>
 </body>
