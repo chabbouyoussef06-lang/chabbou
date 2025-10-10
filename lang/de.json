@@ -1,8 +1,14 @@
 {
-  "meta": { "title": "Youssef Chabbou" },
+  "meta": {
+    "title": "Über mich — Youssef Chabbou"
+  },
   "ui": {
     "theme_day": "☀︎ Tag",
-    "theme_night": "☾ Nacht"
+    "theme_night": "☾ Nacht",
+    "download": "Herunterladen"
+  },
+  "footer": {
+    "created_by": "Diese Website wurde vollständig von ihrem Eigentümer,\nYoussef Chabbou, mit KI-unterstützter Entwicklung erstellt."
   },
   "nav": {
     "about": "Über mich",
@@ -20,56 +26,35 @@
       "future": "Zukünftige Projekte"
     }
   },
-  "sections": {
-    "perspective": {
-      "eyebrow": "Perspektive",
-      "title": "Luft- und Raumfahrt mit kühnen Ideen formen",
-      "text": "Wo Engineering auf Vorstellungskraft trifft. Ambitioniert, aber präzise umgesetzt."
-    },
-    "learning": {
-      "eyebrow": "Lebenslanges Lernen",
-      "title": "Neugier treibt Wachstum",
-      "text": "Entdecken, gezielt üben, und den sauberen Handgriff suchen."
-    },
-    "principles": {
-      "eyebrow": "Prinzipien",
-      "title": "Kreativität · Wachstum · Präzision",
-      "text": "Lernen verbindet Weitblick, geschärfte Fähigkeiten und Praxisnähe."
-    },
-    "design": {
-      "eyebrow": "Gestalten mit Zweck",
-      "title": "Präzision in jedem Detail",
-      "text": "Vom Skizzenbuch zum Prototyp: Jede Entscheidung zählt. Robust und ruhig."
-    },
-    "teamwork": {
-      "eyebrow": "Teamarbeit",
-      "title": "Zusammenarbeit ist der stärkste Antrieb",
-      "text": "Schneller vorankommen, Disziplinen und Perspektiven verbinden."
-    },
-    "worldview": {
-      "eyebrow": "Weltbild",
-      "title": "Ingenieurwesen ohne Grenzen",
-      "text": "Innovation wächst, wenn Wissen zwischen Ländern und Kulturen fließt."
-    }
-  },
   "about": {
     "sections": {
       "who": {
         "title": "In Tunesien geboren und aufgewachsen",
-        "tn": "Mittelmeer-Drehscheibe mit lebendiger Tradition: Neugier, Widerstandskraft und Sinn für präzise Arbeit.",
+        "tn": "Ein mediterraner Knotenpunkt, an dem Geschichte offene Denkweise formt. Vom Erbe Karthagos bis zum heutigen Handwerk und Ingenieurgeist – Tunesien lehrte mich Neugier, Ausdauer und Präzision.",
         "flight_title": "Erster Flug, erster Funke (2011)",
-        "flight_text": "Mit sieben vor einem riesigen Airbus A320. Start war aufregend, Reiseflug beruhigend – der Funke für die Luftfahrt.",
-        "maker_title": "Dinge auf meine Art bauen",
-        "maker_text": "Als Kind habe ich Spielzeuge angepasst: verfeinern, verbessern, jeder Teil mit Zweck.",
+        "flight_text": "Mit sieben stand ich vor einem Airbus A320, viel größer als erwartet. Die Triebwerke wirkten monumental. Start machte mir Angst, die Reiseflugphase begeisterte mich – diese Ruhe in der Kraft begleitet mich bis heute.",
+        "maker_title": "Dinge bauen und verbessern",
+        "maker_text": "Schon als Kind habe ich Spielzeug angepasst – nichts blieb lange standard. Tüfteln, verfeinern, jeder Teil mit Zweck: so denke ich bis heute.",
         "now_title": "Heute",
-        "now_text": "Mit Sitz in Deutschland – Studium und erste Projekte: Lernen, Teamgeist, verlässliche Ergebnisse."
+        "now_text": "Ich lebe in Deutschland und wachse durch Studium und erste Projekte – mit Fokus auf Lernen, Teamarbeit und verlässliche Ergebnisse."
       },
-      "background": { "text": "" },
-      "cv": { "text": "" },
-      "certs": { "text": "" }
+      "background": {
+        "eyebrow": "Werdegang",
+        "p1_title": "Kindheit",
+        "p1": "Meine Grundschulzeit verbrachte ich in Tunis und begann dort mit sieben Jahren Englisch zu lernen. In dieser Zeit nahm ich regelmäßig an Sport-, Vereins- und Wissensklubs teil.",
+        "p2_title": "Gymnasialzeit",
+        "p2": "Ich besuchte die Eliteschule Lycée Pilote El Menzah 8, vertiefte Mathematik und Physik und begann mit 17 Deutsch zu lernen. Zudem war ich im karitativen Interact-Club aktiv und entwickelte Team-, Kommunikations- und Führungskompetenzen.",
+        "p3_title": "Hochschule in Deutschland",
+        "p3": "Nach dem Abitur zog ich für mein Studium nach Deutschland – ein neues, spannendes Kapitel meiner akademischen und persönlichen Reise."
+      },
+      "cv": {
+        "ribbon": "Lebenslauf",
+        "row_basic": "Lebenslauf",
+        "row_extended": "Lebenslauf — Ausführliche Version"
+      },
+      "certs": {
+        "admin_service": "Zertifikat für Verwaltungstätigkeit in einer humanitären Organisation"
+      }
     }
-  },
-  "footer": {
-    "created_by": "Diese Website wurde vollständig vom Eigentümer,\nYoussef Chabbou, mit KI-unterstützter Entwicklung erstellt."
   }
 }
