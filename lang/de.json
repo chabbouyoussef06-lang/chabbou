@@ -1,6 +1,7 @@
 {
   "meta": {
-    "title": "Über mich — Youssef Chabbou"
+    "title": "Über mich — Youssef Chabbou",
+    "contact_title": "Kontakt — Youssef Chabbou"
   },
   "ui": {
     "theme_day": "☀︎ Tag",
@@ -55,6 +56,31 @@
       "certs": {
         "admin_service": "Zertifikat für Verwaltungstätigkeit in einer humanitären Organisation"
       }
+    }
+  },
+  "contact": {
+    "info": {
+      "eyebrow": "Kontakt",
+      "title": "Lass uns vernetzen",
+      "desc": "Du erreichst mich über LinkedIn oder per E-Mail. Ich lebe in Braunschweig, Deutschland.",
+      "linkedin": "LinkedIn-Profil"
+    },
+    "form": {
+      "eyebrow": "Nachricht senden",
+      "title": "Kontaktformular",
+      "email_label": "Deine E-Mail",
+      "email_ph": "du@beispiel.de",
+      "subject_label": "Betreff",
+      "subject_ph": "Thema…",
+      "message_label": "Nachricht",
+      "message_ph": "Schreibe deine Nachricht…",
+      "attachment_label": "Anhang",
+      "attachment_hint": "Optional. Relevante Datei(en) anhängen.",
+      "send_btn": "Senden",
+      "sending": "Senden…",
+      "success": "Nachricht erfolgreich gesendet. Danke!",
+      "error": "Senden fehlgeschlagen. Bitte erneut versuchen oder mich direkt per E-Mail kontaktieren.",
+      "error_network": "Netzwerkfehler. Bitte erneut versuchen."
     }
   }
 }
