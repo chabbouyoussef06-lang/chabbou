@@ -101,7 +101,7 @@
   .body p{margin:0 0 16px; line-height:1.75;}
   .intro-text{font-size:clamp(16px,1.6vw,18px);color:var(--fg);margin:0 0 22px}
 
-  /* Cadre média (remplace l'ancienne photo-slot) */
+  /* MEDIA SLIDER */
   .media-slider{
     position:relative;width:100%;
     aspect-ratio:16/9;
@@ -121,8 +121,7 @@
   .slide img, .slide video{
     width:100%;height:100%;object-fit:cover;display:block
   }
-
-  /* Flèches discrètes */
+  /* Flèches */
   .media-nav{
     position:absolute;top:50%;transform:translateY(-50%);
     background:rgba(255,255,255,.75);border:1px solid var(--ring);
@@ -179,12 +178,20 @@ function toggleTheme(){
 function toggleMenu(e,id){
   e.preventDefault(); const m=document.getElementById(id); if(!m) return;
   const isOpen=m.classList.contains('show');
-  document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none');});
+  document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
   if(!isOpen){m.style.display='block';requestAnimationFrame(()=>m.classList.add('show'));}
 }
-function closeMenusOnInteraction(ev){ const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu'); if(!inside){document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show');setTimeout(()=>m.style.display='none',250);});}}
+function closeMenusOnInteraction(ev){
+  const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
+  if(!inside){
+    document.querySelectorAll('.submenu').forEach(m=>{
+      m.classList.remove('show');
+      setTimeout(()=>{ m.style.display='none'; },250);
+    });
+  }
+}
 
-// init
+// init (menus / thème / langue)
 document.addEventListener('click',closeMenusOnInteraction);
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
@@ -200,7 +207,7 @@ document.addEventListener('DOMContentLoaded',function(){
   document.documentElement.style.colorScheme=initial;
   updateThemeLabel();
 
-  // languette langue
+  // languette langue (conservée)
   const themeBtn=document.getElementById('themeToggle');
   if(!themeBtn||!themeBtn.parentNode) return;
   const wrap=document.createElement('div'); wrap.className='menu lang-menu';
@@ -214,8 +221,19 @@ document.addEventListener('DOMContentLoaded',function(){
   `;
   wrap.appendChild(btn);wrap.appendChild(menu); themeBtn.parentNode.insertBefore(wrap,themeBtn);
   btn.addEventListener('click',function(e){toggleMenu(e,'lang-menu');});
-  menu.addEventListener('click', function(e){ const a = e.target.closest('a[data-lang]'); if (!a) return; e.preventDefault(); if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang); closeMenusOnInteraction({target:null}); try{ const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'}; btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾'; }catch(_e){} });
-  try{ const params=new URLSearchParams(location.search); const lang = params.has('lang') ? (params.get('lang')||'en').toLowerCase() : 'en'; const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'}; btn.textContent = (map[lang] || 'EN') + ' ▾'; }catch(_e){}
+  menu.addEventListener('click', function(e){
+    const a = e.target.closest('a[data-lang]'); if (!a) return;
+    e.preventDefault();
+    if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
+    closeMenusOnInteraction({target:null});
+    try{ const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'}; btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾'; }catch(_e){}
+  });
+  try{
+    const params=new URLSearchParams(location.search);
+    const lang = params.has('lang') ? (params.get('lang')||'en').toLowerCase() : 'en';
+    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
+  }catch(_e){}
 });
 </script>
 </head>
@@ -269,7 +287,7 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
 
         <div class="grid">
-          <!-- Carte large unique (titre pastille + texte + carrousel média) -->
+          <!-- Carte large (titre + texte + carrousel média) -->
           <article class="card card-wide">
             <div class="body">
               <span class="pill-title">Mechanics in Motion: From Design to Manufacturing</span>
@@ -299,13 +317,11 @@ document.addEventListener('DOMContentLoaded',function(){
 
       <!-- PROJETS FUTURS -->
       <section id="future" class="reveal">
-        <!-- Titre Roadmap en pastille bleue -->
         <div class="section-head">
           <span class="eyebrow" role="heading" aria-level="2" data-i18n="projects.future.eyebrow">Roadmap</span>
         </div>
 
         <div class="grid">
-          <!-- Carte large 1 (texte + grande zone média) -->
           <article class="card card-wide">
             <div class="body">
               <p class="intro-text">
@@ -364,9 +380,8 @@ document.addEventListener('DOMContentLoaded',function(){
       if(timer){ clearInterval(timer); timer = null; }
       if(videoEl){
         videoEl.removeEventListener('ended', onVideoEnded);
-        // si l’utilisateur a interagi et la vidéo est visible, elle doit boucler
         if(isVideo(index)){
-          videoEl.loop = true;
+          videoEl.loop = true;      // boucle si l'utilisateur a pris la main
           videoEl.muted = true;
           videoEl.play().catch(()=>{});
         }else{
@@ -384,11 +399,10 @@ document.addEventListener('DOMContentLoaded',function(){
 
     function startAuto(){
       if(!auto) return;
-      // si la diapo courante est vidéo, on laisse la vidéo gérer la suite
       if(isVideo(index)){
         if(videoEl){
           videoEl.currentTime = 0;
-          videoEl.loop = false;      // en auto: pas en boucle
+          videoEl.loop = false;     // en auto: pas en boucle
           videoEl.muted = true;
           videoEl.play().catch(()=>{});
           videoEl.removeEventListener('ended', onVideoEnded);
@@ -401,7 +415,6 @@ document.addEventListener('DOMContentLoaded',function(){
     }
 
     function show(i, {manual=false} = {}){
-      // sortir proprement d’une éventuelle vidéo en cours
       if(videoEl){
         videoEl.pause();
         videoEl.removeEventListener('ended', onVideoEnded);
@@ -409,17 +422,14 @@ document.addEventListener('DOMContentLoaded',function(){
       index = (i + slides.length) % slides.length;
       updatePosition();
 
-      // Gestion vidéo selon mode
       if(isVideo(index)){
         if(videoEl){
           videoEl.currentTime = 0;
           if(manual){
-            // demandé : quand on arrive par flèches, la vidéo boucle
             videoEl.loop = true;
             videoEl.muted = true;
             videoEl.play().catch(()=>{});
           }else{
-            // auto : pas de boucle, puis reprise du défilement à la fin
             videoEl.loop = false;
             videoEl.muted = true;
             videoEl.play().catch(()=>{});
@@ -428,7 +438,6 @@ document.addEventListener('DOMContentLoaded',function(){
         }
         if(timer){ clearInterval(timer); timer = null; }
       }else{
-        // si image et auto actif, (re)lancer l’intervalle
         if(auto){
           if(timer) clearInterval(timer);
           timer = setInterval(()=> next(true), AUTO_MS);
@@ -436,14 +445,9 @@ document.addEventListener('DOMContentLoaded',function(){
       }
     }
 
-    function next(isAuto=false){
-      show(index+1, {manual:!isAuto});
-    }
-    function prev(){
-      show(index-1, {manual:true});
-    }
+    function next(isAuto=false){ show(index+1, {manual:!isAuto}); }
+    function prev(){ show(index-1, {manual:true}); }
 
-    // Boutons : interaction utilisateur => stop auto
     nextBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); next(false); });
     prevBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); prev(); });
 
@@ -451,17 +455,17 @@ document.addEventListener('DOMContentLoaded',function(){
     updatePosition();
     startAuto();
 
-    // Relancer auto après chaque changement automatique (si on n’est pas sur vidéo)
+    // Relancer auto après chaque translation si toujours en auto
     const observer = new MutationObserver(()=>{ if(auto) startAuto(); });
     observer.observe(track, { attributes:true, attributeFilter:['style'] });
 
-    // Pause auto si onglet inactif (optimisation)
+    // Pause auto si onglet inactif
     document.addEventListener('visibilitychange', ()=>{
       if(document.hidden){ if(timer) { clearInterval(timer); timer=null; } if(videoEl) videoEl.pause(); }
       else { if(auto) startAuto(); }
     }, {passive:true});
 
-    // Swipe mobile (facultatif et léger)
+    // Swipe mobile
     let startX=null;
     container.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
     container.addEventListener('touchend', (e)=>{
