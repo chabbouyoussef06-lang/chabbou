@@ -41,57 +41,101 @@
   .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s}
 
   .page{max-width:1200px;margin:0 auto;padding:32px 24px 24px;z-index:1;position:relative}
-
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
-
-  .top-band,header,nav{max-width:100vw}
-  header>*{min-width:0}
-  nav{min-width:0}
 
   /* Sections */
   .sections{max-width:1200px;margin:0 auto;padding:24px 24px 96px}
 
-  .tabs{display:flex;gap:10px;flex-wrap:wrap;margin:6px 2px 20px}
-  .tab{
-    display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+  /* Titre-pastille bleu */
+  .section-head{margin:32px 0 18px}
+  .eyebrow{
+    display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#0f172a;
+    margin:0;padding:8px 16px;border-radius:999px;
     background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
-    color:#0f172a;font-weight:600;text-decoration:none;border:1px solid rgba(11,95,165,.25);
+    border:1px solid rgba(11,95,165,.25)
   }
-  .tab:hover{background:linear-gradient(90deg, rgba(11,95,165,.28), rgba(11,95,165,.12))}
-  [data-theme="dark"] .tab{color:#e6eef8;background: linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));border-color:rgba(88,166,255,.28)}
+  [data-theme="dark"] .eyebrow{
+    color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));
+    border:1px solid rgba(88,166,255,.28)
+  }
 
-  .section-head{margin:40px 0 18px}
-  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#0f172a;margin:0 0 10px;padding:6px 14px;border-radius:999px;background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06))}
-  [data-theme="dark"] .eyebrow{color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));border:1px solid rgba(88,166,255,.28)}
-  .title{font-size:clamp(26px,3.2vw,40px);line-height:1.15;margin:6px 0 2px;color:var(--fg)}
-  .lead{margin:6px 0 0;color:var(--muted)}
+  /* Pastille bleue à l’intérieur des cartes (même style) */
+  .pill-title{
+    display:inline-block;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:#0f172a;
+    margin:0 0 12px;
+    padding:8px 14px;
+    border-radius:999px;
+    background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
+    border:1px solid rgba(11,95,165,.25);
+  }
+  [data-theme="dark"] .pill-title{
+    color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));
+    border:1px solid rgba(88,166,255,.28);
+  }
 
-  /* grid de cartes projet, même esthétique que skills */
-  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}
+  /* Espacement vertical entre sections pour éviter les cartes "collées" */
+  section.reveal{padding-bottom:24px;margin-bottom:42px}
+  section.reveal + section.reveal{margin-top:6px}
+
+  /* Grid de cartes projet */
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:28px}
   .card{
     grid-column:span 6;background: rgba(255,255,255,0.75);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-radius:24px;padding:0;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;color:#111827;
+    border-radius:24px;padding:0;overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;color:#111827;
     display:flex;flex-direction:column
   }
-  .card-wide{grid-column:span 12}
-  [data-theme="dark"] .card{background: rgba(0,0,0,0.55);box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;color:#eaeef5}
+  .card-wide{grid-column:1 / -1}
+  [data-theme="dark"] .card{
+    background: rgba(0,0,0,0.55);
+    box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;color:#eaeef5
+  }
 
-  .media{aspect-ratio:16/9;background:rgba(255,255,255,0.10)}
-  .media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform .6s ease}
-  .media:hover img{transform:scale(1.06)}
   .body{padding:22px var(--card-pad)}
-  .chip{display:inline-block;margin:0 8px 10px 0;padding:6px 12px;border-radius:999px;font-size:12px;background:rgba(11,95,165,.12);color:#0b5fa5;border:1px solid rgba(11,95,165,.22)}
-  [data-theme="dark"] .chip{background:rgba(88,166,255,.12);color:#58a6ff;border-color:rgba(88,166,255,.25)}
-  .card h4{margin:0 0 6px;font-size:clamp(18px,2vw,22px)}
-  .card p{margin:0;color:inherit}
-  .meta{margin-top:12px;font-size:13px;color:var(--muted)}
-  .actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid var(--ring);background:transparent;color:var(--fg);text-decoration:none}
-  .btn:hover{background:var(--ring)}
+  .body p{margin:0 0 16px; line-height:1.75;}
+  .intro-text{font-size:clamp(16px,1.6vw,18px);color:var(--fg);margin:0 0 22px}
+
+  /* Cadre média (remplace l'ancienne photo-slot) */
+  .media-slider{
+    position:relative;width:100%;
+    aspect-ratio:16/9;
+    border:1.5px dashed var(--ring);
+    border-radius:14px;background:rgba(11,95,165,.03);
+    overflow:hidden;
+  }
+  .media-track{
+    position:absolute;inset:0;display:flex;transition:transform .6s ease;will-change:transform;
+    height:100%;
+  }
+  .slide{
+    flex:0 0 100%;position:relative;height:100%;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(0,0,0,.04)
+  }
+  .slide img, .slide video{
+    width:100%;height:100%;object-fit:cover;display:block
+  }
+
+  /* Flèches discrètes */
+  .media-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    background:rgba(255,255,255,.75);border:1px solid var(--ring);
+    color:#0b5fa5;width:36px;height:36px;border-radius:999px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;user-select:none;z-index:2;backdrop-filter:blur(6px)
+  }
+  [data-theme="dark"] .media-nav{background:rgba(0,0,0,.55);color:#58a6ff}
+  .media-nav:hover{background:rgba(255,255,255,.9)}
+  .media-nav.prev{left:10px}
+  .media-nav.next{right:10px}
 
   @media(max-width:980px){.card{grid-column:span 12}}
-
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
   .reveal.in{opacity:1;transform:translateY(0)}
 
@@ -135,7 +179,7 @@ function toggleTheme(){
 function toggleMenu(e,id){
   e.preventDefault(); const m=document.getElementById(id); if(!m) return;
   const isOpen=m.classList.contains('show');
-  document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
+  document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none');});
   if(!isOpen){m.style.display='block';requestAnimationFrame(()=>m.classList.add('show'));}
 }
 function closeMenusOnInteraction(ev){ const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu'); if(!inside){document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show');setTimeout(()=>m.style.display='none',250);});}}
@@ -156,7 +200,7 @@ document.addEventListener('DOMContentLoaded',function(){
   document.documentElement.style.colorScheme=initial;
   updateThemeLabel();
 
-  // languette langue à droite du bouton thème
+  // languette langue
   const themeBtn=document.getElementById('themeToggle');
   if(!themeBtn||!themeBtn.parentNode) return;
   const wrap=document.createElement('div'); wrap.className='menu lang-menu';
@@ -218,53 +262,36 @@ document.addEventListener('DOMContentLoaded',function(){
   <main class="page" id="main">
     <div class="sections">
 
-      <!-- Tabs/anchors en haut -->
-      <div class="tabs" aria-label="Project sections">
-        <a class="tab" href="#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-        <a class="tab" href="#future" data-i18n="nav.projects_menu.future">Future projects</a>
-      </div>
-
       <!-- PROJETS RÉALISÉS -->
       <section id="realized" class="reveal">
         <div class="section-head">
-          <span class="eyebrow" data-i18n="projects.realized.eyebrow">Projects</span>
-          <h2 class="title" data-i18n="projects.realized.title">Realized Projects</h2>
-          <p class="lead" data-i18n="projects.realized.lead">A selection of shipped or completed work. Click a card to learn more.</p>
+          <span class="eyebrow" role="heading" aria-level="2" data-i18n="projects.realized.title">Realized Projects</span>
         </div>
 
         <div class="grid">
-          <!-- Wide Card (blank) -->
+          <!-- Carte large unique (titre pastille + texte + carrousel média) -->
           <article class="card card-wide">
-            <div class="media"><img src="p-real-1.jpg" alt="" loading="lazy" decoding="async"></div>
-            <div class="body"></div>
-          </article>
-        </div>
             <div class="body">
-              <div class="chip" data-i18n="projects.labels.role">Lead</div>
-              <div class="chip" data-i18n="projects.labels.year">2025</div>
-              <h4 data-i18n="projects.realized.items.0.title">Parametric CAD Assembly — Mini EcoFlyer VTOL</h4>
-              <p data-i18n="projects.realized.items.0.desc">Designed and validated a small VTOL airframe concept with multi‑mode propulsion and manufacturable components.</p>
-              <div class="meta" data-i18n="projects.realized.items.0.meta">CAD • Simulation • Prototyping</div>
-              <div class="actions">
-                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.case">Case study</a>
-                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.repo">Repository</a>
-              </div>
-            </div>
-          </article>
+              <span class="pill-title">Mechanics in Motion: From Design to Manufacturing</span>
+              <p class="intro-text">
+                A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.
+              </p>
 
-          <!-- Card 2 -->
-          <article class="card">
-            <div class="media"><img src="p-real-2.jpg" alt="Project screenshot" loading="lazy" decoding="async"></div>
-            <div class="body">
-              <div class="chip" data-i18n="projects.labels.role">Contributor</div>
-              <div class="chip" data-i18n="projects.labels.year">2024</div>
-              <h4 data-i18n="projects.realized.items.1.title">Mechanical Press — Slider‑Crank with Collision Stops</h4>
-              <p data-i18n="projects.realized.items.1.desc">Modeled and animated a safe stroke mechanism with interference detection and non‑penetration constraints.</p>
-              <div class="meta" data-i18n="projects.realized.items.1.meta">SolidWorks • Kinematics</div>
-              <div class="actions">
-                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.demo">Live demo</a>
-                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.repo">Repository</a>
+              <!-- MEDIA SLIDER -->
+              <div class="media-slider" id="realizedMedia">
+                <button class="media-nav prev" aria-label="Previous">‹</button>
+                <div class="media-track">
+                  <div class="slide"><img src="realized-1.jpg" alt="Manufacturing step — photo 1"></div>
+                  <div class="slide"><img src="realized-2.jpg" alt="Assembly process — photo 2"></div>
+                  <div class="slide"><img src="realized-3.jpg" alt="Finished mechanism — photo 3"></div>
+                  <div class="slide">
+                    <video id="realizedVideo" src="realized-clip.mp4" muted playsinline preload="metadata"></video>
+                  </div>
+                </div>
+                <button class="media-nav next" aria-label="Next">›</button>
               </div>
+              <!-- /MEDIA SLIDER -->
+
             </div>
           </article>
         </div>
@@ -272,48 +299,22 @@ document.addEventListener('DOMContentLoaded',function(){
 
       <!-- PROJETS FUTURS -->
       <section id="future" class="reveal">
+        <!-- Titre Roadmap en pastille bleue -->
         <div class="section-head">
-          <span class="eyebrow" data-i18n="projects.future.eyebrow">Roadmap</span>
-          <h2 class="title" data-i18n="projects.future.title">Future Projects</h2>
-          <p class="lead" data-i18n="projects.future.lead">Ideas and plans currently being researched, prototyped, or scheduled.</p>
+          <span class="eyebrow" role="heading" aria-level="2" data-i18n="projects.future.eyebrow">Roadmap</span>
         </div>
 
         <div class="grid">
-          <!-- Wide Card 1 (blank) -->
+          <!-- Carte large 1 (texte + grande zone média) -->
           <article class="card card-wide">
-            <div class="media"><img src="p-fut-1.jpg" alt="" loading="lazy" decoding="async"></div>
-            <div class="body"></div>
-          </article>
-          <!-- Wide Card 2 (blank) -->
-          <article class="card card-wide">
-            <div class="media"><img src="p-fut-2.jpg" alt="" loading="lazy" decoding="async"></div>
-            <div class="body"></div>
-          </article>
-        </div>
             <div class="body">
-              <div class="chip" data-i18n="projects.labels.status">Planned</div>
-              <div class="chip" data-i18n="projects.labels.year">2026</div>
-              <h4 data-i18n="projects.future.items.0.title">EcoFlyer Long‑Range VTOL — Environmental Sensing</h4>
-              <p data-i18n="projects.future.items.0.desc">Industrial‑grade platform for agriculture & environment with 24h endurance target and AI‑assisted flight.</p>
-              <div class="meta" data-i18n="projects.future.items.0.meta">Concept • Systems • AI</div>
-              <div class="actions">
-                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.brief">Project brief</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Future 2 -->
-          <article class="card">
-            <div class="media"><img src="p-fut-2.jpg" alt="Concept or placeholder" loading="lazy" decoding="async"></div>
-            <div class="body">
-              <div class="chip" data-i18n="projects.labels.status">Research</div>
-              <div class="chip" data-i18n="projects.labels.year">2026</div>
-              <h4 data-i18n="projects.future.items.1.title">Aircraft Materials — Comparative Testing</h4>
-              <p data-i18n="projects.future.items.1.desc">Small‑scale test rigs and data pipelines to benchmark aviation materials for durability and weight.</p>
-              <div class="meta" data-i18n="projects.future.items.1.meta">Materials • Data • Testing</div>
-              <div class="actions">
-                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.brief">Project brief</a>
-              </div>
+              <p class="intro-text">
+                An upcoming scientific review exploring the technical and commercial factors behind a legendary aircraft’s downfall — a project aiming to analyze innovation, ambition, and lessons for future aerospace design.
+              </p>
+              <p class="intro-text" style="margin-top:6px">
+                If you’d like to participate in this project, contact me <a href="contact.html">here</a>.
+              </p>
+              <div class="media-slider" style="aspect-ratio:16/9; border-style:dashed;"></div>
             </div>
           </article>
         </div>
@@ -338,7 +339,144 @@ document.addEventListener('DOMContentLoaded',function(){
     })();
   </script>
 
-  <!-- Loader i18n aligné avec skills.html -->
+  <!-- Slider logic -->
+  <script>
+  (function(){
+    const container = document.getElementById('realizedMedia');
+    if(!container) return;
+    const track = container.querySelector('.media-track');
+    const slides = Array.from(track.children);
+    const prevBtn = container.querySelector('.media-nav.prev');
+    const nextBtn = container.querySelector('.media-nav.next');
+    const videoEl = container.querySelector('#realizedVideo');
+
+    let index = 0;
+    let auto = true;               // auto-défilement actif
+    let timer = null;
+    const AUTO_MS = 4500;
+
+    function updatePosition(){
+      track.style.transform = `translateX(-${index*100}%)`;
+    }
+
+    function stopAuto(){
+      auto = false;
+      if(timer){ clearInterval(timer); timer = null; }
+      if(videoEl){
+        videoEl.removeEventListener('ended', onVideoEnded);
+        // si l’utilisateur a interagi et la vidéo est visible, elle doit boucler
+        if(isVideo(index)){
+          videoEl.loop = true;
+          videoEl.muted = true;
+          videoEl.play().catch(()=>{});
+        }else{
+          videoEl.pause();
+        }
+      }
+    }
+
+    function isVideo(i){ return slides[i] && slides[i].querySelector('video'); }
+
+    function onVideoEnded(){
+      // Fin de lecture vidéo en mode auto : passer au suivant et relancer l’intervalle
+      next(true);
+    }
+
+    function startAuto(){
+      if(!auto) return;
+      // si la diapo courante est vidéo, on laisse la vidéo gérer la suite
+      if(isVideo(index)){
+        if(videoEl){
+          videoEl.currentTime = 0;
+          videoEl.loop = false;      // en auto: pas en boucle
+          videoEl.muted = true;
+          videoEl.play().catch(()=>{});
+          videoEl.removeEventListener('ended', onVideoEnded);
+          videoEl.addEventListener('ended', onVideoEnded, { once:false });
+        }
+        return;
+      }
+      if(timer) clearInterval(timer);
+      timer = setInterval(()=> next(true), AUTO_MS);
+    }
+
+    function show(i, {manual=false} = {}){
+      // sortir proprement d’une éventuelle vidéo en cours
+      if(videoEl){
+        videoEl.pause();
+        videoEl.removeEventListener('ended', onVideoEnded);
+      }
+      index = (i + slides.length) % slides.length;
+      updatePosition();
+
+      // Gestion vidéo selon mode
+      if(isVideo(index)){
+        if(videoEl){
+          videoEl.currentTime = 0;
+          if(manual){
+            // demandé : quand on arrive par flèches, la vidéo boucle
+            videoEl.loop = true;
+            videoEl.muted = true;
+            videoEl.play().catch(()=>{});
+          }else{
+            // auto : pas de boucle, puis reprise du défilement à la fin
+            videoEl.loop = false;
+            videoEl.muted = true;
+            videoEl.play().catch(()=>{});
+            videoEl.addEventListener('ended', onVideoEnded, { once:false });
+          }
+        }
+        if(timer){ clearInterval(timer); timer = null; }
+      }else{
+        // si image et auto actif, (re)lancer l’intervalle
+        if(auto){
+          if(timer) clearInterval(timer);
+          timer = setInterval(()=> next(true), AUTO_MS);
+        }
+      }
+    }
+
+    function next(isAuto=false){
+      show(index+1, {manual:!isAuto});
+    }
+    function prev(){
+      show(index-1, {manual:true});
+    }
+
+    // Boutons : interaction utilisateur => stop auto
+    nextBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); next(false); });
+    prevBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); prev(); });
+
+    // Démarrage
+    updatePosition();
+    startAuto();
+
+    // Relancer auto après chaque changement automatique (si on n’est pas sur vidéo)
+    const observer = new MutationObserver(()=>{ if(auto) startAuto(); });
+    observer.observe(track, { attributes:true, attributeFilter:['style'] });
+
+    // Pause auto si onglet inactif (optimisation)
+    document.addEventListener('visibilitychange', ()=>{
+      if(document.hidden){ if(timer) { clearInterval(timer); timer=null; } if(videoEl) videoEl.pause(); }
+      else { if(auto) startAuto(); }
+    }, {passive:true});
+
+    // Swipe mobile (facultatif et léger)
+    let startX=null;
+    container.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
+    container.addEventListener('touchend', (e)=>{
+      if(startX==null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if(Math.abs(dx) > 40){
+        if(auto) stopAuto();
+        if(dx < 0) next(false); else prev();
+      }
+      startX = null;
+    }, {passive:true});
+  })();
+  </script>
+
+  <!-- Loader i18n -->
   <script>
 (() => {
   const SUPPORTED = ["fr","de","ar"];
