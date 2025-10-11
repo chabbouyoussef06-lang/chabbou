@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root{
+    --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85);
+    --edge:24px;
+    --card-pad:26px;
+  }
+  [data-theme="dark"]{
+    --bg:#0d1117;--fg:#e6edf3;--muted:#8b949e;--brand:#58a6ff;--card:#161b22;--ring:#30363d;--overlay:rgba(0,0,0,0.7)
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;display:flex;flex-direction:column;min-height:100vh;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif;
+    background:var(--bg);color:var(--fg);line-height:1.6;
+    transition:background .3s,color .3s
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-2;
+    background:url('background.jpg') no-repeat center/cover
+  }
+
+  .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
+  .container{max-width:1200px;margin:auto;padding:24px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px}
+  header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block}
+  nav{display:flex;gap:40px;align-items:center}
+  nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer}
+  nav a:hover{opacity:1;text-decoration:underline}
+  .menu{position:relative}
+  .submenu{position:absolute;top:100%;left:0;background:var(--card);border:1px solid var(--ring);border-radius:8px;min-width:160px;box-shadow:0 6px 18px rgba(0,0,0,.08);opacity:0;transform:translateY(-10px);transition:opacity .25s ease,transform .25s ease;display:none}
+  .submenu.show{display:block;opacity:1;transform:translateY(0)}
+  .submenu a{display:block;padding:6px 10px;color:var(--fg);text-decoration:none;cursor:default}
+  .submenu a:hover{background:var(--ring)}
+  .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s}
+
+  .page{max-width:1200px;margin:0 auto;padding:32px 24px 24px;z-index:1;position:relative}
+
+  .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
+
+  .top-band,header,nav{max-width:100vw}
+  header>*{min-width:0}
+  nav{min-width:0}
+
+  /* Sections */
+  .sections{max-width:1200px;margin:0 auto;padding:24px 24px 96px}
+
+  .tabs{display:flex;gap:10px;flex-wrap:wrap;margin:6px 2px 20px}
+  .tab{
+    display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+    background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
+    color:#0f172a;font-weight:600;text-decoration:none;border:1px solid rgba(11,95,165,.25);
+  }
+  .tab:hover{background:linear-gradient(90deg, rgba(11,95,165,.28), rgba(11,95,165,.12))}
+  [data-theme="dark"] .tab{color:#e6eef8;background: linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));border-color:rgba(88,166,255,.28)}
+
+  .section-head{margin:40px 0 18px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#0f172a;margin:0 0 10px;padding:6px 14px;border-radius:999px;background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06))}
+  [data-theme="dark"] .eyebrow{color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));border:1px solid rgba(88,166,255,.28)}
+  .title{font-size:clamp(26px,3.2vw,40px);line-height:1.15;margin:6px 0 2px;color:var(--fg)}
+  .lead{margin:6px 0 0;color:var(--muted)}
+
+  /* grid de cartes projet, même esthétique que skills */
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}
+  .card{
+    grid-column:span 6;background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-radius:24px;padding:0;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;color:#111827;
+    display:flex;flex-direction:column
+  }
+  .card-wide{grid-column:span 12}
+  [data-theme="dark"] .card{background: rgba(0,0,0,0.55);box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;color:#eaeef5}
+
+  .media{aspect-ratio:16/9;background:rgba(255,255,255,0.10)}
+  .media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform .6s ease}
+  .media:hover img{transform:scale(1.06)}
+  .body{padding:22px var(--card-pad)}
+  .chip{display:inline-block;margin:0 8px 10px 0;padding:6px 12px;border-radius:999px;font-size:12px;background:rgba(11,95,165,.12);color:#0b5fa5;border:1px solid rgba(11,95,165,.22)}
+  [data-theme="dark"] .chip{background:rgba(88,166,255,.12);color:#58a6ff;border-color:rgba(88,166,255,.25)}
+  .card h4{margin:0 0 6px;font-size:clamp(18px,2vw,22px)}
+  .card p{margin:0;color:inherit}
+  .meta{margin-top:12px;font-size:13px;color:var(--muted)}
+  .actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid var(--ring);background:transparent;color:var(--fg);text-decoration:none}
+  .btn:hover{background:var(--ring)}
+
+  @media(max-width:980px){.card{grid-column:span 12}}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+
+  .lang-menu{display:inline-block;margin-right:4px}
+  .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
+  section[id]{scroll-margin-top:120px}
+
+  @media(max-width:900px){
+    .sections{padding:16px 16px 72px}
+    html,body{overflow-x:hidden}
+  }
+  @media(max-width:640px){
+    .container{padding:12px 16px}
+    .top-band{position:static}
+    header{flex-wrap:wrap;gap:8px}
+    header img.signature{height:28px}
+    nav{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-start;min-width:0}
+    nav a{font-size:14px;line-height:1.2;white-space:nowrap}
+    .toggle{padding:6px 10px;font-size:14px}
+    .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
+  }
+</style>
+
+<script>
+function i18nGet(key, fallback){
+  try{ let v = window.__i18nDict; for (const part of key.split('.')) v = v && v[part]; return v || fallback; }catch(e){ return fallback; }
+}
+function updateThemeLabel(){
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  const isDark = (document.documentElement.dataset.theme === 'dark');
+  const day  = i18nGet('ui.theme_day','☀︎ Day');
+  const night= i18nGet('ui.theme_night','☾ Night');
+  btn.textContent = isDark ? day : night;
+}
+function toggleTheme(){
+  const html=document.documentElement; const next=html.dataset.theme==='dark'?'light':'dark';
+  html.dataset.theme=next; try{localStorage.setItem('theme',next);}catch(e){}
+  document.documentElement.style.colorScheme=next; updateThemeLabel();
+}
+function toggleMenu(e,id){
+  e.preventDefault(); const m=document.getElementById(id); if(!m) return;
+  const isOpen=m.classList.contains('show');
+  document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
+  if(!isOpen){m.style.display='block';requestAnimationFrame(()=>m.classList.add('show'));}
+}
+function closeMenusOnInteraction(ev){ const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu'); if(!inside){document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show');setTimeout(()=>m.style.display='none',250);});}}
+
+// init
+document.addEventListener('click',closeMenusOnInteraction);
+document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
+
+document.addEventListener('DOMContentLoaded',function(){
+  let initial='light';
+  try{
+    const stored=localStorage.getItem('theme');
+    if(stored){initial=stored;}
+    else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){initial='dark';}
+  }catch(e){}
+  document.documentElement.dataset.theme=initial;
+  document.documentElement.style.colorScheme=initial;
+  updateThemeLabel();
+
+  // languette langue à droite du bouton thème
+  const themeBtn=document.getElementById('themeToggle');
+  if(!themeBtn||!themeBtn.parentNode) return;
+  const wrap=document.createElement('div'); wrap.className='menu lang-menu';
+  const btn=document.createElement('button'); btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
+  const menu=document.createElement('div'); menu.id='lang-menu';menu.className='submenu';
+  menu.innerHTML = `
+    <a href="#" data-lang="en">English</a>
+    <a href="#" data-lang="de">Deutsch</a>
+    <a href="#" data-lang="ar">العربية</a>
+    <a href="#" data-lang="fr">Français</a>
+  `;
+  wrap.appendChild(btn);wrap.appendChild(menu); themeBtn.parentNode.insertBefore(wrap,themeBtn);
+  btn.addEventListener('click',function(e){toggleMenu(e,'lang-menu');});
+  menu.addEventListener('click', function(e){ const a = e.target.closest('a[data-lang]'); if (!a) return; e.preventDefault(); if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang); closeMenusOnInteraction({target:null}); try{ const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'}; btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾'; }catch(_e){} });
+  try{ const params=new URLSearchParams(location.search); const lang = params.has('lang') ? (params.get('lang')||'en').toLowerCase() : 'en'; const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'}; btn.textContent = (map[lang] || 'EN') + ' ▾'; }catch(_e){}
+});
+</script>
+</head>
+
+<body data-theme="light">
+  <div class="top-band">
+    <div class="container">
+      <header>
+        <a href="index.html" style="display:inline-block">
+          <img src="signature.png" alt="Signature" class="signature" />
+        </a>
+
+        <nav>
+          <div class="menu">
+            <a href="about.html" data-i18n="nav.about">About</a>
+            <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'about-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
+            <div id="about-menu" class="submenu">
+              <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
+              <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
+              <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
+              <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
+            </div>
+          </div>
+
+          <a href="skills.html" data-i18n="nav.skills">Skills</a>
+
+          <div class="menu">
+            <a href="projects.html" data-i18n="nav.projects">Projects</a>
+            <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
+            <div id="projects-menu" class="submenu">
+              <a href="#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+              <a href="#future" data-i18n="nav.projects_menu.future">Future projects</a>
+            </div>
+          </div>
+
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        </nav>
+
+        <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
+      </header>
+    </div>
+  </div>
+
+  <main class="page" id="main">
+    <div class="sections">
+
+      <!-- Tabs/anchors en haut -->
+      <div class="tabs" aria-label="Project sections">
+        <a class="tab" href="#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+        <a class="tab" href="#future" data-i18n="nav.projects_menu.future">Future projects</a>
+      </div>
+
+      <!-- PROJETS RÉALISÉS -->
+      <section id="realized" class="reveal">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="projects.realized.eyebrow">Projects</span>
+          <h2 class="title" data-i18n="projects.realized.title">Realized Projects</h2>
+          <p class="lead" data-i18n="projects.realized.lead">A selection of shipped or completed work. Click a card to learn more.</p>
+        </div>
+
+        <div class="grid">
+          <!-- Wide Card (blank) -->
+          <article class="card card-wide">
+            <div class="media"><img src="p-real-1.jpg" alt="" loading="lazy" decoding="async"></div>
+            <div class="body"></div>
+          </article>
+        </div>
+            <div class="body">
+              <div class="chip" data-i18n="projects.labels.role">Lead</div>
+              <div class="chip" data-i18n="projects.labels.year">2025</div>
+              <h4 data-i18n="projects.realized.items.0.title">Parametric CAD Assembly — Mini EcoFlyer VTOL</h4>
+              <p data-i18n="projects.realized.items.0.desc">Designed and validated a small VTOL airframe concept with multi‑mode propulsion and manufacturable components.</p>
+              <div class="meta" data-i18n="projects.realized.items.0.meta">CAD • Simulation • Prototyping</div>
+              <div class="actions">
+                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.case">Case study</a>
+                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.repo">Repository</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card">
+            <div class="media"><img src="p-real-2.jpg" alt="Project screenshot" loading="lazy" decoding="async"></div>
+            <div class="body">
+              <div class="chip" data-i18n="projects.labels.role">Contributor</div>
+              <div class="chip" data-i18n="projects.labels.year">2024</div>
+              <h4 data-i18n="projects.realized.items.1.title">Mechanical Press — Slider‑Crank with Collision Stops</h4>
+              <p data-i18n="projects.realized.items.1.desc">Modeled and animated a safe stroke mechanism with interference detection and non‑penetration constraints.</p>
+              <div class="meta" data-i18n="projects.realized.items.1.meta">SolidWorks • Kinematics</div>
+              <div class="actions">
+                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.demo">Live demo</a>
+                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.repo">Repository</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PROJETS FUTURS -->
+      <section id="future" class="reveal">
+        <div class="section-head">
+          <span class="eyebrow" data-i18n="projects.future.eyebrow">Roadmap</span>
+          <h2 class="title" data-i18n="projects.future.title">Future Projects</h2>
+          <p class="lead" data-i18n="projects.future.lead">Ideas and plans currently being researched, prototyped, or scheduled.</p>
+        </div>
+
+        <div class="grid">
+          <!-- Wide Card 1 (blank) -->
+          <article class="card card-wide">
+            <div class="media"><img src="p-fut-1.jpg" alt="" loading="lazy" decoding="async"></div>
+            <div class="body"></div>
+          </article>
+          <!-- Wide Card 2 (blank) -->
+          <article class="card card-wide">
+            <div class="media"><img src="p-fut-2.jpg" alt="" loading="lazy" decoding="async"></div>
+            <div class="body"></div>
+          </article>
+        </div>
+            <div class="body">
+              <div class="chip" data-i18n="projects.labels.status">Planned</div>
+              <div class="chip" data-i18n="projects.labels.year">2026</div>
+              <h4 data-i18n="projects.future.items.0.title">EcoFlyer Long‑Range VTOL — Environmental Sensing</h4>
+              <p data-i18n="projects.future.items.0.desc">Industrial‑grade platform for agriculture & environment with 24h endurance target and AI‑assisted flight.</p>
+              <div class="meta" data-i18n="projects.future.items.0.meta">Concept • Systems • AI</div>
+              <div class="actions">
+                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.brief">Project brief</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Future 2 -->
+          <article class="card">
+            <div class="media"><img src="p-fut-2.jpg" alt="Concept or placeholder" loading="lazy" decoding="async"></div>
+            <div class="body">
+              <div class="chip" data-i18n="projects.labels.status">Research</div>
+              <div class="chip" data-i18n="projects.labels.year">2026</div>
+              <h4 data-i18n="projects.future.items.1.title">Aircraft Materials — Comparative Testing</h4>
+              <p data-i18n="projects.future.items.1.desc">Small‑scale test rigs and data pipelines to benchmark aviation materials for durability and weight.</p>
+              <div class="meta" data-i18n="projects.future.items.1.meta">Materials • Data • Testing</div>
+              <div class="actions">
+                <a class="btn" href="#" target="_blank" rel="noopener" data-i18n="projects.cta.brief">Project brief</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="footer-band">© 2025 Youssef Chabbou
+    <span data-i18n="footer.created_by" style="font-size:12px; color:rgba(255,255,255,0.75); float:right; text-align:right; line-height:1.4;">
+      This website was entirely created by its owner,<br>
+      Youssef Chabbou, using AI-Augmented Development.
+    </span>
+  </div>
+
+  <script>
+    (function(){
+      const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced){ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')); return; }
+      const io=new IntersectionObserver((entries)=>{ entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}); },{threshold:0.15});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    })();
+  </script>
+
+  <!-- Loader i18n aligné avec skills.html -->
+  <script>
+(() => {
+  const SUPPORTED = ["fr","de","ar"];
+  const DEFAULT = "en";
+
+  function snapshotOriginals(){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      if(!el.dataset.i18nOriginal){ el.dataset.i18nOriginal = el.textContent; }
+    });
+  }
+  snapshotOriginals();
+
+  const get = (o, path) => path.split('.').reduce((a,k)=> (a && a[k]!=null) ? a[k] : undefined, o);
+
+  function currentLang() {
+    const params = new URLSearchParams(location.search);
+    const hasParam = params.has("lang");
+    const urlLang  = params.get("lang");
+    if (!hasParam) return DEFAULT;
+    if (urlLang === 'en' || SUPPORTED.includes(urlLang)) return urlLang;
+    return DEFAULT;
+  }
+
+  async function loadDict(lang) {
+    const res = await fetch(`lang/${lang}.json`, { cache: "no-cache" });
+    if (!res.ok) throw new Error("Missing lang file: "+lang);
+    return res.json();
+  }
+
+  function applyDict(dict) {
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      const val = get(dict, key);
+      if (val != null) el.textContent = val;
+    });
+    const metaTitle = get(dict, "meta.title");
+    if (metaTitle) document.title = metaTitle;
+    document.documentElement.setAttribute("lang", current);
+    window.__i18nDict = dict;
+    if (window.updateThemeLabel) updateThemeLabel();
+  }
+
+  function restoreEnglish(){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      if (el.dataset.i18nOriginal != null) el.textContent = el.dataset.i18nOriginal;
+    });
+    window.__i18nDict = {};
+    document.documentElement.setAttribute("lang", "en");
+    if (window.updateThemeLabel) updateThemeLabel();
+  }
+
+  let current = currentLang();
+
+  function setLang(lang) {
+    if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
+    current = lang;
+
+    const u = new URL(location.href);
+    u.searchParams.set("lang", lang);
+    history.replaceState({}, "", u.pathname + u.search + location.hash);
+
+    if (lang === 'en') { restoreEnglish(); return; }
+    loadDict(lang).then(applyDict).catch(err=>{ console.error(err); restoreEnglish(); });
+  }
+
+  window.setLangFromMenu = setLang;
+
+  (function initLangToggleLabel(){
+    const btn = document.getElementById('langToggle'); if (!btn) return;
+    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'}; const lang = current;
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
+  })();
+
+  setLang(current);
+
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-lang]"); if (!b) return;
+    e.preventDefault(); setLang(b.getAttribute("data-lang"));
+  });
+})();
+  </script>
+</body>
+</html>
