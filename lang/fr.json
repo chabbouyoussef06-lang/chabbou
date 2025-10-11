@@ -58,6 +58,28 @@
       }
     }
   },
+  "skills": {
+    "cad": {
+      "eyebrow": "Compétences techniques",
+      "title": "Design assisté par ordinateur (CAO)",
+      "text": "Maîtrise des outils de conception mécanique 3D et de modélisation paramétrique, développée à travers des projets personnels et académiques."
+    },
+    "team": {
+      "eyebrow": "Compétences interpersonnelles",
+      "title": "Communication d’équipe",
+      "text": "Expérience de collaboration au sein d’équipes diverses, partage d’idées et contribution à un environnement de travail constructif et bienveillant."
+    },
+    "admin": {
+      "eyebrow": "Compétences organisationnelles",
+      "title": "Compréhension administrative et procédurale",
+      "text": "Bonne compréhension des structures d’entreprise, des processus juridiques, des hiérarchies et des protocoles professionnels internationaux."
+    },
+    "culture": {
+      "eyebrow": "Compétences culturelles",
+      "title": "Adaptabilité interculturelle",
+      "text": "Capacité à travailler efficacement dans des environnements multiculturels et à s’adapter à différentes approches et façons de penser."
+    }
+  },
   "contact": {
     "info": {
       "eyebrow": "Contact",
