@@ -58,6 +58,28 @@
       }
     }
   },
+  "skills": {
+    "cad": {
+      "eyebrow": "Technische Fähigkeiten",
+      "title": "Rechnergestütztes Konstruieren (CAD)",
+      "text": "Gute Beherrschung von 3D-Konstruktion und parametrischer Modellierung, aufgebaut durch persönliche und akademische Projekte."
+    },
+    "team": {
+      "eyebrow": "Zwischenmenschliche Kompetenzen",
+      "title": "Teamkommunikation",
+      "text": "Erfahrung in der Zusammenarbeit in diversen Teams, Ideen teilen und zu einem konstruktiven, unterstützenden Arbeitsumfeld beitragen."
+    },
+    "admin": {
+      "eyebrow": "Organisationale Fähigkeiten",
+      "title": "Administratives und prozessuales Verständnis",
+      "text": "Fundiertes Verständnis von Unternehmensstrukturen, rechtlichen Abläufen, Hierarchien und internationalen beruflichen Protokollen."
+    },
+    "culture": {
+      "eyebrow": "Kulturelle Kompetenzen",
+      "title": "Interkulturelle Anpassungsfähigkeit",
+      "text": "Fähig, effektiv in multikulturellen Umgebungen zu arbeiten und sich an unterschiedliche Arbeitsweisen und Denkansätze anzupassen."
+    }
+  },
   "contact": {
     "info": {
       "eyebrow": "Kontakt",
