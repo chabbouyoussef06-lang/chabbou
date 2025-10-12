@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Über mich — Youssef Chabbou",
+    "title": "Projekte — Youssef Chabbou",
     "contact_title": "Kontakt — Youssef Chabbou"
   },
   "ui": {
@@ -103,6 +103,18 @@
       "success": "Nachricht erfolgreich gesendet. Danke!",
       "error": "Senden fehlgeschlagen. Bitte erneut versuchen oder mich direkt per E-Mail kontaktieren.",
       "error_network": "Netzwerkfehler. Bitte erneut versuchen."
+    }
+  },
+  "projects": {
+    "realized": {
+      "title": "Realisierte Projekte",
+      "card_title": "Mechanik in Bewegung: Vom Design zur Fertigung",
+      "card_intro": "Ein mechanisches Dosenpress-System als erster Schritt zum Recycling leerer Dosen – mit zentralen Koppelgetrieben wie Schlittenführung und Zahnradmechanismus. Zunächst im CAD entwickelt und anschließend mit konventioneller und CNC-Bearbeitung gefertigt. Das Projekt vertiefte mein Verständnis grundlegender mechanischer Prinzipien – eine der Säulen der Luft- und Raumfahrttechnik. Realisiert mit Unterstützung von AFAMEC und dem Engineering-Team."
+    },
+    "future": {
+      "eyebrow": "Roadmap",
+      "card_intro": "Eine kommende wissenschaftliche Review, die technische und wirtschaftliche Faktoren hinter dem Scheitern eines legendären Flugzeugs untersucht – mit dem Ziel, Innovation, Ambition und Lehren für zukünftiges Luftfahrtdesign zu analysieren.",
+      "cta_participate_html": "Wenn du an diesem Projekt mitwirken möchtest, kontaktiere mich <a href=\"contact.html\">hier</a>."
     }
   }
 }
