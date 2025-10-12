@@ -7,8 +7,7 @@
 <style>
   :root{
     --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85);
-    --edge:24px;
-    --card-pad:26px;
+    --edge:24px; --card-pad:26px;
   }
   [data-theme="dark"]{
     --bg:#0d1117;--fg:#e6edf3;--muted:#8b949e;--brand:#58a6ff;--card:#161b22;--ring:#30363d;--overlay:rgba(0,0,0,0.7)
@@ -21,10 +20,7 @@
     background:var(--bg);color:var(--fg);line-height:1.6;
     transition:background .3s,color .3s
   }
-  body::before{
-    content:"";position:fixed;inset:0;z-index:-2;
-    background:url('background.jpg') no-repeat center/cover
-  }
+  body::before{content:"";position:fixed;inset:0;z-index:-2;background:url('background.jpg') no-repeat center/cover}
 
   .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
   .container{max-width:1200px;margin:auto;padding:24px}
@@ -59,30 +55,20 @@
     border:1px solid rgba(88,166,255,.28)
   }
 
-  /* Pastille bleue à l’intérieur des cartes (même style) */
+  /* Pastille bleue à l’intérieur des cartes */
   .pill-title{
-    display:inline-block;
-    font-size:13px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    font-weight:700;
-    color:#0f172a;
-    margin:0 0 12px;
-    padding:8px 14px;
-    border-radius:999px;
+    display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#0f172a;
+    margin:0 0 12px;padding:8px 14px;border-radius:999px;
     background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
     border:1px solid rgba(11,95,165,.25);
   }
   [data-theme="dark"] .pill-title{
-    color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));
-    border:1px solid rgba(88,166,255,.28);
+    color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));border:1px solid rgba(88,166,255,.28);
   }
 
-  /* Espacement vertical entre sections pour éviter les cartes "collées" */
   section.reveal{padding-bottom:24px;margin-bottom:42px}
   section.reveal + section.reveal{margin-top:6px}
 
-  /* Grid de cartes projet */
   .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:28px}
   .card{
     grid-column:span 6;background: rgba(255,255,255,0.75);
@@ -101,41 +87,27 @@
   .body p{margin:0 0 16px; line-height:1.75;}
   .intro-text{font-size:clamp(16px,1.6vw,18px);color:var(--fg);margin:0 0 22px}
 
-  /* =========================
-     MEDIA SLIDER
-     ========================= */
+  /* ======== MEDIA SLIDER (LTR forcé) ======== */
   .media-slider{
     position:relative;width:100%;
-    aspect-ratio:16/9; /* desktop par défaut (paysage) */
+    aspect-ratio:16/9;
     border:1.5px dashed var(--ring);
     border-radius:14px;background:rgba(11,95,165,.03);
     overflow:hidden;
-
-    /* IMPORTANT : empêcher l’inversion RTL dans ce composant */
-    direction: ltr;
+    direction:ltr;                /* pas d’inversion en RTL */
   }
   .media-track{
     position:absolute;inset:0;display:flex;transition:transform .6s ease;will-change:transform;height:100%;
+    direction:ltr; flex-direction:row;  /* fixe l’ordre */
+  }
+  .slide{flex:0 0 100%;position:relative;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.04)}
+  .slide img, .slide video{width:100%;height:100%;object-fit:cover;display:block}
 
-    /* IMPORTANT : garder l’ordre gauche→droite quel que soit dir=rtl sur <html> */
-    direction: ltr;
-    flex-direction: row;
-  }
-  .slide{
-    flex:0 0 100%;position:relative;height:100%;
-    display:flex;align-items:center;justify-content:center;
-    background:rgba(0,0,0,.04)
-  }
-  .slide img, .slide video{
-    width:100%;height:100%;object-fit:cover;display:block
-  }
-  /* Flèches (positions physiques stables) */
   .media-nav{
     position:absolute;top:50%;transform:translateY(-50%);
     background:rgba(255,255,255,.75);border:1px solid var(--ring);
     color:#0b5fa5;width:36px;height:36px;border-radius:999px;
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;user-select:none;z-index:2;backdrop-filter:blur(6px)
+    display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;z-index:2;backdrop-filter:blur(6px)
   }
   [data-theme="dark"] .media-nav{background:rgba(0,0,0,.55);color:#58a6ff}
   .media-nav:hover{background:rgba(255,255,255,.9)}
@@ -150,12 +122,9 @@
   .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
   section[id]{scroll-margin-top:120px}
 
-  @media(max-width:900px){
-    .sections{padding:16px 16px 72px}
-    html,body{overflow-x:hidden}
-  }
+  @media(max-width:900px){.sections{padding:16px 16px 72px}html,body{overflow-x:hidden}}
 
-  /* >>> MOBILE : slider large, paysage, centré + images non rognées */
+  /* ======== MOBILE : podium élargi sous le texte ======== */
   @media (max-width:640px){
     .container{padding:12px 16px}
     .top-band{position:static}
@@ -166,34 +135,54 @@
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
 
-    /* taille paysage + grande hauteur utile */
-    .media-slider{
-      aspect-ratio: 16 / 9;          /* impose paysage */
-      width: min(100vw, 680px);       /* grand, mais contenable */
-      max-height: 65vh;               /* évite de dépasser l’écran */
-      margin-left: auto;              /* centré */
-      margin-right: auto;             /* centré */
-      border-radius: 16px;
-      background: rgba(11,95,165,.03);
+    /* la carte ne coupe plus ce qui dépasse */
+    .card{ overflow:visible; }
+
+    /* conteneur podium : ajoute une « marche » blanche plus large sous le texte */
+    .media-podium{
+      position:relative;
+      margin:12px auto 0;
+      width: min(100vw, 720px);   /* large, centré */
     }
-    /* sur mobile, on veut voir l’image entière */
-    .slide img, .slide video{
-      object-fit: contain;            /* plus de rognage */
-      background: transparent;        /* pas d’effet boîte noire */
+    .media-podium::before{
+      content:"";
+      position:absolute; left:50%; transform:translateX(-50%);
+      bottom:-10px;               /* petite retombée visuelle */
+      width: min(100vw, 720px);
+      height: calc(100% + 20px);  /* un peu plus haut que le slider */
+      border-radius:18px;
+      background: rgba(255,255,255,0.75);
+      box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
+      z-index:0;
+    }
+    [data-theme="dark"] .media-podium::before{
+      background: rgba(0,0,0,0.55);
+      box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;
+    }
+
+    /* le slider, posé sur le podium élargi */
+    .media-podium .media-slider{
+      position:relative; z-index:1;
+      width: min(100vw, 720px);
+      max-height: 68vh;
+      aspect-ratio: 16 / 9;
+      margin-left:auto; margin-right:auto;
+      border-radius:16px;
+      background:rgba(11,95,165,.03);
+    }
+    /* images/vidéos visibles en entier (plus de rognage) */
+    .media-podium .slide img, .media-podium .slide video{
+      object-fit: contain;
+      background: transparent;
     }
   }
 
-  /* Très petits écrans : un peu plus de place en hauteur si besoin */
   @media (max-width:380px){
-    .media-slider{
-      max-height: 70vh;
-    }
+    .media-podium .media-slider{ max-height: 72vh; }
   }
 </style>
 
-<!-- =========================
-     AJOUTS : HAMBURGER + RTL
-     ========================= -->
+<!-- ===== HAMBURGER + RTL global (ne touche pas au slider) ===== -->
 <style>
   .hamburger-btn{display:none;appearance:none;border:0;background:transparent;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer}
   .hamburger-btn span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;position:relative}
@@ -222,24 +211,17 @@
     .hamburger-btn{display:flex}
     .top-band nav{display:none !important}
     .lang-menu{display:none !important}
-    .top-band header{
-      display:grid;
-      grid-template-columns:40px 1fr auto;
-      align-items:center;
-      gap:8px;
-    }
+    .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px;}
     .top-band header > a[href="index.html"]{justify-self:center}
     #themeToggle{justify-self:end}
   }
 
   .hamburger-btn:focus-visible,.mobile-drawer a:focus-visible,.lang-btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
-  @media (prefers-reduced-motion:reduce){
-    .mobile-backdrop,.mobile-drawer{transition:none}
-  }
+  @media (prefers-reduced-motion:reduce){.mobile-backdrop,.mobile-drawer{transition:none}}
 
   html.mobile-open, body.mobile-open{ overflow: hidden; }
 
-  /* RTL dynamique (ne touche PAS au slider) */
+  /* RTL général (le slider a son propre LTR) */
   html[dir="rtl"] body{ direction: rtl; }
   html[dir="rtl"] nav{ justify-content:flex-end; }
   html[dir="rtl"] .submenu{ left:auto; right:0; }
@@ -248,30 +230,21 @@
   html[dir="rtl"] .mobile-sub{ border-left:none; border-right:2px solid var(--ring); }
   html[dir="rtl"] .body, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] a{ text-align:right; }
   @media (max-width:640px){
-    html[dir="rtl"] .top-band header{
-      grid-template-columns:auto 1fr 40px;
-    }
+    html[dir="rtl"] .top-band header{grid-template-columns:auto 1fr 40px;}
     html[dir="rtl"] #themeToggle{ justify-self:start; }
     html[dir="rtl"] .top-band header > a[href="index.html"]{ justify-self:center; }
   }
 </style>
 
 <script>
-function i18nGet(key, fallback){
-  try{ let v = window.__i18nDict; for (const part of key.split('.')) v = v && v[part]; return v || fallback; }catch(e){ return fallback; }
-}
-function updateThemeLabel(){
-  const btn = document.getElementById('themeToggle');
-  if (!btn) return;
+function i18nGet(key, fallback){ try{ let v = window.__i18nDict; for (const part of key.split('.')) v = v && v[part]; return v || fallback; }catch(e){ return fallback; } }
+function updateThemeLabel(){ const btn = document.getElementById('themeToggle'); if (!btn) return;
   const isDark = (document.documentElement.dataset.theme === 'dark');
-  const day  = i18nGet('ui.theme_day','☀︎ Day');
-  const night= i18nGet('ui.theme_night','☾ Night');
+  const day  = i18nGet('ui.theme_day','☀︎ Day'); const night= i18nGet('ui.theme_night','☾ Night');
   btn.textContent = isDark ? day : night;
 }
-function toggleTheme(){
-  const html=document.documentElement; const next=html.dataset.theme==='dark'?'light':'dark';
-  html.dataset.theme=next; try{localStorage.setItem('theme',next);}catch(e){}
-  document.documentElement.style.colorScheme=next; updateThemeLabel();
+function toggleTheme(){ const html=document.documentElement; const next=html.dataset.theme==='dark'?'light':'dark';
+  html.dataset.theme=next; try{localStorage.setItem('theme',next);}catch(e){}; document.documentElement.style.colorScheme=next; updateThemeLabel();
 }
 function toggleMenu(e,id){
   e.preventDefault(); const m=document.getElementById(id); if(!m) return;
@@ -281,15 +254,9 @@ function toggleMenu(e,id){
 }
 function closeMenusOnInteraction(ev){
   const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
-  if(!inside){
-    document.querySelectorAll('.submenu').forEach(m=>{
-      m.classList.remove('show');
-      setTimeout(()=>{ m.style.display='none'; },250);
-    });
-  }
+  if(!inside){ document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show'); setTimeout(()=>{ m.style.display='none'; },250);}); }
 }
 
-// init (menus / thème / langue)
 document.addEventListener('click',closeMenusOnInteraction);
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
@@ -305,7 +272,6 @@ document.addEventListener('DOMContentLoaded',function(){
   document.documentElement.style.colorScheme=initial;
   updateThemeLabel();
 
-  // languette langue
   const themeBtn=document.getElementById('themeToggle');
   if(!themeBtn||!themeBtn.parentNode) return;
   const wrap=document.createElement('div'); wrap.className='menu lang-menu';
@@ -340,7 +306,6 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="top-band">
     <div class="container">
       <header>
-        <!-- Hamburger -->
         <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">
           <span aria-hidden="true"></span>
         </button>
@@ -380,7 +345,6 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
 
-  <!-- Drawer mobile -->
   <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
   <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <header>
@@ -438,7 +402,6 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
 
         <div class="grid">
-          <!-- Carte large -->
           <article class="card card-wide">
             <div class="body">
               <span class="pill-title" data-i18n="projects.realized.card_title">Mechanics in Motion: From Design to Manufacturing</span>
@@ -446,21 +409,22 @@ document.addEventListener('DOMContentLoaded',function(){
                 A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.
               </p>
 
-              <!-- MEDIA SLIDER -->
-              <div class="media-slider" id="realizedMedia">
-                <button class="media-nav prev" aria-label="Previous">‹</button>
-                <div class="media-track">
-                  <div class="slide"><img src="realized-1.jpg" alt="Manufacturing step — photo 1"></div>
-                  <div class="slide"><img src="realized-2.jpg" alt="Assembly process — photo 2"></div>
-                  <div class="slide"><img src="realized-3.jpg" alt="Finished mechanism — photo 3"></div>
-                  <div class="slide">
-                    <video id="realizedVideo" src="realized-clip.mp4" muted playsinline preload="metadata"></video>
+              <!-- PODIUM élargi (mobile) -->
+              <div class="media-podium">
+                <!-- MEDIA SLIDER -->
+                <div class="media-slider" id="realizedMedia">
+                  <button class="media-nav prev" aria-label="Previous">‹</button>
+                  <div class="media-track">
+                    <div class="slide"><img src="realized-1.jpg" alt="Manufacturing step — photo 1"></div>
+                    <div class="slide"><img src="realized-2.jpg" alt="Assembly process — photo 2"></div>
+                    <div class="slide"><img src="realized-3.jpg" alt="Finished mechanism — photo 3"></div>
+                    <div class="slide"><video id="realizedVideo" src="realized-clip.mp4" muted playsinline preload="metadata"></video></div>
                   </div>
+                  <button class="media-nav next" aria-label="Next">›</button>
                 </div>
-                <button class="media-nav next" aria-label="Next">›</button>
+                <!-- /MEDIA SLIDER -->
               </div>
-              <!-- /MEDIA SLIDER -->
-
+              <!-- /PODIUM -->
             </div>
           </article>
         </div>
@@ -481,8 +445,10 @@ document.addEventListener('DOMContentLoaded',function(){
               <p class="intro-text" style="margin-top:6px" data-i18n="projects.future.cta_participate_html" data-i18n-html="true">
                 If you’d like to participate in this project, contact me <a href="contact.html">here</a>.
               </p>
-              <div class="media-slider">
-                <img src="future-project.jpg" alt="Future scientific review project image" style="width:100%;height:100%;object-fit:cover;border-radius:14px;">
+              <div class="media-podium">
+                <div class="media-slider">
+                  <img src="future-project.jpg" alt="Future scientific review project image" style="width:100%;height:100%;object-fit:cover;border-radius:14px;">
+                </div>
               </div>
             </div>
           </article>
@@ -508,7 +474,7 @@ document.addEventListener('DOMContentLoaded',function(){
     })();
   </script>
 
-  <!-- Slider logic -->
+  <!-- Slider logic (inchangé, LTR forcé) -->
   <script>
   (function(){
     const container = document.getElementById('realizedMedia');
@@ -524,39 +490,27 @@ document.addEventListener('DOMContentLoaded',function(){
     let timer = null;
     const AUTO_MS = 4500;
 
-    function updatePosition(){
-      track.style.transform = `translateX(-${index*100}%)`;
-    }
+    function updatePosition(){ track.style.transform = `translateX(-${index*100}%)`; }
 
     function stopAuto(){
       auto = false;
       if(timer){ clearInterval(timer); timer = null; }
       if(videoEl){
         videoEl.removeEventListener('ended', onVideoEnded);
-        if(isVideo(index)){
-          videoEl.loop = true;
-          videoEl.muted = true;
-          videoEl.play().catch(()=>{});
-        }else{
-          videoEl.pause();
-        }
+        if(isVideo(index)){ videoEl.loop = true; videoEl.muted = true; videoEl.play().catch(()=>{}); }
+        else{ videoEl.pause(); }
       }
     }
 
     function isVideo(i){ return slides[i] && slides[i].querySelector('video'); }
-
     function onVideoEnded(){ next(true); }
 
     function startAuto(){
       if(!auto) return;
       if(isVideo(index)){
         if(videoEl){
-          videoEl.currentTime = 0;
-          videoEl.loop = false;
-          videoEl.muted = true;
-          videoEl.play().catch(()=>{});
-          videoEl.removeEventListener('ended', onVideoEnded);
-          videoEl.addEventListener('ended', onVideoEnded);
+          videoEl.currentTime = 0; videoEl.loop = false; videoEl.muted = true;
+          videoEl.play().catch(()=>{}); videoEl.removeEventListener('ended', onVideoEnded); videoEl.addEventListener('ended', onVideoEnded);
         }
         return;
       }
@@ -565,33 +519,19 @@ document.addEventListener('DOMContentLoaded',function(){
     }
 
     function show(i, {manual=false} = {}){
-      if(videoEl){
-        videoEl.pause();
-        videoEl.removeEventListener('ended', onVideoEnded);
-      }
+      if(videoEl){ videoEl.pause(); videoEl.removeEventListener('ended', onVideoEnded); }
       index = (i + slides.length) % slides.length;
       updatePosition();
 
       if(isVideo(index)){
         if(videoEl){
           videoEl.currentTime = 0;
-          if(manual){
-            videoEl.loop = true;
-            videoEl.muted = true;
-            videoEl.play().catch(()=>{});
-          }else{
-            videoEl.loop = false;
-            videoEl.muted = true;
-            videoEl.play().catch(()=>{});
-            videoEl.addEventListener('ended', onVideoEnded);
-          }
+          if(manual){ videoEl.loop = true; videoEl.muted = true; videoEl.play().catch(()=>{}); }
+          else{ videoEl.loop = false; videoEl.muted = true; videoEl.play().catch(()=>{}); videoEl.addEventListener('ended', onVideoEnded); }
         }
         if(timer){ clearInterval(timer); timer = null; }
       }else{
-        if(auto){
-          if(timer) clearInterval(timer);
-          timer = setInterval(()=> next(true), AUTO_MS);
-        }
+        if(auto){ if(timer) clearInterval(timer); timer = setInterval(()=> next(true), AUTO_MS); }
       }
     }
 
@@ -601,17 +541,13 @@ document.addEventListener('DOMContentLoaded',function(){
     nextBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); next(false); });
     prevBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); prev(); });
 
-    // Démarrage
-    updatePosition();
-    startAuto();
+    updatePosition(); startAuto();
 
-    // Pause auto si onglet inactif
     document.addEventListener('visibilitychange', ()=>{
       if(document.hidden){ if(timer) { clearInterval(timer); timer=null; } if(videoEl) videoEl.pause(); }
       else { if(auto) startAuto(); }
     }, {passive:true});
 
-    // Swipe mobile
     let startX=null;
     container.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
     container.addEventListener('touchend', (e)=>{
@@ -626,7 +562,7 @@ document.addEventListener('DOMContentLoaded',function(){
   })();
   </script>
 
-  <!-- Loader i18n (HTML autorisé pour *_html) -->
+  <!-- Loader i18n -->
   <script>
 (() => {
   const SUPPORTED = ["fr","de","ar"];
@@ -753,8 +689,7 @@ document.addEventListener('DOMContentLoaded',function(){
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
 
       drawer.addEventListener('click', (e)=>{
-        const a = e.target.closest('a');
-        if (a) closeDrawer();
+        const a = e.target.closest('a'); if (a) closeDrawer();
       });
 
       drawer.addEventListener('click', (e)=>{
