@@ -26,7 +26,7 @@
 
   .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
   .container{max-width:1200px;margin:auto;padding:24px}
-  header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px;position:relative}
+  header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px}
   header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block}
   nav{display:flex;gap:40px;align-items:center}
   nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer}
@@ -83,47 +83,6 @@
   /* ancrage propre (sticky header) */
   section[id]{scroll-margin-top:120px}
 
-  /* ====== Ajouts pour le hamburger mobile ====== */
-  .hamburger{
-    display:none; position:relative; width:40px; height:40px;
-    border:0; background:transparent; cursor:pointer; align-items:center; justify-content:center;
-  }
-  .hamburger .bar, .hamburger .bar::before, .hamburger .bar::after{
-    content:""; display:block; width:22px; height:2px; background:var(--fg); border-radius:2px; position:relative;
-  }
-  .hamburger .bar::before{ position:absolute; top:-7px; left:0; }
-  .hamburger .bar::after{ position:absolute; top:7px; left:0; }
-
-  .mobile-drawer-backdrop{
-    position:fixed; inset:0; background:rgba(0,0,0,.3); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:999;
-  }
-  .mobile-drawer{
-    position:fixed; top:64px; left:0; right:0; background:var(--overlay); backdrop-filter:blur(10px);
-    transform:translateY(-8px); opacity:0; pointer-events:none; transition:transform .2s ease, opacity .2s ease; z-index:1000;
-    border-bottom:1px solid var(--ring);
-  }
-  .mobile-drawer .drawer-content{
-    padding:12px 16px; display:flex; flex-direction:column; gap:10px;
-  }
-  .mobile-drawer a, .mobile-drawer button{ text-align:left; text-decoration:none; color:var(--fg); background:var(--card); border:1px solid var(--ring); border-radius:10px; padding:10px 12px; }
-  .mobile-drawer .drawer-section{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; opacity:.8; padding:8px 2px 0; }
-  .mobile-drawer .lang-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
-  .mobile-drawer.open{ transform:translateY(0); opacity:1; pointer-events:auto; }
-  .mobile-drawer-backdrop.open{ opacity:1; pointer-events:auto; }
-
-  /* Centrage du logo + Night à droite en mobile */
-  @media(max-width:640px){
-    .container{padding:12px 16px}
-    .top-band{position:sticky}
-    header{min-height:56px}
-    .hamburger{display:flex; order:1}
-    header a[href="#home"]{order:2; position:absolute; left:50%; transform:translateX(-50%);} /* signature centrée */
-    #themeToggle{order:3; margin-left:auto}
-    /* masquer le nav inline en mobile (le tiroir prend le relais) */
-    nav{display:none}
-    html,body{overflow-x:hidden}
-  }
-
   @media(max-width:900px){
     .sections{padding:40px 16px 72px}
     .alt-section,.alt-section.reverse{grid-template-columns:1fr}
@@ -133,12 +92,58 @@
   }
 
   @media(max-width:640px){
-    header{flex-wrap:nowrap;gap:8px}
+    .container{padding:12px 16px}
+    .top-band{position:static}
+    header{flex-wrap:nowrap;gap:0;position:relative;min-height:56px}
     header img.signature{height:28px}
-    nav{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-start;min-width:0}
+    nav{flex:0 0 auto;display:flex;gap:12px;justify-content:flex-start;min-width:0}
     nav a{font-size:14px;line-height:1.2;white-space:nowrap}
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
+    html,body{overflow-x:hidden}
+
+    /* --- Spécifique mobile: header en 3 zones --- */
+    .hamburger-btn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:transparent;cursor:pointer}
+    .hamburger-btn .hb-line{display:block;width:22px;height:2px;background:var(--fg);position:relative;border-radius:2px}
+    .hamburger-btn .hb-line::before,.hamburger-btn .hb-line::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--fg);border-radius:2px}
+    .hamburger-btn .hb-line::before{top:-7px}
+    .hamburger-btn .hb-line::after{top:7px}
+
+    /* Logo centré, thème à droite */
+    .header-slot{display:flex;align-items:center}
+    .slot-left{order:1}
+    .slot-center{order:2;position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center}
+    .slot-right{order:3;margin-left:auto}
+
+    /* Cacher nav et languette langues visibles en mobile (elles passent dans le tiroir) */
+    nav, .lang-menu{display:none !important}
+  }
+
+  /* ======= Drawer mobile ======= */
+  .mobile-drawer{position:fixed;inset:0 0 0 auto;max-width:86vw;width:320px;background:var(--card);border-left:1px solid var(--ring);transform:translateX(100%);transition:transform .25s ease,opacity .25s ease;z-index:1200;opacity:0}
+  .mobile-drawer.open{transform:translateX(0);opacity:1}
+  .mobile-drawer header{padding:12px 16px;border-bottom:1px solid var(--ring);display:flex;align-items:center;justify-content:space-between}
+  .mobile-drawer .drawer-body{padding:12px 14px 24px;display:flex;flex-direction:column;gap:10px}
+  .mobile-drawer a,.mobile-drawer button{display:block;width:100%;text-align:left;background:transparent;border:1px solid var(--ring);padding:10px 12px;border-radius:10px;color:var(--fg);text-decoration:none}
+  .mobile-drawer .group{margin-top:12px;padding-top:12px;border-top:1px dashed var(--ring)}
+  .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:1195;opacity:0;pointer-events:none;transition:opacity .25s ease}
+  .drawer-overlay.show{opacity:1;pointer-events:auto}
+
+  @media(min-width:641px){
+    .hamburger-btn{display:none}
+    .mobile-drawer,.drawer-overlay{display:none}
+    /* En desktop, tout reste comme avant */
+  }
+
+  /* Accessibilité : focus visible */
+  .hamburger-btn:focus-visible, .site-nav a:focus-visible, .mobile-drawer a:focus-visible, .mobile-drawer button:focus-visible{
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
+  }
+
+  /* Préf. utilisateur */
+  @media (prefers-reduced-motion: reduce){
+    .mobile-drawer{transition:none}
   }
 </style>
 
@@ -272,69 +277,45 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 
-<!-- ===== JS du hamburger & tiroir mobile (ajout) ===== -->
+<!-- ======= JS additionnel : gestion du hamburger / tiroir mobile ======= -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const header = document.querySelector('header');
+  const drawer = document.getElementById('mobileDrawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const openBtn = document.getElementById('hamburgerOpen');
+  const closeBtn = document.getElementById('drawerClose');
 
-  // Bouton hamburger (insertion en tout début du header)
-  const hb = document.createElement('button');
-  hb.className = 'hamburger';
-  hb.setAttribute('aria-expanded','false');
-  hb.setAttribute('aria-label','Open menu');
-  hb.innerHTML = '<span class="bar"></span>';
-  header.insertBefore(hb, header.firstChild);
-
-  // Backdrop + Drawer
-  const backdrop = document.createElement('div');
-  backdrop.className = 'mobile-drawer-backdrop';
-  const drawer = document.createElement('div');
-  drawer.className = 'mobile-drawer';
-  drawer.innerHTML = `
-    <div class="drawer-content">
-      <div class="drawer-section">Navigation</div>
-      <a href="about.html" data-i18n="nav.about">About</a>
-      <a href="skills.html" data-i18n="nav.skills">Skills</a>
-      <a href="projects.html" data-i18n="nav.projects">Projects</a>
-      <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-      <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
-      <a href="contact.html" data-i18n="nav.contact">Contact</a>
-
-      <div class="drawer-section">Language</div>
-      <div class="lang-row">
-        <button data-lang="en">EN</button>
-        <button data-lang="fr">FR</button>
-        <button data-lang="de">DE</button>
-        <button data-lang="ar">AR</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(backdrop);
-  document.body.appendChild(drawer);
-
-  function setOpen(open){
-    drawer.classList.toggle('open', open);
-    backdrop.classList.toggle('open', open);
-    hb.setAttribute('aria-expanded', String(open));
-    hb.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  function openDrawer(){
+    if (!drawer) return;
+    drawer.classList.add('open');
+    if (overlay){ overlay.classList.add('show'); }
+    document.body.style.overflow='hidden';
+  }
+  function closeDrawer(){
+    if (!drawer) return;
+    drawer.classList.remove('open');
+    if (overlay){ overlay.classList.remove('show'); }
+    document.body.style.overflow='';
   }
 
-  hb.addEventListener('click', () => setOpen(!drawer.classList.contains('open')));
-  backdrop.addEventListener('click', () => setOpen(false));
-  drawer.addEventListener('click', (e) => {
-    if (e.target.matches('a')) setOpen(false);
-    const langBtn = e.target.closest('[data-lang]');
-    if (langBtn){
-      e.preventDefault();
-      if (window.setLangFromMenu) window.setLangFromMenu(langBtn.dataset.lang);
-      setOpen(false);
-    }
-  });
+  if (openBtn) openBtn.addEventListener('click', openDrawer);
+  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  if (overlay) overlay.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeDrawer(); });
 
-  // Esc pour fermer
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') setOpen(false);
-  });
+  // Délégué: clic liens du tiroir -> fermer
+  if (drawer){
+    drawer.addEventListener('click', (e)=>{
+      const a = e.target.closest('a,button[data-lang]');
+      if (!a) return;
+      // Si c'est une langue dans le tiroir
+      if (a.hasAttribute('data-lang') && window.setLangFromMenu){
+        e.preventDefault();
+        window.setLangFromMenu(a.getAttribute('data-lang'));
+      }
+      closeDrawer();
+    });
+  }
 });
 </script>
 </head>
@@ -342,10 +323,26 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="top-band">
     <div class="container">
       <header>
-        <a href="#home" onclick="goHome()" style="display:inline-block">
-          <img src="signature.png" alt="Signature" class="signature" />
-        </a>
+        <!-- SLOT GAUCHE : bouton hamburger (mobile) -->
+        <div class="header-slot slot-left">
+          <button id="hamburgerOpen" class="hamburger-btn" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false">
+            <span class="hb-line" aria-hidden="true"></span>
+          </button>
+        </div>
 
+        <!-- SLOT CENTRE : logo signature centré -->
+        <div class="header-slot slot-center">
+          <a href="#home" onclick="goHome()" style="display:inline-block">
+            <img src="signature.png" alt="Signature" class="signature" />
+          </a>
+        </div>
+
+        <!-- SLOT DROIT : bouton thème -->
+        <div class="header-slot slot-right">
+          <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
+        </div>
+
+        <!-- NAV ORIGINELLE (desktop) — conservée telle quelle -->
         <nav>
           <!-- About : page + sous-menu (Profile en premier) -->
           <div class="menu">
@@ -375,11 +372,35 @@ document.addEventListener('DOMContentLoaded', () => {
           <!-- Contact -->
           <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
-
-        <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
       </header>
     </div>
   </div>
+
+  <!-- ======= Tiroir mobile + overlay ======= -->
+  <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+  <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <header>
+      <strong style="font-weight:700">Menu</strong>
+      <button id="drawerClose" class="toggle" type="button" aria-label="Close menu">✕</button>
+    </header>
+    <div class="drawer-body">
+      <!-- Liens de sections (repris du nav) -->
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="skills.html" data-i18n="nav.skills">Skills</a>
+      <a href="projects.html" data-i18n="nav.projects">Projects</a>
+      <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+      <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+
+      <!-- Groupe langues (reprend les mêmes codes langue) -->
+      <div class="group">
+        <button type="button" data-lang="en">English</button>
+        <button type="button" data-lang="de">Deutsch</button>
+        <button type="button" data-lang="ar">العربية</button>
+        <button type="button" data-lang="fr">Français</button>
+      </div>
+    </div>
+  </aside>
 
   <!-- CONTENU ACCUEIL (inchangé) -->
   <main class="page" id="main">
