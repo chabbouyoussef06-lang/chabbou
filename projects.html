@@ -290,8 +290,8 @@ document.addEventListener('DOMContentLoaded',function(){
           <!-- Carte large (titre + texte + carrousel média) -->
           <article class="card card-wide">
             <div class="body">
-              <span class="pill-title">Mechanics in Motion: From Design to Manufacturing</span>
-              <p class="intro-text">
+              <span class="pill-title" data-i18n="projects.realized.card_title">Mechanics in Motion: From Design to Manufacturing</span>
+              <p class="intro-text" data-i18n="projects.realized.card_intro">
                 A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.
               </p>
 
@@ -324,10 +324,10 @@ document.addEventListener('DOMContentLoaded',function(){
         <div class="grid">
           <article class="card card-wide">
             <div class="body">
-              <p class="intro-text">
+              <p class="intro-text" data-i18n="projects.future.card_intro">
                 An upcoming scientific review exploring the technical and commercial factors behind a legendary aircraft’s downfall — a project aiming to analyze innovation, ambition, and lessons for future aerospace design.
               </p>
-              <p class="intro-text" style="margin-top:6px">
+              <p class="intro-text" style="margin-top:6px" data-i18n="projects.future.cta_participate_html" data-i18n-html="true">
                 If you’d like to participate in this project, contact me <a href="contact.html">here</a>.
               </p>
               <div class="media-slider">
@@ -517,7 +517,12 @@ document.addEventListener('DOMContentLoaded',function(){
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       const val = get(dict, key);
-      if (val != null) el.textContent = val;
+      if (val == null) return;
+
+      // Autoriser HTML si demandé
+      const allowHTML = el.hasAttribute("data-i18n-html") || /_html$/.test(key);
+      if (allowHTML) el.innerHTML = val;
+      else el.textContent = val;
     });
     const metaTitle = get(dict, "meta.title");
     if (metaTitle) document.title = metaTitle;
