@@ -27,6 +27,41 @@
       "future": "Projets à venir"
     }
   },
+
+  /* === ajouté pour la page d’accueil (index) : sections.* === */
+  "sections": {
+    "perspective": {
+      "eyebrow": "Perspective",
+      "title": "Façonner l’avenir de l’aérospatial avec des idées audacieuses",
+      "text": "Explorer l’horizon où l’ingénierie rencontre l’imagination. Objectifs ambitieux, exécution mesurée."
+    },
+    "learning": {
+      "eyebrow": "Apprentissage continu",
+      "title": "Là où la curiosité nourrit la progression",
+      "text": "Découverte sans fin, pratique intentionnelle et quête constante de la maîtrise."
+    },
+    "principles": {
+      "eyebrow": "Principes",
+      "title": "Créativité · Croissance · Précision",
+      "text": "L’apprentissage prend son sens quand il élargit les horizons, affine les compétences et relie la théorie au réel."
+    },
+    "design": {
+      "eyebrow": "Concevoir avec intention",
+      "title": "La précision dans chaque détail",
+      "text": "Des croquis aux prototypes, chaque décision compte. Conception robuste, confiance calme."
+    },
+    "teamwork": {
+      "eyebrow": "Travail d’équipe",
+      "title": "La collaboration est le moteur le plus puissant",
+      "text": "On avance plus vite ensemble, en reliant disciplines, outils et perspectives."
+    },
+    "worldview": {
+      "eyebrow": "Vision du monde",
+      "title": "Ingénierie sans frontières",
+      "text": "L’innovation s’épanouit lorsque le savoir s’adapte entre pays et cultures — les idées n’ont pas de frontières."
+    }
+  },
+
   "about": {
     "sections": {
       "who": {
