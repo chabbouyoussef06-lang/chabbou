@@ -651,7 +651,7 @@ document.addEventListener('DOMContentLoaded',function(){
   })();
   </script>
 
-  <!-- Loader i18n -->
+  <!-- Loader i18n (corrigé pour préserver innerHTML sur _html) -->
   <script>
 (() => {
   const SUPPORTED = ["fr","de","ar"];
@@ -659,7 +659,11 @@ document.addEventListener('DOMContentLoaded',function(){
 
   function snapshotOriginals(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if(!el.dataset.i18nOriginal){ el.dataset.i18nOriginal = el.textContent; }
+      if(el.dataset.i18nOriginal) return;
+      const key = el.getAttribute("data-i18n") || "";
+      const allowHTML = el.hasAttribute("data-i18n-html") || /_html$/.test(key);
+      el.dataset.i18nOriginalIsHtml = allowHTML ? "1" : "";
+      el.dataset.i18nOriginal = allowHTML ? el.innerHTML : el.textContent;
     });
   }
   snapshotOriginals();
@@ -668,9 +672,8 @@ document.addEventListener('DOMContentLoaded',function(){
 
   function currentLang() {
     const params = new URLSearchParams(location.search);
-    const hasParam = params.has("lang");
     const urlLang  = (params.get("lang")||"").toLowerCase();
-    if (!hasParam) return DEFAULT;
+    if (!params.has("lang")) return DEFAULT;
     if (urlLang === 'en' || SUPPORTED.includes(urlLang)) return urlLang;
     return DEFAULT;
   }
@@ -686,7 +689,6 @@ document.addEventListener('DOMContentLoaded',function(){
       const key = el.getAttribute("data-i18n");
       const val = get(dict, key);
       if (val == null) return;
-
       const allowHTML = el.hasAttribute("data-i18n-html") || /_html$/.test(key);
       if (allowHTML) el.innerHTML = val; else el.textContent = val;
     });
@@ -703,7 +705,12 @@ document.addEventListener('DOMContentLoaded',function(){
 
   function restoreEnglish(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if (el.dataset.i18nOriginal != null) el.textContent = el.dataset.i18nOriginal;
+      const isHtml = el.dataset.i18nOriginalIsHtml === "1";
+      const original = el.dataset.i18nOriginal != null ? el.dataset.i18nOriginal : (isHtml ? el.innerHTML : el.textContent);
+      if (original != null) {
+        if (isHtml) el.innerHTML = original;
+        else el.textContent = original;
+      }
     });
     window.__i18nDict = {};
     document.documentElement.setAttribute("lang", "en");
