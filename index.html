@@ -26,7 +26,7 @@
 
   .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
   .container{max-width:1200px;margin:auto;padding:24px}
-  header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px;position:relative}
   header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block}
   nav{display:flex;gap:40px;align-items:center}
   nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer}
@@ -83,6 +83,47 @@
   /* ancrage propre (sticky header) */
   section[id]{scroll-margin-top:120px}
 
+  /* ====== Ajouts pour le hamburger mobile ====== */
+  .hamburger{
+    display:none; position:relative; width:40px; height:40px;
+    border:0; background:transparent; cursor:pointer; align-items:center; justify-content:center;
+  }
+  .hamburger .bar, .hamburger .bar::before, .hamburger .bar::after{
+    content:""; display:block; width:22px; height:2px; background:var(--fg); border-radius:2px; position:relative;
+  }
+  .hamburger .bar::before{ position:absolute; top:-7px; left:0; }
+  .hamburger .bar::after{ position:absolute; top:7px; left:0; }
+
+  .mobile-drawer-backdrop{
+    position:fixed; inset:0; background:rgba(0,0,0,.3); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:999;
+  }
+  .mobile-drawer{
+    position:fixed; top:64px; left:0; right:0; background:var(--overlay); backdrop-filter:blur(10px);
+    transform:translateY(-8px); opacity:0; pointer-events:none; transition:transform .2s ease, opacity .2s ease; z-index:1000;
+    border-bottom:1px solid var(--ring);
+  }
+  .mobile-drawer .drawer-content{
+    padding:12px 16px; display:flex; flex-direction:column; gap:10px;
+  }
+  .mobile-drawer a, .mobile-drawer button{ text-align:left; text-decoration:none; color:var(--fg); background:var(--card); border:1px solid var(--ring); border-radius:10px; padding:10px 12px; }
+  .mobile-drawer .drawer-section{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; opacity:.8; padding:8px 2px 0; }
+  .mobile-drawer .lang-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  .mobile-drawer.open{ transform:translateY(0); opacity:1; pointer-events:auto; }
+  .mobile-drawer-backdrop.open{ opacity:1; pointer-events:auto; }
+
+  /* Centrage du logo + Night à droite en mobile */
+  @media(max-width:640px){
+    .container{padding:12px 16px}
+    .top-band{position:sticky}
+    header{min-height:56px}
+    .hamburger{display:flex; order:1}
+    header a[href="#home"]{order:2; position:absolute; left:50%; transform:translateX(-50%);} /* signature centrée */
+    #themeToggle{order:3; margin-left:auto}
+    /* masquer le nav inline en mobile (le tiroir prend le relais) */
+    nav{display:none}
+    html,body{overflow-x:hidden}
+  }
+
   @media(max-width:900px){
     .sections{padding:40px 16px 72px}
     .alt-section,.alt-section.reverse{grid-template-columns:1fr}
@@ -92,15 +133,12 @@
   }
 
   @media(max-width:640px){
-    .container{padding:12px 16px}
-    .top-band{position:static}
-    header{flex-wrap:wrap;gap:8px}
+    header{flex-wrap:nowrap;gap:8px}
     header img.signature{height:28px}
     nav{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-start;min-width:0}
     nav a{font-size:14px;line-height:1.2;white-space:nowrap}
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
-    html,body{overflow-x:hidden}
   }
 </style>
 
@@ -231,6 +269,72 @@ document.addEventListener('DOMContentLoaded',function(){
     const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
     btn.textContent = (map[lang] || 'EN') + ' ▾';
   }catch(_e){}
+});
+</script>
+
+<!-- ===== JS du hamburger & tiroir mobile (ajout) ===== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const header = document.querySelector('header');
+
+  // Bouton hamburger (insertion en tout début du header)
+  const hb = document.createElement('button');
+  hb.className = 'hamburger';
+  hb.setAttribute('aria-expanded','false');
+  hb.setAttribute('aria-label','Open menu');
+  hb.innerHTML = '<span class="bar"></span>';
+  header.insertBefore(hb, header.firstChild);
+
+  // Backdrop + Drawer
+  const backdrop = document.createElement('div');
+  backdrop.className = 'mobile-drawer-backdrop';
+  const drawer = document.createElement('div');
+  drawer.className = 'mobile-drawer';
+  drawer.innerHTML = `
+    <div class="drawer-content">
+      <div class="drawer-section">Navigation</div>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="skills.html" data-i18n="nav.skills">Skills</a>
+      <a href="projects.html" data-i18n="nav.projects">Projects</a>
+      <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+      <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+
+      <div class="drawer-section">Language</div>
+      <div class="lang-row">
+        <button data-lang="en">EN</button>
+        <button data-lang="fr">FR</button>
+        <button data-lang="de">DE</button>
+        <button data-lang="ar">AR</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(backdrop);
+  document.body.appendChild(drawer);
+
+  function setOpen(open){
+    drawer.classList.toggle('open', open);
+    backdrop.classList.toggle('open', open);
+    hb.setAttribute('aria-expanded', String(open));
+    hb.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  hb.addEventListener('click', () => setOpen(!drawer.classList.contains('open')));
+  backdrop.addEventListener('click', () => setOpen(false));
+  drawer.addEventListener('click', (e) => {
+    if (e.target.matches('a')) setOpen(false);
+    const langBtn = e.target.closest('[data-lang]');
+    if (langBtn){
+      e.preventDefault();
+      if (window.setLangFromMenu) window.setLangFromMenu(langBtn.dataset.lang);
+      setOpen(false);
+    }
+  });
+
+  // Esc pour fermer
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
 });
 </script>
 </head>
