@@ -152,6 +152,31 @@
   @media (prefers-reduced-motion:reduce){
     .mobile-backdrop,.mobile-drawer{transition:none}
   }
+
+  /* ===== Amélioration tiroir mobile : sections & sous-sections ===== */
+  .mobile-heading{
+    margin:14px 12px 6px;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color: var(--muted);
+    border-top:1px solid var(--ring);
+    padding-top:10px;
+  }
+  .mobile-group{ padding:2px 0 8px; }
+  .mobile-group > a{ display:block; padding:10px 12px; border-radius:10px; }
+  .mobile-sub{
+    padding:0 12px 10px;
+    margin:2px 0 6px;
+    border-left:2px solid var(--ring);
+  }
+  .mobile-sub a{
+    display:block;
+    padding:8px 12px 8px 10px;
+    border-radius:8px;
+  }
+  .mobile-sep{ height:8px; }
 </style>
 
 <script>
@@ -339,26 +364,44 @@ document.addEventListener('DOMContentLoaded',function(){
       <strong data-i18n="nav.projects">Menu</strong>
       <button class="toggle" type="button" id="mobileCloseBtn" aria-label="Close menu">✕</button>
     </header>
-    <nav>
-      <a href="about.html" data-i18n="nav.about">About</a>
-      <div class="mobile-sub">
-        <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
-        <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
-        <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
-        <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
+
+    <nav aria-label="Mobile navigation">
+      <!-- About -->
+      <div class="mobile-heading" data-i18n="nav.about">About</div>
+      <div class="mobile-group">
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <div class="mobile-sub">
+          <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
+          <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
+          <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
+          <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
+        </div>
       </div>
 
-      <a href="skills.html" data-i18n="nav.skills">Skills</a>
-
-      <a href="projects.html" data-i18n="nav.projects">Projects</a>
-      <div class="mobile-sub">
-        <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-        <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
+      <!-- Skills -->
+      <div class="mobile-heading" data-i18n="nav.skills">Skills</div>
+      <div class="mobile-group">
+        <a href="skills.html" data-i18n="nav.skills">Skills</a>
       </div>
 
-      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      <!-- Projects -->
+      <div class="mobile-heading" data-i18n="nav.projects">Projects</div>
+      <div class="mobile-group">
+        <a href="projects.html" data-i18n="nav.projects">Projects</a>
+        <div class="mobile-sub">
+          <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+          <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="mobile-heading" data-i18n="nav.contact">Contact</div>
+      <div class="mobile-group">
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      </div>
     </nav>
 
+    <!-- langues en grille -->
     <div class="lang-grid" aria-label="Language">
       <button class="lang-btn" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="fr">FR</button>
@@ -409,7 +452,7 @@ document.addEventListener('DOMContentLoaded',function(){
       <section class="alt-section reveal">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="sections.teamwork.eyebrow">Teamwork</p>
-          <h3 class="alt-title" data-i18n="sections.teamwork.title">Collaboration is the strongest engine</p>
+          <h3 class="alt-title" data-i18n="sections.teamwork.title">Collaboration is the strongest engine</h3>
           <p class="alt-text" data-i18n="sections.teamwork.text">We move faster together, bridging disciplines, tools, and perspectives.</p>
         </div>
         <figure class="alt-media"><img src="ChatGPT Image 8 oct. 2025, 16_36_28.jpg" alt="Team silhouettes"></figure>
@@ -481,15 +524,20 @@ document.addEventListener('DOMContentLoaded',function(){
   }
 
   function applyDict(dict) {
+    // remplace tout ce qui a data-i18n
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       const val = get(dict, key);
       if (val != null) el.textContent = val;
     });
+
+    // titre de page
     const metaTitle = get(dict, "meta.title");
     if (metaTitle) document.title = metaTitle;
-    document.documentElement.setAttribute("lang", current);
+
+    // exposer le dict pour d'autres labels (Night/Day)
     window.__i18nDict = dict;
+    document.documentElement.setAttribute("lang", current);
     if (window.updateThemeLabel) updateThemeLabel();
   }
 
@@ -504,20 +552,26 @@ document.addEventListener('DOMContentLoaded',function(){
 
   let current = currentLang();
 
-  function setLang(lang) {
+  async function setLang(lang) {
+    // normaliser
     if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
     current = lang;
 
-    // met à jour ?lang=
+    // mettre ?lang= dans l'URL (sans recharger la page)
     const u = new URL(location.href);
     u.searchParams.set("lang", lang);
     history.replaceState({}, "", u.pathname + u.search + location.hash);
 
     if (lang === 'en') { restoreEnglish(); return; }
-    loadDict(lang).then(applyDict).catch(err=>{
-      console.error(err);
+
+    // charger et appliquer
+    try{
+      const dict = await loadDict(lang);
+      applyDict(dict);
+    }catch(err){
+      console.error("[i18n] failed to load", lang, err);
       restoreEnglish();
-    });
+    }
   }
 
   // exposer pour le menu
@@ -564,7 +618,6 @@ document.addEventListener('DOMContentLoaded',function(){
         html.classList.remove('mobile-open');
         drawer.setAttribute('aria-hidden','true');
         btn.setAttribute('aria-expanded','false');
-        // donner le temps à l'anim avant de cacher le backdrop aux lecteurs d'écran
         setTimeout(()=>{backdrop.hidden = true;}, 200);
       }
 
