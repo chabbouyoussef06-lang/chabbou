@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "À propos — Youssef Chabbou",
+    "title": "Projets — Youssef Chabbou",
     "contact_title": "Contact — Youssef Chabbou"
   },
   "ui": {
@@ -103,6 +103,18 @@
       "success": "Message envoyé avec succès. Merci !",
       "error": "Échec de l’envoi. Veuillez réessayer ou contactez-moi par e-mail.",
       "error_network": "Erreur réseau. Veuillez réessayer."
+    }
+  },
+  "projects": {
+    "realized": {
+      "title": "Projets réalisés",
+      "card_title": "Mécanique en mouvement : du design à la fabrication",
+      "card_intro": "Un système mécanique de presse à canettes comme premier pas vers le recyclage des canettes vides — intégrant des liaisons clés comme la glissière sur rail et des engrenages. D’abord conçu en CAO puis fabriqué par usinage conventionnel et CNC. Ce projet a renforcé ma compréhension des principes mécaniques fondamentaux, l’une des bases de l’ingénierie aérospatiale. Réalisé avec le soutien d’AFAMEC et de son équipe d’ingénierie."
+    },
+    "future": {
+      "eyebrow": "Feuille de route",
+      "card_intro": "Une revue scientifique à venir, explorant les facteurs techniques et commerciaux derrière l’échec d’un avion légendaire — pour analyser l’innovation, l’ambition et les leçons pour le design aérospatial futur.",
+      "cta_participate_html": "Si vous souhaitez participer à ce projet, contactez-moi <a href=\"contact.html\">ici</a>."
     }
   }
 }
