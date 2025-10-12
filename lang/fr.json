@@ -27,8 +27,6 @@
       "future": "Projets à venir"
     }
   },
-
-  /* === ajouté pour la page d’accueil (index) : sections.* === */
   "sections": {
     "perspective": {
       "eyebrow": "Perspective",
@@ -61,7 +59,6 @@
       "text": "L’innovation s’épanouit lorsque le savoir s’adapte entre pays et cultures — les idées n’ont pas de frontières."
     }
   },
-
   "about": {
     "sections": {
       "who": {
