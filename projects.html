@@ -101,17 +101,25 @@
   .body p{margin:0 0 16px; line-height:1.75;}
   .intro-text{font-size:clamp(16px,1.6vw,18px);color:var(--fg);margin:0 0 22px}
 
-  /* MEDIA SLIDER */
+  /* =========================
+     MEDIA SLIDER
+     ========================= */
   .media-slider{
     position:relative;width:100%;
-    aspect-ratio:16/9;
+    aspect-ratio:16/9; /* desktop par défaut */
     border:1.5px dashed var(--ring);
     border-radius:14px;background:rgba(11,95,165,.03);
     overflow:hidden;
+
+    /* IMPORTANT : empêcher l’inversion RTL dans ce composant */
+    direction: ltr;
   }
   .media-track{
-    position:absolute;inset:0;display:flex;transition:transform .6s ease;will-change:transform;
-    height:100%;
+    position:absolute;inset:0;display:flex;transition:transform .6s ease;will-change:transform;height:100%;
+
+    /* IMPORTANT : garder l’ordre gauche→droite quel que soit dir=rtl sur <html> */
+    direction: ltr;
+    flex-direction: row; /* explicite */
   }
   .slide{
     flex:0 0 100%;position:relative;height:100%;
@@ -121,6 +129,7 @@
   .slide img, .slide video{
     width:100%;height:100%;object-fit:cover;display:block
   }
+  /* Flèches (positions physiques stables) */
   .media-nav{
     position:absolute;top:50%;transform:translateY(-50%);
     background:rgba(255,255,255,.75);border:1px solid var(--ring);
@@ -130,8 +139,8 @@
   }
   [data-theme="dark"] .media-nav{background:rgba(0,0,0,.55);color:#58a6ff}
   .media-nav:hover{background:rgba(255,255,255,.9)}
-  .media-nav.prev{left:10px}
-  .media-nav.next{right:10px}
+  .media-nav.prev{left:10px}   /* reste à gauche en RTL */
+  .media-nav.next{right:10px}  /* reste à droite en RTL */
 
   @media(max-width:980px){.card{grid-column:span 12}}
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
@@ -145,7 +154,9 @@
     .sections{padding:16px 16px 72px}
     html,body{overflow-x:hidden}
   }
-  @media(max-width:640px){
+
+  /* >>> MOBILE : agrandir le slider */
+  @media (max-width:640px){
     .container{padding:12px 16px}
     .top-band{position:static}
     header{flex-wrap:wrap;gap:8px}
@@ -154,6 +165,11 @@
     nav a{font-size:14px;line-height:1.2;white-space:nowrap}
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
+
+    .media-slider{ aspect-ratio: 3 / 4; } /* hauteur ↑ sur mobile */
+  }
+  @media (max-width:380px){
+    .media-slider{ aspect-ratio: 2 / 3; } /* encore plus haut sur très petits écrans */
   }
 </style>
 
@@ -205,7 +221,7 @@
 
   html.mobile-open, body.mobile-open{ overflow: hidden; }
 
-  /* RTL dynamique */
+  /* RTL dynamique (ne touche PAS au slider) */
   html[dir="rtl"] body{ direction: rtl; }
   html[dir="rtl"] nav{ justify-content:flex-end; }
   html[dir="rtl"] .submenu{ left:auto; right:0; }
@@ -213,6 +229,7 @@
   html.mobile-open[dir="rtl"] .mobile-drawer{ transform:translateX(0); }
   html[dir="rtl"] .mobile-sub{ border-left:none; border-right:2px solid var(--ring); }
   html[dir="rtl"] .body, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] a{ text-align:right; }
+  /* NOTE : pas de règle RTL sur .media-slider / .media-track pour préserver LTR interne */
   @media (max-width:640px){
     html[dir="rtl"] .top-band header{
       grid-template-columns:auto 1fr 40px;
@@ -404,7 +421,7 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
 
         <div class="grid">
-          <!-- Carte large (titre + texte + carrousel média) -->
+          <!-- Carte large -->
           <article class="card card-wide">
             <div class="body">
               <span class="pill-title" data-i18n="projects.realized.card_title">Mechanics in Motion: From Design to Manufacturing</span>
@@ -491,6 +508,7 @@ document.addEventListener('DOMContentLoaded',function(){
     const AUTO_MS = 4500;
 
     function updatePosition(){
+      // translation LTR forcée (indépendante de dir=rtl global)
       track.style.transform = `translateX(-${index*100}%)`;
     }
 
@@ -567,14 +585,17 @@ document.addEventListener('DOMContentLoaded',function(){
     nextBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); next(false); });
     prevBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); prev(); });
 
+    // Démarrage
     updatePosition();
     startAuto();
 
+    // Pause auto si onglet inactif
     document.addEventListener('visibilitychange', ()=>{
       if(document.hidden){ if(timer) { clearInterval(timer); timer=null; } if(videoEl) videoEl.pause(); }
       else { if(auto) startAuto(); }
     }, {passive:true});
 
+    // Swipe mobile
     let startX=null;
     container.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
     container.addEventListener('touchend', (e)=>{
@@ -632,7 +653,6 @@ document.addEventListener('DOMContentLoaded',function(){
     const metaTitle = get(dict, "meta.title");
     if (metaTitle) document.title = metaTitle;
 
-    // Lang & direction (RTL pour AR)
     document.documentElement.setAttribute("lang", langCode);
     document.documentElement.setAttribute("dir", langCode === 'ar' ? 'rtl' : 'ltr');
 
