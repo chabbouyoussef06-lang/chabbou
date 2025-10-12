@@ -27,6 +27,41 @@
       "future": "Zukünftige Projekte"
     }
   },
+
+  /* === hinzugefügt für die Startseite (index): sections.* === */
+  "sections": {
+    "perspective": {
+      "eyebrow": "Perspektive",
+      "title": "Die Zukunft der Luft- und Raumfahrt mit kühnen Ideen gestalten",
+      "text": "Horizonte erkunden, wo Ingenieurskunst auf Vorstellungskraft trifft. Ambitionierte Ziele, besonnen umgesetzt."
+    },
+    "learning": {
+      "eyebrow": "Lebenslanges Lernen",
+      "title": "Wo Neugier Wachstum antreibt",
+      "text": "Endlose Entdeckung, zielgerichtete Praxis und der stetige Weg zur Meisterschaft."
+    },
+    "principles": {
+      "eyebrow": "Grundsätze",
+      "title": "Kreativität · Wachstum · Präzision",
+      "text": "Lernen wirkt, wenn es Horizonte erweitert, Fähigkeiten schärft und Theorie mit der Praxis verbindet."
+    },
+    "design": {
+      "eyebrow": "Mit Absicht gestalten",
+      "title": "Präzision in jedem Detail",
+      "text": "Von Skizzen bis Prototypen zählt jede Entscheidung. Robustes Design, leise Zuversicht."
+    },
+    "teamwork": {
+      "eyebrow": "Teamarbeit",
+      "title": "Zusammenarbeit ist der stärkste Antrieb",
+      "text": "Gemeinsam kommen wir schneller voran – über Disziplinen, Tools und Perspektiven hinweg."
+    },
+    "worldview": {
+      "eyebrow": "Weltbild",
+      "title": "Ingenieurwesen ohne Grenzen",
+      "text": "Innovation gedeiht, wenn Wissen sich über Länder und Kulturen hinweg anpasst – Ideen kennen keine Grenzen."
+    }
+  },
+
   "about": {
     "sections": {
       "who": {
