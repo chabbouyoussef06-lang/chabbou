@@ -50,12 +50,7 @@
 
   .page{max-width:1200px;margin:0 auto;padding:32px var(--edge) 24px;z-index:1;position:relative;width:100%}
   .sections{max-width:1200px;margin:0 auto;padding:16px 0 72px}
-  /* GRILLE rétractable */
-  .alt-section{
-    display:grid;
-    grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
-    gap:28px; align-items:start; margin:32px 0; width:100%;
-  }
+  .alt-section{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px; align-items:start; margin:32px 0; width:100%}
 
   .alt-card{
     background:rgba(255,255,255,0.75);
@@ -80,52 +75,43 @@
   .alt-title{font-size:clamp(22px,2.6vw,34px);line-height:1.2;margin:0 0 8px;color:var(--fg)}
   .alt-text{margin:0 0 8px;font-size:16px;line-height:1.5}
 
-  /* Let’s connect – plus compact */
   .info-stack{display:flex;flex-direction:column;gap:10px;min-width:0}
   .info-row{display:flex;align-items:center;gap:10px;margin:0;min-width:0}
   .info-row a{color:var(--fg);text-decoration:none;min-width:0}
   .info-row a:hover{text-decoration:underline}
   .info-muted{color:var(--muted); font-size:14px}
 
-  /* Formulaire – éléments rétractables */
   form.contact-form{display:grid;grid-template-columns:1fr;gap:10px;min-width:0}
   .field{display:flex;flex-direction:column;gap:6px;min-width:0}
   .label{font-weight:600;font-size:14px}
-  .input,.textarea,.file{
+  .input,.textarea{
     background:rgba(255,255,255,0.9);border:1px solid var(--ring);border-radius:12px;
     padding:10px 12px;font:inherit;color:inherit;outline:none;
     width:100%;max-width:100%;min-width:0;
   }
   .textarea{min-height:136px;resize:vertical}
-  /* iOS file input : empêche la largeur imposée + ellipses */
-  .file{display:block;white-space:nowrap; text-overflow:ellipsis; overflow:hidden}
-  .file::-webkit-file-upload-button{margin-right:8px}
 
   .submit{
     display:inline-flex;align-items:center;gap:10px;justify-content:center;
     padding:12px 18px;border-radius:999px;border:0;background:linear-gradient(180deg,var(--brand),#0a5695);
-    color:#fff;font-weight:700;cursor:pointer;box-shadow:0 8px 18px rgba(11,95,165,.25)
+    color:#fff;font-weight:700;cursor:not-allowed;box-shadow:0 8px 18px rgba(11,95,165,.25);
+    opacity:.6;
   }
-  .submit:disabled{opacity:.7;cursor:not-allowed}
   .hint{font-size:12px;color:var(--muted)}
   .status{margin-top:6px;font-size:14px}
   .status.ok{color:#0a7f3f}.status.err{color:#b00020}
 
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
-  /* Mobile */
   @media(max-width:900px){
     :root{ --anchor-offset: 72px; }
     .alt-section{grid-template-columns:1fr; gap:18px; margin:22px 0;}
     .container, .page{padding-left:16px; padding-right:16px;}
-    /* iOS: on isole la carte pour éviter tout crop de blur/arrondis au bord droit */
     .alt-card{padding:18px; margin-inline:12px; overflow:hidden;}
   }
   @media(max-width:420px){
-    /* garde-fou pour très petits écrans ou zoom texte */
     .alt-card{ contain:content; border-radius:20px; margin-inline:10px; }
   }
-  /* Ciblage Safari iOS : ajoute un léger inset si besoin */
   @supports (-webkit-touch-callout: none) {
     @media (max-width: 480px) {
       .alt-card{ margin-inline:12px; }
@@ -133,26 +119,23 @@
   }
 </style>
 
-<!-- ✅ ADD-ON non destructif : force l'affichage du background image -->
+<!-- Force l'image de fond -->
 <style>
-  /* On neutralise les fonds unis pour voir l'image derrière */
   html { background: transparent !important; }
   body { background: transparent !important; position: relative; }
-
-  /* Calque d'arrière-plan au bon z-index, derrière tout le contenu */
   body::before{
     content:"";
     position: fixed;
     inset: 0;
     background: url('background.jpg') no-repeat center/cover;
-    z-index: -1;           /* plus haut que -2, toujours derrière le contenu */
+    z-index: -1;
     pointer-events: none;
     transform: translateZ(0);
     will-change: transform;
   }
 </style>
 
-<!-- ===== AJOUTS: Hamburger + layout mobile + RTL ===== -->
+<!-- Hamburger + mobile + RTL (inchangé) -->
 <style>
   .hamburger-btn{display:none;appearance:none;border:0;background:transparent;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer}
   .hamburger-btn span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;position:relative}
@@ -198,7 +181,6 @@
 
   html.mobile-open, body.mobile-open{ overflow: hidden; }
 
-  /* RTL dynamique */
   html[dir="rtl"] body{ direction: rtl; }
   html[dir="rtl"] nav{ justify-content:flex-end; }
   html[dir="rtl"] .submenu{ left:auto; right:0; }
@@ -242,7 +224,6 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
     });
   } document.addEventListener('DOMContentLoaded', snapshotOriginals);
 
-
   const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k]!=null?a[k]:undefined,o);
 
   function currentLang(){
@@ -264,11 +245,8 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
       if(val!=null) el.textContent=val;
     });
     const metaTitle=get(dict,"meta.contact_title"); if(metaTitle) document.title=metaTitle;
-
-    // Lang & direction
     document.documentElement.setAttribute("lang",lang);
     document.documentElement.setAttribute("dir", lang === 'ar' ? 'rtl' : 'ltr');
-
     window.__i18nDict=dict; window.__currentLang=lang;
     updateThemeLabel();
   }
@@ -283,7 +261,6 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
     updateThemeLabel();
   }
 
-  /* Correctif : revenir proprement à l’anglais */
   function setLang(lang){
     if(lang!=='en' && !SUPPORTED.includes(lang)) lang='en';
     const u=new URL(location.href); u.searchParams.set("lang",lang);
@@ -291,7 +268,6 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
     if(lang==='en'){ restoreEnglish(); return; }
     loadDict(lang).then(d=>applyDict(d,lang)).catch(()=>restoreEnglish());
   }
-
   window.setLangFromMenu=setLang;
 
   (function initLangToggleLabel(){
@@ -302,14 +278,9 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
 
   const current=currentLang();
   if(current==='en') restoreEnglish(); else setLang(current);
-
-  document.addEventListener("click",e=>{
-    const b=e.target.closest("[data-lang]"); if(!b) return;
-    e.preventDefault(); setLang(b.getAttribute("data-lang"));
-  },{passive:true});
 })();
 
-/* Formulaire – Formspree par défaut */
+/* === FORMULAIRE DÉSACTIVÉ — AUCUN ENVOI RÉSEAU === */
 document.addEventListener('DOMContentLoaded', () => {
   // thème initial
   let initial='light';
@@ -317,53 +288,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const stored=localStorage.getItem('theme');
     if(stored){initial=stored;} else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){initial='dark';}
   }catch(e){}
-  document.documentElement.dataset.theme=initial; document.documentElement.style.colorScheme=initial; updateThemeLabel();
-
-  // sélecteur de langue à côté du thème
-  const themeBtn=document.getElementById('themeToggle');
-  if(themeBtn && themeBtn.parentNode){
-    const wrap=document.createElement('div'); wrap.className='menu lang-menu';
-    const btn=document.createElement('button'); btn.id='langToggle'; btn.className='toggle'; btn.type='button'; btn.setAttribute('aria-haspopup','true'); btn.textContent='EN ▾';
-    const menu=document.createElement('div'); menu.id='lang-menu'; menu.className='submenu';
-    menu.innerHTML = `
-      <a href="#" data-lang="en">English</a>
-      <a href="#" data-lang="de">Deutsch</a>
-      <a href="#" data-lang="ar">العربية</a>
-      <a href="#" data-lang="fr">Français</a>
-    `;
-    wrap.appendChild(btn); wrap.appendChild(menu);
-    themeBtn.parentNode.insertBefore(wrap, themeBtn);
-    btn.addEventListener('click',e=>toggleMenu(e,'lang-menu'));
-  }
-
-  // Pré-remplir e-mail si déjà saisi
-  const emailInput = document.getElementById('fromEmail');
-  try{ const saved = localStorage.getItem('visitor_email'); if(saved && emailInput) emailInput.value = saved; }catch(e){}
+  document.documentElement.dataset.theme=initial;
+  document.documentElement.style.colorScheme=initial;
+  updateThemeLabel();
 
   const form = document.getElementById('contactForm');
   const statusEl = document.getElementById('formStatus');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    statusEl.className='status'; statusEl.textContent=i18nGet('contact.form.sending','Sending…');
+  const sendBtn = document.getElementById('sendBtn');
 
-    const formData = new FormData(form);
-    try{ localStorage.setItem('visitor_email', formData.get('email') || ''); }catch(e){}
-
-    try{
-      // ⚠️ Remplace par ton endpoint Formspree / autre
-      const resp = await fetch('https://formspree.io/f/XXXXXXXX', { method:'POST', body: formData, headers: { 'Accept': 'application/json' } });
-      if(resp.ok){
-        form.reset(); statusEl.className='status ok';
-        statusEl.textContent=i18nGet('contact.form.success','Message sent successfully. Thank you!');
-      }else{
+  // bouton désactivé + interception soumission
+  if (sendBtn){ sendBtn.setAttribute('disabled',''); sendBtn.setAttribute('aria-disabled','true'); }
+  if (form){
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (statusEl){
         statusEl.className='status err';
-        statusEl.textContent=i18nGet('contact.form.error','Sending failed. Please try again or email me directly.');
+        statusEl.textContent = i18nGet('contact.form.disabled','This form is temporarily disabled. Please contact me via email or LinkedIn.');
       }
-    }catch(err){
-      statusEl.className='status err';
-      statusEl.textContent=i18nGet('contact.form.error_network','Network error. Please try again.');
-    }
-  });
+      return false;
+    });
+  }
 });
 </script>
 </head>
@@ -371,7 +315,6 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="top-band">
     <div class="container">
       <header>
-        <!-- AJOUT: bouton hamburger -->
         <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">
           <span aria-hidden="true"></span>
         </button>
@@ -403,13 +346,11 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
 
-        <!-- AJOUT: bouton thème -->
         <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
       </header>
     </div>
   </div>
 
-  <!-- AJOUT: backdrop + tiroir mobile -->
   <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
   <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <header>
@@ -469,7 +410,6 @@ document.addEventListener('DOMContentLoaded', () => {
           </p>
 
           <div class="info-stack">
-            <!-- LinkedIn -->
             <div class="info-row">
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.8v2.1h.1c.5-.9 1.8-2.1 3.8-2.1 4.1 0 4.8 2.7 4.8 6.2V24h-4v-7.1c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V24h-4V8.5z"/>
@@ -479,13 +419,11 @@ document.addEventListener('DOMContentLoaded', () => {
               </a>
             </div>
 
-            <!-- E-mail -->
             <div class="info-row">
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8.236l8 6.764 8-6.764V18H4z"/></svg>
               <a href="mailto:Youssefchabbou@outlook.com">Youssefchabbou@outlook.com</a>
             </div>
 
-            <!-- Localisation -->
             <div class="info-row">
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
               <span>Braunschweig, Germany</span>
@@ -493,40 +431,37 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
 
-        <!-- Colonne DROITE : formulaire -->
+        <!-- Colonne DROITE : formulaire (affichage uniquement, désactivé) -->
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="contact.form.eyebrow">Send a message</p>
           <h2 class="alt-title" data-i18n="contact.form.title">Contact form</h2>
 
-          <form id="contactForm" class="contact-form" enctype="multipart/form-data">
+          <!-- AUCUN ENVOI : onSoumet => return false -->
+          <form id="contactForm" class="contact-form" onsubmit="return false;">
             <div class="field">
               <label class="label" for="fromEmail" data-i18n="contact.form.email_label">Your e-mail</label>
-              <input class="input" id="fromEmail" name="email" type="email" autocomplete="email" required
+              <input class="input" id="fromEmail" name="email" type="email" autocomplete="email"
                      placeholder="you@example.com" data-i18n="contact.form.email_ph"/>
             </div>
 
             <div class="field">
               <label class="label" for="subject" data-i18n="contact.form.subject_label">Subject</label>
-              <input class="input" id="subject" name="subject" type="text" required
+              <input class="input" id="subject" name="subject" type="text"
                      placeholder="Topic…" data-i18n="contact.form.subject_ph"/>
             </div>
 
             <div class="field">
               <label class="label" for="message" data-i18n="contact.form.message_label">Message</label>
-              <textarea class="textarea" id="message" name="message" required
+              <textarea class="textarea" id="message" name="message"
                         placeholder="Write your message…" data-i18n="contact.form.message_ph"></textarea>
             </div>
 
-            <div class="field">
-              <label class="label" for="attachment" data-i18n="contact.form.attachment_label">Attachment</label>
-              <input class="file" id="attachment" name="attachment" type="file" />
-              <span class="hint" data-i18n="contact.form.attachment_hint">Optional. Attach relevant file(s).</span>
+            <!-- Champ fichier retiré; pas d'endpoint, pas d'action, pas de _to -->
+
+            <button id="sendBtn" class="submit" type="button" data-i18n="contact.form.send_btn">Send</button>
+            <div id="formStatus" class="status" aria-live="polite" data-i18n="contact.form.disabled">
+              This form is temporarily disabled. Please contact me via email or LinkedIn.
             </div>
-
-            <input type="hidden" name="_to" value="Youssefchabbou@outlook.com"/>
-
-            <button class="submit" type="submit" data-i18n="contact.form.send_btn">Send</button>
-            <div id="formStatus" class="status" aria-live="polite"></div>
           </form>
 
           <p class="hint" style="margin-top:10px" data-i18n="contact.form.privacy_hint">
@@ -543,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </span>
   </div>
 
-  <!-- Contrôle hamburger -->
+  <!-- Contrôle hamburger (inchangé à part) -->
   <script>
     (function(){
       const html = document.documentElement;
@@ -578,13 +513,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (backdrop) backdrop.addEventListener('click', closeDrawer);
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
 
-      // fermer le tiroir si on clique un lien
       drawer.addEventListener('click', (e)=>{
         const a = e.target.closest('a');
         if (a) closeDrawer();
       });
 
-      // changement de langue via boutons du tiroir
       drawer.addEventListener('click', (e)=>{
         const b = e.target.closest('.lang-btn[data-lang]');
         if (!b) return;
