@@ -94,56 +94,63 @@
   @media(max-width:640px){
     .container{padding:12px 16px}
     .top-band{position:static}
-    header{flex-wrap:nowrap;gap:0;position:relative;min-height:56px}
+    header{flex-wrap:wrap;gap:8px}
     header img.signature{height:28px}
-    nav{flex:0 0 auto;display:flex;gap:12px;justify-content:flex-start;min-width:0}
+    nav{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-start;min-width:0}
     nav a{font-size:14px;line-height:1.2;white-space:nowrap}
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
     html,body{overflow-x:hidden}
-
-    /* --- Spécifique mobile: header en 3 zones --- */
-    .hamburger-btn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:transparent;cursor:pointer}
-    .hamburger-btn .hb-line{display:block;width:22px;height:2px;background:var(--fg);position:relative;border-radius:2px}
-    .hamburger-btn .hb-line::before,.hamburger-btn .hb-line::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--fg);border-radius:2px}
-    .hamburger-btn .hb-line::before{top:-7px}
-    .hamburger-btn .hb-line::after{top:7px}
-
-    /* Logo centré, thème à droite */
-    .header-slot{display:flex;align-items:center}
-    .slot-left{order:1}
-    .slot-center{order:2;position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center}
-    .slot-right{order:3;margin-left:auto}
-
-    /* Cacher nav et languette langues visibles en mobile (elles passent dans le tiroir) */
-    nav, .lang-menu{display:none !important}
   }
 
-  /* ======= Drawer mobile ======= */
-  .mobile-drawer{position:fixed;inset:0 0 0 auto;max-width:86vw;width:320px;background:var(--card);border-left:1px solid var(--ring);transform:translateX(100%);transition:transform .25s ease,opacity .25s ease;z-index:1200;opacity:0}
-  .mobile-drawer.open{transform:translateX(0);opacity:1}
-  .mobile-drawer header{padding:12px 16px;border-bottom:1px solid var(--ring);display:flex;align-items:center;justify-content:space-between}
-  .mobile-drawer .drawer-body{padding:12px 14px 24px;display:flex;flex-direction:column;gap:10px}
-  .mobile-drawer a,.mobile-drawer button{display:block;width:100%;text-align:left;background:transparent;border:1px solid var(--ring);padding:10px 12px;border-radius:10px;color:var(--fg);text-decoration:none}
-  .mobile-drawer .group{margin-top:12px;padding-top:12px;border-top:1px dashed var(--ring)}
-  .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:1195;opacity:0;pointer-events:none;transition:opacity .25s ease}
-  .drawer-overlay.show{opacity:1;pointer-events:auto}
+  /* =========================
+     AJOUTS : HAMBURGER MOBILE
+     ========================= */
+  /* Bouton hamburger (caché en desktop) */
+  .hamburger-btn{display:none;appearance:none;border:0;background:transparent;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer}
+  .hamburger-btn span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;position:relative}
+  .hamburger-btn span::before,.hamburger-btn span::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--fg);border-radius:2px}
+  .hamburger-btn span::before{top:-7px}
+  .hamburger-btn span::after{top:7px}
 
-  @media(min-width:641px){
-    .hamburger-btn{display:none}
-    .mobile-drawer,.drawer-overlay{display:none}
-    /* En desktop, tout reste comme avant */
+  /* Drawer + backdrop */
+  .mobile-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:999}
+  .mobile-drawer{position:fixed;top:0;left:0;height:100%;width:86vw;max-width:360px;background:var(--bg);border-right:1px solid var(--ring);box-shadow:0 10px 30px rgba(0,0,0,.18);transform:translateX(-102%);transition:transform .25s ease;z-index:1000;display:flex;flex-direction:column}
+  .mobile-drawer header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ring)}
+  .mobile-drawer nav{display:flex;flex-direction:column;gap:4px;padding:12px 12px 18px}
+  .mobile-drawer nav a{padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--fg)}
+  .mobile-drawer nav a:hover{background:var(--card)}
+  .mobile-drawer .mobile-sub{padding:0 12px 12px}
+  .mobile-drawer .mobile-sub a{display:block;padding:8px 12px;margin-left:12px;border-radius:8px}
+  .mobile-drawer .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .mobile-drawer .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
+  .mobile-drawer .lang-btn:active{transform:scale(.98)}
+
+  .mobile-open .mobile-backdrop{opacity:1;pointer-events:auto}
+  .mobile-open .mobile-drawer{transform:translateX(0)}
+
+  /* Réorganisation du header en mobile : [hamburger] [logo centré] [theme à droite] */
+  @media (max-width:640px){
+    .hamburger-btn{display:flex}
+    /* on cache les nav visibles et la languette langues en mobile */
+    .top-band nav{display:none !important}
+    .lang-menu{display:none !important}
+
+    /* grille à 3 colonnes pour centrer la signature et garder Night à droite */
+    .top-band header{
+      display:grid;
+      grid-template-columns:40px 1fr auto;
+      align-items:center;
+      gap:8px;
+    }
+    .top-band header > a[href="#home"]{justify-self:center}
+    #themeToggle{justify-self:end}
   }
 
-  /* Accessibilité : focus visible */
-  .hamburger-btn:focus-visible, .site-nav a:focus-visible, .mobile-drawer a:focus-visible, .mobile-drawer button:focus-visible{
-    outline: 2px solid var(--brand);
-    outline-offset: 3px;
-  }
-
-  /* Préf. utilisateur */
-  @media (prefers-reduced-motion: reduce){
-    .mobile-drawer{transition:none}
+  /* Accessibilité focus */
+  .hamburger-btn:focus-visible,.mobile-drawer a:focus-visible,.lang-btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){
+    .mobile-backdrop,.mobile-drawer{transition:none}
   }
 </style>
 
@@ -276,73 +283,20 @@ document.addEventListener('DOMContentLoaded',function(){
   }catch(_e){}
 });
 </script>
-
-<!-- ======= JS additionnel : gestion du hamburger / tiroir mobile ======= -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const drawer = document.getElementById('mobileDrawer');
-  const overlay = document.getElementById('drawerOverlay');
-  const openBtn = document.getElementById('hamburgerOpen');
-  const closeBtn = document.getElementById('drawerClose');
-
-  function openDrawer(){
-    if (!drawer) return;
-    drawer.classList.add('open');
-    if (overlay){ overlay.classList.add('show'); }
-    document.body.style.overflow='hidden';
-  }
-  function closeDrawer(){
-    if (!drawer) return;
-    drawer.classList.remove('open');
-    if (overlay){ overlay.classList.remove('show'); }
-    document.body.style.overflow='';
-  }
-
-  if (openBtn) openBtn.addEventListener('click', openDrawer);
-  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-  if (overlay) overlay.addEventListener('click', closeDrawer);
-  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeDrawer(); });
-
-  // Délégué: clic liens du tiroir -> fermer
-  if (drawer){
-    drawer.addEventListener('click', (e)=>{
-      const a = e.target.closest('a,button[data-lang]');
-      if (!a) return;
-      // Si c'est une langue dans le tiroir
-      if (a.hasAttribute('data-lang') && window.setLangFromMenu){
-        e.preventDefault();
-        window.setLangFromMenu(a.getAttribute('data-lang'));
-      }
-      closeDrawer();
-    });
-  }
-});
-</script>
 </head>
 <body data-theme="light">
   <div class="top-band">
     <div class="container">
       <header>
-        <!-- SLOT GAUCHE : bouton hamburger (mobile) -->
-        <div class="header-slot slot-left">
-          <button id="hamburgerOpen" class="hamburger-btn" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false">
-            <span class="hb-line" aria-hidden="true"></span>
-          </button>
-        </div>
+        <!-- AJOUT : bouton hamburger (mobile uniquement) -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">
+          <span aria-hidden="true"></span>
+        </button>
 
-        <!-- SLOT CENTRE : logo signature centré -->
-        <div class="header-slot slot-center">
-          <a href="#home" onclick="goHome()" style="display:inline-block">
-            <img src="signature.png" alt="Signature" class="signature" />
-          </a>
-        </div>
+        <a href="#home" onclick="goHome()" style="display:inline-block">
+          <img src="signature.png" alt="Signature" class="signature" />
+        </a>
 
-        <!-- SLOT DROIT : bouton thème -->
-        <div class="header-slot slot-right">
-          <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
-        </div>
-
-        <!-- NAV ORIGINELLE (desktop) — conservée telle quelle -->
         <nav>
           <!-- About : page + sous-menu (Profile en premier) -->
           <div class="menu">
@@ -372,33 +326,44 @@ document.addEventListener('DOMContentLoaded', () => {
           <!-- Contact -->
           <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
+
+        <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
       </header>
     </div>
   </div>
 
-  <!-- ======= Tiroir mobile + overlay ======= -->
-  <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
-  <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <!-- AJOUT : Backdrop + Drawer mobile -->
+  <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
+  <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <header>
-      <strong style="font-weight:700">Menu</strong>
-      <button id="drawerClose" class="toggle" type="button" aria-label="Close menu">✕</button>
+      <strong data-i18n="nav.projects">Menu</strong>
+      <button class="toggle" type="button" id="mobileCloseBtn" aria-label="Close menu">✕</button>
     </header>
-    <div class="drawer-body">
-      <!-- Liens de sections (repris du nav) -->
+    <nav>
       <a href="about.html" data-i18n="nav.about">About</a>
-      <a href="skills.html" data-i18n="nav.skills">Skills</a>
-      <a href="projects.html" data-i18n="nav.projects">Projects</a>
-      <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-      <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
-      <a href="contact.html" data-i18n="nav.contact">Contact</a>
-
-      <!-- Groupe langues (reprend les mêmes codes langue) -->
-      <div class="group">
-        <button type="button" data-lang="en">English</button>
-        <button type="button" data-lang="de">Deutsch</button>
-        <button type="button" data-lang="ar">العربية</button>
-        <button type="button" data-lang="fr">Français</button>
+      <div class="mobile-sub">
+        <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
+        <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
+        <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
+        <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
       </div>
+
+      <a href="skills.html" data-i18n="nav.skills">Skills</a>
+
+      <a href="projects.html" data-i18n="nav.projects">Projects</a>
+      <div class="mobile-sub">
+        <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+        <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
+      </div>
+
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+    </nav>
+
+    <div class="lang-grid" aria-label="Language">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="de">DE</button>
+      <button class="lang-btn" data-lang="ar">AR</button>
     </div>
   </aside>
 
@@ -444,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <section class="alt-section reveal">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="sections.teamwork.eyebrow">Teamwork</p>
-          <h3 class="alt-title" data-i18n="sections.teamwork.title">Collaboration is the strongest engine</h3>
+          <h3 class="alt-title" data-i18n="sections.teamwork.title">Collaboration is the strongest engine</p>
           <p class="alt-text" data-i18n="sections.teamwork.text">We move faster together, bridging disciplines, tools, and perspectives.</p>
         </div>
         <figure class="alt-media"><img src="ChatGPT Image 8 oct. 2025, 16_36_28.jpg" alt="Team silhouettes"></figure>
@@ -578,6 +543,56 @@ document.addEventListener('DOMContentLoaded', () => {
     setLang(b.getAttribute("data-lang"));
   });
 })();
+  </script>
+
+  <!-- AJOUT : script contrôle hamburger -->
+  <script>
+    (function(){
+      const html = document.documentElement;
+      const btn = document.getElementById('hamburgerBtn');
+      const drawer = document.getElementById('mobile-drawer');
+      const backdrop = document.getElementById('mobileBackdrop');
+      const closeBtn = document.getElementById('mobileCloseBtn');
+
+      function openDrawer(){
+        html.classList.add('mobile-open');
+        drawer.setAttribute('aria-hidden','false');
+        btn.setAttribute('aria-expanded','true');
+        backdrop.hidden = false;
+      }
+      function closeDrawer(){
+        html.classList.remove('mobile-open');
+        drawer.setAttribute('aria-hidden','true');
+        btn.setAttribute('aria-expanded','false');
+        // donner le temps à l'anim avant de cacher le backdrop aux lecteurs d'écran
+        setTimeout(()=>{backdrop.hidden = true;}, 200);
+      }
+
+      if (btn){
+        btn.addEventListener('click', ()=>{
+          const isOpen = html.classList.contains('mobile-open');
+          if (isOpen) closeDrawer(); else openDrawer();
+        });
+      }
+      if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+      if (backdrop) backdrop.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
+
+      // liens du drawer : fermer après navigation
+      drawer.addEventListener('click', (e)=>{
+        const a = e.target.closest('a');
+        if (a) closeDrawer();
+      });
+
+      // boutons de langue du drawer : utiliser setLangFromMenu + fermer
+      drawer.addEventListener('click', (e)=>{
+        const b = e.target.closest('.lang-btn[data-lang]');
+        if (!b) return;
+        e.preventDefault();
+        if (window.setLangFromMenu) window.setLangFromMenu(b.dataset.lang);
+        closeDrawer();
+      });
+    })();
   </script>
 </body>
 </html>
