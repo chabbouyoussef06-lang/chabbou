@@ -106,7 +106,7 @@
      ========================= */
   .media-slider{
     position:relative;width:100%;
-    aspect-ratio:16/9; /* desktop par défaut */
+    aspect-ratio:16/9; /* desktop par défaut (paysage) */
     border:1.5px dashed var(--ring);
     border-radius:14px;background:rgba(11,95,165,.03);
     overflow:hidden;
@@ -119,7 +119,7 @@
 
     /* IMPORTANT : garder l’ordre gauche→droite quel que soit dir=rtl sur <html> */
     direction: ltr;
-    flex-direction: row; /* explicite */
+    flex-direction: row;
   }
   .slide{
     flex:0 0 100%;position:relative;height:100%;
@@ -139,8 +139,8 @@
   }
   [data-theme="dark"] .media-nav{background:rgba(0,0,0,.55);color:#58a6ff}
   .media-nav:hover{background:rgba(255,255,255,.9)}
-  .media-nav.prev{left:10px}   /* reste à gauche en RTL */
-  .media-nav.next{right:10px}  /* reste à droite en RTL */
+  .media-nav.prev{left:10px}
+  .media-nav.next{right:10px}
 
   @media(max-width:980px){.card{grid-column:span 12}}
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
@@ -155,7 +155,7 @@
     html,body{overflow-x:hidden}
   }
 
-  /* >>> MOBILE : agrandir le slider */
+  /* >>> MOBILE : slider large, paysage, centré + images non rognées */
   @media (max-width:640px){
     .container{padding:12px 16px}
     .top-band{position:static}
@@ -166,10 +166,28 @@
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
 
-    .media-slider{ aspect-ratio: 3 / 4; } /* hauteur ↑ sur mobile */
+    /* taille paysage + grande hauteur utile */
+    .media-slider{
+      aspect-ratio: 16 / 9;          /* impose paysage */
+      width: min(100vw, 680px);       /* grand, mais contenable */
+      max-height: 65vh;               /* évite de dépasser l’écran */
+      margin-left: auto;              /* centré */
+      margin-right: auto;             /* centré */
+      border-radius: 16px;
+      background: rgba(11,95,165,.03);
+    }
+    /* sur mobile, on veut voir l’image entière */
+    .slide img, .slide video{
+      object-fit: contain;            /* plus de rognage */
+      background: transparent;        /* pas d’effet boîte noire */
+    }
   }
+
+  /* Très petits écrans : un peu plus de place en hauteur si besoin */
   @media (max-width:380px){
-    .media-slider{ aspect-ratio: 2 / 3; } /* encore plus haut sur très petits écrans */
+    .media-slider{
+      max-height: 70vh;
+    }
   }
 </style>
 
@@ -229,7 +247,6 @@
   html.mobile-open[dir="rtl"] .mobile-drawer{ transform:translateX(0); }
   html[dir="rtl"] .mobile-sub{ border-left:none; border-right:2px solid var(--ring); }
   html[dir="rtl"] .body, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] a{ text-align:right; }
-  /* NOTE : pas de règle RTL sur .media-slider / .media-track pour préserver LTR interne */
   @media (max-width:640px){
     html[dir="rtl"] .top-band header{
       grid-template-columns:auto 1fr 40px;
@@ -508,7 +525,6 @@ document.addEventListener('DOMContentLoaded',function(){
     const AUTO_MS = 4500;
 
     function updatePosition(){
-      // translation LTR forcée (indépendante de dir=rtl global)
       track.style.transform = `translateX(-${index*100}%)`;
     }
 
