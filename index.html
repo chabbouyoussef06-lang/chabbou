@@ -122,7 +122,7 @@
   .mobile-drawer nav a:hover{background:var(--card)}
   .mobile-drawer .mobile-sub{padding:0 12px 12px}
   .mobile-drawer .mobile-sub a{display:block;padding:8px 12px;margin-left:12px;border-radius:8px}
-  .mobile-drawer .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .mobile-drawer .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:var(--bg)}
   .mobile-drawer .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
   .mobile-drawer .lang-btn:active{transform:scale(.98)}
 
@@ -177,6 +177,46 @@
     border-radius:8px;
   }
   .mobile-sep{ height:8px; }
+
+  /* --- Fix header du tiroir + scroll interne --- */
+  .mobile-drawer header{
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--bg);
+    border-bottom: 1px solid var(--ring);
+    padding-top: calc(14px + env(safe-area-inset-top, 0px));
+  }
+  .mobile-drawer nav{
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 16px;
+  }
+  .mobile-drawer nav .mobile-heading:first-of-type{
+    margin-top: 12px;
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  /* Empêcher le scroll du fond quand tiroir ouvert */
+  html.mobile-open, body.mobile-open{ overflow: hidden; }
+
+  /* ===== RTL (arabe) — dynamique sans reload ===== */
+  html[dir="rtl"] body{ direction: rtl; }
+  html[dir="rtl"] .alt-card, html[dir="rtl"] .lead, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] a{ text-align:right; }
+  html[dir="rtl"] nav{ justify-content:flex-end; }
+  html[dir="rtl"] .submenu{ left:auto; right:0; }
+  html[dir="rtl"] .mobile-drawer{ left:auto; right:0; transform:translateX(102%); }
+  html.mobile-open[dir="rtl"] .mobile-drawer{ transform:translateX(0); }
+  html[dir="rtl"] .mobile-sub{ border-left:none; border-right:2px solid var(--ring); }
+  @media (max-width:640px){
+    html[dir="rtl"] .top-band header{
+      grid-template-columns:auto 1fr 40px; /* [theme left][logo][hamburger right] en RTL */
+    }
+    html[dir="rtl"] #themeToggle{ justify-self:start; }
+    html[dir="rtl"] .top-band header > a[href="#home"]{ justify-self:center; }
+  }
 </style>
 
 <script>
@@ -496,7 +536,6 @@ document.addEventListener('DOMContentLoaded',function(){
   const SUPPORTED = ["fr","de","ar"]; // langues avec JSON
   const DEFAULT = "en"; // anglais natif
 
-  // Cache des textes originaux pour revenir à EN
   function snapshotOriginals(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
       if(!el.dataset.i18nOriginal){
@@ -512,7 +551,7 @@ document.addEventListener('DOMContentLoaded',function(){
     const params = new URLSearchParams(location.search);
     const hasParam = params.has("lang");
     const urlLang  = params.get("lang");
-    if (!hasParam) return DEFAULT; // pas de ?lang= -> EN
+    if (!hasParam) return DEFAULT;
     if (urlLang === 'en' || SUPPORTED.includes(urlLang)) return urlLang;
     return DEFAULT;
   }
@@ -524,20 +563,21 @@ document.addEventListener('DOMContentLoaded',function(){
   }
 
   function applyDict(dict) {
-    // remplace tout ce qui a data-i18n
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       const val = get(dict, key);
       if (val != null) el.textContent = val;
     });
-
-    // titre de page
     const metaTitle = get(dict, "meta.title");
     if (metaTitle) document.title = metaTitle;
 
-    // exposer le dict pour d'autres labels (Night/Day)
     window.__i18nDict = dict;
     document.documentElement.setAttribute("lang", current);
+
+    // dynamique RTL selon la langue
+    const isRTL = (current === 'ar');
+    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+
     if (window.updateThemeLabel) updateThemeLabel();
   }
 
@@ -547,24 +587,23 @@ document.addEventListener('DOMContentLoaded',function(){
     });
     window.__i18nDict = {};
     document.documentElement.setAttribute("lang", "en");
+    document.documentElement.setAttribute("dir", "ltr");
     if (window.updateThemeLabel) updateThemeLabel();
   }
 
   let current = currentLang();
 
   async function setLang(lang) {
-    // normaliser
     if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
     current = lang;
 
-    // mettre ?lang= dans l'URL (sans recharger la page)
+    // mettre ?lang= dans l’URL sans reload
     const u = new URL(location.href);
     u.searchParams.set("lang", lang);
     history.replaceState({}, "", u.pathname + u.search + location.hash);
 
     if (lang === 'en') { restoreEnglish(); return; }
 
-    // charger et appliquer
     try{
       const dict = await loadDict(lang);
       applyDict(dict);
@@ -574,7 +613,7 @@ document.addEventListener('DOMContentLoaded',function(){
     }
   }
 
-  // exposer pour le menu
+  // exposer pour menus
   window.setLangFromMenu = setLang;
 
   // init label languette
@@ -603,6 +642,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <script>
     (function(){
       const html = document.documentElement;
+      const body = document.body;
       const btn = document.getElementById('hamburgerBtn');
       const drawer = document.getElementById('mobile-drawer');
       const backdrop = document.getElementById('mobileBackdrop');
@@ -610,12 +650,14 @@ document.addEventListener('DOMContentLoaded',function(){
 
       function openDrawer(){
         html.classList.add('mobile-open');
+        body.classList.add('mobile-open');
         drawer.setAttribute('aria-hidden','false');
         btn.setAttribute('aria-expanded','true');
         backdrop.hidden = false;
       }
       function closeDrawer(){
         html.classList.remove('mobile-open');
+        body.classList.remove('mobile-open');
         drawer.setAttribute('aria-hidden','true');
         btn.setAttribute('aria-expanded','false');
         setTimeout(()=>{backdrop.hidden = true;}, 200);
