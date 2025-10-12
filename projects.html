@@ -124,7 +124,7 @@
 
   @media(max-width:900px){.sections{padding:16px 16px 72px}html,body{overflow-x:hidden}}
 
-  /* ======== MOBILE : podium élargi sous le texte ======== */
+  /* ======== MOBILE : podium et overlay ======== */
   @media (max-width:640px){
     .container{padding:12px 16px}
     .top-band{position:static}
@@ -135,21 +135,21 @@
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
 
-    /* la carte ne coupe plus ce qui dépasse */
-    .card{ overflow:visible; }
+    /* la carte garde son cadre : rien ne dépasse */
+    .card{ overflow:hidden; }
 
-    /* conteneur podium : ajoute une « marche » blanche plus large sous le texte */
+    /* podium à 100% de la carte (ne dépasse plus) */
     .media-podium{
       position:relative;
       margin:12px auto 0;
-      width: min(100vw, 720px);   /* large, centré */
+      width:100%;
     }
     .media-podium::before{
       content:"";
       position:absolute; left:50%; transform:translateX(-50%);
-      bottom:-10px;               /* petite retombée visuelle */
-      width: min(100vw, 720px);
-      height: calc(100% + 20px);  /* un peu plus haut que le slider */
+      bottom:-10px;
+      width:100%;
+      height: calc(100% + 20px);
       border-radius:18px;
       background: rgba(255,255,255,0.75);
       box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
@@ -160,25 +160,45 @@
       box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;
     }
 
-    /* le slider, posé sur le podium élargi */
     .media-podium .media-slider{
       position:relative; z-index:1;
-      width: min(100vw, 720px);
-      max-height: 68vh;
+      width:100%;
+      max-height: 62vh;
       aspect-ratio: 16 / 9;
       margin-left:auto; margin-right:auto;
       border-radius:16px;
       background:rgba(11,95,165,.03);
     }
-    /* images/vidéos visibles en entier (plus de rognage) */
     .media-podium .slide img, .media-podium .slide video{
-      object-fit: contain;
+      object-fit: contain;   /* photos petites en portrait, entières */
       background: transparent;
+    }
+
+    /* overlay mobile : invite à pivoter */
+    .rotate-overlay{
+      position:absolute; inset:0; z-index:3;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      background:rgba(0,0,0,.38);
+      backdrop-filter:blur(2px);
+      -webkit-backdrop-filter:blur(2px);
+      color:#fff; text-align:center; padding:14px;
+      font-size:14px; line-height:1.4;
+      cursor:pointer;
+    }
+    .rotate-overlay.hidden{ display:none; }
+
+    .rotate-hint{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 14px; border-radius:999px;
+      background:rgba(0,0,0,.45);
+    }
+    .rotate-icon{
+      width:22px; height:22px; flex:0 0 22px; display:inline-block;
     }
   }
 
   @media (max-width:380px){
-    .media-podium .media-slider{ max-height: 72vh; }
+    .media-podium .media-slider{ max-height: 66vh; }
   }
 </style>
 
@@ -409,10 +429,20 @@ document.addEventListener('DOMContentLoaded',function(){
                 A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.
               </p>
 
-              <!-- PODIUM élargi (mobile) -->
+              <!-- PODIUM (mobile) -->
               <div class="media-podium">
                 <!-- MEDIA SLIDER -->
                 <div class="media-slider" id="realizedMedia">
+                  <!-- Overlay rotation (mobile) -->
+                  <div class="rotate-overlay" data-rotate-overlay>
+                    <div class="rotate-hint">
+                      <svg class="rotate-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M7 2h10a2 2 0 0 1 2 2v7h-2V4H7v16h10v-3h2v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm12.95 9.95L22 14l-5 5-5-5 2.05-2.05L16 14.9V9h3v5.9l.95-.95Z"/>
+                      </svg>
+                      <span data-i18n="ui.rotate_hint">Rotate your phone to view larger</span>
+                    </div>
+                  </div>
+                  <!-- /overlay -->
                   <button class="media-nav prev" aria-label="Previous">‹</button>
                   <div class="media-track">
                     <div class="slide"><img src="realized-1.jpg" alt="Manufacturing step — photo 1"></div>
@@ -447,6 +477,16 @@ document.addEventListener('DOMContentLoaded',function(){
               </p>
               <div class="media-podium">
                 <div class="media-slider">
+                  <!-- Overlay rotation (mobile) -->
+                  <div class="rotate-overlay" data-rotate-overlay>
+                    <div class="rotate-hint">
+                      <svg class="rotate-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M7 2h10a2 2 0 0 1 2 2v7h-2V4H7v16h10v-3h2v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm12.95 9.95L22 14l-5 5-5-5 2.05-2.05L16 14.9V9h3v5.9l.95-.95Z"/>
+                      </svg>
+                      <span data-i18n="ui.rotate_hint">Rotate your phone to view larger</span>
+                    </div>
+                  </div>
+                  <!-- /overlay -->
                   <img src="future-project.jpg" alt="Future scientific review project image" style="width:100%;height:100%;object-fit:cover;border-radius:14px;">
                 </div>
               </div>
@@ -474,7 +514,7 @@ document.addEventListener('DOMContentLoaded',function(){
     })();
   </script>
 
-  <!-- Slider logic (inchangé, LTR forcé) -->
+  <!-- Slider logic (inchangé, LTR forcé) + gestion overlay mobile -->
   <script>
   (function(){
     const container = document.getElementById('realizedMedia');
@@ -559,6 +599,37 @@ document.addEventListener('DOMContentLoaded',function(){
       }
       startX = null;
     }, {passive:true});
+  })();
+
+  /* ===== Overlay rotation (mobile only) ===== */
+  (function(){
+    const isMobile = window.matchMedia && window.matchMedia('(max-width:640px)').matches;
+    if(!isMobile) return;
+
+    const overlays = Array.from(document.querySelectorAll('[data-rotate-overlay]'));
+    function hideAllOverlays(){
+      overlays.forEach(ov => ov.classList.add('hidden'));
+      window.removeEventListener('orientationchange', onOrient);
+      window.removeEventListener('resize', onResize, {passive:true});
+    }
+    function onOrient(){ if(screen.orientation && /landscape/.test(screen.orientation.type)) hideAllOverlays(); }
+    function onResize(){ if(window.innerWidth > window.innerHeight) hideAllOverlays(); }
+
+    // tap sur un média => on masque
+    overlays.forEach(ov=>{
+      const host = ov.closest('.media-slider');
+      if(host){
+        host.addEventListener('click', hideAllOverlays, {passive:true});
+        host.addEventListener('touchstart', hideAllOverlays, {passive:true});
+      }
+    });
+
+    // si déjà en paysage au chargement, on ne montre pas
+    if(window.innerWidth > window.innerHeight){ hideAllOverlays(); }
+    else{
+      window.addEventListener('orientationchange', onOrient);
+      window.addEventListener('resize', onResize, {passive:true});
+    }
   })();
   </script>
 
