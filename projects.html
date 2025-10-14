@@ -6,8 +6,7 @@
 
 <style>
   :root{
-    --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85);
-    --edge:24px; --card-pad:26px;
+    --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85)
   }
   [data-theme="dark"]{
     --bg:#0d1117;--fg:#e6edf3;--muted:#8b949e;--brand:#58a6ff;--card:#161b22;--ring:#30363d;--overlay:rgba(0,0,0,0.7)
@@ -20,7 +19,10 @@
     background:var(--bg);color:var(--fg);line-height:1.6;
     transition:background .3s,color .3s
   }
-  body::before{content:"";position:fixed;inset:0;z-index:-2;background:url('background.jpg') no-repeat center/cover}
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-2;
+    background:url('background.jpg') no-repeat center/cover
+  }
 
   .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
   .container{max-width:1200px;margin:auto;padding:24px}
@@ -36,96 +38,60 @@
   .submenu a:hover{background:var(--ring)}
   .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s}
 
-  .page{max-width:1200px;margin:0 auto;padding:32px 24px 24px;z-index:1;position:relative}
+  .landing{position:relative;height:100vh;overflow:hidden;display:flex;justify-content:center;align-items:center;z-index:1;text-align:center}
+  .hook{font-size:clamp(32px,7vw,80px);font-weight:900;letter-spacing:1px;color:var(--fg);padding:8px 16px;z-index:2;position:relative;background:rgba(255,255,255,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;margin:0 auto}
+  .hook em{color:var(--brand);font-style:normal}
+  .flight-stage{position:absolute;inset:0;pointer-events:none;z-index:1}
+  .plane{position:absolute;left:0;bottom:0;width:64px;height:64px;opacity:.9;filter:drop-shadow(0 4px 10px rgba(0,0,0,.25))}
+
+  .page{max-width:1200px;margin:0 auto;padding:48px 24px 24px;z-index:1;position:relative}
+  .hero h1{font-size:44px;line-height:1.1;margin:0 0 12px;color:var(--brand)}
+  .subtitle{font-size:20px;font-weight:600;margin:0 0 24px}
+  .lead{max-width:820px;margin:0 auto 28px;color:var(--muted);font-size:18px}
+  .buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+  .btn{padding:10px 16px;border-radius:12px;border:1px solid var(--ring);text-decoration:none;color:var(--fg);background:var(--card);transition:background .3s,color .3s}
+  .btn.primary{background:var(--brand);color:#fff;border-color:transparent}
+
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
+  .top-band,header,nav{max-width:100vw}
+  header>*{min-width:0}
+  nav{min-width:0}
+
   /* Sections */
-  .sections{max-width:1200px;margin:0 auto;padding:24px 24px 96px}
-
-  /* Titre-pastille bleu */
-  .section-head{margin:32px 0 18px}
-  .eyebrow{
-    display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#0f172a;
-    margin:0;padding:8px 16px;border-radius:999px;
-    background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
-    border:1px solid rgba(11,95,165,.25)
-  }
-  [data-theme="dark"] .eyebrow{
-    color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));
-    border:1px solid rgba(88,166,255,.28)
-  }
-
-  /* Pastille bleue à l’intérieur des cartes */
-  .pill-title{
-    display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#0f172a;
-    margin:0 0 12px;padding:8px 14px;border-radius:999px;
-    background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
-    border:1px solid rgba(11,95,165,.25);
-  }
-  [data-theme="dark"] .pill-title{
-    color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));border:1px solid rgba(88,166,255,.28);
-  }
-
-  section.reveal{padding-bottom:24px;margin-bottom:42px}
-  section.reveal + section.reveal{margin-top:6px}
-
-  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:28px}
-  .card{
-    grid-column:span 6;background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-radius:24px;padding:0;overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;color:#111827;
-    display:flex;flex-direction:column
-  }
-  .card-wide{grid-column:1 / -1}
-  [data-theme="dark"] .card{
-    background: rgba(0,0,0,0.55);
-    box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;color:#eaeef5
-  }
-
-  .body{padding:22px var(--card-pad)}
-  .body p{margin:0 0 16px; line-height:1.75;}
-  .intro-text{font-size:clamp(16px,1.6vw,18px);color:var(--fg);margin:0 0 22px}
-
-  /* ======== MEDIA SLIDER (LTR forcé) ======== */
-  .media-slider{
-    position:relative;width:100%;
-    aspect-ratio:16/9;
-    border:1.5px dashed var(--ring);
-    border-radius:14px;background:rgba(11,95,165,.03);
-    overflow:hidden;
-    direction:ltr;                /* pas d’inversion en RTL */
-  }
-  .media-track{
-    position:absolute;inset:0;display:flex;transition:transform .6s ease;will-change:transform;height:100%;
-    direction:ltr; flex-direction:row;  /* fixe l’ordre */
-  }
-  .slide{flex:0 0 100%;position:relative;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.04)}
-  .slide img, .slide video{width:100%;height:100%;object-fit:cover;display:block}
-
-  .media-nav{
-    position:absolute;top:50%;transform:translateY(-50%);
-    background:rgba(255,255,255,.75);border:1px solid var(--ring);
-    color:#0b5fa5;width:36px;height:36px;border-radius:999px;
-    display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;z-index:2;backdrop-filter:blur(6px)
-  }
-  [data-theme="dark"] .media-nav{background:rgba(0,0,0,.55);color:#58a6ff}
-  .media-nav:hover{background:rgba(255,255,255,.9)}
-  .media-nav.prev{left:10px}
-  .media-nav.next{right:10px}
-
-  @media(max-width:980px){.card{grid-column:span 12}}
+  .sections{max-width:1200px;margin:0 auto;padding:56px 24px 96px}
+  .alt-section{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center;margin:54px 0}
+  .alt-section.reverse{grid-template-columns:1fr 1.05fr}
+  .alt-card{background:rgba(255,255,255,.28);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:24px;padding:28px 26px;box-shadow:0 10px 30px rgba(0,0,0,.08),0 1px 0 rgba(255,255,255,.18) inset;color:var(--fg)}
+  [data-theme="dark"] .alt-card{background:rgba(0,0,0,.38);box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset}
+  .alt-eyebrow{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg);margin:0 0 10px;padding:4px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(11,95,165,.18),rgba(11,95,165,.06))}
+  [data-theme="dark"] .alt-eyebrow{background:linear-gradient(90deg,rgba(88,166,255,.25),rgba(88,166,255,.08))}
+  .alt-title{font-size:clamp(22px,2.8vw,36px);line-height:1.18;margin:0 0 12px;color:var(--fg)}
+  .alt-text{margin:0;color:var(--muted);font-size:16px}
+  [data-theme="light"] .alt-card .alt-text{color:#374151}
+  [data-theme="dark"] .alt-card .alt-text{color:#c9d1d9}
+  .alt-media{border-radius:26px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.16)}
+  .alt-media img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;transform:scale(1.02);transition:transform .6s ease}
+  .alt-media:hover img{transform:scale(1.06)}
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
   .reveal.in{opacity:1;transform:translateY(0)}
 
+  /* Language menu minimal styles */
   .lang-menu{display:inline-block;margin-right:4px}
   .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
+
+  /* ancrage propre (sticky header) */
   section[id]{scroll-margin-top:120px}
 
-  @media(max-width:900px){.sections{padding:16px 16px 72px}html,body{overflow-x:hidden}}
+  @media(max-width:900px){
+    .sections{padding:40px 16px 72px}
+    .alt-section,.alt-section.reverse{grid-template-columns:1fr}
+    .alt-section.reverse .alt-card{order:2}
+    .alt-section.reverse .alt-media{order:1}
+    .alt-media img{aspect-ratio:16/11}
+  }
 
-  /* ======== MOBILE : podium et overlay ======== */
-  @media (max-width:640px){
+  @media(max-width:640px){
     .container{padding:12px 16px}
     .top-band{position:static}
     header{flex-wrap:wrap;gap:8px}
@@ -134,74 +100,12 @@
     nav a{font-size:14px;line-height:1.2;white-space:nowrap}
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
-
-    /* la carte garde son cadre : rien ne dépasse */
-    .card{ overflow:hidden; }
-
-    /* podium = 100% de la carte (ne dépasse pas) */
-    .media-podium{
-      position:relative;
-      margin:12px auto 0;
-      width:100%;
-    }
-    .media-podium::before{
-      content:"";
-      position:absolute; left:50%; transform:translateX(-50%);
-      bottom:-10px;
-      width:100%;
-      height: calc(100% + 20px);
-      border-radius:18px;
-      background: rgba(255,255,255,0.75);
-      box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
-      z-index:0;
-    }
-    [data-theme="dark"] .media-podium::before{
-      background: rgba(0,0,0,0.55);
-      box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;
-    }
-
-    .media-podium .media-slider{
-      position:relative; z-index:1;
-      width:100%;
-      max-height: 62vh;
-      aspect-ratio: 16 / 9;
-      margin-left:auto; margin-right:auto;
-      border-radius:16px;
-      background:rgba(11,95,165,.03);
-    }
-    .media-podium .slide img, .media-podium .slide video{
-      object-fit: contain;   /* en portrait : photos entières et petites */
-      background: transparent;
-    }
-
-    /* overlay mobile : invite à pivoter (uniquement sur Realized) */
-    .rotate-overlay{
-      position:absolute; inset:0; z-index:3;
-      display:flex; align-items:center; justify-content:center; gap:10px;
-      background:rgba(0,0,0,.38);
-      backdrop-filter:blur(2px);
-      -webkit-backdrop-filter:blur(2px);
-      color:#fff; text-align:center; padding:14px;
-      font-size:14px; line-height:1.4;
-      cursor:pointer;
-    }
-    .rotate-overlay.hidden{ display:none; }
-
-    .rotate-hint{
-      display:flex; align-items:center; gap:10px;
-      padding:10px 14px; border-radius:999px;
-      background:rgba(0,0,0,.45);
-    }
-    .rotate-icon{ width:22px; height:22px; flex:0 0 22px; display:inline-block; }
+    html,body{overflow-x:hidden}
   }
 
-  @media (max-width:380px){
-    .media-podium .media-slider{ max-height: 66vh; }
-  }
-</style>
-
-<!-- ===== HAMBURGER + RTL global (ne touche pas au slider) ===== -->
-<style>
+  /* =========================
+     AJOUTS : HAMBURGER MOBILE
+     ========================= */
   .hamburger-btn{display:none;appearance:none;border:0;background:transparent;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer}
   .hamburger-btn span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;position:relative}
   .hamburger-btn span::before,.hamburger-btn span::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--fg);border-radius:2px}
@@ -211,16 +115,14 @@
   .mobile-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:999}
   .mobile-drawer{position:fixed;top:0;left:0;height:100%;width:86vw;max-width:360px;background:var(--bg);border-right:1px solid var(--ring);box-shadow:0 10px 30px rgba(0,0,0,.18);transform:translateX(-102%);transition:transform .25s ease;z-index:1000;display:flex;flex-direction:column}
   .mobile-drawer header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ring)}
-  .mobile-drawer nav{display:flex;flex-direction:column;gap:4px;padding:12px 12px 18px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .mobile-drawer nav{display:flex;flex-direction:column;gap:4px;padding:12px 12px 18px}
   .mobile-drawer nav a{padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--fg)}
   .mobile-drawer nav a:hover{background:var(--card)}
-  .mobile-heading{margin:14px 12px 6px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ring);padding-top:10px}
-  .mobile-group{padding:2px 0 8px}
-  .mobile-sub{padding:0 12px 10px;margin:2px 0 6px;border-left:2px solid var(--ring)}
-  .mobile-sub a{display:block;padding:8px 12px 8px 10px;border-radius:8px}
-  .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:var(--bg)}
-  .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
-  .lang-btn:active{transform:scale(.98)}
+  .mobile-drawer .mobile-sub{padding:0 12px 12px}
+  .mobile-drawer .mobile-sub a{display:block;padding:8px 12px;margin-left:12px;border-radius:8px}
+  .mobile-drawer .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:var(--bg)}
+  .mobile-drawer .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
+  .mobile-drawer .lang-btn:active{transform:scale(.98)}
 
   .mobile-open .mobile-backdrop{opacity:1;pointer-events:auto}
   .mobile-open .mobile-drawer{transform:translateX(0)}
@@ -229,57 +131,159 @@
     .hamburger-btn{display:flex}
     .top-band nav{display:none !important}
     .lang-menu{display:none !important}
-    .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px;}
-    .top-band header > a[href="index.html"]{justify-self:center}
+    .top-band header{
+      display:grid;
+      grid-template-columns:40px 1fr auto;
+      align-items:center;
+      gap:8px;
+    }
+    .top-band header > a[href="#home"]{justify-self:center}
     #themeToggle{justify-self:end}
   }
 
   .hamburger-btn:focus-visible,.mobile-drawer a:focus-visible,.lang-btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
-  @media (prefers-reduced-motion:reduce){.mobile-backdrop,.mobile-drawer{transition:none}}
+  @media (prefers-reduced-motion:reduce){
+    .mobile-backdrop,.mobile-drawer{transition:none}
+  }
+
+  .mobile-heading{
+    margin:14px 12px 6px;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color: var(--muted);
+    border-top:1px solid var(--ring);
+    padding-top:10px;
+  }
+  .mobile-group{ padding:2px 0 8px; }
+  .mobile-group > a{ display:block; padding:10px 12px; border-radius:10px; }
+  .mobile-sub{
+    padding:0 12px 10px;
+    margin:2px 0 6px;
+    border-left:2px solid var(--ring);
+  }
+  .mobile-sub a{
+    display:block;
+    padding:8px 12px 8px 10px;
+    border-radius:8px;
+  }
+  .mobile-sep{ height:8px; }
+
+  /* header sticky + scroll interne */
+  .mobile-drawer header{
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--bg);
+    border-bottom: 1px solid var(--ring);
+    padding-top: calc(14px + env(safe-area-inset-top, 0px));
+  }
+  .mobile-drawer nav{
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 16px;
+  }
+  .mobile-drawer nav .mobile-heading:first-of-type{
+    margin-top: 12px;
+    border-top: 0;
+    padding-top: 0;
+  }
 
   html.mobile-open, body.mobile-open{ overflow: hidden; }
 
-  /* RTL général (le slider a son propre LTR) */
+  /* RTL dynamique */
   html[dir="rtl"] body{ direction: rtl; }
+  html[dir="rtl"] .alt-card, html[dir="rtl"] .lead, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] a{ text-align:right; }
   html[dir="rtl"] nav{ justify-content:flex-end; }
   html[dir="rtl"] .submenu{ left:auto; right:0; }
-  html[dir="rtl"] .mobile-drawer{ left:auto; right:0; transform:translateX(102%); border-right:none; border-left:1px solid var(--ring); }
+  html[dir="rtl"] .mobile-drawer{ left:auto; right:0; transform:translateX(102%); }
   html.mobile-open[dir="rtl"] .mobile-drawer{ transform:translateX(0); }
   html[dir="rtl"] .mobile-sub{ border-left:none; border-right:2px solid var(--ring); }
-  html[dir="rtl"] .body, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] a{ text-align:right; }
   @media (max-width:640px){
-    html[dir="rtl"] .top-band header{grid-template-columns:auto 1fr 40px;}
+    html[dir="rtl"] .top-band header{
+      grid-template-columns:auto 1fr 40px;
+    }
     html[dir="rtl"] #themeToggle{ justify-self:start; }
-    html[dir="rtl"] .top-band header > a[href="index.html"]{ justify-self:center; }
+    html[dir="rtl"] .top-band header > a[href="#home"]{ justify-self:center; }
   }
 </style>
 
 <script>
-function i18nGet(key, fallback){ try{ let v = window.__i18nDict; for (const part of key.split('.')) v = v && v[part]; return v || fallback; }catch(e){ return fallback; } }
-function updateThemeLabel(){ const btn = document.getElementById('themeToggle'); if (!btn) return;
+/* ===== Helpers i18n pour le bouton thème ===== */
+function i18nGet(key, fallback){
+  try{
+    let v = window.__i18nDict;
+    for (const part of key.split('.')) v = v && v[part];
+    return v || fallback;
+  }catch(e){ return fallback; }
+}
+function updateThemeLabel(){
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
   const isDark = (document.documentElement.dataset.theme === 'dark');
-  const day  = i18nGet('ui.theme_day','☀︎ Day'); const night= i18nGet('ui.theme_night','☾ Night');
+  const day  = i18nGet('ui.theme_day','☀︎ Day');
+  const night= i18nGet('ui.theme_night','☾ Night');
   btn.textContent = isDark ? day : night;
 }
-function toggleTheme(){ const html=document.documentElement; const next=html.dataset.theme==='dark'?'light':'dark';
-  html.dataset.theme=next; try{localStorage.setItem('theme',next);}catch(e){}; document.documentElement.style.colorScheme=next; updateThemeLabel();
+
+/* ===== Thème ===== */
+function toggleTheme(){
+  const html=document.documentElement;
+  const next=html.dataset.theme==='dark'?'light':'dark';
+  html.dataset.theme=next;
+  try{localStorage.setItem('theme',next);}catch(e){}
+  document.documentElement.style.colorScheme=next;
+  if (document.getElementById('themeToggle')) updateThemeLabel();
 }
+
+/* ===== Menus ===== */
 function toggleMenu(e,id){
-  e.preventDefault(); const m=document.getElementById(id); if(!m) return;
+  e.preventDefault();
+  const m=document.getElementById(id);
+  if(!m) return;
   const isOpen=m.classList.contains('show');
   document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
   if(!isOpen){m.style.display='block';requestAnimationFrame(()=>m.classList.add('show'));}
 }
 function closeMenusOnInteraction(ev){
   const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
-  if(!inside){ document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show'); setTimeout(()=>{ m.style.display='none'; },250);}); }
+  if(!inside){document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show');setTimeout(()=>m.style.display='none',250);});}
 }
-
 document.addEventListener('click',closeMenusOnInteraction);
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
+/* ===== Divers ===== */
+function goHome(){window.scrollTo({top:0,behavior:'smooth'});}
+function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
+function animatePlane(){
+  const landing=document.querySelector('.landing');
+  const plane=document.querySelector('.plane');
+  if(!landing||!plane) return;
+  const h=window.innerHeight;
+  const y=window.scrollY;
+  const p=clamp(y/h,0,1);
+  const xMax=Math.min(0.65*window.innerWidth,900);
+  const x=p*xMax;
+  let climb=0;const startClimb=0.35;
+  if(p>startClimb){
+    const pp=(p-startClimb)/(1-startClimb);
+    const k=3.2;
+    climb=-(Math.expm1(k*pp)/Math.expm1(k))*(0.55*window.innerHeight);
+  }
+  const base=-12;
+  plane.style.transform=`translate(${x}px,${base+climb}px)rotate(${Math.max(-25,-5-p*35)}deg)`;
+  plane.style.opacity=(p<1?0.95:0);
+}
+window.addEventListener('scroll',animatePlane,{passive:true});
+window.addEventListener('resize',animatePlane);
+document.addEventListener('DOMContentLoaded',animatePlane);
+
+/* ===== Init thème + languette ===== */
 document.addEventListener('DOMContentLoaded',function(){
+  // thème initial
   let initial='light';
   try{
     const stored=localStorage.getItem('theme');
@@ -288,28 +292,45 @@ document.addEventListener('DOMContentLoaded',function(){
   }catch(e){}
   document.documentElement.dataset.theme=initial;
   document.documentElement.style.colorScheme=initial;
-  updateThemeLabel();
+  if (document.getElementById('themeToggle')) updateThemeLabel();
 
+  // languette à droite du bouton thème
   const themeBtn=document.getElementById('themeToggle');
   if(!themeBtn||!themeBtn.parentNode) return;
-  const wrap=document.createElement('div'); wrap.className='menu lang-menu';
-  const btn=document.createElement('button'); btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
-  const menu=document.createElement('div'); menu.id='lang-menu';menu.className='submenu';
+
+  const wrap=document.createElement('div');
+  wrap.className='menu lang-menu';
+
+  const btn=document.createElement('button');
+  btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
+
+  const menu=document.createElement('div');
+  menu.id='lang-menu';menu.className='submenu';
   menu.innerHTML = `
     <a href="#" data-lang="en">English</a>
     <a href="#" data-lang="de">Deutsch</a>
     <a href="#" data-lang="ar">العربية</a>
     <a href="#" data-lang="fr">Français</a>
   `;
-  wrap.appendChild(btn);wrap.appendChild(menu); themeBtn.parentNode.insertBefore(wrap,themeBtn);
+
+  wrap.appendChild(btn);wrap.appendChild(menu);
+  themeBtn.parentNode.insertBefore(wrap,themeBtn);
   btn.addEventListener('click',function(e){toggleMenu(e,'lang-menu');});
+
+  // clic sur une langue
   menu.addEventListener('click', function(e){
-    const a = e.target.closest('a[data-lang]'); if (!a) return;
+    const a = e.target.closest('a[data-lang]');
+    if (!a) return;
     e.preventDefault();
     if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
     closeMenusOnInteraction({target:null});
-    try{ const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'}; btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾'; }catch(_e){}
+    try{
+      const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+      btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾';
+    }catch(_e){}
   });
+
+  // label au chargement selon ?lang=
   try{
     const params=new URLSearchParams(location.search);
     const lang = params.has('lang') ? (params.get('lang')||'en').toLowerCase() : 'en';
@@ -319,7 +340,6 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 </head>
-
 <body data-theme="light">
   <div class="top-band">
     <div class="container">
@@ -328,7 +348,7 @@ document.addEventListener('DOMContentLoaded',function(){
           <span aria-hidden="true"></span>
         </button>
 
-        <a href="index.html" style="display:inline-block">
+        <a href="#home" onclick="goHome()" style="display:inline-block">
           <img src="signature.png" alt="Signature" class="signature" />
         </a>
 
@@ -350,8 +370,8 @@ document.addEventListener('DOMContentLoaded',function(){
             <a href="projects.html" data-i18n="nav.projects">Projects</a>
             <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
             <div id="projects-menu" class="submenu">
-              <a href="#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-              <a href="#future" data-i18n="nav.projects_menu.future">Future projects</a>
+              <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+              <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
             </div>
           </div>
 
@@ -391,8 +411,8 @@ document.addEventListener('DOMContentLoaded',function(){
       <div class="mobile-group">
         <a href="projects.html" data-i18n="nav.projects">Projects</a>
         <div class="mobile-sub">
-          <a href="#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-          <a href="#future" data-i18n="nav.projects_menu.future">Future projects</a>
+          <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+          <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
         </div>
       </div>
 
@@ -410,80 +430,62 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
   </aside>
 
+  <!-- CONTENU ACCUEIL (inchangé) -->
   <main class="page" id="main">
     <div class="sections">
-
-      <!-- PROJETS RÉALISÉS -->
-      <section id="realized" class="reveal">
-        <div class="section-head">
-          <span class="eyebrow" role="heading" aria-level="2" data-i18n="projects.realized.title">Realized Projects</span>
+      <section class="alt-section reveal">
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="sections.perspective.eyebrow">Perspective</p>
+          <h3 class="alt-title" data-i18n="sections.perspective.title">Shaping the future of aerospace with bold ideas</h3>
+          <p class="alt-text" data-i18n="sections.perspective.text">Exploring horizons where engineering meets imagination. Ambitious goals, measured execution.</p>
         </div>
+        <figure class="alt-media"><img src="hero-aerial.jpg" alt="Aerial sky with contrails"></figure>
+      </section>
 
-        <div class="grid">
-          <article class="card card-wide">
-            <div class="body">
-              <span class="pill-title" data-i18n="projects.realized.card_title">Mechanics in Motion: From Design to Manufacturing</span>
-              <p class="intro-text" data-i18n="projects.realized.card_intro">
-                A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.
-              </p>
-
-              <!-- PODIUM (mobile) -->
-              <div class="media-podium">
-                <!-- MEDIA SLIDER -->
-                <div class="media-slider" id="realizedMedia">
-                  <!-- Overlay rotation (mobile ONLY here) -->
-                  <div class="rotate-overlay" data-rotate-overlay>
-                    <div class="rotate-hint">
-                      <svg class="rotate-icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M7 2h10a2 2 0 0 1 2 2v7h-2V4H7v16h10v-3h2v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm12.95 9.95L22 14l-5 5-5-5 2.05-2.05L16 14.9V9h3v5.9l.95-.95Z"/>
-                      </svg>
-                      <span data-rotate-text>Rotate your phone to view larger</span>
-                    </div>
-                  </div>
-                  <!-- /overlay -->
-                  <button class="media-nav prev" aria-label="Previous">‹</button>
-                  <div class="media-track">
-                    <div class="slide"><img src="realized-1.jpg" alt="Manufacturing step — photo 1"></div>
-                    <div class="slide"><img src="realized-2.jpg" alt="Assembly process — photo 2"></div>
-                    <div class="slide"><img src="realized-3.jpg" alt="Finished mechanism — photo 3"></div>
-                    <div class="slide"><video id="realizedVideo" src="realized-clip.mp4" muted playsinline preload="metadata"></video></div>
-                  </div>
-                  <button class="media-nav next" aria-label="Next">›</button>
-                </div>
-                <!-- /MEDIA SLIDER -->
-              </div>
-              <!-- /PODIUM -->
-            </div>
-          </article>
+      <section class="alt-section reverse reveal">
+        <figure class="alt-media"><img src="ChatGPT Image 8 oct. 2025, 15_47_39.jpg" alt="Wing geometry"></figure>
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="sections.learning.eyebrow">Lifelong learning</p>
+          <h3 class="alt-title" data-i18n="sections.learning.title">Where curiosity fuels growth</h3>
+          <p class="alt-text" data-i18n="sections.learning.text">Endless discovery, purposeful practice, and a constant pursuit of knowledge and mastery.</p>
         </div>
       </section>
 
-      <!-- PROJETS FUTURS -->
-      <section id="future" class="reveal">
-        <div class="section-head">
-          <span class="eyebrow" role="heading" aria-level="2" data-i18n="projects.future.eyebrow">Roadmap</span>
+      <section class="alt-section reveal">
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="sections.principles.eyebrow">Principles</p>
+          <h3 class="alt-title" data-i18n="sections.principles.title">Creativity · Growth · Precision</h3>
+          <p class="alt-text" data-i18n="sections.principles.text">Learning is meaningful when it expands horizons, sharpens skills, and connects theory with real-world challenges.</p>
         </div>
+        <figure class="alt-media"><img src="ChatGPT Image 8 oct. 2025, 15_56_28.jpg" alt="Cloud layers"></figure>
+      </section>
 
-        <div class="grid">
-          <article class="card card-wide">
-            <div class="body">
-              <p class="intro-text" data-i18n="projects.future.card_intro">
-                An upcoming scientific review exploring the technical and commercial factors behind a legendary aircraft’s downfall — a project aiming to analyze innovation, ambition, and lessons for future aerospace design.
-              </p>
-              <p class="intro-text" style="margin-top:6px" data-i18n="projects.future.cta_participate_html" data-i18n-html="true">
-                If you’d like to participate in this project, contact me <a href="contact.html">here</a>.
-              </p>
-              <div class="media-podium">
-                <div class="media-slider">
-                  <!-- ⚠️ PAS d’overlay ici -->
-                  <img src="future-project.jpg" alt="Future scientific review project image" style="width:100%;height:100%;object-fit:cover;border-radius:14px;">
-                </div>
-              </div>
-            </div>
-          </article>
+      <section class="alt-section reverse reveal">
+        <figure class="alt-media"><img src="ChatGPT Image 8 oct. 2025, 16_18_09.jpg" alt="Metal texture and rivets"></figure>
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="sections.design.eyebrow">Designing with Purpose</p>
+          <h3 class="alt-title" data-i18n="sections.design.title">Precision in every detail</h3>
+          <p class="alt-text" data-i18n="sections.design.text">From sketches to prototypes, every decision carries weight. Robust design, quiet confidence.</p>
         </div>
       </section>
 
+      <section class="alt-section reveal">
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="sections.teamwork.eyebrow">Teamwork</p>
+          <h3 class="alt-title" data-i18n="sections.teamwork.title">Collaboration is the strongest engine</h3>
+          <p class="alt-text" data-i18n="sections.teamwork.text">We move faster together, bridging disciplines, tools, and perspectives.</p>
+        </div>
+        <figure class="alt-media"><img src="ChatGPT Image 8 oct. 2025, 16_36_28.jpg" alt="Team silhouettes"></figure>
+      </section>
+
+      <section class="alt-section reverse reveal">
+        <figure class="alt-media"><img src="ChatGPT Image 8 oct. 2025, 16_45_18.jpg" alt="Night sky"></figure>
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="sections.worldview.eyebrow">Worldview</p>
+          <h3 class="alt-title" data-i18n="sections.worldview.title">Engineering beyond borders</h3>
+          <p class="alt-text" data-i18n="sections.worldview.text">Innovation thrives when knowledge adapts across countries, cultures, and perspectives, proving that ideas have no frontiers.</p>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -497,161 +499,137 @@ document.addEventListener('DOMContentLoaded',function(){
   <script>
     (function(){
       const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(prefersReduced){ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')); return; }
-      const io=new IntersectionObserver((entries)=>{ entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}); },{threshold:0.15});
+      if(prefersReduced){
+        document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+        return;
+      }
+      const io=new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+      },{threshold:0.15});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     })();
   </script>
 
-  <!-- Slider logic (LTR forcé) -->
+  <!-- Loader i18n (multi-dicts + diagnostics) -->
   <script>
-  (function(){
-    const container = document.getElementById('realizedMedia');
-    if(!container) return;
-    const track = container.querySelector('.media-track');
-    const slides = Array.from(track.children);
-    const prevBtn = container.querySelector('.media-nav.prev');
-    const nextBtn = container.querySelector('.media-nav.next');
-    const videoEl = container.querySelector('#realizedVideo');
+(() => {
+  const SUPPORTED = ["fr","de","ar"];
+  const DEFAULT = "en";
 
-    let index = 0;
-    let auto = true;
-    let timer = null;
-    const AUTO_MS = 4500;
-
-    function updatePosition(){ track.style.transform = `translateX(-${index*100}%)`; }
-
-    function stopAuto(){
-      auto = false;
-      if(timer){ clearInterval(timer); timer = null; }
-      if(videoEl){
-        videoEl.removeEventListener('ended', onVideoEnded);
-        if(isVideo(index)){ videoEl.loop = true; videoEl.muted = true; videoEl.play().catch(()=>{}); }
-        else{ videoEl.pause(); }
-      }
-    }
-
-    function isVideo(i){ return slides[i] && slides[i].querySelector('video'); }
-    function onVideoEnded(){ next(true); }
-
-    function startAuto(){
-      if(!auto) return;
-      if(isVideo(index)){
-        if(videoEl){
-          videoEl.currentTime = 0; videoEl.loop = false; videoEl.muted = true;
-          videoEl.play().catch(()=>{}); videoEl.removeEventListener('ended', onVideoEnded); videoEl.addEventListener('ended', onVideoEnded);
-        }
-        return;
-      }
-      if(timer) clearInterval(timer);
-      timer = setInterval(()=> next(true), AUTO_MS);
-    }
-
-    function show(i, {manual=false} = {}){
-      if(videoEl){ videoEl.pause(); videoEl.removeEventListener('ended', onVideoEnded); }
-      index = (i + slides.length) % slides.length;
-      updatePosition();
-
-      if(isVideo(index)){
-        if(videoEl){
-          videoEl.currentTime = 0;
-          if(manual){ videoEl.loop = true; videoEl.muted = true; videoEl.play().catch(()=>{}); }
-          else{ videoEl.loop = false; videoEl.muted = true; videoEl.play().catch(()=>{}); videoEl.addEventListener('ended', onVideoEnded); }
-        }
-        if(timer){ clearInterval(timer); timer = null; }
-      }else{
-        if(auto){ if(timer) clearInterval(timer); timer = setInterval(()=> next(true), AUTO_MS); }
-      }
-    }
-
-    function next(isAuto=false){ show(index+1, {manual:!isAuto}); }
-    function prev(){ show(index-1, {manual:true}); }
-
-    nextBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); next(false); });
-    prevBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); prev(); });
-
-    updatePosition(); startAuto();
-
-    document.addEventListener('visibilitychange', ()=>{
-      if(document.hidden){ if(timer) { clearInterval(timer); timer=null; } if(videoEl) videoEl.pause(); }
-      else { if(auto) startAuto(); }
-    }, {passive:true});
-
-    let startX=null;
-    container.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
-    container.addEventListener('touchend', (e)=>{
-      if(startX==null) return;
-      const dx = e.changedTouches[0].clientX - startX;
-      if(Math.abs(dx) > 40){
-        if(auto) stopAuto();
-        if(dx < 0) next(false); else prev();
-      }
-      startX = null;
-    }, {passive:true});
-  })();
-
-  /* ===== Overlay rotation (mobile only, texte localisé inline) ===== */
-  (function(){
-    const isMobile = window.matchMedia && window.matchMedia('(max-width:640px)').matches;
-    if(!isMobile) return;
-
-    const overlays = Array.from(document.querySelectorAll('[data-rotate-overlay]'));
-    if(!overlays.length) return;
-
-    // Détection langue : ?lang=… > <html lang> > en
-    function detectLang(){
-      try{
-        const p=new URLSearchParams(location.search);
-        const q=(p.get('lang')||'').toLowerCase();
-        if(q) return q;
-      }catch(e){}
-      const htmlLang=(document.documentElement.getAttribute('lang')||'').toLowerCase();
-      return htmlLang || 'en';
-    }
-
-    function rotateTextFor(lang){
-      switch(lang){
-        case 'fr': return 'Faites pivoter votre téléphone pour agrandir';
-        case 'de': return 'Drehen Sie Ihr Handy für eine größere Ansicht';
-        case 'ar': return 'دوّر هاتفك لعرض أكبر';
-        default:   return 'Rotate your phone to view larger';
-      }
-    }
-
-    // Applique le texte traduit
-    const lang = detectLang();
-    overlays.forEach(ov=>{
-      const span = ov.querySelector('[data-rotate-text]');
-      if(span) span.textContent = rotateTextFor(lang);
-    });
-
-    function hideAllOverlays(){
-      overlays.forEach(ov => ov.classList.add('hidden'));
-      window.removeEventListener('orientationchange', onOrient);
-      window.removeEventListener('resize', onResize, {passive:true});
-    }
-    function onOrient(){ if(screen.orientation && /landscape/.test(screen.orientation.type)) hideAllOverlays(); }
-    function onResize(){ if(window.innerWidth > window.innerHeight) hideAllOverlays(); }
-
-    // tap sur le slider => on masque
-    overlays.forEach(ov=>{
-      const host = ov.closest('.media-slider');
-      if(host){
-        host.addEventListener('click', hideAllOverlays, {passive:true});
-        host.addEventListener('touchstart', hideAllOverlays, {passive:true});
+  function snapshotOriginals(){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      if(!el.dataset.i18nOriginal){
+        el.dataset.i18nOriginal = el.textContent;
       }
     });
+  }
+  snapshotOriginals();
 
-    // si déjà en paysage au chargement, on ne montre pas
-    if(window.innerWidth > window.innerHeight){ hideAllOverlays(); }
-    else{
-      window.addEventListener('orientationchange', onOrient);
-      window.addEventListener('resize', onResize, {passive:true});
+  const get = (o, path) => path.split('.').reduce((a,k)=> (a && a[k]!=null) ? a[k] : undefined, o);
+
+  function currentLang() {
+    const params = new URLSearchParams(location.search);
+    const hasParam = params.has("lang");
+    const urlLang  = params.get("lang");
+    if (!hasParam) return DEFAULT;
+    if (urlLang === 'en' || SUPPORTED.includes(urlLang)) return urlLang;
+    return DEFAULT;
+  }
+
+  async function safeFetchJson(url){
+    try{
+      const res = await fetch(url, { cache: "no-cache" });
+      if (!res.ok) throw new Error(String(res.status));
+      return await res.json();
+    }catch(_){ return null; }
+  }
+
+  async function loadMergedDict(lang) {
+    // 1) dict global (ui/nav, etc.)
+    const base = await safeFetchJson(`lang/${lang}.json`);
+    // 2) dict spécifique à la page si dispo (ex: index)
+    //    -> change "index" si tu réutilises ce template sur d’autres pages (about, skills…)
+    const page = await safeFetchJson(`lang/pages/index.${lang}.json`);
+    // 3) merge (page > base)
+    return Object.assign({}, base||{}, page||{});
+  }
+
+  function applyDict(dict, langCode) {
+    let missing = 0;
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      const val = get(dict, key);
+      if (val != null) el.textContent = val;
+      else missing++;
+    });
+
+    const metaTitle = get(dict, "meta.title");
+    if (metaTitle) document.title = metaTitle;
+
+    window.__i18nDict = dict || {};
+    document.documentElement.setAttribute("lang", langCode);
+    document.documentElement.setAttribute("dir", langCode === 'ar' ? 'rtl' : 'ltr');
+
+    if (window.updateThemeLabel) updateThemeLabel();
+
+    // diagnostic utile pendant l’intégration
+    if (missing > 0) {
+      console.warn(`[i18n] ${missing} clé(s) manquante(s) dans les dictionnaires pour cette page.`);
     }
+  }
+
+  function restoreEnglish(){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      if (el.dataset.i18nOriginal != null) el.textContent = el.dataset.i18nOriginal;
+    });
+    window.__i18nDict = {};
+    document.documentElement.setAttribute("lang", "en");
+    document.documentElement.setAttribute("dir", "ltr");
+    if (window.updateThemeLabel) updateThemeLabel();
+  }
+
+  let current = currentLang();
+
+  async function setLang(lang) {
+    if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
+    current = lang;
+
+    const u = new URL(location.href);
+    u.searchParams.set("lang", lang);
+    history.replaceState({}, "", u.pathname + u.search + location.hash);
+
+    if (lang === 'en') { restoreEnglish(); return; }
+
+    try{
+      const dict = await loadMergedDict(lang);
+      if (!dict) { restoreEnglish(); return; }
+      applyDict(dict, lang);
+    }catch(err){
+      console.error("[i18n] failed to load", lang, err);
+      restoreEnglish();
+    }
+  }
+
+  window.setLangFromMenu = setLang;
+
+  (function initLangToggleLabel(){
+    const btn = document.getElementById('langToggle');
+    if (!btn) return;
+    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+    const lang = current;
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
   })();
+
+  setLang(current);
+
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-lang]");
+    if (!b) return;
+    e.preventDefault();
+    setLang(b.getAttribute("data-lang"));
+  });
+})();
   </script>
-
- 
 
   <!-- Contrôle hamburger -->
   <script>
@@ -667,14 +645,14 @@ document.addEventListener('DOMContentLoaded',function(){
         html.classList.add('mobile-open');
         body.classList.add('mobile-open');
         drawer.setAttribute('aria-hidden','false');
-        if(btn) btn.setAttribute('aria-expanded','true');
+        btn.setAttribute('aria-expanded','true');
         backdrop.hidden = false;
       }
       function closeDrawer(){
         html.classList.remove('mobile-open');
         body.classList.remove('mobile-open');
         drawer.setAttribute('aria-hidden','true');
-        if(btn) btn.setAttribute('aria-expanded','false');
+        btn.setAttribute('aria-expanded','false');
         setTimeout(()=>{backdrop.hidden = true;}, 200);
       }
 
@@ -689,7 +667,8 @@ document.addEventListener('DOMContentLoaded',function(){
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
 
       drawer.addEventListener('click', (e)=>{
-        const a = e.target.closest('a'); if (a) closeDrawer();
+        const a = e.target.closest('a');
+        if (a) closeDrawer();
       });
 
       drawer.addEventListener('click', (e)=>{
@@ -701,7 +680,5 @@ document.addEventListener('DOMContentLoaded',function(){
       });
     })();
   </script>
-  <script defer src="i18n.js"></script>
-
 </body>
 </html>
