@@ -510,6 +510,127 @@ document.addEventListener('DOMContentLoaded',function(){
     })();
   </script>
 
+  <!-- Loader i18n (multi-dicts + diagnostics) -->
+  <script>
+(() => {
+  const SUPPORTED = ["fr","de","ar"];
+  const DEFAULT = "en";
+
+  function snapshotOriginals(){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      if(!el.dataset.i18nOriginal){
+        el.dataset.i18nOriginal = el.textContent;
+      }
+    });
+  }
+  snapshotOriginals();
+
+  const get = (o, path) => path.split('.').reduce((a,k)=> (a && a[k]!=null) ? a[k] : undefined, o);
+
+  function currentLang() {
+    const params = new URLSearchParams(location.search);
+    const hasParam = params.has("lang");
+    const urlLang  = params.get("lang");
+    if (!hasParam) return DEFAULT;
+    if (urlLang === 'en' || SUPPORTED.includes(urlLang)) return urlLang;
+    return DEFAULT;
+  }
+
+  async function safeFetchJson(url){
+    try{
+      const res = await fetch(url, { cache: "no-cache" });
+      if (!res.ok) throw new Error(String(res.status));
+      return await res.json();
+    }catch(_){ return null; }
+  }
+
+  async function loadMergedDict(lang) {
+    // 1) dict global (ui/nav, etc.)
+    const base = await safeFetchJson(`lang/${lang}.json`);
+    // 2) dict spécifique à la page si dispo (ex: index)
+    //    -> change "index" si tu réutilises ce template sur d’autres pages (about, skills…)
+    const page = await safeFetchJson(`lang/pages/index.${lang}.json`);
+    // 3) merge (page > base)
+    return Object.assign({}, base||{}, page||{});
+  }
+
+  function applyDict(dict, langCode) {
+    let missing = 0;
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      const val = get(dict, key);
+      if (val != null) el.textContent = val;
+      else missing++;
+    });
+
+    const metaTitle = get(dict, "meta.title");
+    if (metaTitle) document.title = metaTitle;
+
+    window.__i18nDict = dict || {};
+    document.documentElement.setAttribute("lang", langCode);
+    document.documentElement.setAttribute("dir", langCode === 'ar' ? 'rtl' : 'ltr');
+
+    if (window.updateThemeLabel) updateThemeLabel();
+
+    // diagnostic utile pendant l’intégration
+    if (missing > 0) {
+      console.warn(`[i18n] ${missing} clé(s) manquante(s) dans les dictionnaires pour cette page.`);
+    }
+  }
+
+  function restoreEnglish(){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      if (el.dataset.i18nOriginal != null) el.textContent = el.dataset.i18nOriginal;
+    });
+    window.__i18nDict = {};
+    document.documentElement.setAttribute("lang", "en");
+    document.documentElement.setAttribute("dir", "ltr");
+    if (window.updateThemeLabel) updateThemeLabel();
+  }
+
+  let current = currentLang();
+
+  async function setLang(lang) {
+    if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
+    current = lang;
+
+    const u = new URL(location.href);
+    u.searchParams.set("lang", lang);
+    history.replaceState({}, "", u.pathname + u.search + location.hash);
+
+    if (lang === 'en') { restoreEnglish(); return; }
+
+    try{
+      const dict = await loadMergedDict(lang);
+      if (!dict) { restoreEnglish(); return; }
+      applyDict(dict, lang);
+    }catch(err){
+      console.error("[i18n] failed to load", lang, err);
+      restoreEnglish();
+    }
+  }
+
+  window.setLangFromMenu = setLang;
+
+  (function initLangToggleLabel(){
+    const btn = document.getElementById('langToggle');
+    if (!btn) return;
+    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+    const lang = current;
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
+  })();
+
+  setLang(current);
+
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-lang]");
+    if (!b) return;
+    e.preventDefault();
+    setLang(b.getAttribute("data-lang"));
+  });
+})();
+  </script>
+
   <!-- Contrôle hamburger -->
   <script>
     (function(){
@@ -559,9 +680,5 @@ document.addEventListener('DOMContentLoaded',function(){
       });
     })();
   </script>
-  <script defer src="i18n.js"></script>
-
-
-
 </body>
 </html>
