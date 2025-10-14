@@ -578,103 +578,7 @@ document.addEventListener('DOMContentLoaded', function(){
     </span>
   </div>
 
-  <!-- i18n + liens PDF par langue -->
-  <script>
-(() => {
-  const SUPPORTED=["fr","de","ar"]; const DEFAULT="en";
-  const PDF_MAP={
-    en:{basic:"curriculum_vitae.pdf",extended:"extended_curriculum_vitae.pdf"},
-    de:{basic:"lebenslauf.pdf",extended:"erweiterter_lebenslauf.pdf"},
-    fr:{basic:"cv.pdf",extended:"cv_détaillé.pdf"},
-    ar:{basic:"السيرة_الذاتية.pdf",extended:"السيرة_الذاتية_الموسعة.pdf"}
-  };
-
-  function snapshotOriginals(){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if(!el.dataset.i18nOriginal) el.dataset.i18nOriginal=el.textContent;
-    });
-  } snapshotOriginals();
-
-  const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k]!=null?a[k]:undefined,o);
-
-  function currentLang(){
-    const params=new URLSearchParams(location.search);
-    const l=(params.get("lang")||"").toLowerCase();
-    if(!params.has("lang")) return DEFAULT;
-    return (l==='en'||SUPPORTED.includes(l))?l:DEFAULT;
-  }
-
-  async function loadDict(lang){
-    const res=await fetch(`lang/${lang}.json`,{cache:"no-cache"});
-    if(!res.ok) throw new Error("Missing lang file: "+lang);
-    return res.json();
-  }
-
-  function applyDict(dict,lang){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-      const key=el.getAttribute("data-i18n"); const val=get(dict,key);
-      if(val!=null) el.textContent=val;
-    });
-    const metaTitle=get(dict,"meta.title"); if(metaTitle) document.title=metaTitle;
-
-    window.__i18nDict=dict; window.__currentLang=lang;
-
-    /* IMPORTANT : direction dynamique (comme index.html) */
-    document.documentElement.setAttribute("lang", lang);
-    document.documentElement.setAttribute("dir", lang === 'ar' ? 'rtl' : 'ltr');
-
-    if(window.updateThemeLabel) updateThemeLabel();
-    updateLinks(lang);
-    setTimeout(syncBackgroundHeights, 60);
-  }
-
-  function restoreEnglish(){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if(el.dataset.i18nOriginal!=null) el.textContent=el.dataset.i18nOriginal;
-    });
-    window.__i18nDict={}; window.__currentLang="en";
-    document.documentElement.setAttribute("lang","en");
-    document.documentElement.setAttribute("dir","ltr");
-    if(window.updateThemeLabel) updateThemeLabel();
-    updateLinks("en");
-    setTimeout(syncBackgroundHeights, 60);
-  }
-
-  function updateLinks(lang){
-    const map=PDF_MAP[lang] || PDF_MAP.en;
-    const b=document.getElementById("cv-basic-btn");
-    const e=document.getElementById("cv-extended-btn");
-    if(b) b.href=map.basic; if(e) e.href=map.extended;
-    const c=document.getElementById("cert-admin-btn");
-    if(c) c.href="certification_0722.pdf";
-  }
-
-  let current=currentLang();
-
-  function setLang(lang){
-    if(lang!=='en' && !SUPPORTED.includes(lang)) lang='en';
-    current=lang;
-    const u=new URL(location.href); u.searchParams.set("lang",lang);
-    history.replaceState({}, "", u.pathname+u.search+location.hash);
-    if(lang==='en'){ restoreEnglish(); return; }
-    loadDict(lang).then(d=>applyDict(d,lang)).catch(()=>restoreEnglish());
-  }
-
-  window.setLangFromMenu=setLang;
-
-  (function initLangToggleLabel(){
-    const btn=document.getElementById('langToggle'); if(!btn) return;
-    const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[current]||'EN')+' ▾';
-  })();
-
-  if(current==='en') restoreEnglish(); else setLang(current);
-
-  document.addEventListener("click",e=>{
-    const b=e.target.closest("[data-lang]"); if(!b) return;
-    e.preventDefault(); setLang(b.getAttribute("data-lang"));
-  },{passive:true});
-})();
-  </script>
+  
 
   <!-- Révélations au scroll -->
   <script>
@@ -737,6 +641,8 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     })();
   </script>
+  <script defer src="i18n.js"></script>
+
 
 
 </body>
