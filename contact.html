@@ -97,7 +97,6 @@
     width:100%;max-width:100%;min-width:0;
   }
   .textarea{min-height:136px;resize:vertical}
-  /* iOS file input : empêche la largeur imposée + ellipses */
   .file{display:block;white-space:nowrap; text-overflow:ellipsis; overflow:hidden}
   .file::-webkit-file-upload-button{margin-right:8px}
 
@@ -118,14 +117,11 @@
     :root{ --anchor-offset: 72px; }
     .alt-section{grid-template-columns:1fr; gap:18px; margin:22px 0;}
     .container, .page{padding-left:16px; padding-right:16px;}
-    /* iOS: on isole la carte pour éviter tout crop de blur/arrondis au bord droit */
     .alt-card{padding:18px; margin-inline:12px; overflow:hidden;}
   }
   @media(max-width:420px){
-    /* garde-fou pour très petits écrans ou zoom texte */
     .alt-card{ contain:content; border-radius:20px; margin-inline:10px; }
   }
-  /* Ciblage Safari iOS : ajoute un léger inset si besoin */
   @supports (-webkit-touch-callout: none) {
     @media (max-width: 480px) {
       .alt-card{ margin-inline:12px; }
@@ -135,17 +131,14 @@
 
 <!-- ✅ ADD-ON non destructif : force l'affichage du background image -->
 <style>
-  /* On neutralise les fonds unis pour voir l'image derrière */
   html { background: transparent !important; }
   body { background: transparent !important; position: relative; }
-
-  /* Calque d'arrière-plan au bon z-index, derrière tout le contenu */
   body::before{
     content:"";
     position: fixed;
     inset: 0;
     background: url('background.jpg') no-repeat center/cover;
-    z-index: -1;           /* plus haut que -2, toujours derrière le contenu */
+    z-index: -1;
     pointer-events: none;
     transform: translateZ(0);
     will-change: transform;
@@ -216,7 +209,7 @@
 </style>
 
 <script>
-/* utilitaires communs (comme about.html) */
+/* === Utilitaires communs === */
 function i18nGet(key, fallback){ try{ let v=window.__i18nDict; for(const p of key.split('.')) v=v&&v[p]; return v ?? fallback; }catch(e){ return fallback; } }
 function updateThemeLabel(){ const btn=document.getElementById('themeToggle'); if(!btn) return;
   const isDark=(document.documentElement.dataset.theme==='dark');
@@ -232,24 +225,55 @@ document.addEventListener('click',closeMenusOnInteraction,{passive:true});
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInteraction({target:null}); });
 
-/* i18n – mêmes JSON que about.html (+ meta.contact_title) */
+/* === i18n-persist (comme skills/about) : sessionStorage + propagation ?lang= + RTL === */
 (() => {
-  const SUPPORTED=["fr","de","ar"]; const DEFAULT="en";
+  const SUPPORTED = ["fr","de","ar"];
+  const DEFAULT = "en";
+
+  function updateLinksForLang(lang){
+    try{
+      document.querySelectorAll('a[href]').forEach(a=>{
+        const href=a.getAttribute('href');
+        if(!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+        if(/^https?:\/\//i.test(href)){
+          const abs=new URL(href,location.href);
+          if(abs.origin!==location.origin) return;
+        }
+        const target=new URL(href,location.href);
+        target.searchParams.set('lang',lang);
+        a.setAttribute('href', target.pathname + target.search + target.hash);
+      });
+    }catch(_e){}
+  }
+
+  function langFromSession(){
+    try{
+      const v=sessionStorage.getItem('lang');
+      if(v && (v==='en' || SUPPORTED.includes(v))) return v;
+    }catch(_e){}
+    return null;
+  }
 
   function snapshotOriginals(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if(!el.dataset.i18nOriginal) el.dataset.i18nOriginal=el.textContent;
+      if(el.dataset.i18nOriginal) return;
+      const key=el.getAttribute("data-i18n")||"";
+      const allowHTML = el.hasAttribute("data-i18n-html") || /_html$/.test(key);
+      el.dataset.i18nOriginalIsHtml = allowHTML ? "1" : "";
+      el.dataset.i18nOriginal = allowHTML ? el.innerHTML : el.textContent;
     });
-  } document.addEventListener('DOMContentLoaded', snapshotOriginals);
-
+  }
+  snapshotOriginals();
 
   const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k]!=null?a[k]:undefined,o);
 
   function currentLang(){
+    const fromSess=langFromSession();
+    if(fromSess) return fromSess;
     const params=new URLSearchParams(location.search);
-    const l=(params.get("lang")||"").toLowerCase();
+    const urlLang=(params.get("lang")||"").toLowerCase();
     if(!params.has("lang")) return DEFAULT;
-    return (l==='en'||SUPPORTED.includes(l))?l:DEFAULT;
+    return (urlLang==='en' || SUPPORTED.includes(urlLang)) ? urlLang : DEFAULT;
   }
 
   async function loadDict(lang){
@@ -260,106 +284,91 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
 
   function applyDict(dict,lang){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
-      const key=el.getAttribute("data-i18n"); const val=get(dict,key);
-      if(val!=null) el.textContent=val;
+      const key=el.getAttribute("data-i18n");
+      const val=get(dict,key);
+      if(val==null) return;
+      const allowHTML = el.hasAttribute("data-i18n-html") || /_html$/.test(key);
+      if(allowHTML) el.innerHTML = val; else el.textContent = val;
     });
-    const metaTitle=get(dict,"meta.contact_title"); if(metaTitle) document.title=metaTitle;
 
-    // Lang & direction
+    const metaTitle=get(dict,"meta.contact_title");
+    if(metaTitle) document.title=metaTitle;
+
     document.documentElement.setAttribute("lang",lang);
-    document.documentElement.setAttribute("dir", lang === 'ar' ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute("dir", lang==='ar' ? 'rtl' : 'ltr');
 
-    window.__i18nDict=dict; window.__currentLang=lang;
-    updateThemeLabel();
+    window.__i18nDict=dict;
+    if (window.updateThemeLabel) updateThemeLabel();
   }
 
   function restoreEnglish(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if(el.dataset.i18nOriginal!=null) el.textContent=el.dataset.i18nOriginal;
+      const isHtml = el.dataset.i18nOriginalIsHtml === "1";
+      const original = el.dataset.i18nOriginal != null ? el.dataset.i18nOriginal : (isHtml ? el.innerHTML : el.textContent);
+      if(original!=null){
+        if(isHtml) el.innerHTML = original; else el.textContent = original;
+      }
     });
-    window.__i18nDict={}; window.__currentLang="en";
+    window.__i18nDict={};
     document.documentElement.setAttribute("lang","en");
     document.documentElement.setAttribute("dir","ltr");
-    updateThemeLabel();
+    if (window.updateThemeLabel) updateThemeLabel();
   }
 
-  /* Correctif : revenir proprement à l’anglais */
+  let current = currentLang();
+
   function setLang(lang){
     if(lang!=='en' && !SUPPORTED.includes(lang)) lang='en';
-    const u=new URL(location.href); u.searchParams.set("lang",lang);
-    history.replaceState({}, "", u.pathname+u.search+location.hash);
+    current = lang;
+    try{ sessionStorage.setItem('lang', lang); }catch(_e){}
+    const u=new URL(location.href);
+    u.searchParams.set("lang", lang);
+    history.replaceState({}, "", u.pathname + u.search + location.hash);
+
+    updateLinksForLang(lang);
+
     if(lang==='en'){ restoreEnglish(); return; }
-    loadDict(lang).then(d=>applyDict(d,lang)).catch(()=>restoreEnglish());
+    loadDict(lang).then(d=>applyDict(d,lang)).catch(err=>{ console.error(err); restoreEnglish(); });
   }
 
-  window.setLangFromMenu=setLang;
+  window.setLangFromMenu = setLang;
 
+  // init label du bouton langue (desktop)
   (function initLangToggleLabel(){
     const btn=document.getElementById('langToggle'); if(!btn) return;
-    const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; const lang=currentLang();
-    btn.textContent=(map[lang]||'EN')+' ▾';
+    const map={en:'EN', fr:'FR', de:'DE', ar:'AR'};
+    btn.textContent = (map[current] || 'EN') + ' ▾';
   })();
 
-  const current=currentLang();
-  if(current==='en') restoreEnglish(); else setLang(current);
+  // init thème + i18n + propagation liens
+  (function initTheme(){
+    let initial='light';
+    try{
+      const stored=localStorage.getItem('theme');
+      if(stored){initial=stored;}
+      else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){initial='dark';}
+    }catch(_e){}
+    document.documentElement.dataset.theme=initial;
+    document.documentElement.style.colorScheme=initial;
+    if (window.updateThemeLabel) updateThemeLabel();
+  })();
 
-  document.addEventListener("click",e=>{
+  setLang(current);
+  updateLinksForLang(current);
+
+  window.addEventListener('popstate', ()=>{
+    const lang=currentLang();
+    setLang(lang);
+  });
+
+  document.addEventListener("click",(e)=>{
     const b=e.target.closest("[data-lang]"); if(!b) return;
     e.preventDefault(); setLang(b.getAttribute("data-lang"));
-  },{passive:true});
+  });
 })();
 
-/* Formulaire – Formspree par défaut */
+/* === Formulaire – Formspree par défaut === */
 document.addEventListener('DOMContentLoaded', () => {
-  // thème initial
-  let initial='light';
-  try{
-    const stored=localStorage.getItem('theme');
-    if(stored){initial=stored;} else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){initial='dark';}
-  }catch(e){}
-  document.documentElement.dataset.theme=initial; document.documentElement.style.colorScheme=initial; updateThemeLabel();
-
-  // sélecteur de langue à côté du thème
-  const themeBtn=document.getElementById('themeToggle');
-  if(themeBtn && themeBtn.parentNode){
-    // [ADD] Ne crée PAS de doublon si un bouton langue statique existe déjà
-    if(!document.getElementById('langToggle')){
-      const wrap=document.createElement('div'); wrap.className='menu lang-menu';
-      const btn=document.createElement('button'); btn.id='langToggle'; btn.className='toggle'; btn.type='button'; btn.setAttribute('aria-haspopup','true'); btn.textContent='EN ▾';
-      const menu=document.createElement('div'); menu.id='lang-menu'; menu.className='submenu';
-      menu.innerHTML = `
-        <a href="#" data-lang="en">English</a>
-        <a href="#" data-lang="de">Deutsch</a>
-        <a href="#" data-lang="ar">العربية</a>
-        <a href="#" data-lang="fr">Français</a>
-      `;
-      wrap.appendChild(btn); wrap.appendChild(menu);
-      themeBtn.parentNode.insertBefore(wrap, themeBtn);
-      btn.addEventListener('click',e=>toggleMenu(e,'lang-menu'));
-      menu.addEventListener('click', function(e){
-        const a = e.target.closest('a[data-lang]'); if (!a) return;
-        e.preventDefault();
-        if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
-        closeMenusOnInteraction({target:null});
-        try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
-      });
-      try{
-        const params=new URLSearchParams(location.search);
-        const lang=params.has('lang')?(params.get('lang')||'en').toLowerCase():'en';
-        const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[lang]||'EN')+' ▾';
-      }catch(_e){}
-    } else {
-      // [ADD] S’il existe déjà, s’assurer que le libellé reflète l’URL
-      try{
-        const params=new URLSearchParams(location.search);
-        const lang=(params.get('lang')||'en').toLowerCase();
-        const map={en:'EN',fr:'FR',de:'DE',ar:'AR'};
-        const btnExisting=document.getElementById('langToggle');
-        if(btnExisting) btnExisting.textContent=(map[lang]||'EN')+' ▾';
-      }catch(_e){}
-    }
-  }
-
   // Pré-remplir e-mail si déjà saisi
   const emailInput = document.getElementById('fromEmail');
   try{ const saved = localStorage.getItem('visitor_email'); if(saved && emailInput) emailInput.value = saved; }catch(e){}
@@ -427,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
 
-        <!-- [ADD] Bloc langue statique (desktop) : évite toute absence si l’injection échoue -->
+        <!-- Bloc langue (desktop) -->
         <div class="menu lang-menu" id="langMenuStatic">
           <button id="langToggle" class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'lang-menu')">EN ▾</button>
           <div id="lang-menu" class="submenu">
@@ -437,15 +446,14 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="#" data-lang="fr">Français</a>
           </div>
         </div>
-        <!-- FIN [ADD] -->
 
-        <!-- AJOUT: bouton thème -->
+        <!-- Thème -->
         <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
       </header>
     </div>
   </div>
 
-  <!-- AJOUT: backdrop + tiroir mobile -->
+  <!-- Backdrop + tiroir mobile -->
   <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
   <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <header>
