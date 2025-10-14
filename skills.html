@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="preload" as="image" href="background.jpg" />
 
 <style>
   :root{
     --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85);
-    --edge:24px; --card-pad:26px;
+    --edge:24px;
+    --card-pad:26px;
   }
   [data-theme="dark"]{
     --bg:#0d1117;--fg:#e6edf3;--muted:#8b949e;--brand:#58a6ff;--card:#161b22;--ring:#30363d;--overlay:rgba(0,0,0,0.7)
@@ -21,7 +21,10 @@
     background:var(--bg);color:var(--fg);line-height:1.6;
     transition:background .3s,color .3s
   }
-  body::before{content:"";position:fixed;inset:0;z-index:-2;background:url('background.jpg') no-repeat center/cover}
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-2;
+    background:url('background.jpg') no-repeat center/cover
+  }
 
   .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
   .container{max-width:1200px;margin:auto;padding:24px}
@@ -38,21 +41,36 @@
   .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s}
 
   .page{max-width:1200px;margin:0 auto;padding:32px 24px 24px;z-index:1;position:relative}
+
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
+  .top-band,header,nav{max-width:100vw}
+  header>*{min-width:0}
+  nav{min-width:0}
+
+  /* Sections */
   .sections{max-width:1200px;margin:0 auto;padding:24px 24px 96px}
-  .alt-section{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center;margin:60px 0}
+  .alt-section{
+    display:grid;
+    grid-template-columns:1.05fr 1fr;
+    gap:36px;
+    align-items:center;          /* >>> centres verticaux parfaitement alignés */
+    margin:60px 0;               /* léger espace supplémentaire entre rangées */
+  }
   .alt-section.reverse{grid-template-columns:1fr 1.05fr}
 
+  /* Cartes : fond blanc (semi-opaque) comme ta ref */
   .alt-card{
-    background:rgba(255,255,255,0.75);
-    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-    border-radius:24px;padding:28px var(--card-pad);
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-radius:24px;
+    padding:28px var(--card-pad);
     box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
-    color:#111827;display:flex;flex-direction:column;
+    color:#111827;
+    display:flex;flex-direction:column;
   }
   [data-theme="dark"] .alt-card{
-    background:rgba(0,0,0,0.55);
+    background: rgba(0,0,0,0.55);
     box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;
     color:#eaeef5;
   }
@@ -60,23 +78,36 @@
   .alt-eyebrow{
     display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#0f172a;
     margin:0 0 10px;padding:6px 14px;border-radius:999px;
-    background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
+    background: linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
   }
   [data-theme="dark"] .alt-eyebrow{
-    color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));border:1px solid rgba(88,166,255,.28);
+    color:#e6eef8;
+    background: linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));
+    border:1px solid rgba(88,166,255,.28);
   }
 
   .alt-title{font-size:clamp(22px,2.8vw,36px);line-height:1.18;margin:0 0 12px;color:var(--fg)}
   [data-theme="dark"] .alt-title{color:#f3f6fb}
+
   .alt-text{margin:0;color:#111827;font-size:16px}
   [data-theme="dark"] .alt-text{color:#eaeef5}
 
-  figure{margin:0}
+  /* Carte photo — hauteur stable, même contour visuel */
+  figure{margin:0}              /* évite un décalage fantôme du <figure> */
   .alt-media{
-    border-radius:26px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.16);
-    display:block;background:rgba(255,255,255,0.10);aspect-ratio:16/10;
+    border-radius:26px;
+    overflow:hidden;
+    box-shadow:0 18px 40px rgba(0,0,0,.16);
+    display:block;
+    background:rgba(255,255,255,0.10);
+    aspect-ratio:16/10;         /* garde une taille cohérente même si l'image manque */
   }
-  .alt-media img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform .6s ease}
+  .alt-media img{
+    display:block;width:100%;height:100%;
+    object-fit:cover;            /* remplit sans déformer */
+    transform:scale(1.02);
+    transition:transform .6s ease;
+  }
   .alt-media:hover img{transform:scale(1.06)}
 
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
@@ -84,6 +115,7 @@
 
   .lang-menu{display:inline-block;margin-right:4px}
   .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
+
   section[id]{scroll-margin-top:120px}
 
   @media(max-width:900px){
@@ -106,7 +138,9 @@
     html,body{overflow-x:hidden}
   }
 
-  /* ===== Hamburger + mobile drawer ===== */
+  /* =========================
+     AJOUTS : HAMBURGER MOBILE
+     ========================= */
   .hamburger-btn{display:none;appearance:none;border:0;background:transparent;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer}
   .hamburger-btn span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;position:relative}
   .hamburger-btn span::before,.hamburger-btn span::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--fg);border-radius:2px}
@@ -116,16 +150,14 @@
   .mobile-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:999}
   .mobile-drawer{position:fixed;top:0;left:0;height:100%;width:86vw;max-width:360px;background:var(--bg);border-right:1px solid var(--ring);box-shadow:0 10px 30px rgba(0,0,0,.18);transform:translateX(-102%);transition:transform .25s ease;z-index:1000;display:flex;flex-direction:column}
   .mobile-drawer header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ring)}
-  .mobile-drawer nav{display:flex;flex-direction:column;gap:4px;padding:12px 12px 18px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .mobile-drawer nav{display:flex;flex-direction:column;gap:4px;padding:12px 12px 18px}
   .mobile-drawer nav a{padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--fg)}
   .mobile-drawer nav a:hover{background:var(--card)}
-  .mobile-heading{margin:14px 12px 6px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ring);padding-top:10px}
-  .mobile-group{padding:2px 0 8px}
-  .mobile-sub{padding:0 12px 10px;margin:2px 0 6px;border-left:2px solid var(--ring)}
-  .mobile-sub a{display:block;padding:8px 12px 8px 10px;border-radius:8px}
-  .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:var(--bg)}
-  .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
-  .lang-btn:active{transform:scale(.98)}
+  .mobile-drawer .mobile-sub{padding:0 12px 12px}
+  .mobile-drawer .mobile-sub a{display:block;padding:8px 12px;margin-left:12px;border-radius:8px}
+  .mobile-drawer .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:var(--bg)}
+  .mobile-drawer .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
+  .mobile-drawer .lang-btn:active{transform:scale(.98)}
 
   .mobile-open .mobile-backdrop{opacity:1;pointer-events:auto}
   .mobile-open .mobile-drawer{transform:translateX(0)}
@@ -134,13 +166,65 @@
     .hamburger-btn{display:flex}
     .top-band nav{display:none !important}
     .lang-menu{display:none !important}
-    .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px;}
+    .top-band header{
+      display:grid;
+      grid-template-columns:40px 1fr auto;
+      align-items:center;
+      gap:8px;
+    }
     .top-band header > a[href="index.html"]{justify-self:center}
     #themeToggle{justify-self:end}
   }
 
   .hamburger-btn:focus-visible,.mobile-drawer a:focus-visible,.lang-btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
-  @media (prefers-reduced-motion:reduce){.mobile-backdrop,.mobile-drawer{transition:none}}
+  @media (prefers-reduced-motion:reduce){
+    .mobile-backdrop,.mobile-drawer{transition:none}
+  }
+
+  .mobile-heading{
+    margin:14px 12px 6px;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color: var(--muted);
+    border-top:1px solid var(--ring);
+    padding-top:10px;
+  }
+  .mobile-group{ padding:2px 0 8px; }
+  .mobile-group > a{ display:block; padding:10px 12px; border-radius:10px; }
+  .mobile-sub{
+    padding:0 12px 10px;
+    margin:2px 0 6px;
+    border-left:2px solid var(--ring);
+  }
+  .mobile-sub a{
+    display:block;
+    padding:8px 12px 8px 10px;
+    border-radius:8px;
+  }
+  .mobile-sep{ height:8px; }
+
+  /* header sticky + scroll interne */
+  .mobile-drawer header{
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--bg);
+    border-bottom: 1px solid var(--ring);
+    padding-top: calc(14px + env(safe-area-inset-top, 0px));
+  }
+  .mobile-drawer nav{
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 16px;
+  }
+  .mobile-drawer nav .mobile-heading:first-of-type{
+    margin-top: 12px;
+    border-top: 0;
+    padding-top: 0;
+  }
 
   html.mobile-open, body.mobile-open{ overflow: hidden; }
 
@@ -153,35 +237,62 @@
   html.mobile-open[dir="rtl"] .mobile-drawer{ transform:translateX(0); }
   html[dir="rtl"] .mobile-sub{ border-left:none; border-right:2px solid var(--ring); }
   @media (max-width:640px){
-    html[dir="rtl"] .top-band header{ grid-template-columns:auto 1fr 40px; }
+    html[dir="rtl"] .top-band header{
+      grid-template-columns:auto 1fr 40px;
+    }
     html[dir="rtl"] #themeToggle{ justify-self:start; }
     html[dir="rtl"] .top-band header > a[href="index.html"]{ justify-self:center; }
   }
 </style>
 
 <script>
-/* ===== i18n helper for theme label ===== */
-function i18nGet(key, fallback){ try{ let v=window.__i18nDict; for(const p of key.split('.')) v=v&&v[p]; return v||fallback; }catch(e){ return fallback; } }
-function updateThemeLabel(){ const btn=document.getElementById('themeToggle'); if(!btn) return;
-  const isDark=(document.documentElement.dataset.theme==='dark');
-  btn.textContent = isDark ? i18nGet('ui.theme_day','☀︎ Day') : i18nGet('ui.theme_night','☾ Night'); }
+/* ===== Helpers i18n pour le bouton thème ===== */
+function i18nGet(key, fallback){
+  try{
+    let v = window.__i18nDict;
+    for (const part of key.split('.')) v = v && v[part];
+    return v || fallback;
+  }catch(e){ return fallback; }
+}
+function updateThemeLabel(){
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  const isDark = (document.documentElement.dataset.theme === 'dark');
+  const day  = i18nGet('ui.theme_day','☀︎ Day');
+  const night= i18nGet('ui.theme_night','☾ Night');
+  btn.textContent = isDark ? day : night;
+}
 
-/* Theme */
-function toggleTheme(){ const html=document.documentElement; const next=html.dataset.theme==='dark'?'light':'dark';
-  html.dataset.theme=next; try{localStorage.setItem('theme',next);}catch(e){}; document.documentElement.style.colorScheme=next; updateThemeLabel(); }
+/* ===== Thème ===== */
+function toggleTheme(){
+  const html=document.documentElement;
+  const next=html.dataset.theme==='dark'?'light':'dark';
+  html.dataset.theme=next;
+  try{localStorage.setItem('theme',next);}catch(e){}
+  document.documentElement.style.colorScheme=next;
+  if (document.getElementById('themeToggle')) updateThemeLabel();
+}
 
-/* Menus */
-function toggleMenu(e,id){ e.preventDefault(); const m=document.getElementById(id); if(!m) return;
-  const isOpen=m.classList.contains('show'); document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
-  if(!isOpen){m.style.display='block';requestAnimationFrame(()=>m.classList.add('show'));} }
-function closeMenusOnInteraction(ev){ const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
-  if(!inside){ document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show'); setTimeout(()=>m.style.display='none',250);}); } }
-document.addEventListener('click',closeMenusOnInteraction,{passive:true});
+/* ===== Menus ===== */
+function toggleMenu(e,id){
+  e.preventDefault();
+  const m=document.getElementById(id);
+  if(!m) return;
+  const isOpen=m.classList.contains('show');
+  document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
+  if(!isOpen){m.style.display='block';requestAnimationFrame(()=>m.classList.add('show'));}
+}
+function closeMenusOnInteraction(ev){
+  const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
+  if(!inside){document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show');setTimeout(()=>m.style.display='none',250);});}
+}
+document.addEventListener('click',closeMenusOnInteraction);
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
-document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInteraction({target:null}); });
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
-/* Init theme + inject lang menu */
+/* ===== Init thème + languette ===== */
 document.addEventListener('DOMContentLoaded',function(){
+  // thème initial
   let initial='light';
   try{
     const stored=localStorage.getItem('theme');
@@ -190,34 +301,51 @@ document.addEventListener('DOMContentLoaded',function(){
   }catch(e){}
   document.documentElement.dataset.theme=initial;
   document.documentElement.style.colorScheme=initial;
-  updateThemeLabel();
+  if (document.getElementById('themeToggle')) updateThemeLabel();
 
+  // languette à droite du bouton thème
   const themeBtn=document.getElementById('themeToggle');
-  if(themeBtn && themeBtn.parentNode && !document.getElementById('langToggle')){
-    const wrap=document.createElement('div'); wrap.className='menu lang-menu';
-    const btn=document.createElement('button'); btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
-    const menu=document.createElement('div'); menu.id='lang-menu';menu.className='submenu';
-    menu.innerHTML = `
-      <a href="#" data-lang="en">English</a>
-      <a href="#" data-lang="de">Deutsch</a>
-      <a href="#" data-lang="ar">العربية</a>
-      <a href="#" data-lang="fr">Français</a>
-    `;
-    wrap.appendChild(btn);wrap.appendChild(menu); themeBtn.parentNode.insertBefore(wrap,themeBtn);
-    btn.addEventListener('click',e=>toggleMenu(e,'lang-menu'));
-    menu.addEventListener('click', function(e){
-      const a = e.target.closest('a[data-lang]'); if (!a) return;
-      e.preventDefault();
-      if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
-      closeMenusOnInteraction({target:null});
-      try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
-    });
+  if(!themeBtn||!themeBtn.parentNode) return;
+
+  const wrap=document.createElement('div');
+  wrap.className='menu lang-menu';
+
+  const btn=document.createElement('button');
+  btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
+
+  const menu=document.createElement('div');
+  menu.id='lang-menu';menu.className='submenu';
+  menu.innerHTML = `
+    <a href="#" data-lang="en">English</a>
+    <a href="#" data-lang="de">Deutsch</a>
+    <a href="#" data-lang="ar">العربية</a>
+    <a href="#" data-lang="fr">Français</a>
+  `;
+
+  wrap.appendChild(btn);wrap.appendChild(menu);
+  themeBtn.parentNode.insertBefore(wrap,themeBtn);
+  btn.addEventListener('click',function(e){toggleMenu(e,'lang-menu');});
+
+  // clic sur une langue
+  menu.addEventListener('click', function(e){
+    const a = e.target.closest('a[data-lang]');
+    if (!a) return;
+    e.preventDefault();
+    if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
+    closeMenusOnInteraction({target:null});
     try{
-      const params=new URLSearchParams(location.search);
-      const lang=params.has('lang')?(params.get('lang')||'en').toLowerCase():'en';
-      const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[lang]||'EN')+' ▾';
+      const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+      btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾';
     }catch(_e){}
-  }
+  });
+
+  // label au chargement selon ?lang=
+  try{
+    const params=new URLSearchParams(location.search);
+    const lang = params.has('lang') ? (params.get('lang')||'en').toLowerCase() : 'en';
+    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
+  }catch(_e){}
 });
 </script>
 </head>
@@ -226,6 +354,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="top-band">
     <div class="container">
       <header>
+        <!-- AJOUT: bouton hamburger -->
         <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">
           <span aria-hidden="true"></span>
         </button>
@@ -235,6 +364,7 @@ document.addEventListener('DOMContentLoaded',function(){
         </a>
 
         <nav>
+          <!-- About -->
           <div class="menu">
             <a href="about.html" data-i18n="nav.about">About</a>
             <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'about-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
@@ -246,8 +376,10 @@ document.addEventListener('DOMContentLoaded',function(){
             </div>
           </div>
 
+          <!-- Skills (current) -->
           <a href="skills.html" data-i18n="nav.skills">Skills</a>
 
+          <!-- Projects -->
           <div class="menu">
             <a href="projects.html" data-i18n="nav.projects">Projects</a>
             <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
@@ -257,6 +389,7 @@ document.addEventListener('DOMContentLoaded',function(){
             </div>
           </div>
 
+          <!-- Contact -->
           <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
 
@@ -265,6 +398,7 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
 
+  <!-- AJOUT: backdrop + tiroir mobile -->
   <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
   <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <header>
@@ -313,8 +447,10 @@ document.addEventListener('DOMContentLoaded',function(){
   </aside>
 
   <main class="page" id="main">
+    <!-- Pas de titre/lead en haut, comme demandé -->
     <div class="sections">
 
+      <!-- Technical Skills / CAD -->
       <section id="technical" class="alt-section reverse reveal">
         <figure class="alt-media">
           <img src="cad.jpg" alt="CAD workspace and parametric model" loading="lazy" decoding="async">
@@ -328,6 +464,7 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
       </section>
 
+      <!-- Interpersonal Skills / Team Communication -->
       <section id="interpersonal" class="alt-section reveal">
         <figure class="alt-media">
           <img src="team-comm.jpg" alt="Team collaborating around a whiteboard" loading="lazy" decoding="async">
@@ -341,6 +478,7 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
       </section>
 
+      <!-- Organizational Skills / Administrative understanding -->
       <section id="organizational" class="alt-section reverse reveal">
         <figure class="alt-media">
           <img src="org-admin.jpg" alt="Organizational charts and documents" loading="lazy" decoding="async">
@@ -354,6 +492,7 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
       </section>
 
+      <!-- Cultural Skills / Intercultural adaptability -->
       <section id="cultural" class="alt-section reveal">
         <figure class="alt-media">
           <img src="intercultural.jpg" alt="Global network and multicultural collaboration" loading="lazy" decoding="async">
@@ -371,7 +510,7 @@ document.addEventListener('DOMContentLoaded',function(){
   </main>
 
   <div class="footer-band">© 2025 Youssef Chabbou
-    <span data-i18n="footer.created_by" style="font-size:12px;color:rgba(255,255,255,0.75);float:right;text-align:right;line-height:1.4;">
+    <span data-i18n="footer.created_by" style="font-size:12px; color:rgba(255,255,255,0.75); float:right; text-align:right; line-height:1.4;">
       This website was entirely created by its owner,<br>
       Youssef Chabbou, using AI-Augmented Development.
     </span>
@@ -380,62 +519,41 @@ document.addEventListener('DOMContentLoaded',function(){
   <script>
     (function(){
       const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(prefersReduced){ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')); return; }
-      const io=new IntersectionObserver((entries)=>{ entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}); },{threshold:0.15});
+      if(prefersReduced){
+        document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+        return;
+      }
+      const io=new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+      },{threshold:0.15});
       document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     })();
   </script>
 
-  <!-- i18n-persist (sessionStorage) + propagation ?lang= + RTL -->
+  <!-- Loader i18n (identique à index + RTL dynamique) -->
   <script>
 (() => {
   const SUPPORTED = ["fr","de","ar"];
   const DEFAULT = "en";
 
-  function updateLinksForLang(lang){
-    try{
-      document.querySelectorAll('a[href]').forEach(a=>{
-        const href=a.getAttribute('href');
-        if(!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
-        if(/^https?:\/\//i.test(href)){
-          const abs=new URL(href,location.href);
-          if(abs.origin!==location.origin) return; // liens externes: ne pas toucher
-        }
-        const target=new URL(href,location.href);
-        target.searchParams.set('lang',lang);
-        a.setAttribute('href', target.pathname + target.search + target.hash);
-      });
-    }catch(_e){}
-  }
-
   function snapshotOriginals(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if(el.dataset.i18nOriginal) return;
-      const key = el.getAttribute("data-i18n") || "";
-      const allowHTML = el.hasAttribute("data-i18n-html") || /_html$/.test(key);
-      el.dataset.i18nOriginalIsHtml = allowHTML ? "1" : "";
-      el.dataset.i18nOriginal = allowHTML ? el.innerHTML : el.textContent;
+      if(!el.dataset.i18nOriginal){
+        el.dataset.i18nOriginal = el.textContent;
+      }
     });
   }
   snapshotOriginals();
 
   const get = (o, path) => path.split('.').reduce((a,k)=> (a && a[k]!=null) ? a[k] : undefined, o);
 
-  function langFromSession(){
-    try{
-      const v=sessionStorage.getItem('lang');
-      if(v && (v==='en' || SUPPORTED.includes(v))) return v;
-    }catch(_e){}
-    return null;
-  }
-
   function currentLang() {
-    const sess = langFromSession();
-    if (sess) return sess;
     const params = new URLSearchParams(location.search);
-    const urlLang  = (params.get("lang")||"").toLowerCase();
-    if (!params.has("lang")) return DEFAULT;
-    return (urlLang==='en' || SUPPORTED.includes(urlLang)) ? urlLang : DEFAULT;
+    const hasParam = params.has("lang");
+    const urlLang  = params.get("lang");
+    if (!hasParam) return DEFAULT;
+    if (urlLang === 'en' || SUPPORTED.includes(urlLang)) return urlLang;
+    return DEFAULT;
   }
 
   async function loadDict(lang) {
@@ -448,33 +566,27 @@ document.addEventListener('DOMContentLoaded',function(){
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       const val = get(dict, key);
-      if (val == null) return;
-      const allowHTML = el.hasAttribute("data-i18n-html") || /_html$/.test(key);
-      if (allowHTML) el.innerHTML = val; else el.textContent = val;
+      if (val != null) el.textContent = val;
     });
-
     const metaTitle = get(dict, "meta.title");
     if (metaTitle) document.title = metaTitle;
 
+    // expose dict + mettre RTL si ar
     window.__i18nDict = dict || {};
     document.documentElement.setAttribute("lang", langCode);
     document.documentElement.setAttribute("dir", langCode === 'ar' ? 'rtl' : 'ltr');
 
     if (window.updateThemeLabel) updateThemeLabel();
-    updateLinksForLang(langCode);
   }
 
   function restoreEnglish(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
-      const isHtml = el.dataset.i18nOriginalIsHtml === "1";
-      const original = el.dataset.i18nOriginal != null ? el.dataset.i18nOriginal : (isHtml ? el.innerHTML : el.textContent);
-      if (original != null){ if(isHtml) el.innerHTML = original; else el.textContent = original; }
+      if (el.dataset.i18nOriginal != null) el.textContent = el.dataset.i18nOriginal;
     });
     window.__i18nDict = {};
     document.documentElement.setAttribute("lang", "en");
     document.documentElement.setAttribute("dir", "ltr");
     if (window.updateThemeLabel) updateThemeLabel();
-    updateLinksForLang("en");
   }
 
   let current = currentLang();
@@ -483,39 +595,35 @@ document.addEventListener('DOMContentLoaded',function(){
     if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
     current = lang;
 
-    // persistance de session
-    try{ sessionStorage.setItem('lang', lang); }catch(_e){}
-
-    // normalise l'URL
     const u = new URL(location.href);
     u.searchParams.set("lang", lang);
     history.replaceState({}, "", u.pathname + u.search + location.hash);
 
     if (lang === 'en') { restoreEnglish(); return; }
-    loadDict(lang).then(d=>applyDict(d, lang)).catch(()=>restoreEnglish());
+    loadDict(lang).then(d=>applyDict(d, lang)).catch(err=>{
+      console.error(err);
+      restoreEnglish();
+    });
   }
 
   window.setLangFromMenu = setLang;
 
   (function initLangToggleLabel(){
-    const btn = document.getElementById('langToggle'); if (!btn) return;
+    const btn = document.getElementById('langToggle');
+    if (!btn) return;
     const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
-    btn.textContent = (map[current] || 'EN') + ' ▾';
+    const lang = current;
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
   })();
 
-  if(current==='en') restoreEnglish(); else setLang(current);
-
-  window.addEventListener('popstate', ()=>{
-    const lang = currentLang();
-    setLang(lang);
-  });
+  setLang(current);
 
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-lang]");
     if (!b) return;
     e.preventDefault();
     setLang(b.getAttribute("data-lang"));
-  }, {passive:true});
+  });
 })();
   </script>
 
@@ -533,14 +641,14 @@ document.addEventListener('DOMContentLoaded',function(){
         html.classList.add('mobile-open');
         body.classList.add('mobile-open');
         drawer.setAttribute('aria-hidden','false');
-        if(btn) btn.setAttribute('aria-expanded','true');
+        btn.setAttribute('aria-expanded','true');
         backdrop.hidden = false;
       }
       function closeDrawer(){
         html.classList.remove('mobile-open');
         body.classList.remove('mobile-open');
         drawer.setAttribute('aria-hidden','true');
-        if(btn) btn.setAttribute('aria-expanded','false');
+        btn.setAttribute('aria-expanded','false');
         setTimeout(()=>{backdrop.hidden = true;}, 200);
       }
 
@@ -554,10 +662,13 @@ document.addEventListener('DOMContentLoaded',function(){
       if (backdrop) backdrop.addEventListener('click', closeDrawer);
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
 
+      // fermer le tiroir si on clique un lien
       drawer.addEventListener('click', (e)=>{
-        const a = e.target.closest('a'); if (a) closeDrawer();
+        const a = e.target.closest('a');
+        if (a) closeDrawer();
       });
 
+      // changement de langue via boutons du tiroir
       drawer.addEventListener('click', (e)=>{
         const b = e.target.closest('.lang-btn[data-lang]');
         if (!b) return;
