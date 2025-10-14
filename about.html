@@ -4,10 +4,16 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<!-- Précharge l’image de fond pour éviter le flash -->
+<link rel="preload" as="image" href="background.jpg" />
+
 <style>
   :root{
     --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85);
-    --edge:24px; --card-pad:26px;
+    --edge:24px;
+    --card-pad:26px;
+    --sticky-h:80px;
+    --anchor-offset: calc(var(--sticky-h) + 24px);
   }
   [data-theme="dark"]{
     --bg:#0d1117;--fg:#e6edf3;--muted:#8b949e;--brand:#58a6ff;--card:#161b22;--ring:#30363d;--overlay:rgba(0,0,0,0.7)
@@ -36,96 +42,91 @@
   .submenu a:hover{background:var(--ring)}
   .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s}
 
-  .page{max-width:1200px;margin:0 auto;padding:32px 24px 24px;z-index:1;position:relative}
+  .page{max-width:1200px;margin:0 auto;padding:48px var(--edge) 24px;z-index:1;position:relative}
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
-  /* Sections */
-  .sections{max-width:1200px;margin:0 auto;padding:24px 24px 96px}
-
-  /* Titre-pastille bleu */
-  .section-head{margin:32px 0 18px}
-  .eyebrow{
-    display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#0f172a;
-    margin:0;padding:8px 16px;border-radius:999px;
-    background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
-    border:1px solid rgba(11,95,165,.25)
-  }
-  [data-theme="dark"] .eyebrow{
-    color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));
-    border:1px solid rgba(88,166,255,.28)
+  .sections{max-width:1200px;margin:0 auto;padding:32px 0 96px}
+  .alt-section{
+    display:grid;
+    grid-template-columns:1.05fr 1fr;
+    gap:36px;align-items:stretch;margin:54px 0;
+    padding:0 var(--edge);
   }
 
-  /* Pastille bleue à l’intérieur des cartes */
-  .pill-title{
-    display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#0f172a;
-    margin:0 0 12px;padding:8px 14px;border-radius:999px;
-    background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
-    border:1px solid rgba(11,95,165,.25);
+  .alt-card{
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-radius:24px;padding:28px var(--card-pad);
+    box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
+    color:#111827;height:100%;display:flex;flex-direction:column
   }
-  [data-theme="dark"] .pill-title{
+  [data-theme="dark"] .alt-card{
+    background:rgba(0,0,0,0.55);
+    box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;
+    color:#eaeef5;
+  }
+
+  .alt-eyebrow{
+    display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    margin:0 0 10px;padding:6px 14px;border-radius:999px;
+    color:#0f172a;background:linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
+  }
+  [data-theme="dark"] .alt-eyebrow{
     color:#e6eef8;background:linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));border:1px solid rgba(88,166,255,.28);
   }
 
-  section.reveal{padding-bottom:24px;margin-bottom:42px}
-  section.reveal + section.reveal{margin-top:6px}
+  .alt-title{font-size:clamp(22px,2.8vw,36px);line-height:1.18;margin:0 0 12px;color:var(--fg)}
+  [data-theme="dark"] .alt-title{color:#f3f6fb}
+  .alt-text{margin:0;color:#111827;font-size:16px}
+  [data-theme="dark"] .alt-text{color:#eaeef5}
 
-  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:28px}
-  .card{
-    grid-column:span 6;background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-radius:24px;padding:0;overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;color:#111827;
-    display:flex;flex-direction:column
+  .step-title{font-size:20px;margin:16px 0 6px;color:var(--fg)}
+  [data-theme="dark"] .step-title{color:#f3f6fb}
+
+  .alt-media{border-radius:26px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.16);height:100%}
+  .stacked-photos{display:grid;grid-template-rows:1fr 1fr;height:100%;gap:16px;padding:16px;background:rgba(255,255,255,0.10)}
+  [data-theme="dark"] .stacked-photos{background:rgba(0,0,0,0.18)}
+  .stacked-photos figure{margin:0;overflow:hidden;border-radius:18px}
+  .stacked-photos img{width:100%;height:100%;object-fit:cover;display:block;transition: transform .35s ease, filter .35s ease;will-change: transform}
+  .stacked-photos figure:hover img,
+  .stacked-photos figure:focus-within img{transform: scale(1.04)}
+
+  .eyebrow-stack{display:inline-block;position:relative;margin:6px 0 18px}
+  .eyebrow-stack::before{content:"";position:absolute;inset:-6px -10px;background:rgba(255,255,255,0.95);border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.08);z-index:0}
+  .eyebrow-stack .alt-eyebrow{position:relative;z-index:1;margin:0}
+
+  .block-align{ padding-left:var(--edge); padding-right:var(--edge) }
+  .inset-left{ margin-left: calc(var(--edge) + var(--card-pad)); }
+
+  .cv-row{
+    display:flex;align-items:center;justify-content:space-between;
+    border:1px solid var(--ring);border-radius:18px;padding:16px 18px;margin:14px 0;
+    background:rgba(255,255,255,0.90);
   }
-  .card-wide{grid-column:1 / -1}
-  [data-theme="dark"] .card{
-    background: rgba(0,0,0,0.55);
-    box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;color:#eaeef5
+  [data-theme="dark"] .cv-row{background:rgba(0,0,0,0.78)}
+  .cv-label{font-weight:700;font-size:22px}
+  .btn-download{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:12px 18px;border-radius:999px;border:0;
+    background:linear-gradient(180deg,var(--brand),#0a5695);
+    color:#fff;text-decoration:none;font-weight:700;
+    box-shadow:0 8px 18px rgba(11,95,165,.25);
+    transform:translateZ(0); transition: transform .05s ease, box-shadow .2s ease, opacity .2s ease;
+    white-space:nowrap;
   }
+  .btn-download:hover{opacity:.96;box-shadow:0 10px 22px rgba(11,95,165,.32)}
+  .btn-download:active{transform:translateY(1px)}
+  .btn-download svg{width:18px;height:18px;flex:0 0 18px}
 
-  .body{padding:22px var(--card-pad)}
-  .body p{margin:0 0 16px; line-height:1.75;}
-  .intro-text{font-size:clamp(16px,1.6vw,18px);color:var(--fg);margin:0 0 22px}
+  .anchor{scroll-margin-top: var(--anchor-offset)}
 
-  /* ======== MEDIA SLIDER (LTR forcé) ======== */
-  .media-slider{
-    position:relative;width:100%;
-    aspect-ratio:16/9;
-    border:1.5px dashed var(--ring);
-    border-radius:14px;background:rgba(11,95,165,.03);
-    overflow:hidden;
-    direction:ltr;                /* pas d’inversion en RTL */
+  @media(max-width:900px){
+    .alt-section{grid-template-columns:1fr}
+    #background .alt-media{height:auto !important}
+    :root{ --anchor-offset: 72px; }
   }
-  .media-track{
-    position:absolute;inset:0;display:flex;transition:transform .6s ease;will-change:transform;height:100%;
-    direction:ltr; flex-direction:row;  /* fixe l’ordre */
-  }
-  .slide{flex:0 0 100%;position:relative;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.04)}
-  .slide img, .slide video{width:100%;height:100%;object-fit:cover;display:block}
-
-  .media-nav{
-    position:absolute;top:50%;transform:translateY(-50%);
-    background:rgba(255,255,255,.75);border:1px solid var(--ring);
-    color:#0b5fa5;width:36px;height:36px;border-radius:999px;
-    display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;z-index:2;backdrop-filter:blur(6px)
-  }
-  [data-theme="dark"] .media-nav{background:rgba(0,0,0,.55);color:#58a6ff}
-  .media-nav:hover{background:rgba(255,255,255,.9)}
-  .media-nav.prev{left:10px}
-  .media-nav.next{right:10px}
-
-  @media(max-width:980px){.card{grid-column:span 12}}
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.in{opacity:1;transform:translateY(0)}
-
-  .lang-menu{display:inline-block;margin-right:4px}
-  .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
-  section[id]{scroll-margin-top:120px}
-
-  @media(max-width:900px){.sections{padding:16px 16px 72px}html,body{overflow-x:hidden}}
-
-  /* ======== MOBILE : podium et overlay ======== */
-  @media (max-width:640px){
+  @media(max-width:640px){
+    :root{ --edge:16px; --anchor-offset: 64px; }
     .container{padding:12px 16px}
     .top-band{position:static}
     header{flex-wrap:wrap;gap:8px}
@@ -134,74 +135,18 @@
     nav a{font-size:14px;line-height:1.2;white-space:nowrap}
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
-
-    /* la carte garde son cadre : rien ne dépasse */
-    .card{ overflow:hidden; }
-
-    /* podium = 100% de la carte (ne dépasse pas) */
-    .media-podium{
-      position:relative;
-      margin:12px auto 0;
-      width:100%;
-    }
-    .media-podium::before{
-      content:"";
-      position:absolute; left:50%; transform:translateX(-50%);
-      bottom:-10px;
-      width:100%;
-      height: calc(100% + 20px);
-      border-radius:18px;
-      background: rgba(255,255,255,0.75);
-      box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
-      z-index:0;
-    }
-    [data-theme="dark"] .media-podium::before{
-      background: rgba(0,0,0,0.55);
-      box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;
-    }
-
-    .media-podium .media-slider{
-      position:relative; z-index:1;
-      width:100%;
-      max-height: 62vh;
-      aspect-ratio: 16 / 9;
-      margin-left:auto; margin-right:auto;
-      border-radius:16px;
-      background:rgba(11,95,165,.03);
-    }
-    .media-podium .slide img, .media-podium .slide video{
-      object-fit: contain;   /* en portrait : photos entières et petites */
-      background: transparent;
-    }
-
-    /* overlay mobile : invite à pivoter (uniquement sur Realized) */
-    .rotate-overlay{
-      position:absolute; inset:0; z-index:3;
-      display:flex; align-items:center; justify-content:center; gap:10px;
-      background:rgba(0,0,0,.38);
-      backdrop-filter:blur(2px);
-      -webkit-backdrop-filter:blur(2px);
-      color:#fff; text-align:center; padding:14px;
-      font-size:14px; line-height:1.4;
-      cursor:pointer;
-    }
-    .rotate-overlay.hidden{ display:none; }
-
-    .rotate-hint{
-      display:flex; align-items:center; gap:10px;
-      padding:10px 14px; border-radius:999px;
-      background:rgba(0,0,0,.45);
-    }
-    .rotate-icon{ width:22px; height:22px; flex:0 0 22px; display:inline-block; }
+    html,body{overflow-x:hidden}
   }
 
-  @media (max-width:380px){
-    .media-podium .media-slider{ max-height: 66vh; }
-  }
-</style>
+  /* Corrections ciblées BACKGROUND */
+  #background{ align-items:start; }
+  #background .alt-card{ height:auto; }
+  #background .alt-media{ height:auto; }
+  #background .stacked-photos{ height:100%; grid-template-rows:1fr 1fr; }
+  #background .stacked-photos figure{ height:100%; }
+  #background .stacked-photos img{ object-fit:cover; }
 
-<!-- ===== HAMBURGER + RTL global (ne touche pas au slider) ===== -->
-<style>
+  /* ===== HAMBURGER MOBILE ===== */
   .hamburger-btn{display:none;appearance:none;border:0;background:transparent;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer}
   .hamburger-btn span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;position:relative}
   .hamburger-btn span::before,.hamburger-btn span::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--fg);border-radius:2px}
@@ -211,16 +156,14 @@
   .mobile-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:999}
   .mobile-drawer{position:fixed;top:0;left:0;height:100%;width:86vw;max-width:360px;background:var(--bg);border-right:1px solid var(--ring);box-shadow:0 10px 30px rgba(0,0,0,.18);transform:translateX(-102%);transition:transform .25s ease;z-index:1000;display:flex;flex-direction:column}
   .mobile-drawer header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ring)}
-  .mobile-drawer nav{display:flex;flex-direction:column;gap:4px;padding:12px 12px 18px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .mobile-drawer nav{display:flex;flex-direction:column;gap:4px;padding:12px 12px 18px}
   .mobile-drawer nav a{padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--fg)}
   .mobile-drawer nav a:hover{background:var(--card)}
-  .mobile-heading{margin:14px 12px 6px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ring);padding-top:10px}
-  .mobile-group{padding:2px 0 8px}
-  .mobile-sub{padding:0 12px 10px;margin:2px 0 6px;border-left:2px solid var(--ring)}
-  .mobile-sub a{display:block;padding:8px 12px 8px 10px;border-radius:8px}
-  .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:var(--bg)}
-  .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
-  .lang-btn:active{transform:scale(.98)}
+  .mobile-drawer .mobile-sub{padding:0 12px 12px}
+  .mobile-drawer .mobile-sub a{display:block;padding:8px 12px;margin-left:12px;border-radius:8px}
+  .mobile-drawer .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:var(--bg)}
+  .mobile-drawer .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
+  .mobile-drawer .lang-btn:active{transform:scale(.98)}
 
   .mobile-open .mobile-backdrop{opacity:1;pointer-events:auto}
   .mobile-open .mobile-drawer{transform:translateX(0)}
@@ -230,56 +173,98 @@
     .top-band nav{display:none !important}
     .lang-menu{display:none !important}
     .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px;}
-    .top-band header > a[href="index.html"]{justify-self:center}
+    .top-band header > a[href="index.html#home"]{justify-self:center}
     #themeToggle{justify-self:end}
   }
 
   .hamburger-btn:focus-visible,.mobile-drawer a:focus-visible,.lang-btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
   @media (prefers-reduced-motion:reduce){.mobile-backdrop,.mobile-drawer{transition:none}}
 
+  .mobile-heading{margin:14px 12px 6px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ring);padding-top:10px}
+  .mobile-group{ padding:2px 0 8px; }
+  .mobile-group > a{ display:block; padding:10px 12px; border-radius:10px; }
+  .mobile-sub{padding:0 12px 10px;margin:2px 0 6px;border-left:2px solid var(--ring)}
+  .mobile-sub a{display:block;padding:8px 12px 8px 10px;border-radius:8px}
+  .mobile-sep{ height:8px; }
+
+  .mobile-drawer header{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--ring);padding-top:calc(14px + env(safe-area-inset-top,0px))}
+  .mobile-drawer nav{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:16px}
+  .mobile-drawer nav .mobile-heading:first-of-type{margin-top:12px;border-top:0;padding-top:0}
+
   html.mobile-open, body.mobile-open{ overflow: hidden; }
 
-  /* RTL général (le slider a son propre LTR) */
+  /* RTL dynamique */
   html[dir="rtl"] body{ direction: rtl; }
+  html[dir="rtl"] .alt-card, html[dir="rtl"] .lead, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] a{ text-align:right; }
   html[dir="rtl"] nav{ justify-content:flex-end; }
   html[dir="rtl"] .submenu{ left:auto; right:0; }
-  html[dir="rtl"] .mobile-drawer{ left:auto; right:0; transform:translateX(102%); border-right:none; border-left:1px solid var(--ring); }
+  html[dir="rtl"] .mobile-drawer{ left:auto; right:0; transform:translateX(102%); }
   html.mobile-open[dir="rtl"] .mobile-drawer{ transform:translateX(0); }
   html[dir="rtl"] .mobile-sub{ border-left:none; border-right:2px solid var(--ring); }
-  html[dir="rtl"] .body, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] a{ text-align:right; }
   @media (max-width:640px){
     html[dir="rtl"] .top-band header{grid-template-columns:auto 1fr 40px;}
     html[dir="rtl"] #themeToggle{ justify-self:start; }
-    html[dir="rtl"] .top-band header > a[href="index.html"]{ justify-self:center; }
+    html[dir="rtl"] .top-band header > a[href="index.html#home"]{ justify-self:center; }
   }
 </style>
 
 <script>
-function i18nGet(key, fallback){ try{ let v = window.__i18nDict; for (const part of key.split('.')) v = v && v[part]; return v || fallback; }catch(e){ return fallback; } }
-function updateThemeLabel(){ const btn = document.getElementById('themeToggle'); if (!btn) return;
-  const isDark = (document.documentElement.dataset.theme === 'dark');
-  const day  = i18nGet('ui.theme_day','☀︎ Day'); const night= i18nGet('ui.theme_night','☾ Night');
-  btn.textContent = isDark ? day : night;
+/* Utilitaires i18n + thème */
+function i18nGet(key, fallback){
+  try{ let v = window.__i18nDict; for (const p of key.split('.')) v = v && v[p]; return v ?? fallback; }
+  catch(e){ return fallback; }
 }
-function toggleTheme(){ const html=document.documentElement; const next=html.dataset.theme==='dark'?'light':'dark';
-  html.dataset.theme=next; try{localStorage.setItem('theme',next);}catch(e){}; document.documentElement.style.colorScheme=next; updateThemeLabel();
+function updateThemeLabel(){
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  const isDark = (document.documentElement.dataset.theme === 'dark');
+  btn.textContent = isDark ? i18nGet('ui.theme_day','☀︎ Day') : i18nGet('ui.theme_night','☾ Night');
+}
+function toggleTheme(){
+  const html=document.documentElement;
+  const next=html.dataset.theme==='dark'?'light':'dark';
+  html.dataset.theme=next;
+  try{localStorage.setItem('theme',next);}catch(e){}
+  document.documentElement.style.colorScheme=next;
+  updateThemeLabel();
 }
 function toggleMenu(e,id){
-  e.preventDefault(); const m=document.getElementById(id); if(!m) return;
+  e.preventDefault();
+  const m=document.getElementById(id);
+  if(!m) return;
   const isOpen=m.classList.contains('show');
   document.querySelectorAll('.submenu').forEach(sm=>{sm.classList.remove('show');sm.style.display='none';});
   if(!isOpen){m.style.display='block';requestAnimationFrame(()=>m.classList.add('show'));}
 }
 function closeMenusOnInteraction(ev){
   const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
-  if(!inside){ document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show'); setTimeout(()=>{ m.style.display='none'; },250);}); }
+  if(!inside){document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show');setTimeout(()=>m.style.display='none',250);});}
 }
 
-document.addEventListener('click',closeMenusOnInteraction);
+/* ----- Synchronisation de hauteur pour BACKGROUND ----- */
+function syncBackgroundHeights(){
+  const section = document.getElementById('background');
+  if(!section) return;
+  const isSingleColumn = window.matchMedia('(max-width: 900px)').matches;
+  const card = section.querySelector('.alt-card');
+  const media = section.querySelector('.alt-media');
+  if(!card || !media) return;
+
+  media.style.height = '';
+  if(isSingleColumn) return;
+
+  const target = card.getBoundingClientRect().height;
+  if(target < 10) return;
+  media.style.height = target + 'px';
+}
+const debounce=(fn,ms)=>{let t;return function(){clearTimeout(t);t=setTimeout(()=>fn.apply(this,arguments),ms)}}
+
+document.addEventListener('click',closeMenusOnInteraction,{passive:true});
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function(){
+  /* thème initial */
   let initial='light';
   try{
     const stored=localStorage.getItem('theme');
@@ -290,36 +275,38 @@ document.addEventListener('DOMContentLoaded',function(){
   document.documentElement.style.colorScheme=initial;
   updateThemeLabel();
 
+  /* injecteur de bouton langue (évite doublon) */
   const themeBtn=document.getElementById('themeToggle');
-  if(!themeBtn||!themeBtn.parentNode) return;
-  const wrap=document.createElement('div'); wrap.className='menu lang-menu';
-  const btn=document.createElement('button'); btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
-  const menu=document.createElement('div'); menu.id='lang-menu';menu.className='submenu';
-  menu.innerHTML = `
-    <a href="#" data-lang="en">English</a>
-    <a href="#" data-lang="de">Deutsch</a>
-    <a href="#" data-lang="ar">العربية</a>
-    <a href="#" data-lang="fr">Français</a>
-  `;
-  wrap.appendChild(btn);wrap.appendChild(menu); themeBtn.parentNode.insertBefore(wrap,themeBtn);
-  btn.addEventListener('click',function(e){toggleMenu(e,'lang-menu');});
-  menu.addEventListener('click', function(e){
-    const a = e.target.closest('a[data-lang]'); if (!a) return;
-    e.preventDefault();
-    if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
-    closeMenusOnInteraction({target:null});
-    try{ const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'}; btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾'; }catch(_e){}
-  });
-  try{
-    const params=new URLSearchParams(location.search);
-    const lang = params.has('lang') ? (params.get('lang')||'en').toLowerCase() : 'en';
-    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
-    btn.textContent = (map[lang] || 'EN') + ' ▾';
-  }catch(_e){}
+  if(themeBtn && themeBtn.parentNode && !document.getElementById('langToggle')){
+    const wrap=document.createElement('div'); wrap.className='menu lang-menu';
+    const btn=document.createElement('button'); btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
+    const menu=document.createElement('div'); menu.id='lang-menu';menu.className='submenu';
+    menu.innerHTML = `
+      <a href="#" data-lang="en">English</a>
+      <a href="#" data-lang="de">Deutsch</a>
+      <a href="#" data-lang="ar">العربية</a>
+      <a href="#" data-lang="fr">Français</a>
+    `;
+    wrap.appendChild(btn);wrap.appendChild(menu);
+    themeBtn.parentNode.insertBefore(wrap,themeBtn);
+    btn.addEventListener('click',e=>toggleMenu(e,'lang-menu'));
+    menu.addEventListener('click', function(e){
+      const a = e.target.closest('a[data-lang]'); if (!a) return;
+      e.preventDefault();
+      if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
+      closeMenusOnInteraction({target:null});
+      try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
+      setTimeout(syncBackgroundHeights, 60);
+    });
+  }
+
+  syncBackgroundHeights();
+  window.addEventListener('load', syncBackgroundHeights, {once:true, passive:true});
+  document.fonts && document.fonts.ready && document.fonts.ready.then(()=>syncBackgroundHeights());
+  window.addEventListener('resize', debounce(syncBackgroundHeights, 120), {passive:true});
 });
 </script>
 </head>
-
 <body data-theme="light">
   <div class="top-band">
     <div class="container">
@@ -328,8 +315,8 @@ document.addEventListener('DOMContentLoaded',function(){
           <span aria-hidden="true"></span>
         </button>
 
-        <a href="index.html" style="display:inline-block">
-          <img src="signature.png" alt="Signature" class="signature" />
+        <a href="index.html#home" style="display:inline-block">
+          <img src="signature.png" alt="Signature" class="signature" fetchpriority="high" />
         </a>
 
         <nav>
@@ -350,8 +337,8 @@ document.addEventListener('DOMContentLoaded',function(){
             <a href="projects.html" data-i18n="nav.projects">Projects</a>
             <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
             <div id="projects-menu" class="submenu">
-              <a href="#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-              <a href="#future" data-i18n="nav.projects_menu.future">Future projects</a>
+              <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+              <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
             </div>
           </div>
 
@@ -366,7 +353,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
   <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <header>
-      <strong data-i18n="nav.projects">Menu</strong>
+      <strong data-i18n="nav.about">Menu</strong>
       <button class="toggle" type="button" id="mobileCloseBtn" aria-label="Close menu">✕</button>
     </header>
 
@@ -391,8 +378,8 @@ document.addEventListener('DOMContentLoaded',function(){
       <div class="mobile-group">
         <a href="projects.html" data-i18n="nav.projects">Projects</a>
         <div class="mobile-sub">
-          <a href="#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-          <a href="#future" data-i18n="nav.projects_menu.future">Future projects</a>
+          <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+          <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
         </div>
       </div>
 
@@ -413,74 +400,109 @@ document.addEventListener('DOMContentLoaded',function(){
   <main class="page" id="main">
     <div class="sections">
 
-      <!-- PROJETS RÉALISÉS -->
-      <section id="realized" class="reveal">
-        <div class="section-head">
-          <span class="eyebrow" role="heading" aria-level="2" data-i18n="projects.realized.title">Realized Projects</span>
+      <!-- ===== PROFILE ===== -->
+      <section id="profile" class="alt-section reveal anchor">
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Profile</p>
+          <h3 class="alt-title" data-i18n="about.sections.who.title">Born and raised in Tunisia</h3>
+          <p class="alt-text" data-i18n="about.sections.who.tn">
+            A Mediterranean crossroads where history shaped open minds. From Carthage’s legacy to vibrant craftsmanship and engineering talent today, Tunisia taught me curiosity, resilience, and a taste for precise, beautiful work.
+          </p>
+
+          <h4 class="step-title" data-i18n="about.sections.who.flight_title">First flight, first spark (2011)</h4>
+          <p class="alt-text" data-i18n="about.sections.who.flight_text">
+            I was seven, facing an Airbus A320 I never imagined so large. The engines felt monumental. Take-off scared me; cruise won me over. That mix of power and calm never left me—and it quietly set my path toward aerospace.
+          </p>
+
+          <h4 class="step-title" data-i18n="about.sections.who.maker_title">Making things my way</h4>
+          <p class="alt-text" data-i18n="about.sections.who.maker_text">
+            Even as a kid, I customized my toys—nothing standard for long. I liked to tweak, refine, and give parts a purpose. That habit of building and improving became my way of thinking.
+          </p>
+
+          <h4 class="step-title" data-i18n="about.sections.who.now_title">Today</h4>
+          <p class="alt-text" data-i18n="about.sections.who.now_text">
+            I’m currently based in Germany, growing through studies and early professional projects. It’s a grounded, steady journey—focused on learning, teamwork, and turning ideas into dependable aerospace work.
+          </p>
         </div>
 
-        <div class="grid">
-          <article class="card card-wide">
-            <div class="body">
-              <span class="pill-title" data-i18n="projects.realized.card_title">Mechanics in Motion: From Design to Manufacturing</span>
-              <p class="intro-text" data-i18n="projects.realized.card_intro">
-                A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.
-              </p>
-
-              <!-- PODIUM (mobile) -->
-              <div class="media-podium">
-                <!-- MEDIA SLIDER -->
-                <div class="media-slider" id="realizedMedia">
-                  <!-- Overlay rotation (mobile ONLY here) -->
-                  <div class="rotate-overlay" data-rotate-overlay>
-                    <div class="rotate-hint">
-                      <svg class="rotate-icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M7 2h10a2 2 0 0 1 2 2v7h-2V4H7v16h10v-3h2v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm12.95 9.95L22 14l-5 5-5-5 2.05-2.05L16 14.9V9h3v5.9l.95-.95Z"/>
-                      </svg>
-                      <span data-rotate-text>Rotate your phone to view larger</span>
-                    </div>
-                  </div>
-                  <!-- /overlay -->
-                  <button class="media-nav prev" aria-label="Previous">‹</button>
-                  <div class="media-track">
-                    <div class="slide"><img src="realized-1.jpg" alt="Manufacturing step — photo 1"></div>
-                    <div class="slide"><img src="realized-2.jpg" alt="Assembly process — photo 2"></div>
-                    <div class="slide"><img src="realized-3.jpg" alt="Finished mechanism — photo 3"></div>
-                    <div class="slide"><video id="realizedVideo" src="realized-clip.mp4" muted playsinline preload="metadata"></video></div>
-                  </div>
-                  <button class="media-nav next" aria-label="Next">›</button>
-                </div>
-                <!-- /MEDIA SLIDER -->
-              </div>
-              <!-- /PODIUM -->
-            </div>
-          </article>
+        <div class="alt-media">
+          <div class="stacked-photos" style="grid-template-rows: 1fr 1fr;">
+            <figure><img src="tunisia-skyline.jpg" alt="Tunisia — Mediterranean light" loading="lazy" decoding="async"></figure>
+            <figure><img src="first-flight-seat.jpg" alt="Childhood travel moment" loading="lazy" decoding="async"></figure>
+          </div>
         </div>
       </section>
 
-      <!-- PROJETS FUTURS -->
-      <section id="future" class="reveal">
-        <div class="section-head">
-          <span class="eyebrow" role="heading" aria-level="2" data-i18n="projects.future.eyebrow">Roadmap</span>
+      <!-- ===== BACKGROUND ===== -->
+      <section id="background" class="alt-section reveal anchor">
+        <div class="alt-card">
+          <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
+
+          <h4 class="step-title" data-i18n="about.sections.background.p1_title">Childhood</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p1">
+            I completed my primary education in Tunis, where I began learning English at the age of seven. During this period, I regularly took part in various sports, associative, and intellectual clubs.
+          </p>
+
+          <h4 class="step-title" data-i18n="about.sections.background.p2_title">High School Years</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p2">
+            I attended the elite school Lycée Pilote El Menzah 8, where I strengthened my academic foundation, particularly in mathematics and physics, and started learning German at the age of seventeen. Throughout these years, I was also an active member of the charitable club Interact, which helped me develop valuable soft skills such as teamwork, communication, and leadership.
+          </p>
+
+          <h4 class="step-title" data-i18n="about.sections.background.p3_title">Higher Education in Germany</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p3">
+            After high school, I moved to Germany to pursue my university studies — a new and exciting chapter in my academic and personal journey.
+          </p>
         </div>
 
-        <div class="grid">
-          <article class="card card-wide">
-            <div class="body">
-              <p class="intro-text" data-i18n="projects.future.card_intro">
-                An upcoming scientific review exploring the technical and commercial factors behind a legendary aircraft’s downfall — a project aiming to analyze innovation, ambition, and lessons for future aerospace design.
-              </p>
-              <p class="intro-text" style="margin-top:6px" data-i18n="projects.future.cta_participate_html" data-i18n-html="true">
-                If you’d like to participate in this project, contact me <a href="contact.html">here</a>.
-              </p>
-              <div class="media-podium">
-                <div class="media-slider">
-                  <!-- ⚠️ PAS d’overlay ici -->
-                  <img src="future-project.jpg" alt="Future scientific review project image" style="width:100%;height:100%;object-fit:cover;border-radius:14px;">
-                </div>
-              </div>
+        <div class="alt-media">
+          <div class="stacked-photos">
+            <figure><img src="school-tunis.jpg" alt="School years in Tunis" loading="lazy" decoding="async" onload="syncBackgroundHeights()"></figure>
+            <figure><img src="interact-club.jpg" alt="Club & volunteer activities" loading="lazy" decoding="async" onload="syncBackgroundHeights()"></figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CV ===== -->
+      <section id="cv" class="anchor">
+        <div class="block-align">
+          <div class="eyebrow-stack inset-left">
+            <span class="alt-eyebrow" data-i18n="about.sections.cv.ribbon">Curriculum Vitae</span>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.cv.row_basic">Curriculum Vitae</div>
+            <a id="cv-basic-btn" class="btn-download" href="#" target="_blank" rel="noopener" data-i18n="ui.download">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.cv.row_extended">Curriculum Vitae — Extended version</div>
+            <a id="cv-extended-btn" class="btn-download" href="#" target="_blank" rel="noopener" data-i18n="ui.download">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CERTIFICATIONS ===== -->
+      <section id="certs" class="anchor">
+        <div class="block-align">
+          <div class="eyebrow-stack inset-left">
+            <span class="alt-eyebrow" data-i18n="nav.about_menu.certs">Certifications</span>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.certs.admin_service">
+              Certificate for Administrative Service within a Humanitarian Organization
             </div>
-          </article>
+            <a id="cert-admin-btn" class="btn-download" href="certification_0722.pdf" target="_blank" rel="noopener" data-i18n="ui.download">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -494,302 +516,171 @@ document.addEventListener('DOMContentLoaded',function(){
     </span>
   </div>
 
-  <script>
-    (function(){
-      const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(prefersReduced){ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')); return; }
-      const io=new IntersectionObserver((entries)=>{ entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}); },{threshold:0.15});
-      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-    })();
-  </script>
-
-  <!-- Slider logic (LTR forcé) -->
-  <script>
-  (function(){
-    const container = document.getElementById('realizedMedia');
-    if(!container) return;
-    const track = container.querySelector('.media-track');
-    const slides = Array.from(track.children);
-    const prevBtn = container.querySelector('.media-nav.prev');
-    const nextBtn = container.querySelector('.media-nav.next');
-    const videoEl = container.querySelector('#realizedVideo');
-
-    let index = 0;
-    let auto = true;
-    let timer = null;
-    const AUTO_MS = 4500;
-
-    function updatePosition(){ track.style.transform = `translateX(-${index*100}%)`; }
-
-    function stopAuto(){
-      auto = false;
-      if(timer){ clearInterval(timer); timer = null; }
-      if(videoEl){
-        videoEl.removeEventListener('ended', onVideoEnded);
-        if(isVideo(index)){ videoEl.loop = true; videoEl.muted = true; videoEl.play().catch(()=>{}); }
-        else{ videoEl.pause(); }
-      }
-    }
-
-    function isVideo(i){ return slides[i] && slides[i].querySelector('video'); }
-    function onVideoEnded(){ next(true); }
-
-    function startAuto(){
-      if(!auto) return;
-      if(isVideo(index)){
-        if(videoEl){
-          videoEl.currentTime = 0; videoEl.loop = false; videoEl.muted = true;
-          videoEl.play().catch(()=>{}); videoEl.removeEventListener('ended', onVideoEnded); videoEl.addEventListener('ended', onVideoEnded);
-        }
-        return;
-      }
-      if(timer) clearInterval(timer);
-      timer = setInterval(()=> next(true), AUTO_MS);
-    }
-
-    function show(i, {manual=false} = {}){
-      if(videoEl){ videoEl.pause(); videoEl.removeEventListener('ended', onVideoEnded); }
-      index = (i + slides.length) % slides.length;
-      updatePosition();
-
-      if(isVideo(index)){
-        if(videoEl){
-          videoEl.currentTime = 0;
-          if(manual){ videoEl.loop = true; videoEl.muted = true; videoEl.play().catch(()=>{}); }
-          else{ videoEl.loop = false; videoEl.muted = true; videoEl.play().catch(()=>{}); videoEl.addEventListener('ended', onVideoEnded); }
-        }
-        if(timer){ clearInterval(timer); timer = null; }
-      }else{
-        if(auto){ if(timer) clearInterval(timer); timer = setInterval(()=> next(true), AUTO_MS); }
-      }
-    }
-
-    function next(isAuto=false){ show(index+1, {manual:!isAuto}); }
-    function prev(){ show(index-1, {manual:true}); }
-
-    nextBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); next(false); });
-    prevBtn.addEventListener('click', ()=>{ if(auto) stopAuto(); prev(); });
-
-    updatePosition(); startAuto();
-
-    document.addEventListener('visibilitychange', ()=>{
-      if(document.hidden){ if(timer) { clearInterval(timer); timer=null; } if(videoEl) videoEl.pause(); }
-      else { if(auto) startAuto(); }
-    }, {passive:true});
-
-    let startX=null;
-    container.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
-    container.addEventListener('touchend', (e)=>{
-      if(startX==null) return;
-      const dx = e.changedTouches[0].clientX - startX;
-      if(Math.abs(dx) > 40){
-        if(auto) stopAuto();
-        if(dx < 0) next(false); else prev();
-      }
-      startX = null;
-    }, {passive:true});
-  })();
-
-  /* ===== Overlay rotation (mobile only, texte localisé inline) ===== */
-  (function(){
-    const isMobile = window.matchMedia && window.matchMedia('(max-width:640px)').matches;
-    if(!isMobile) return;
-
-    const overlays = Array.from(document.querySelectorAll('[data-rotate-overlay]'));
-    if(!overlays.length) return;
-
-    // Détection langue : ?lang=… > <html lang> > en
-    function detectLang(){
-      try{
-        const p=new URLSearchParams(location.search);
-        const q=(p.get('lang')||'').toLowerCase();
-        if(q) return q;
-      }catch(e){}
-      const htmlLang=(document.documentElement.getAttribute('lang')||'').toLowerCase();
-      return htmlLang || 'en';
-    }
-
-    function rotateTextFor(lang){
-      switch(lang){
-        case 'fr': return 'Faites pivoter votre téléphone pour agrandir';
-        case 'de': return 'Drehen Sie Ihr Handy für eine größere Ansicht';
-        case 'ar': return 'دوّر هاتفك لعرض أكبر';
-        default:   return 'Rotate your phone to view larger';
-      }
-    }
-
-    // Applique le texte traduit
-    const lang = detectLang();
-    overlays.forEach(ov=>{
-      const span = ov.querySelector('[data-rotate-text]');
-      if(span) span.textContent = rotateTextFor(lang);
-    });
-
-    function hideAllOverlays(){
-      overlays.forEach(ov => ov.classList.add('hidden'));
-      window.removeEventListener('orientationchange', onOrient);
-      window.removeEventListener('resize', onResize, {passive:true});
-    }
-    function onOrient(){ if(screen.orientation && /landscape/.test(screen.orientation.type)) hideAllOverlays(); }
-    function onResize(){ if(window.innerWidth > window.innerHeight) hideAllOverlays(); }
-
-    // tap sur le slider => on masque
-    overlays.forEach(ov=>{
-      const host = ov.closest('.media-slider');
-      if(host){
-        host.addEventListener('click', hideAllOverlays, {passive:true});
-        host.addEventListener('touchstart', hideAllOverlays, {passive:true});
-      }
-    });
-
-    // si déjà en paysage au chargement, on ne montre pas
-    if(window.innerWidth > window.innerHeight){ hideAllOverlays(); }
-    else{
-      window.addEventListener('orientationchange', onOrient);
-      window.addEventListener('resize', onResize, {passive:true});
-    }
-  })();
-  </script>
-
-  <!-- Loader i18n (corrigé pour préserver innerHTML sur _html) -->
+  <!-- i18n-persist + liens PDF par langue + RTL -->
   <script>
 (() => {
-  const SUPPORTED = ["fr","de","ar"];
-  const DEFAULT = "en";
+  const SUPPORTED=["fr","de","ar"];
+  const DEFAULT="en";
+  const PDF_MAP={
+    en:{basic:"curriculum_vitae.pdf",extended:"extended_curriculum_vitae.pdf"},
+    de:{basic:"lebenslauf.pdf",extended:"erweiterter_lebenslauf.pdf"},
+    fr:{basic:"cv.pdf",extended:"cv_détaillé.pdf"},
+    ar:{basic:"السيرة_الذاتية.pdf",extended:"السيرة_الذاتية_الموسعة.pdf"}
+  };
 
-  // ===== i18n-persist: propage ?lang= sur tous les liens internes
+  /* Propage ?lang= sur liens internes */
   function updateLinksForLang(lang){
     try{
       document.querySelectorAll('a[href]').forEach(a=>{
-        const href = a.getAttribute('href');
+        const href=a.getAttribute('href');
         if(!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
-        if (/^https?:\/\//i.test(href)) {
-          const targetAbs = new URL(href, location.href);
-          if (targetAbs.origin !== location.origin) return; // externe -> ne rien faire
+        if(/^https?:\/\//i.test(href)){
+          const abs=new URL(href,location.href);
+          if(abs.origin!==location.origin) return;
         }
-        const target = new URL(href, location.href);
-        target.searchParams.set('lang', lang);
+        const target=new URL(href,location.href);
+        target.searchParams.set('lang',lang);
         a.setAttribute('href', target.pathname + target.search + target.hash);
       });
     }catch(_e){}
   }
 
-  // ===== i18n-persist: langue de session (persistance onglet)
-  function langFromSession(){
-    try{
-      const v = sessionStorage.getItem('lang');
-      if (v && (v==='en' || SUPPORTED.includes(v))) return v;
-    }catch(_e){}
-    return null;
-  }
-
+  /* snapshot originaux (+ prise en charge _html) */
   function snapshotOriginals(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
       if(el.dataset.i18nOriginal) return;
-      const key = el.getAttribute("data-i18n") || "";
+      const key=el.getAttribute("data-i18n")||"";
       const allowHTML = el.hasAttribute("data-i18n-html") || /_html$/.test(key);
       el.dataset.i18nOriginalIsHtml = allowHTML ? "1" : "";
       el.dataset.i18nOriginal = allowHTML ? el.innerHTML : el.textContent;
     });
-  }
-  snapshotOriginals();
+  } snapshotOriginals();
 
-  const get = (o, path) => path.split('.').reduce((a,k)=> (a && a[k]!=null) ? a[k] : undefined, o);
+  const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k]!=null?a[k]:undefined,o);
 
-  function currentLang() {
-    const fromSess = langFromSession();            // i18n-persist: priorité à la session
-    if (fromSess) return fromSess;
-
-    const params = new URLSearchParams(location.search);
-    const urlLang  = (params.get("lang")||"").toLowerCase();
-    if (!params.has("lang")) return DEFAULT;
-    if (urlLang === 'en' || SUPPORTED.includes(urlLang)) return urlLang;
-    return DEFAULT;
+  function langFromSession(){
+    try{
+      const v=sessionStorage.getItem('lang');
+      if(v && (v==='en' || SUPPORTED.includes(v))) return v;
+    }catch(_e){}
+    return null;
   }
 
-  async function loadDict(lang) {
-    const res = await fetch(`lang/${lang}.json`, { cache: "no-cache" });
-    if (!res.ok) throw new Error("Missing lang file: "+lang);
+  function currentLang(){
+    const fromSess=langFromSession();
+    if(fromSess) return fromSess;
+    const params=new URLSearchParams(location.search);
+    const l=(params.get("lang")||"").toLowerCase();
+    if(!params.has("lang")) return DEFAULT;
+    return (l==='en'||SUPPORTED.includes(l))?l:DEFAULT;
+  }
+
+  async function loadDict(lang){
+    const res=await fetch(`lang/${lang}.json`,{cache:"no-cache"});
+    if(!res.ok) throw new Error("Missing lang file: "+lang);
     return res.json();
   }
 
-  function applyDict(dict, langCode) {
-    document.querySelectorAll("[data-i18n]").forEach(el => {
-      const key = el.getAttribute("data-i18n");
-      const val = get(dict, key);
-      if (val == null) return;
+  function applyDict(dict,lang){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      const key=el.getAttribute("data-i18n"); const val=get(dict,key);
+      if(val==null) return;
       const allowHTML = el.hasAttribute("data-i18n-html") || /_html$/.test(key);
-      if (allowHTML) el.innerHTML = val; else el.textContent = val;
+      if(allowHTML) el.innerHTML = val; else el.textContent = val;
     });
 
-    const metaTitle = get(dict, "meta.title");
-    if (metaTitle) document.title = metaTitle;
+    const metaTitle=get(dict,"meta.title"); if(metaTitle) document.title=metaTitle;
 
-    document.documentElement.setAttribute("lang", langCode);
-    document.documentElement.setAttribute("dir", langCode === 'ar' ? 'rtl' : 'ltr');
+    // Lang & direction
+    document.documentElement.setAttribute("lang",lang);
+    document.documentElement.setAttribute("dir", lang === 'ar' ? 'rtl' : 'ltr');
 
-    window.__i18nDict = dict;
-    if (window.updateThemeLabel) updateThemeLabel();
+    // PDFs
+    const map=PDF_MAP[lang] || PDF_MAP.en;
+    const b=document.getElementById("cv-basic-btn");
+    const e=document.getElementById("cv-extended-btn");
+    if(b) b.href=map.basic; if(e) e.href=map.extended;
+
+    // i18n pour utilitaires + liens
+    window.__i18nDict=dict;
+    if(window.updateThemeLabel) updateThemeLabel();
+    updateLinksForLang(lang);
   }
 
   function restoreEnglish(){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
       const isHtml = el.dataset.i18nOriginalIsHtml === "1";
       const original = el.dataset.i18nOriginal != null ? el.dataset.i18nOriginal : (isHtml ? el.innerHTML : el.textContent);
-      if (original != null) {
-        if (isHtml) el.innerHTML = original;
-        else el.textContent = original;
+      if(original!=null){
+        if(isHtml) el.innerHTML = original; else el.textContent = original;
       }
     });
-    window.__i18nDict = {};
-    document.documentElement.setAttribute("lang", "en");
-    document.documentElement.setAttribute("dir", "ltr");
-    if (window.updateThemeLabel) updateThemeLabel();
+    window.__i18nDict={};
+    document.documentElement.setAttribute("lang","en");
+    document.documentElement.setAttribute("dir","ltr");
+
+    const map=PDF_MAP.en;
+    const b=document.getElementById("cv-basic-btn");
+    const e=document.getElementById("cv-extended-btn");
+    if(b) b.href=map.basic; if(e) e.href=map.extended;
+
+    if(window.updateThemeLabel) updateThemeLabel();
+    updateLinksForLang("en");
   }
 
-  let current = currentLang();
+  let current=currentLang();
 
-  function setLang(lang) {
-    if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
-    current = lang;
+  function setLang(lang){
+    if(lang!=='en' && !SUPPORTED.includes(lang)) lang='en';
+    current=lang;
 
-    // i18n-persist: stocker pour toute la session
+    // persistance session
     try{ sessionStorage.setItem('lang', lang); }catch(_e){}
 
-    const u = new URL(location.href);
-    u.searchParams.set("lang", lang);
-    history.replaceState({}, "", u.pathname + u.search + location.hash);
+    // normalise l’URL courante
+    const u=new URL(location.href);
+    u.searchParams.set("lang",lang);
+    history.replaceState({}, "", u.pathname+u.search+location.hash);
 
-    // i18n-persist: propager aux liens
-    updateLinksForLang(lang);
-
-    if (lang === 'en') { restoreEnglish(); return; }
-    loadDict(lang).then(d=>applyDict(d, lang)).catch(err=>{ console.error(err); restoreEnglish(); });
+    if(lang==='en'){ restoreEnglish(); return; }
+    loadDict(lang).then(d=>applyDict(d,lang)).catch(()=>restoreEnglish());
   }
 
-  window.setLangFromMenu = setLang;
+  window.setLangFromMenu=setLang;
 
+  // init libellé bouton langue si présent
   (function initLangToggleLabel(){
-    const btn = document.getElementById('langToggle'); if (!btn) return;
-    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'}; const lang = current;
-    btn.textContent = (map[lang] || 'EN') + ' ▾';
+    const btn=document.getElementById('langToggle'); if(!btn) return;
+    const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[current]||'EN')+' ▾';
   })();
 
-  // i18n-persist: init + propagation liens au chargement
-  setLang(current);
-  updateLinksForLang(current);
+  // init i18n
+  if(current==='en') restoreEnglish(); else setLang(current);
 
-  // i18n-persist: si navigation historique change l’URL
+  // navigation historique
   window.addEventListener('popstate', ()=>{
-    const lang = currentLang();
+    const lang=currentLang();
     setLang(lang);
   });
 
-  document.addEventListener("click", (e) => {
-    const b = e.target.closest("[data-lang]"); if (!b) return;
+  // clics des boutons/menus langue
+  document.addEventListener("click",e=>{
+    const b=e.target.closest("[data-lang]"); if(!b) return;
     e.preventDefault(); setLang(b.getAttribute("data-lang"));
-  });
+  },{passive:true});
 })();
+  </script>
+
+  <!-- Révélations au scroll -->
+  <script>
+    (function(){
+      const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced){ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')); return; }
+      const io=new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+      },{threshold:0.15});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    })();
   </script>
 
   <!-- Contrôle hamburger -->
@@ -827,10 +718,12 @@ document.addEventListener('DOMContentLoaded',function(){
       if (backdrop) backdrop.addEventListener('click', closeDrawer);
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
 
+      // fermer si clic lien
       drawer.addEventListener('click', (e)=>{
         const a = e.target.closest('a'); if (a) closeDrawer();
       });
 
+      // changement de langue via boutons du tiroir
       drawer.addEventListener('click', (e)=>{
         const b = e.target.closest('.lang-btn[data-lang]');
         if (!b) return;
