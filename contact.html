@@ -50,7 +50,6 @@
 
   .page{max-width:1200px;margin:0 auto;padding:32px var(--edge) 24px;z-index:1;position:relative;width:100%}
   .sections{max-width:1200px;margin:0 auto;padding:16px 0 72px}
-  /* GRILLE rétractable */
   .alt-section{
     display:grid;
     grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
@@ -80,14 +79,12 @@
   .alt-title{font-size:clamp(22px,2.6vw,34px);line-height:1.2;margin:0 0 8px;color:var(--fg)}
   .alt-text{margin:0 0 8px;font-size:16px;line-height:1.5}
 
-  /* Let’s connect – plus compact */
   .info-stack{display:flex;flex-direction:column;gap:10px;min-width:0}
   .info-row{display:flex;align-items:center;gap:10px;margin:0;min-width:0}
   .info-row a{color:var(--fg);text-decoration:none;min-width:0}
   .info-row a:hover{text-decoration:underline}
   .info-muted{color:var(--muted); font-size:14px}
 
-  /* Formulaire – éléments rétractables */
   form.contact-form{display:grid;grid-template-columns:1fr;gap:10px;min-width:0}
   .field{display:flex;flex-direction:column;gap:6px;min-width:0}
   .label{font-weight:600;font-size:14px}
@@ -97,7 +94,6 @@
     width:100%;max-width:100%;min-width:0;
   }
   .textarea{min-height:136px;resize:vertical}
-  /* iOS file input : empêche la largeur imposée + ellipses */
   .file{display:block;white-space:nowrap; text-overflow:ellipsis; overflow:hidden}
   .file::-webkit-file-upload-button{margin-right:8px}
 
@@ -113,19 +109,15 @@
 
   .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
-  /* Mobile */
   @media(max-width:900px){
     :root{ --anchor-offset: 72px; }
     .alt-section{grid-template-columns:1fr; gap:18px; margin:22px 0;}
     .container, .page{padding-left:16px; padding-right:16px;}
-    /* iOS: on isole la carte pour éviter tout crop de blur/arrondis au bord droit */
     .alt-card{padding:18px; margin-inline:12px; overflow:hidden;}
   }
   @media(max-width:420px){
-    /* garde-fou pour très petits écrans ou zoom texte */
     .alt-card{ contain:content; border-radius:20px; margin-inline:10px; }
   }
-  /* Ciblage Safari iOS : ajoute un léger inset si besoin */
   @supports (-webkit-touch-callout: none) {
     @media (max-width: 480px) {
       .alt-card{ margin-inline:12px; }
@@ -133,26 +125,17 @@
   }
 </style>
 
-<!-- ✅ ADD-ON non destructif : force l'affichage du background image -->
 <style>
-  /* On neutralise les fonds unis pour voir l'image derrière */
   html { background: transparent !important; }
   body { background: transparent !important; position: relative; }
-
-  /* Calque d'arrière-plan au bon z-index, derrière tout le contenu */
   body::before{
-    content:"";
-    position: fixed;
-    inset: 0;
+    content:"";position: fixed;inset: 0;
     background: url('background.jpg') no-repeat center/cover;
-    z-index: -1;           /* plus haut que -2, toujours derrière le contenu */
-    pointer-events: none;
-    transform: translateZ(0);
-    will-change: transform;
+    z-index: -1;pointer-events: none;transform: translateZ(0);will-change: transform;
   }
 </style>
 
-<!-- ===== AJOUTS: Hamburger + layout mobile + RTL ===== -->
+<!-- Hamburger + layout mobile + RTL -->
 <style>
   .hamburger-btn{display:none;appearance:none;border:0;background:transparent;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer}
   .hamburger-btn span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;position:relative}
@@ -181,20 +164,13 @@
     .hamburger-btn{display:flex}
     .top-band nav{display:none !important}
     .lang-menu{display:none !important}
-    .top-band header{
-      display:grid;
-      grid-template-columns:40px 1fr auto;
-      align-items:center;
-      gap:8px;
-    }
+    .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px;}
     .top-band header > a[href="index.html#home"]{justify-self:center}
     #themeToggle{justify-self:end}
   }
 
   .hamburger-btn:focus-visible,.mobile-drawer a:focus-visible,.lang-btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
-  @media (prefers-reduced-motion:reduce){
-    .mobile-backdrop,.mobile-drawer{transition:none}
-  }
+  @media (prefers-reduced-motion:reduce){.mobile-backdrop,.mobile-drawer{transition:none}}
 
   html.mobile-open, body.mobile-open{ overflow: hidden; }
 
@@ -207,16 +183,14 @@
   html[dir="rtl"] .mobile-sub{ border-left:none; border-right:2px solid var(--ring); }
   html[dir="rtl"] .alt-card, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] a{ text-align:right; }
   @media (max-width:640px){
-    html[dir="rtl"] .top-band header{
-      grid-template-columns:auto 1fr 40px;
-    }
+    html[dir="rtl"] .top-band header{grid-template-columns:auto 1fr 40px;}
     html[dir="rtl"] #themeToggle{ justify-self:start; }
     html[dir="rtl"] .top-band header > a[href="index.html#home"]{ justify-self:center; }
   }
 </style>
 
 <script>
-/* utilitaires communs (comme about.html) */
+/* utilitaires communs */
 function i18nGet(key, fallback){ try{ let v=window.__i18nDict; for(const p of key.split('.')) v=v&&v[p]; return v ?? fallback; }catch(e){ return fallback; } }
 function updateThemeLabel(){ const btn=document.getElementById('themeToggle'); if(!btn) return;
   const isDark=(document.documentElement.dataset.theme==='dark');
@@ -232,7 +206,9 @@ document.addEventListener('click',closeMenusOnInteraction,{passive:true});
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInteraction({target:null}); });
 
-/* i18n – mêmes JSON que about.html (+ meta.contact_title) */
+/* =====================================================
+   i18n — MODIFIÉ : persistence via localStorage
+   ===================================================== */
 (() => {
   const SUPPORTED=["fr","de","ar"]; const DEFAULT="en";
 
@@ -242,14 +218,22 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
     });
   } document.addEventListener('DOMContentLoaded', snapshotOriginals);
 
-
   const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k]!=null?a[k]:undefined,o);
 
+  // ── MODIFICATION 1 : currentLang lit localStorage en fallback ──
   function currentLang(){
     const params=new URLSearchParams(location.search);
-    const l=(params.get("lang")||"").toLowerCase();
-    if(!params.has("lang")) return DEFAULT;
-    return (l==='en'||SUPPORTED.includes(l))?l:DEFAULT;
+    if (params.has("lang")) {
+      const l=(params.get("lang")||"").toLowerCase();
+      const lang=(l==='en'||SUPPORTED.includes(l))?l:DEFAULT;
+      try { localStorage.setItem('lang', lang); } catch(e) {}
+      return lang;
+    }
+    try {
+      const stored = localStorage.getItem('lang');
+      if (stored === 'en' || SUPPORTED.includes(stored)) return stored;
+    } catch(e) {}
+    return DEFAULT;
   }
 
   async function loadDict(lang){
@@ -265,7 +249,6 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
     });
     const metaTitle=get(dict,"meta.contact_title"); if(metaTitle) document.title=metaTitle;
 
-    // Lang & direction
     document.documentElement.setAttribute("lang",lang);
     document.documentElement.setAttribute("dir", lang === 'ar' ? 'rtl' : 'ltr');
 
@@ -283,9 +266,11 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
     updateThemeLabel();
   }
 
-  /* Correctif : revenir proprement à l’anglais */
+  // ── MODIFICATION 2 : setLang sauvegarde dans localStorage ──
   function setLang(lang){
     if(lang!=='en' && !SUPPORTED.includes(lang)) lang='en';
+    try { localStorage.setItem('lang', lang); } catch(e) {}
+
     const u=new URL(location.href); u.searchParams.set("lang",lang);
     history.replaceState({}, "", u.pathname+u.search+location.hash);
     if(lang==='en'){ restoreEnglish(); return; }
@@ -293,12 +278,6 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
   }
 
   window.setLangFromMenu=setLang;
-
-  (function initLangToggleLabel(){
-    const btn=document.getElementById('langToggle'); if(!btn) return;
-    const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; const lang=currentLang();
-    btn.textContent=(map[lang]||'EN')+' ▾';
-  })();
 
   const current=currentLang();
   if(current==='en') restoreEnglish(); else setLang(current);
@@ -309,7 +288,7 @@ document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeMenusOnInte
   },{passive:true});
 })();
 
-/* Formulaire – Formspree par défaut */
+/* Formulaire + init thème + languette */
 document.addEventListener('DOMContentLoaded', () => {
   // thème initial
   let initial='light';
@@ -319,45 +298,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }catch(e){}
   document.documentElement.dataset.theme=initial; document.documentElement.style.colorScheme=initial; updateThemeLabel();
 
-  // sélecteur de langue à côté du thème
-  const themeBtn=document.getElementById('themeToggle');
-  if(themeBtn && themeBtn.parentNode){
-    // [ADD] Ne crée PAS de doublon si un bouton langue statique existe déjà
-    if(!document.getElementById('langToggle')){
-      const wrap=document.createElement('div'); wrap.className='menu lang-menu';
-      const btn=document.createElement('button'); btn.id='langToggle'; btn.className='toggle'; btn.type='button'; btn.setAttribute('aria-haspopup','true'); btn.textContent='EN ▾';
-      const menu=document.createElement('div'); menu.id='lang-menu'; menu.className='submenu';
-      menu.innerHTML = `
-        <a href="#" data-lang="en">English</a>
-        <a href="#" data-lang="de">Deutsch</a>
-        <a href="#" data-lang="ar">العربية</a>
-        <a href="#" data-lang="fr">Français</a>
-      `;
-      wrap.appendChild(btn); wrap.appendChild(menu);
-      themeBtn.parentNode.insertBefore(wrap, themeBtn);
-      btn.addEventListener('click',e=>toggleMenu(e,'lang-menu'));
-      menu.addEventListener('click', function(e){
-        const a = e.target.closest('a[data-lang]'); if (!a) return;
-        e.preventDefault();
-        if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
-        closeMenusOnInteraction({target:null});
-        try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
-      });
-      try{
-        const params=new URLSearchParams(location.search);
-        const lang=params.has('lang')?(params.get('lang')||'en').toLowerCase():'en';
-        const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[lang]||'EN')+' ▾';
-      }catch(_e){}
-    } else {
-      // [ADD] S’il existe déjà, s’assurer que le libellé reflète l’URL
-      try{
-        const params=new URLSearchParams(location.search);
-        const lang=(params.get('lang')||'en').toLowerCase();
-        const map={en:'EN',fr:'FR',de:'DE',ar:'AR'};
-        const btnExisting=document.getElementById('langToggle');
-        if(btnExisting) btnExisting.textContent=(map[lang]||'EN')+' ▾';
-      }catch(_e){}
-    }
+  // ── MODIFICATION : label bouton lit localStorage en fallback ──
+  const langToggleBtn = document.getElementById('langToggle');
+  if (langToggleBtn) {
+    try{
+      const params=new URLSearchParams(location.search);
+      let lang = 'en';
+      if (params.has('lang')) {
+        lang = (params.get('lang')||'en').toLowerCase();
+      } else {
+        const stored = localStorage.getItem('lang');
+        if (stored) lang = stored;
+      }
+      const map={en:'EN',fr:'FR',de:'DE',ar:'AR'};
+      langToggleBtn.textContent=(map[lang]||'EN')+' ▾';
+    }catch(_e){}
   }
 
   // Pré-remplir e-mail si déjà saisi
@@ -374,7 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
     try{ localStorage.setItem('visitor_email', formData.get('email') || ''); }catch(e){}
 
     try{
-      // ⚠️ Remplace par ton endpoint Formspree / autre
       const resp = await fetch('https://formspree.io/f/XXXXXXXX', { method:'POST', body: formData, headers: { 'Accept': 'application/json' } });
       if(resp.ok){
         form.reset(); statusEl.className='status ok';
@@ -395,7 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="top-band">
     <div class="container">
       <header>
-        <!-- AJOUT: bouton hamburger -->
         <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">
           <span aria-hidden="true"></span>
         </button>
@@ -427,7 +380,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
 
-        <!-- [ADD] Bloc langue statique (desktop) : évite toute absence si l’injection échoue -->
         <div class="menu lang-menu" id="langMenuStatic">
           <button id="langToggle" class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'lang-menu')">EN ▾</button>
           <div id="lang-menu" class="submenu">
@@ -437,15 +389,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="#" data-lang="fr">Français</a>
           </div>
         </div>
-        <!-- FIN [ADD] -->
 
-        <!-- AJOUT: bouton thème -->
         <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
       </header>
     </div>
   </div>
 
-  <!-- AJOUT: backdrop + tiroir mobile -->
   <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
   <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <header>
@@ -499,13 +448,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- Colonne GAUCHE : infos -->
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="contact.info.eyebrow">Contact</p>
-          <h1 class="alt-title" data-i18n="contact.info.title">Let’s connect</h1>
+          <h1 class="alt-title" data-i18n="contact.info.title">Let's connect</h1>
           <p class="alt-text info-muted" data-i18n="contact.info.desc">
-            You can reach me on LinkedIn or via e-mail. I’m based in Braunschweig, Germany.
+            You can reach me on LinkedIn or via e-mail. I'm based in Braunschweig, Germany.
           </p>
 
           <div class="info-stack">
-            <!-- LinkedIn -->
             <div class="info-row">
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.8v2.1h.1c.5-.9 1.8-2.1 3.8-2.1 4.1 0 4.8 2.7 4.8 6.2V24h-4v-7.1c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V24h-4V8.5z"/>
@@ -515,13 +463,11 @@ document.addEventListener('DOMContentLoaded', () => {
               </a>
             </div>
 
-            <!-- E-mail -->
             <div class="info-row">
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8.236l8 6.764 8-6.764V18H4z"/></svg>
               <a href="mailto:Youssefchabbou@outlook.com">Youssefchabbou@outlook.com</a>
             </div>
 
-            <!-- Localisation -->
             <div class="info-row">
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
               <span>Braunschweig, Germany</span>
@@ -614,13 +560,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (backdrop) backdrop.addEventListener('click', closeDrawer);
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
 
-      // fermer le tiroir si on clique un lien
       drawer.addEventListener('click', (e)=>{
         const a = e.target.closest('a');
         if (a) closeDrawer();
       });
 
-      // changement de langue via boutons du tiroir
       drawer.addEventListener('click', (e)=>{
         const b = e.target.closest('.lang-btn[data-lang]');
         if (!b) return;
