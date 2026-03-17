@@ -330,10 +330,16 @@ document.addEventListener('DOMContentLoaded',function(){
     }catch(_e){}
   });
 
-  // label au chargement selon ?lang=
+  // label au chargement selon localStorage ou ?lang=
   try{
     const params=new URLSearchParams(location.search);
-    const lang = params.has('lang') ? (params.get('lang')||'en').toLowerCase() : 'en';
+    let lang = 'en';
+    if (params.has('lang')) {
+      lang = (params.get('lang')||'en').toLowerCase();
+    } else {
+      const stored = localStorage.getItem('lang');
+      if (stored) lang = stored;
+    }
     const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
     btn.textContent = (map[lang] || 'EN') + ' ▾';
   }catch(_e){}
@@ -510,7 +516,9 @@ document.addEventListener('DOMContentLoaded',function(){
     })();
   </script>
 
-  <!-- Loader i18n (multi-dicts + diagnostics) -->
+  <!-- =====================================================
+       Loader i18n — MODIFIÉ : persistence via localStorage
+       ===================================================== -->
   <script>
 (() => {
   const SUPPORTED = ["fr","de","ar"];
@@ -527,12 +535,21 @@ document.addEventListener('DOMContentLoaded',function(){
 
   const get = (o, path) => path.split('.').reduce((a,k)=> (a && a[k]!=null) ? a[k] : undefined, o);
 
+  // ── MODIFICATION 1 : currentLang lit localStorage en fallback ──
   function currentLang() {
     const params = new URLSearchParams(location.search);
-    const hasParam = params.has("lang");
-    const urlLang  = params.get("lang");
-    if (!hasParam) return DEFAULT;
-    if (urlLang === 'en' || SUPPORTED.includes(urlLang)) return urlLang;
+    if (params.has("lang")) {
+      const urlLang = params.get("lang");
+      const lang = (urlLang === 'en' || SUPPORTED.includes(urlLang)) ? urlLang : DEFAULT;
+      // on sauvegarde immédiatement si la langue vient de l'URL
+      try { localStorage.setItem('lang', lang); } catch(e) {}
+      return lang;
+    }
+    // pas de ?lang= → on lit localStorage
+    try {
+      const stored = localStorage.getItem('lang');
+      if (stored === 'en' || SUPPORTED.includes(stored)) return stored;
+    } catch(e) {}
     return DEFAULT;
   }
 
@@ -545,12 +562,8 @@ document.addEventListener('DOMContentLoaded',function(){
   }
 
   async function loadMergedDict(lang) {
-    // 1) dict global (ui/nav, etc.)
     const base = await safeFetchJson(`lang/${lang}.json`);
-    // 2) dict spécifique à la page si dispo (ex: index)
-    //    -> change "index" si tu réutilises ce template sur d’autres pages (about, skills…)
     const page = await safeFetchJson(`lang/pages/index.${lang}.json`);
-    // 3) merge (page > base)
     return Object.assign({}, base||{}, page||{});
   }
 
@@ -572,7 +585,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
     if (window.updateThemeLabel) updateThemeLabel();
 
-    // diagnostic utile pendant l’intégration
     if (missing > 0) {
       console.warn(`[i18n] ${missing} clé(s) manquante(s) dans les dictionnaires pour cette page.`);
     }
@@ -590,9 +602,12 @@ document.addEventListener('DOMContentLoaded',function(){
 
   let current = currentLang();
 
+  // ── MODIFICATION 2 : setLang sauvegarde dans localStorage ──
   async function setLang(lang) {
     if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
     current = lang;
+    // sauvegarde pour toutes les pages suivantes
+    try { localStorage.setItem('lang', lang); } catch(e) {}
 
     const u = new URL(location.href);
     u.searchParams.set("lang", lang);
