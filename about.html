@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- Précharge l’image de fond pour éviter le flash -->
+<!-- Précharge l'image de fond pour éviter le flash -->
 <link rel="preload" as="image" href="background.jpg" />
 
 <style>
@@ -190,7 +190,7 @@
       align-items:center;
       gap:8px;
     }
-    .top-band header > a[href="index.html#home"]{justify-self:center} /* (about a un href index.html#home) */
+    .top-band header > a[href="index.html#home"]{justify-self:center}
     #themeToggle{justify-self:end}
   }
 
@@ -246,7 +246,7 @@
 
   html.mobile-open, body.mobile-open{ overflow: hidden; }
 
-  /* RTL dynamique (même logique que index.html) */
+  /* RTL dynamique */
   html[dir="rtl"] body{ direction: rtl; }
   html[dir="rtl"] .alt-card, html[dir="rtl"] .lead, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] a{ text-align:right; }
   html[dir="rtl"] nav{ justify-content:flex-end; }
@@ -264,7 +264,7 @@
 </style>
 
 <script>
-/* Utilitaires i18n + thème (comportement inchangé) */
+/* Utilitaires i18n + thème */
 function i18nGet(key, fallback){
   try{ let v = window.__i18nDict; for (const p of key.split('.')) v = v && v[p]; return v ?? fallback; }
   catch(e){ return fallback; }
@@ -309,16 +309,14 @@ function syncBackgroundHeights(){
   const card = section.querySelector('.alt-card');
   const media = section.querySelector('.alt-media');
   if(!card || !media) return;
-
   media.style.height = '';
-
   if(isSingleColumn) return;
-
   const target = card.getBoundingClientRect().height;
   if(target < 10) return;
   media.style.height = target + 'px';
 }
-const debounce=(fn,ms)=>{let t;return function(){clearTimeout(t);t=setTimeout(()=>fn.apply(this,arguments),ms)}}
+const debounce=(fn,ms)=>{let t;return function(){clearTimeout(t);t=setTimeout(()=>fn.apply(this,arguments),ms)}};
+
 document.addEventListener('DOMContentLoaded', function(){
   let initial='light';
   try{
@@ -353,10 +351,19 @@ document.addEventListener('DOMContentLoaded', function(){
       try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
       setTimeout(syncBackgroundHeights, 60);
     });
+
+    // ── MODIFICATION : label bouton lit localStorage en fallback ──
     try{
       const params=new URLSearchParams(location.search);
-      const lang=params.has('lang')?(params.get('lang')||'en').toLowerCase():'en';
-      const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[lang]||'EN')+' ▾';
+      let lang = 'en';
+      if (params.has('lang')) {
+        lang = (params.get('lang')||'en').toLowerCase();
+      } else {
+        const stored = localStorage.getItem('lang');
+        if (stored) lang = stored;
+      }
+      const map={en:'EN',fr:'FR',de:'DE',ar:'AR'};
+      btn.textContent=(map[lang]||'EN')+' ▾';
     }catch(_e){}
   }
 
@@ -371,7 +378,6 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="top-band">
     <div class="container">
       <header>
-        <!-- AJOUT: bouton hamburger (même que index.html) -->
         <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">
           <span aria-hidden="true"></span>
         </button>
@@ -411,7 +417,6 @@ document.addEventListener('DOMContentLoaded', function(){
     </div>
   </div>
 
-  <!-- AJOUT: backdrop + tiroir mobile identiques à index.html -->
   <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
   <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <header>
@@ -468,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Profile</p>
           <h3 class="alt-title" data-i18n="about.sections.who.title">Born and raised in Tunisia</h3>
           <p class="alt-text" data-i18n="about.sections.who.tn">
-            A Mediterranean crossroads where history shaped open minds. From Carthage’s legacy to vibrant craftsmanship and engineering talent today, Tunisia taught me curiosity, resilience, and a taste for precise, beautiful work.
+            A Mediterranean crossroads where history shaped open minds. From Carthage's legacy to vibrant craftsmanship and engineering talent today, Tunisia taught me curiosity, resilience, and a taste for precise, beautiful work.
           </p>
 
           <h4 class="step-title" data-i18n="about.sections.who.flight_title">First flight, first spark (2011)</h4>
@@ -483,7 +488,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
           <h4 class="step-title" data-i18n="about.sections.who.now_title">Today</h4>
           <p class="alt-text" data-i18n="about.sections.who.now_text">
-            I’m currently based in Germany, growing through studies and early professional projects. It’s a grounded, steady journey—focused on learning, teamwork, and turning ideas into dependable aerospace work.
+            I'm currently based in Germany, growing through studies and early professional projects. It's a grounded, steady journey—focused on learning, teamwork, and turning ideas into dependable aerospace work.
           </p>
         </div>
 
@@ -578,7 +583,9 @@ document.addEventListener('DOMContentLoaded', function(){
     </span>
   </div>
 
-  <!-- i18n + liens PDF par langue -->
+  <!-- =====================================================
+       i18n + liens PDF — MODIFIÉ : persistence localStorage
+       ===================================================== -->
   <script>
 (() => {
   const SUPPORTED=["fr","de","ar"]; const DEFAULT="en";
@@ -597,11 +604,22 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k]!=null?a[k]:undefined,o);
 
+  // ── MODIFICATION 1 : currentLang lit localStorage en fallback ──
   function currentLang(){
     const params=new URLSearchParams(location.search);
-    const l=(params.get("lang")||"").toLowerCase();
-    if(!params.has("lang")) return DEFAULT;
-    return (l==='en'||SUPPORTED.includes(l))?l:DEFAULT;
+    if (params.has("lang")) {
+      const l=(params.get("lang")||"").toLowerCase();
+      const lang=(l==='en'||SUPPORTED.includes(l))?l:DEFAULT;
+      // sauvegarde si la langue vient de l'URL
+      try { localStorage.setItem('lang', lang); } catch(e) {}
+      return lang;
+    }
+    // pas de ?lang= → lire localStorage
+    try {
+      const stored = localStorage.getItem('lang');
+      if (stored === 'en' || SUPPORTED.includes(stored)) return stored;
+    } catch(e) {}
+    return DEFAULT;
   }
 
   async function loadDict(lang){
@@ -618,8 +636,6 @@ document.addEventListener('DOMContentLoaded', function(){
     const metaTitle=get(dict,"meta.title"); if(metaTitle) document.title=metaTitle;
 
     window.__i18nDict=dict; window.__currentLang=lang;
-
-    /* IMPORTANT : direction dynamique (comme index.html) */
     document.documentElement.setAttribute("lang", lang);
     document.documentElement.setAttribute("dir", lang === 'ar' ? 'rtl' : 'ltr');
 
@@ -651,9 +667,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
   let current=currentLang();
 
+  // ── MODIFICATION 2 : setLang sauvegarde dans localStorage ──
   function setLang(lang){
     if(lang!=='en' && !SUPPORTED.includes(lang)) lang='en';
     current=lang;
+    // sauvegarde pour toutes les pages suivantes
+    try { localStorage.setItem('lang', lang); } catch(e) {}
+
     const u=new URL(location.href); u.searchParams.set("lang",lang);
     history.replaceState({}, "", u.pathname+u.search+location.hash);
     if(lang==='en'){ restoreEnglish(); return; }
@@ -688,7 +708,7 @@ document.addEventListener('DOMContentLoaded', function(){
     })();
   </script>
 
-  <!-- Contrôle hamburger (identique à index.html) -->
+  <!-- Contrôle hamburger -->
   <script>
     (function(){
       const html = document.documentElement;
