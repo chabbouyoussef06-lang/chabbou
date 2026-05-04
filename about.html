@@ -65,14 +65,6 @@
     z-index:1000;
   }
   [data-theme="dark"] .top-band{background:rgba(11,95,165,.22)}
-  .top-band::after{
-    content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
-    background:linear-gradient(90deg, transparent 0%, rgba(11,95,165,.28) 50%, transparent 100%);
-    z-index:0;pointer-events:none;
-  }
-  [data-theme="dark"] .top-band::after{
-    background:linear-gradient(90deg, transparent, rgba(88,166,255,.32) 50%, transparent);
-  }
 
   .container{max-width:1200px;margin:auto;padding:24px}
   header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px}
@@ -123,63 +115,18 @@
   .toggle:hover{border-color:var(--brand);color:var(--brand)}
 
   /* ============================================================
-     PAGE HERO — modern, captivating, NO video
-     A clean editorial header with breadcrumb, large title,
-     mono section counter, and a discreet horizon line.
+     BREADCRUMBS
      ============================================================ */
-  .page-hero{
-    position:relative;
-    padding:72px 24px 48px;
-    isolation:isolate;
-    overflow:hidden;
-  }
-  /* Soft gradient frame in brand colors */
-  .page-hero::before{
-    content:"";position:absolute;inset:0;z-index:-1;
-    background:
-      radial-gradient(60% 80% at 12% 0%, rgba(11,95,165,.16), transparent 55%),
-      radial-gradient(45% 55% at 90% 25%, rgba(88,166,255,.16), transparent 55%);
-  }
-  [data-theme="dark"] .page-hero::before{
-    background:
-      radial-gradient(60% 80% at 12% 0%, rgba(88,166,255,.18), transparent 55%),
-      radial-gradient(45% 55% at 90% 25%, rgba(11,95,165,.28), transparent 55%);
-  }
-  .hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
-  .hero-left{min-width:0}
-
   .breadcrumbs{
-    display:flex;gap:10px;align-items:center;margin-bottom:18px;
+    display:flex;gap:10px;align-items:center;
     color:var(--muted);
+    padding:0 var(--edge);
+    margin:0 0 4px;
   }
   .breadcrumbs a{color:var(--muted);text-decoration:none;transition:color .2s}
   .breadcrumbs a:hover{color:var(--brand)}
   .breadcrumbs .sep{opacity:.5}
   .breadcrumbs .current{color:var(--brand)}
-
-  .hero-title{
-    font-family:'Fraunces', Georgia, serif;
-    font-weight:300;letter-spacing:-0.025em;
-    font-size:clamp(40px, 6vw, 72px);
-    line-height:1.02;color:var(--fg);
-    margin:0 0 16px;max-width:18ch;
-  }
-  .hero-title em{font-style:italic;color:var(--brand)}
-  html[dir="rtl"] .hero-title{font-family: system-ui,-apple-system,sans-serif;letter-spacing:0}
-
-  .hero-sub{
-    color:var(--muted);font-size:16px;max-width:60ch;margin:0;
-  }
-
-  .hero-counter{
-    display:flex;align-items:center;gap:10px;color:var(--muted);
-    align-self:end;
-    white-space:nowrap;
-  }
-  .hero-counter::before{
-    content:"";display:block;width:32px;height:1px;background:var(--ring);
-  }
-  .hero-counter strong{color:var(--brand);font-weight:500}
 
   /* ============================================================
      SECTIONS — original layout preserved
@@ -357,9 +304,6 @@
     .alt-section{grid-template-columns:1fr}
     #background .alt-media{height:auto !important}
     :root{ --anchor-offset: 72px; }
-    .hero-inner{grid-template-columns:1fr;gap:14px}
-    .hero-counter{justify-self:start}
-    html[dir="rtl"] .hero-counter{justify-self:end}
     .footer-grid{grid-template-columns:1fr;gap:24px}
     .footer-meta{text-align:left}
     html[dir="rtl"] .footer-meta{text-align:right}
@@ -375,7 +319,6 @@
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
     html,body{overflow-x:hidden}
-    .page-hero{padding:48px 18px 28px}
     .footer-band{padding:24px 18px}
   }
 
@@ -642,30 +585,17 @@ document.addEventListener('DOMContentLoaded', function(){
   </aside>
 
   <!-- ============================================================
-       PAGE HERO — editorial, no video
-       ============================================================ -->
-  <section class="page-hero">
-    <div class="hero-inner">
-      <div class="hero-left">
-        <div class="breadcrumbs mono">
-          <a href="index.html#home" data-i18n="ui.home">Home</a>
-          <span class="sep">/</span>
-          <span class="current" data-i18n="nav.about">About</span>
-        </div>
-        <h1 class="hero-title">
-          <span data-i18n="about.hero.title_a">A focused path in</span>
-          <em data-i18n="about.hero.title_b">aerospace engineering.</em>
-        </h1>
-        <p class="hero-sub" data-i18n="about.hero.sub">From early curiosity to applied work: background, training, and the systems I build today.</p>
-      </div>
-      <div class="hero-counter mono"><span data-i18n="ui.section">Section</span>&nbsp;<strong>02</strong>&nbsp;/&nbsp;06</div>
-    </div>
-  </section>
-
-  <!-- ============================================================
        SECTIONS
        ============================================================ -->
   <main class="page" id="main">
+
+    <!-- Breadcrumb path -->
+    <nav class="breadcrumbs mono" aria-label="Breadcrumb">
+      <a href="index.html#home" data-i18n="ui.home">Home</a>
+      <span class="sep">/</span>
+      <span class="current" data-i18n="nav.about">About</span>
+    </nav>
+
     <div class="sections">
 
       <!-- ===== PROFILE — sober rewrite, "Today" first ===== -->
