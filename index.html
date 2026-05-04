@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Youssef Chabbou — Aerospace Engineering</title>
 
-<!-- Display font for editorial titles only — graceful fallback to system-ui -->
+<!-- Editorial display font; falls back gracefully if offline -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,500&display=swap" rel="stylesheet">
 
 <style>
   /* ============================================================
-     COLOR TOKENS — STRICTLY PRESERVED FROM YOUR SITE
+     COLOR TOKENS — STRICTLY PRESERVED FROM YOUR ORIGINAL
      ============================================================ */
   :root{
     --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85)
@@ -33,58 +34,100 @@
     background:url('background.jpg') no-repeat center/cover
   }
 
-  /* ============================================================
-     TYPOGRAPHY — display font on titles only
-     ============================================================ */
+  /* Editorial typography helpers */
   .display{
     font-family:'Fraunces', Georgia, 'Times New Roman', serif;
     font-weight:300;
     letter-spacing:-0.025em;
     line-height:1;
   }
-  .display em{
-    font-style:italic;
-    font-weight:300;
-  }
+  .display em{font-style:italic;font-weight:300}
   .mono{
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size:11px;
-    letter-spacing:.16em;
-    text-transform:uppercase;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   }
-  /* Arabic: drop the serif display, use a clean weight */
-  html[dir="rtl"] .display{ font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif; letter-spacing:0; }
+  html[dir="rtl"] .display{ font-family: system-ui, -apple-system, sans-serif; letter-spacing:0; }
 
   /* ============================================================
-     TOP BAND / HEADER — visual refinement only
+     TOP BANNER — modernized: gradient accent edge, hover underline
+     Identity preserved (same translucent navy, same blur)
      ============================================================ */
-  .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(12px) saturate(160%);-webkit-backdrop-filter:blur(12px) saturate(160%);z-index:1000;border-bottom:1px solid rgba(255,255,255,0.08)}
-  [data-theme="dark"] .top-band{background:rgba(11,95,165,.22);border-bottom-color:rgba(255,255,255,0.05)}
+  .top-band{
+    position:sticky;top:0;width:100%;
+    background:rgba(11,95,165,.35);
+    backdrop-filter:blur(14px) saturate(170%);
+    -webkit-backdrop-filter:blur(14px) saturate(170%);
+    z-index:1000;
+  }
+  [data-theme="dark"] .top-band{background:rgba(11,95,165,.22)}
+  /* Refined bottom edge — soft gradient line for editorial polish */
+  .top-band::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+    background:linear-gradient(90deg, transparent 0%, rgba(11,95,165,.5) 30%, rgba(88,166,255,.6) 50%, rgba(11,95,165,.5) 70%, transparent 100%);
+  }
+  [data-theme="dark"] .top-band::after{
+    background:linear-gradient(90deg, transparent, rgba(88,166,255,.5) 50%, transparent);
+  }
+
   .container{max-width:1200px;margin:auto;padding:24px}
   header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px}
-  header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block}
-  nav{display:flex;gap:36px;align-items:center}
-  nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer;font-size:14px;letter-spacing:0.01em;transition:opacity .2s, color .2s}
-  nav a:hover{opacity:1;color:var(--brand)}
-  .menu{position:relative}
-  .submenu{position:absolute;top:100%;left:0;background:var(--card);border:1px solid var(--ring);border-radius:10px;min-width:180px;box-shadow:0 12px 28px rgba(0,0,0,.12);opacity:0;transform:translateY(-10px);transition:opacity .25s ease,transform .25s ease;display:none;padding:6px;margin-top:8px}
+  header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block;transition:transform .25s ease}
+  header img.signature:hover{transform:translateY(-1px)}
+
+  nav{display:flex;gap:34px;align-items:center}
+  nav a{
+    position:relative;
+    font-weight:500;text-decoration:none;color:var(--fg);
+    opacity:.92;cursor:pointer;font-size:14px;letter-spacing:0.01em;
+    padding:6px 0;
+    transition:color .2s, opacity .2s;
+  }
+  /* Animated underline on hover — modernized but discreet */
+  nav a::after{
+    content:"";position:absolute;bottom:-2px;left:0;
+    width:0;height:1px;background:var(--brand);
+    transition:width .3s cubic-bezier(0.16,1,0.3,1);
+  }
+  nav a:hover{color:var(--brand);opacity:1;text-decoration:none}
+  nav a:hover::after{width:100%}
+  html[dir="rtl"] nav a::after{left:auto;right:0}
+
+  .menu{position:relative;display:flex;align-items:center;gap:2px}
+  .submenu{
+    position:absolute;top:100%;left:0;
+    background:var(--card);border:1px solid var(--ring);border-radius:10px;
+    min-width:200px;
+    box-shadow:0 14px 32px rgba(11,95,165,.12), 0 1px 0 rgba(255,255,255,.6) inset;
+    opacity:0;transform:translateY(-10px);transition:opacity .25s, transform .25s;
+    display:none;padding:6px;margin-top:10px;
+  }
+  [data-theme="dark"] .submenu{box-shadow:0 14px 32px rgba(0,0,0,.4)}
   .submenu.show{display:block;opacity:1;transform:translateY(0)}
-  .submenu a{display:block;padding:8px 12px;color:var(--fg);text-decoration:none;cursor:pointer;border-radius:6px;font-size:14px}
-  .submenu a:hover{background:var(--ring);color:var(--brand)}
-  .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:6px 10px;border-radius:8px;cursor:pointer;transition:background .25s,color .25s,border-color .25s;font-size:13px}
+  .submenu a{
+    display:block;padding:9px 12px;color:var(--fg);text-decoration:none;
+    cursor:pointer;border-radius:7px;font-size:14px;
+    transition:background .18s, color .18s, padding-left .18s;
+  }
+  .submenu a:hover{background:var(--ring);color:var(--brand);padding-left:16px}
+  html[dir="rtl"] .submenu a:hover{padding-left:12px;padding-right:16px}
+
+  .toggle{
+    border:1px solid var(--ring);background:transparent;color:var(--fg);
+    padding:6px 10px;border-radius:8px;cursor:pointer;
+    transition:background .25s,color .25s,border-color .25s;
+    font-size:13px;
+  }
   .toggle:hover{border-color:var(--brand);color:var(--brand)}
 
   /* ============================================================
-     HERO — NEW cinematic intro with video background
+     HERO — cinematic video section
      ============================================================ */
   .hero-cinema{
     position:relative;
     min-height:100vh;
     overflow:hidden;
     isolation:isolate;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
+    display:flex;flex-direction:column;justify-content:flex-end;
     padding:120px 32px 80px;
     margin-top:-1px;
   }
@@ -100,105 +143,97 @@
   .hero-overlay{
     position:absolute;inset:0;z-index:-1;
     background:
-      linear-gradient(180deg, rgba(13,17,23,0.30) 0%, rgba(13,17,23,0.55) 60%, rgba(13,17,23,0.85) 100%),
-      linear-gradient(90deg, rgba(11,95,165,0.25) 0%, transparent 60%);
+      linear-gradient(180deg, rgba(13,17,23,.30) 0%, rgba(13,17,23,.55) 60%, rgba(13,17,23,.85) 100%),
+      linear-gradient(90deg, rgba(11,95,165,.25) 0%, transparent 60%);
   }
 
   .hero-counter{
     position:absolute;top:96px;right:32px;
     color:rgba(255,255,255,.7);
-    display:flex;align-items:center;gap:10px;
-    z-index:3;
+    display:flex;align-items:center;gap:10px;z-index:3;
   }
-  .hero-counter::before{
-    content:"";display:block;width:32px;height:1px;background:rgba(255,255,255,.4);
-  }
+  .hero-counter::before{content:"";display:block;width:32px;height:1px;background:rgba(255,255,255,.4)}
   html[dir="rtl"] .hero-counter{right:auto;left:32px}
 
   .hero-tag{
     position:absolute;top:96px;left:32px;
-    color:rgba(255,255,255,.85);
-    z-index:3;
+    color:rgba(255,255,255,.85);z-index:3;
     display:flex;align-items:center;gap:8px;
   }
   .hero-tag::before{
     content:"";display:block;width:8px;height:8px;border-radius:50%;
-    background:#58a6ff;
-    box-shadow:0 0 12px #58a6ff;
+    background:#58a6ff;box-shadow:0 0 12px #58a6ff;
     animation:pulse 2.4s ease-in-out infinite;
   }
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
   html[dir="rtl"] .hero-tag{left:auto;right:32px}
 
-  .hero-content{
-    position:relative;z-index:2;
-    max-width:1200px;margin:0 auto;width:100%;
-  }
-  .hero-eyebrow{
-    color:#bcd9f5;
-    margin-bottom:24px;
-    opacity:0;transform:translateY(20px);
-    animation:rise 1s 0.3s forwards cubic-bezier(0.16,1,0.3,1);
-  }
+  .hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%}
+  .hero-eyebrow{color:#bcd9f5;margin-bottom:24px;opacity:0;transform:translateY(20px);animation:rise 1s .3s forwards cubic-bezier(0.16,1,0.3,1)}
   .hero-title{
     font-size:clamp(40px, 7.2vw, 96px);
-    color:#fff;
-    max-width:18ch;
-    margin:0 0 28px;
+    color:#fff;max-width:18ch;margin:0 0 28px;
     opacity:0;transform:translateY(30px);
-    animation:rise 1.1s 0.5s forwards cubic-bezier(0.16,1,0.3,1);
+    animation:rise 1.1s .5s forwards cubic-bezier(0.16,1,0.3,1);
   }
-  .hero-title em{ color:#9bc4ec; }
+  .hero-title em{color:#9bc4ec}
   .hero-sub{
     font-size:clamp(16px, 1.4vw, 20px);
-    color:rgba(255,255,255,0.82);
-    max-width:55ch;
-    margin:0 0 40px;
+    color:rgba(255,255,255,.82);max-width:55ch;margin:0 0 40px;
     opacity:0;transform:translateY(30px);
-    animation:rise 1.1s 0.7s forwards cubic-bezier(0.16,1,0.3,1);
+    animation:rise 1.1s .7s forwards cubic-bezier(0.16,1,0.3,1);
   }
   .hero-meta{
     display:flex;gap:48px;flex-wrap:wrap;
-    padding-top:28px;
-    border-top:1px solid rgba(255,255,255,0.18);
+    padding-top:28px;border-top:1px solid rgba(255,255,255,.18);
     opacity:0;transform:translateY(30px);
-    animation:rise 1.1s 0.9s forwards cubic-bezier(0.16,1,0.3,1);
+    animation:rise 1.1s .9s forwards cubic-bezier(0.16,1,0.3,1);
   }
-  .hero-meta-item{ max-width:24ch }
-  .hero-meta-label{
-    color:#9bc4ec;display:block;margin-bottom:8px;
-  }
-  .hero-meta-value{
-    color:rgba(255,255,255,0.92);font-size:15px;line-height:1.5;
-  }
-
-  @keyframes rise{
-    to{opacity:1;transform:translateY(0)}
-  }
+  .hero-meta-item{max-width:24ch}
+  .hero-meta-label{color:#9bc4ec;display:block;margin-bottom:8px}
+  .hero-meta-value{color:rgba(255,255,255,.92);font-size:15px;line-height:1.5}
+  @keyframes rise{to{opacity:1;transform:translateY(0)}}
 
   .hero-scroll-cue{
     position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
     z-index:3;color:rgba(255,255,255,.65);
-    display:flex;flex-direction:column;align-items:center;gap:8px;
-    pointer-events:none;
+    display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;
   }
   .hero-scroll-cue::after{
     content:"";width:1px;height:36px;
     background:linear-gradient(180deg, rgba(255,255,255,.7), transparent);
     animation:scroll-line 2s ease-in-out infinite;
   }
-  @keyframes scroll-line{0%,100%{transform:scaleY(1);transform-origin:top}50%{transform:scaleY(0.4);transform-origin:top}}
+  @keyframes scroll-line{0%,100%{transform:scaleY(1);transform-origin:top}50%{transform:scaleY(.4);transform-origin:top}}
 
-  /* Plane animation — re-anchored to hero */
+  /* Plane animation (preserved) */
   .flight-stage{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
   .plane{position:absolute;left:0;bottom:0;width:64px;height:64px;opacity:.92;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
 
   /* ============================================================
-     SECTIONS — modernized .alt-section
+     SECTIONS
      ============================================================ */
   .sections{max-width:1200px;margin:0 auto;padding:96px 24px 96px;position:relative}
 
-  .alt-section{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;margin:90px 0;position:relative}
+  /* Editorial section divider — modernized rhythm */
+  .section-mark{
+    display:flex;align-items:center;justify-content:center;gap:18px;
+    margin:60px 0 30px;
+    color:var(--muted);
+    pointer-events:none;
+  }
+  .section-mark::before,.section-mark::after{
+    content:"";flex:1;height:1px;max-width:200px;
+    background:linear-gradient(90deg, transparent, var(--ring), transparent);
+  }
+  .section-mark .section-num{color:var(--brand);margin-right:6px}
+  html[dir="rtl"] .section-mark .section-num{margin-right:0;margin-left:6px}
+
+  .alt-section{
+    display:grid;grid-template-columns:1.05fr 1fr;
+    gap:48px;align-items:center;
+    margin:30px 0 60px;position:relative;
+  }
   .alt-section.reverse{grid-template-columns:1fr 1.05fr}
 
   .alt-card{
@@ -206,132 +241,138 @@
     backdrop-filter:blur(18px) saturate(160%);
     -webkit-backdrop-filter:blur(18px) saturate(160%);
     border:1px solid rgba(255,255,255,.4);
-    border-radius:20px;
-    padding:36px 32px;
+    border-radius:20px;padding:36px 32px;
     box-shadow:
       0 20px 50px -20px rgba(11,95,165,.18),
       0 1px 0 rgba(255,255,255,.6) inset,
       0 0 0 1px rgba(11,95,165,.04);
     color:var(--fg);
     transition:transform .5s cubic-bezier(0.16,1,0.3,1), box-shadow .5s, border-color .5s;
-    position:relative;
-    overflow:hidden;
+    position:relative;overflow:hidden;
   }
   .alt-card:hover{
     transform:translateY(-4px);
     border-color:rgba(11,95,165,.3);
-    box-shadow:
-      0 28px 60px -20px rgba(11,95,165,.28),
-      0 1px 0 rgba(255,255,255,.7) inset;
+    box-shadow:0 28px 60px -20px rgba(11,95,165,.28), 0 1px 0 rgba(255,255,255,.7) inset;
   }
   [data-theme="dark"] .alt-card{
     background:rgba(22,27,34,.55);
     border-color:rgba(255,255,255,.08);
-    box-shadow:
-      0 20px 50px -20px rgba(0,0,0,.5),
-      0 1px 0 rgba(255,255,255,.04) inset;
+    box-shadow:0 20px 50px -20px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.04) inset;
   }
-  [data-theme="dark"] .alt-card:hover{
-    border-color:rgba(88,166,255,.3);
-  }
+  [data-theme="dark"] .alt-card:hover{border-color:rgba(88,166,255,.3)}
 
   .alt-eyebrow{
-    display:inline-block;
-    color:var(--brand);
-    margin:0 0 16px;
-    padding:5px 12px;
-    border-radius:999px;
+    display:inline-block;color:var(--brand);
+    margin:0 0 16px;padding:5px 12px;border-radius:999px;
     background:linear-gradient(90deg,rgba(11,95,165,.14),rgba(11,95,165,.04));
     border:1px solid rgba(11,95,165,.18);
   }
   [data-theme="dark"] .alt-eyebrow{
     background:linear-gradient(90deg,rgba(88,166,255,.20),rgba(88,166,255,.05));
-    border-color:rgba(88,166,255,.28);
-    color:var(--brand);
+    border-color:rgba(88,166,255,.28);color:var(--brand);
   }
 
   .alt-title{
-    font-family:'Fraunces', Georgia, serif;
-    font-weight:300;
-    font-size:clamp(26px,3.2vw,44px);
-    line-height:1.08;
-    letter-spacing:-0.02em;
-    margin:0 0 18px;
-    color:var(--fg);
+    font-family:'Fraunces', Georgia, serif;font-weight:300;
+    font-size:clamp(26px,3.2vw,44px);line-height:1.08;letter-spacing:-0.02em;
+    margin:0 0 18px;color:var(--fg);
   }
-  html[dir="rtl"] .alt-title{ font-family: system-ui,-apple-system,sans-serif; letter-spacing:0; }
+  html[dir="rtl"] .alt-title{font-family:system-ui,-apple-system,sans-serif;letter-spacing:0}
 
-  .alt-text{
-    margin:0;
-    color:var(--muted);
-    font-size:16.5px;
-    line-height:1.7;
-    max-width:48ch;
-  }
+  .alt-text{margin:0;color:var(--muted);font-size:16.5px;line-height:1.7;max-width:48ch}
   [data-theme="light"] .alt-card .alt-text{color:#374151}
   [data-theme="dark"] .alt-card .alt-text{color:#c9d1d9}
 
-  /* Decorative numeral inside cards */
+  /* Filigree number inside cards */
   .alt-card::after{
-    content: attr(data-num);
-    position:absolute;
-    bottom:-32px;
-    right:-12px;
-    font-family:'Fraunces', Georgia, serif;
-    font-style:italic;
-    font-weight:300;
-    font-size:180px;
-    line-height:1;
-    color:rgba(11,95,165,.06);
-    pointer-events:none;
-    user-select:none;
+    content:attr(data-num);
+    position:absolute;bottom:-32px;right:-12px;
+    font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:300;
+    font-size:180px;line-height:1;color:rgba(11,95,165,.06);
+    pointer-events:none;user-select:none;
   }
-  [data-theme="dark"] .alt-card::after{
-    color:rgba(88,166,255,.08);
-  }
-  html[dir="rtl"] .alt-card::after{ right:auto; left:-12px; }
+  [data-theme="dark"] .alt-card::after{color:rgba(88,166,255,.08)}
+  html[dir="rtl"] .alt-card::after{right:auto;left:-12px}
 
   .alt-media{
-    border-radius:22px;
-    overflow:hidden;
-    box-shadow:0 24px 50px -10px rgba(0,0,0,.22);
-    position:relative;
+    border-radius:22px;overflow:hidden;
+    box-shadow:0 24px 50px -10px rgba(0,0,0,.22);position:relative;
   }
   .alt-media img{
-    display:block;
-    width:100%;
-    height:auto;
-    aspect-ratio:16/10;
-    object-fit:cover;
-    transform:scale(1.02);
-    transition:transform .8s ease;
+    display:block;width:100%;height:auto;
+    aspect-ratio:16/10;object-fit:cover;
+    transform:scale(1.02);transition:transform .8s ease;
   }
   .alt-media:hover img{transform:scale(1.08)}
-
   .alt-media-tag{
-    position:absolute;
-    bottom:14px;
-    left:14px;
-    padding:6px 12px;
-    background:rgba(13,17,23,0.7);
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-    color:#fff;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.15);
-    z-index:2;
+    position:absolute;bottom:14px;left:14px;
+    padding:6px 12px;background:rgba(13,17,23,.7);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    color:#fff;border-radius:999px;border:1px solid rgba(255,255,255,.15);z-index:2;
   }
-  html[dir="rtl"] .alt-media-tag{ left:auto; right:14px; }
+  html[dir="rtl"] .alt-media-tag{left:auto;right:14px}
 
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(0.16,1,0.3,1), transform .8s cubic-bezier(0.16,1,0.3,1)}
   .reveal.in{opacity:1;transform:translateY(0)}
-
   section[id]{scroll-margin-top:120px}
 
   /* ============================================================
-     FOOTER
+     FOOTER — modernized: 3-col grid, accent strip, mono details
+     Identity preserved (same translucent brand background)
      ============================================================ */
-  .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:24px;margin-top:auto;position:relative;z-index:1;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .footer-band{
+    background-color:rgba(11,95,165,.6);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    color:#fff;margin-top:auto;position:relative;z-index:1;
+    padding:32px 32px 28px;
+  }
+  /* Top accent strip — modernized polish */
+  .footer-band::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg, transparent 0%, #58a6ff 25%, #fff 50%, #58a6ff 75%, transparent 100%);
+    opacity:.7;
+  }
+  .footer-grid{
+    max-width:1200px;margin:0 auto;
+    display:grid;grid-template-columns:1.1fr 1fr 1.4fr;gap:36px;align-items:start;
+  }
+  .footer-brand-block{
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .footer-brand-name{
+    font-family:'Fraunces', Georgia, serif;font-weight:300;font-style:italic;
+    font-size:22px;letter-spacing:-0.01em;color:#fff;
+  }
+  .footer-brand-tag{
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(255,255,255,.7);
+  }
+  .footer-nav{display:flex;flex-direction:column;gap:6px}
+  .footer-nav-title{
+    font-family: ui-monospace, monospace;
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(255,255,255,.6);margin-bottom:6px;
+  }
+  .footer-nav a{
+    color:rgba(255,255,255,.92);text-decoration:none;font-size:13.5px;
+    transition:color .2s;
+  }
+  .footer-nav a:hover{color:#9bc4ec}
+  .footer-meta{
+    display:flex;flex-direction:column;gap:8px;
+    text-align:right;
+  }
+  html[dir="rtl"] .footer-meta{text-align:left}
+  .footer-meta-line{
+    font-size:11.5px;color:rgba(255,255,255,.78);line-height:1.5;
+  }
+  .footer-copy{
+    font-family: ui-monospace, monospace;
+    font-size:10.5px;letter-spacing:.12em;color:rgba(255,255,255,.6);
+    text-transform:uppercase;
+  }
 
   .lang-menu{display:inline-block;margin-right:6px}
   .lang-menu .toggle{font-size:12px;padding:5px 10px;border-radius:8px}
@@ -344,18 +385,22 @@
   nav{min-width:0}
 
   @media(max-width:1000px){
-    nav{gap:24px}
+    nav{gap:22px}
   }
 
   @media(max-width:900px){
     .sections{padding:60px 16px 80px}
-    .alt-section,.alt-section.reverse{grid-template-columns:1fr;gap:32px;margin:60px 0}
+    .alt-section,.alt-section.reverse{grid-template-columns:1fr;gap:32px;margin:30px 0 50px}
     .alt-section.reverse .alt-card{order:2}
     .alt-section.reverse .alt-media{order:1}
     .alt-media img{aspect-ratio:16/11}
     .hero-cinema{padding:100px 20px 70px;min-height:90vh}
     .hero-counter,.hero-tag{top:80px}
     .hero-meta{gap:28px}
+    .footer-grid{grid-template-columns:1fr;gap:24px}
+    .footer-meta{text-align:left}
+    html[dir="rtl"] .footer-meta{text-align:right}
+    .section-mark{margin:40px 0 20px}
   }
 
   @media(max-width:640px){
@@ -369,13 +414,14 @@
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
     html,body{overflow-x:hidden}
 
-    .hero-counter{ right:16px;top:74px }
-    .hero-tag{ left:16px;top:74px }
-    .hero-cinema{ padding:90px 18px 60px }
-    .hero-meta{ gap:20px;padding-top:20px }
-    .hero-meta-item{ flex:1 1 100% }
+    .hero-counter{right:16px;top:74px}
+    .hero-tag{left:16px;top:74px}
+    .hero-cinema{padding:90px 18px 60px}
+    .hero-meta{gap:20px;padding-top:20px}
+    .hero-meta-item{flex:1 1 100%}
     .alt-card{padding:26px 22px}
     .alt-card::after{font-size:120px}
+    .footer-band{padding:24px 18px}
   }
 
   /* ============================================================
@@ -398,7 +444,6 @@
   .mobile-drawer .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:var(--bg)}
   .mobile-drawer .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
   .mobile-drawer .lang-btn:active{transform:scale(.98)}
-
   .mobile-open .mobile-backdrop{opacity:1;pointer-events:auto}
   .mobile-open .mobile-drawer{transform:translateX(0)}
 
@@ -406,12 +451,7 @@
     .hamburger-btn{display:flex}
     .top-band nav{display:none !important}
     .lang-menu{display:none !important}
-    .top-band header{
-      display:grid;
-      grid-template-columns:40px 1fr auto;
-      align-items:center;
-      gap:8px;
-    }
+    .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px}
     .top-band header > a[href="#home"]{justify-self:center}
     #themeToggle{justify-self:end}
   }
@@ -423,98 +463,480 @@
     .hero-eyebrow,.hero-title,.hero-sub,.hero-meta{opacity:1;transform:none;animation:none}
   }
 
-  .mobile-heading{
-    margin:14px 12px 6px;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color: var(--muted);
-    border-top:1px solid var(--ring);
-    padding-top:10px;
-  }
-  .mobile-group{ padding:2px 0 8px; }
-  .mobile-group > a{ display:block; padding:10px 12px; border-radius:10px; }
-  .mobile-sub{
-    padding:0 12px 10px;
-    margin:2px 0 6px;
-    border-left:2px solid var(--ring);
-  }
-  .mobile-sub a{
-    display:block;
-    padding:8px 12px 8px 10px;
-    border-radius:8px;
-  }
-  .mobile-sep{ height:8px; }
+  .mobile-heading{margin:14px 12px 6px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ring);padding-top:10px}
+  .mobile-group{padding:2px 0 8px}
+  .mobile-group > a{display:block;padding:10px 12px;border-radius:10px}
+  .mobile-sub{padding:0 12px 10px;margin:2px 0 6px;border-left:2px solid var(--ring)}
+  .mobile-sub a{display:block;padding:8px 12px 8px 10px;border-radius:8px}
 
-  .mobile-drawer header{
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    background: var(--bg);
-    border-bottom: 1px solid var(--ring);
-    padding-top: calc(14px + env(safe-area-inset-top, 0px));
-  }
-  .mobile-drawer nav{
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 16px;
-  }
-  .mobile-drawer nav .mobile-heading:first-of-type{
-    margin-top: 12px;
-    border-top: 0;
-    padding-top: 0;
-  }
-
-  html.mobile-open, body.mobile-open{ overflow: hidden; }
+  .mobile-drawer header{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--ring);padding-top:calc(14px + env(safe-area-inset-top, 0px))}
+  .mobile-drawer nav{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:16px}
+  .mobile-drawer nav .mobile-heading:first-of-type{margin-top:12px;border-top:0;padding-top:0}
+  html.mobile-open, body.mobile-open{overflow:hidden}
 
   /* RTL */
-  html[dir="rtl"] body{ direction: rtl; }
-  html[dir="rtl"] .alt-card, html[dir="rtl"] .lead, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] a{ text-align:right; }
-  html[dir="rtl"] nav{ justify-content:flex-end; }
-  html[dir="rtl"] .submenu{ left:auto; right:0; }
-  html[dir="rtl"] .mobile-drawer{ left:auto; right:0; transform:translateX(102%); }
-  html.mobile-open[dir="rtl"] .mobile-drawer{ transform:translateX(0); }
-  html[dir="rtl"] .mobile-sub{ border-left:none; border-right:2px solid var(--ring); }
+  html[dir="rtl"] body{direction:rtl}
+  html[dir="rtl"] .alt-card,html[dir="rtl"] p,html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3,html[dir="rtl"] a{text-align:right}
+  html[dir="rtl"] nav{justify-content:flex-end}
+  html[dir="rtl"] .submenu{left:auto;right:0}
+  html[dir="rtl"] .mobile-drawer{left:auto;right:0;transform:translateX(102%)}
+  html.mobile-open[dir="rtl"] .mobile-drawer{transform:translateX(0)}
+  html[dir="rtl"] .mobile-sub{border-left:none;border-right:2px solid var(--ring)}
   @media (max-width:640px){
-    html[dir="rtl"] .top-band header{
-      grid-template-columns:auto 1fr 40px;
-    }
-    html[dir="rtl"] #themeToggle{ justify-self:start; }
-    html[dir="rtl"] .top-band header > a[href="#home"]{ justify-self:center; }
+    html[dir="rtl"] .top-band header{grid-template-columns:auto 1fr 40px}
+    html[dir="rtl"] #themeToggle{justify-self:start}
+    html[dir="rtl"] .top-band header > a[href="#home"]{justify-self:center}
   }
 </style>
+</head>
+<body data-theme="light">
 
+<!-- ============================================================
+     TOP BANNER (header)
+     ============================================================ -->
+<div class="top-band">
+  <div class="container">
+    <header>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <a href="#home" onclick="goHome()" style="display:inline-block">
+        <img src="signature.png" alt="Signature" class="signature" />
+      </a>
+
+      <nav>
+        <div class="menu">
+          <a href="about.html" data-i18n="nav.about">About</a>
+          <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'about-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
+          <div id="about-menu" class="submenu">
+            <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
+            <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
+            <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
+            <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
+          </div>
+        </div>
+
+        <a href="skills.html" data-i18n="nav.skills">Skills</a>
+
+        <div class="menu">
+          <a href="projects.html" data-i18n="nav.projects">Projects</a>
+          <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
+          <div id="projects-menu" class="submenu">
+            <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+            <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
+          </div>
+        </div>
+
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
+    </header>
+  </div>
+</div>
+
+<!-- Mobile drawer (preserved) -->
+<div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
+<aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <header>
+    <strong data-i18n="ui.menu">Menu</strong>
+    <button class="toggle" type="button" id="mobileCloseBtn" aria-label="Close menu">✕</button>
+  </header>
+  <nav aria-label="Mobile navigation">
+    <div class="mobile-heading" data-i18n="nav.about">About</div>
+    <div class="mobile-group">
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <div class="mobile-sub">
+        <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
+        <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
+        <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
+        <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
+      </div>
+    </div>
+    <div class="mobile-heading" data-i18n="nav.skills">Skills</div>
+    <div class="mobile-group">
+      <a href="skills.html" data-i18n="nav.skills">Skills</a>
+    </div>
+    <div class="mobile-heading" data-i18n="nav.projects">Projects</div>
+    <div class="mobile-group">
+      <a href="projects.html" data-i18n="nav.projects">Projects</a>
+      <div class="mobile-sub">
+        <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
+        <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
+      </div>
+    </div>
+    <div class="mobile-heading" data-i18n="nav.contact">Contact</div>
+    <div class="mobile-group">
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+    </div>
+  </nav>
+  <div class="lang-grid" aria-label="Language">
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="fr">FR</button>
+    <button class="lang-btn" data-lang="de">DE</button>
+    <button class="lang-btn" data-lang="ar">AR</button>
+  </div>
+</aside>
+
+<!-- ============================================================
+     HERO — VIDEO SECTION
+     ⚠ Place ta vidéo dans la racine du repo GitHub avec le nom :
+                        hero.mp4
+     (à côté de index.html, signature.png, background.jpg)
+     ============================================================ -->
+<section class="hero-cinema landing" id="home">
+  <div class="hero-video-bg">
+    <video id="heroVideo" autoplay muted loop playsinline poster="background.jpg" preload="metadata">
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="flight-stage">
+    <div class="plane" aria-hidden="true">
+      <svg viewBox="0 0 64 64" width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+        <path d="M62 32 L36 28 L24 8 L20 8 L26 28 L10 30 L4 22 L2 22 L4 32 L2 42 L4 42 L10 34 L26 36 L20 56 L24 56 L36 36 Z"
+              fill="#ffffff" stroke="rgba(11,95,165,0.5)" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+
+  <span class="hero-tag mono"><span data-i18n="sections.perspective.eyebrow">Perspective</span></span>
+  <span class="hero-counter mono">01 / 06</span>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow mono" data-i18n="ui.intro">Aerospace engineering · Portfolio</p>
+    <h1 class="hero-title display" data-i18n="sections.perspective.title">Shaping the future of aerospace with bold ideas</h1>
+    <p class="hero-sub" data-i18n="sections.perspective.text">Exploring horizons where engineering meets imagination. Ambitious goals, measured execution.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label mono" data-i18n="ui.field">Field</span>
+        <span class="hero-meta-value" data-i18n="ui.field_value">Aerospace engineering &amp; systems design</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label mono" data-i18n="ui.method">Method</span>
+        <span class="hero-meta-value" data-i18n="ui.method_value">From sketches to prototypes — robust, iterative, precise.</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label mono" data-i18n="ui.scope">Scope</span>
+        <span class="hero-meta-value" data-i18n="ui.scope_value">Engineering beyond borders.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-cue">
+    <span class="mono" data-i18n="ui.scroll">Scroll</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTIONS — with editorial dividers
+     ============================================================ -->
+<main class="page" id="main">
+  <div class="sections">
+
+    <div class="section-mark"><span class="mono"><span class="section-num">02</span> / 06</span></div>
+    <section class="alt-section reverse reveal">
+      <figure class="alt-media">
+        <span class="alt-media-tag mono">02 / 06</span>
+        <img src="ChatGPT Image 8 oct. 2025, 15_47_39.jpg" alt="Wing geometry">
+      </figure>
+      <div class="alt-card" data-num="02">
+        <p class="alt-eyebrow mono" data-i18n="sections.learning.eyebrow">Lifelong learning</p>
+        <h3 class="alt-title display" data-i18n="sections.learning.title">Where curiosity fuels growth</h3>
+        <p class="alt-text" data-i18n="sections.learning.text">Endless discovery, purposeful practice, and a constant pursuit of knowledge and mastery.</p>
+      </div>
+    </section>
+
+    <div class="section-mark"><span class="mono"><span class="section-num">03</span> / 06</span></div>
+    <section class="alt-section reveal">
+      <div class="alt-card" data-num="03">
+        <p class="alt-eyebrow mono" data-i18n="sections.principles.eyebrow">Principles</p>
+        <h3 class="alt-title display" data-i18n="sections.principles.title">Creativity · Growth · Precision</h3>
+        <p class="alt-text" data-i18n="sections.principles.text">Learning is meaningful when it expands horizons, sharpens skills, and connects theory with real-world challenges.</p>
+      </div>
+      <figure class="alt-media">
+        <span class="alt-media-tag mono">03 / 06</span>
+        <img src="ChatGPT Image 8 oct. 2025, 15_56_28.jpg" alt="Cloud layers">
+      </figure>
+    </section>
+
+    <div class="section-mark"><span class="mono"><span class="section-num">04</span> / 06</span></div>
+    <section class="alt-section reverse reveal">
+      <figure class="alt-media">
+        <span class="alt-media-tag mono">04 / 06</span>
+        <img src="ChatGPT Image 8 oct. 2025, 16_18_09.jpg" alt="Metal texture and rivets">
+      </figure>
+      <div class="alt-card" data-num="04">
+        <p class="alt-eyebrow mono" data-i18n="sections.design.eyebrow">Designing with Purpose</p>
+        <h3 class="alt-title display" data-i18n="sections.design.title">Precision in every detail</h3>
+        <p class="alt-text" data-i18n="sections.design.text">From sketches to prototypes, every decision carries weight. Robust design, quiet confidence.</p>
+      </div>
+    </section>
+
+    <div class="section-mark"><span class="mono"><span class="section-num">05</span> / 06</span></div>
+    <section class="alt-section reveal">
+      <div class="alt-card" data-num="05">
+        <p class="alt-eyebrow mono" data-i18n="sections.teamwork.eyebrow">Teamwork</p>
+        <h3 class="alt-title display" data-i18n="sections.teamwork.title">Collaboration is the strongest engine</h3>
+        <p class="alt-text" data-i18n="sections.teamwork.text">We move faster together, bridging disciplines, tools, and perspectives.</p>
+      </div>
+      <figure class="alt-media">
+        <span class="alt-media-tag mono">05 / 06</span>
+        <img src="ChatGPT Image 8 oct. 2025, 16_36_28.jpg" alt="Team silhouettes">
+      </figure>
+    </section>
+
+    <div class="section-mark"><span class="mono"><span class="section-num">06</span> / 06</span></div>
+    <section class="alt-section reverse reveal">
+      <figure class="alt-media">
+        <span class="alt-media-tag mono">06 / 06</span>
+        <img src="ChatGPT Image 8 oct. 2025, 16_45_18.jpg" alt="Night sky">
+      </figure>
+      <div class="alt-card" data-num="06">
+        <p class="alt-eyebrow mono" data-i18n="sections.worldview.eyebrow">Worldview</p>
+        <h3 class="alt-title display" data-i18n="sections.worldview.title">Engineering beyond borders</h3>
+        <p class="alt-text" data-i18n="sections.worldview.text">Innovation thrives when knowledge adapts across countries, cultures, and perspectives, proving that ideas have no frontiers.</p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ============================================================
+     FOOTER — modernized 3-col grid + accent strip
+     Identity preserved (same translucent navy, same glass)
+     ============================================================ -->
+<footer class="footer-band">
+  <div class="footer-grid">
+    <div class="footer-brand-block">
+      <span class="footer-brand-name">Youssef Chabbou</span>
+      <span class="footer-brand-tag" data-i18n="footer.brand_tag">Aerospace · Engineering · Design</span>
+    </div>
+
+    <div class="footer-nav">
+      <span class="footer-nav-title" data-i18n="footer.explore">Explore</span>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="skills.html" data-i18n="nav.skills">Skills</a>
+      <a href="projects.html" data-i18n="nav.projects">Projects</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+    </div>
+
+    <div class="footer-meta">
+      <span class="footer-meta-line" data-i18n="footer.created_by">This website was entirely created by its owner,<br>Youssef Chabbou, using AI-Augmented Development.</span>
+      <span class="footer-copy">© 2025 Youssef Chabbou</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
 <script>
-/* ===== Helpers i18n pour le bouton thème ===== */
+/* ============================================================
+   INLINE TRANSLATIONS — no external JSON needed
+   Same key paths your old data-i18n attributes already use.
+   localStorage shares the chosen language across all pages.
+   ============================================================ */
+const TRANSLATIONS = {
+  en: {
+    meta: { title: "Youssef Chabbou — Aerospace Engineering" },
+    nav: {
+      about: "About", skills: "Skills", projects: "Projects", contact: "Contact",
+      about_menu: { who: "Profile", background: "Background", cv: "Curriculum Vitae", certs: "Certifications" },
+      projects_menu: { realized: "Projects realized", future: "Future projects" }
+    },
+    ui: {
+      menu: "Menu",
+      theme_day: "☀︎ Day", theme_night: "☾ Night",
+      intro: "Aerospace engineering · Portfolio",
+      field: "Field", field_value: "Aerospace engineering & systems design",
+      method: "Method", method_value: "From sketches to prototypes — robust, iterative, precise.",
+      scope: "Scope", scope_value: "Engineering beyond borders.",
+      scroll: "Scroll"
+    },
+    sections: {
+      perspective: { eyebrow: "Perspective", title: "Shaping the future of aerospace with bold ideas", text: "Exploring horizons where engineering meets imagination. Ambitious goals, measured execution." },
+      learning:    { eyebrow: "Lifelong learning", title: "Where curiosity fuels growth", text: "Endless discovery, purposeful practice, and a constant pursuit of knowledge and mastery." },
+      principles:  { eyebrow: "Principles", title: "Creativity · Growth · Precision", text: "Learning is meaningful when it expands horizons, sharpens skills, and connects theory with real-world challenges." },
+      design:      { eyebrow: "Designing with Purpose", title: "Precision in every detail", text: "From sketches to prototypes, every decision carries weight. Robust design, quiet confidence." },
+      teamwork:    { eyebrow: "Teamwork", title: "Collaboration is the strongest engine", text: "We move faster together, bridging disciplines, tools, and perspectives." },
+      worldview:   { eyebrow: "Worldview", title: "Engineering beyond borders", text: "Innovation thrives when knowledge adapts across countries, cultures, and perspectives, proving that ideas have no frontiers." }
+    },
+    footer: {
+      brand_tag: "Aerospace · Engineering · Design",
+      explore: "Explore",
+      created_by: "This website was entirely created by its owner,<br>Youssef Chabbou, using AI-Augmented Development."
+    }
+  },
+
+  fr: {
+    meta: { title: "Youssef Chabbou — Ingénierie aérospatiale" },
+    nav: {
+      about: "À propos", skills: "Compétences", projects: "Projets", contact: "Contact",
+      about_menu: { who: "Profil", background: "Parcours", cv: "Curriculum Vitae", certs: "Certifications" },
+      projects_menu: { realized: "Projets réalisés", future: "Projets à venir" }
+    },
+    ui: {
+      menu: "Menu",
+      theme_day: "☀︎ Jour", theme_night: "☾ Nuit",
+      intro: "Ingénierie aérospatiale · Portfolio",
+      field: "Domaine", field_value: "Ingénierie aérospatiale & conception de systèmes",
+      method: "Méthode", method_value: "Du croquis au prototype — robuste, itératif, précis.",
+      scope: "Portée", scope_value: "Une ingénierie sans frontières.",
+      scroll: "Défiler"
+    },
+    sections: {
+      perspective: { eyebrow: "Perspective", title: "Façonner l'avenir de l'aérospatial avec des idées audacieuses", text: "Explorer des horizons où l'ingénierie rencontre l'imagination. Des objectifs ambitieux, une exécution mesurée." },
+      learning:    { eyebrow: "Apprentissage continu", title: "Là où la curiosité nourrit la progression", text: "Découverte sans fin, pratique réfléchie, et quête constante du savoir et de la maîtrise." },
+      principles:  { eyebrow: "Principes", title: "Créativité · Progression · Précision", text: "L'apprentissage est précieux quand il élargit les horizons, affine les compétences et relie la théorie au réel." },
+      design:      { eyebrow: "Concevoir avec intention", title: "La précision dans chaque détail", text: "Du croquis au prototype, chaque décision compte. Conception robuste, confiance discrète." },
+      teamwork:    { eyebrow: "Travail d'équipe", title: "La collaboration est le moteur le plus puissant", text: "On avance plus vite ensemble, en reliant disciplines, outils et perspectives." },
+      worldview:   { eyebrow: "Vision du monde", title: "Une ingénierie sans frontières", text: "L'innovation prospère quand le savoir s'adapte aux pays, cultures et perspectives — preuve que les idées n'ont pas de frontières." }
+    },
+    footer: {
+      brand_tag: "Aérospatial · Ingénierie · Conception",
+      explore: "Explorer",
+      created_by: "Site entièrement réalisé par son auteur,<br>Youssef Chabbou, en développement augmenté par l'IA."
+    }
+  },
+
+  de: {
+    meta: { title: "Youssef Chabbou — Luft- und Raumfahrttechnik" },
+    nav: {
+      about: "Über mich", skills: "Kompetenzen", projects: "Projekte", contact: "Kontakt",
+      about_menu: { who: "Profil", background: "Werdegang", cv: "Lebenslauf", certs: "Zertifikate" },
+      projects_menu: { realized: "Realisierte Projekte", future: "Zukünftige Projekte" }
+    },
+    ui: {
+      menu: "Menü",
+      theme_day: "☀︎ Tag", theme_night: "☾ Nacht",
+      intro: "Luft- und Raumfahrttechnik · Portfolio",
+      field: "Bereich", field_value: "Luft- und Raumfahrttechnik & Systemdesign",
+      method: "Methode", method_value: "Von der Skizze zum Prototyp — robust, iterativ, präzise.",
+      scope: "Reichweite", scope_value: "Ingenieurkunst ohne Grenzen.",
+      scroll: "Scrollen"
+    },
+    sections: {
+      perspective: { eyebrow: "Perspektive", title: "Die Zukunft der Luft- und Raumfahrt mit kühnen Ideen gestalten", text: "Horizonte erkunden, wo Ingenieurkunst auf Vorstellungskraft trifft. Ehrgeizige Ziele, gemessene Umsetzung." },
+      learning:    { eyebrow: "Lebenslanges Lernen", title: "Wo Neugier Wachstum antreibt", text: "Endlose Entdeckung, zielgerichtete Übung und das beständige Streben nach Wissen und Meisterschaft." },
+      principles:  { eyebrow: "Grundsätze", title: "Kreativität · Wachstum · Präzision", text: "Lernen ist sinnvoll, wenn es Horizonte erweitert, Fähigkeiten schärft und Theorie mit der realen Welt verbindet." },
+      design:      { eyebrow: "Gestalten mit Absicht", title: "Präzision in jedem Detail", text: "Von der Skizze zum Prototyp — jede Entscheidung zählt. Robustes Design, leise Souveränität." },
+      teamwork:    { eyebrow: "Teamarbeit", title: "Zusammenarbeit ist der stärkste Motor", text: "Gemeinsam kommen wir schneller voran und verbinden Disziplinen, Werkzeuge und Sichtweisen." },
+      worldview:   { eyebrow: "Weltsicht", title: "Ingenieurkunst ohne Grenzen", text: "Innovation gedeiht, wenn sich Wissen an Länder, Kulturen und Perspektiven anpasst — Ideen kennen keine Grenzen." }
+    },
+    footer: {
+      brand_tag: "Luftfahrt · Ingenieurwesen · Design",
+      explore: "Entdecken",
+      created_by: "Diese Website wurde vollständig vom Eigentümer erstellt,<br>Youssef Chabbou, mit KI-gestützter Entwicklung."
+    }
+  },
+
+  ar: {
+    meta: { title: "يوسف الشبو — هندسة الفضاء الجوي" },
+    nav: {
+      about: "حول", skills: "المهارات", projects: "المشاريع", contact: "اتصل",
+      about_menu: { who: "الملف الشخصي", background: "الخلفية", cv: "السيرة الذاتية", certs: "الشهادات" },
+      projects_menu: { realized: "مشاريع منجزة", future: "مشاريع مستقبلية" }
+    },
+    ui: {
+      menu: "القائمة",
+      theme_day: "☀︎ نهار", theme_night: "☾ ليل",
+      intro: "هندسة الفضاء الجوي · ملف الأعمال",
+      field: "المجال", field_value: "هندسة الفضاء الجوي وتصميم الأنظمة",
+      method: "المنهج", method_value: "من الرسومات إلى النماذج الأولية — متين، تكراري، دقيق.",
+      scope: "النطاق", scope_value: "هندسة بلا حدود.",
+      scroll: "اسحب"
+    },
+    sections: {
+      perspective: { eyebrow: "منظور", title: "تشكيل مستقبل الفضاء الجوي بأفكار جريئة", text: "استكشاف آفاق حيث تلتقي الهندسة بالخيال. أهداف طموحة وتنفيذ متقن." },
+      learning:    { eyebrow: "تعلّم مدى الحياة", title: "حيث يغذّي الفضول النمو", text: "اكتشاف لا ينتهي، وممارسة هادفة، وسعي دائم نحو المعرفة والإتقان." },
+      principles:  { eyebrow: "المبادئ", title: "الإبداع · النمو · الدقة", text: "يصبح التعلّم ذا معنى حين يوسّع الآفاق، ويصقل المهارات، ويربط النظرية بالواقع." },
+      design:      { eyebrow: "تصميم بهدف", title: "الدقة في كل تفصيل", text: "من الرسم إلى النموذج، كل قرار له وزنه. تصميم متين، وثقة هادئة." },
+      teamwork:    { eyebrow: "العمل الجماعي", title: "التعاون هو أقوى محرّك", text: "نتقدّم أسرع معاً، نربط بين التخصصات والأدوات والمنظورات." },
+      worldview:   { eyebrow: "رؤية العالم", title: "هندسة بلا حدود", text: "يزدهر الابتكار حين تتكيّف المعرفة مع البلدان والثقافات والمنظورات — تأكيداً على أن الأفكار الجيدة لا تعرف حدوداً." }
+    },
+    footer: {
+      brand_tag: "فضاء جوي · هندسة · تصميم",
+      explore: "استكشاف",
+      created_by: "هذا الموقع أنشأه صاحبه بالكامل،<br>يوسف الشبو، باستخدام تطوير معزّز بالذكاء الاصطناعي."
+    }
+  }
+};
+
+/* ============================================================
+   I18N HELPERS
+   ============================================================ */
 function i18nGet(key, fallback){
   try{
     let v = window.__i18nDict;
     for (const part of key.split('.')) v = v && v[part];
-    return v || fallback;
+    return v != null ? v : fallback;
   }catch(e){ return fallback; }
 }
 function updateThemeLabel(){
   const btn = document.getElementById('themeToggle');
   if (!btn) return;
   const isDark = (document.documentElement.dataset.theme === 'dark');
-  const day  = i18nGet('ui.theme_day','☀︎ Day');
-  const night= i18nGet('ui.theme_night','☾ Night');
-  btn.textContent = isDark ? day : night;
+  btn.textContent = isDark ? i18nGet('ui.theme_day','☀︎ Day') : i18nGet('ui.theme_night','☾ Night');
 }
 
-/* ===== Thème ===== */
+function applyLang(lang){
+  if (!TRANSLATIONS[lang]) lang = 'en';
+  const dict = TRANSLATIONS[lang];
+  window.__i18nDict = dict;
+
+  // Replace text/HTML for every i18n target
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    const val = key.split('.').reduce((o,k)=> (o && o[k]!=null) ? o[k] : undefined, dict);
+    if (val == null) return;
+    if (typeof val === 'string' && val.includes('<')) el.innerHTML = val;
+    else el.textContent = val;
+  });
+
+  if (dict.meta && dict.meta.title) document.title = dict.meta.title;
+
+  document.documentElement.setAttribute('lang', lang);
+  document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+  // Persist for next page
+  try { localStorage.setItem('lang', lang); } catch(e){}
+
+  // Sync URL (kept for shareable links)
+  try{
+    const u = new URL(location.href);
+    u.searchParams.set('lang', lang);
+    history.replaceState({}, '', u.pathname + u.search + location.hash);
+  }catch(e){}
+
+  // Update lang toggle label
+  const btn = document.getElementById('langToggle');
+  if (btn){
+    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
+  }
+
+  updateThemeLabel();
+}
+window.setLangFromMenu = applyLang;
+
+/* ============================================================
+   THEME
+   ============================================================ */
 function toggleTheme(){
   const html=document.documentElement;
   const next=html.dataset.theme==='dark'?'light':'dark';
   html.dataset.theme=next;
   try{localStorage.setItem('theme',next);}catch(e){}
   document.documentElement.style.colorScheme=next;
-  if (document.getElementById('themeToggle')) updateThemeLabel();
+  updateThemeLabel();
 }
 
-/* ===== Menus ===== */
+/* ============================================================
+   MENUS
+   ============================================================ */
 function toggleMenu(e,id){
   e.preventDefault();
   const m=document.getElementById(id);
@@ -531,22 +953,21 @@ document.addEventListener('click',closeMenusOnInteraction);
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
-/* ===== Divers ===== */
+/* ============================================================
+   PLANE ANIMATION (preserved)
+   ============================================================ */
 function goHome(){window.scrollTo({top:0,behavior:'smooth'});}
 function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
 function animatePlane(){
   const stage=document.querySelector('.flight-stage');
   const plane=document.querySelector('.plane');
   if(!stage||!plane) return;
-  const h=window.innerHeight;
-  const y=window.scrollY;
-  const p=clamp(y/h,0,1);
+  const h=window.innerHeight, y=window.scrollY, p=clamp(y/h,0,1);
   const xMax=Math.min(0.65*window.innerWidth,900);
   const x=p*xMax;
   let climb=0;const startClimb=0.35;
   if(p>startClimb){
-    const pp=(p-startClimb)/(1-startClimb);
-    const k=3.2;
+    const pp=(p-startClimb)/(1-startClimb), k=3.2;
     climb=-(Math.expm1(k*pp)/Math.expm1(k))*(0.55*window.innerHeight);
   }
   const base=-12;
@@ -555,484 +976,140 @@ function animatePlane(){
 }
 window.addEventListener('scroll',animatePlane,{passive:true});
 window.addEventListener('resize',animatePlane);
-document.addEventListener('DOMContentLoaded',animatePlane);
 
-/* ===== Init thème + languette ===== */
-document.addEventListener('DOMContentLoaded',function(){
-  let initial='light';
+/* ============================================================
+   INIT — theme, language toggle, language pre-load
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', function(){
+  // Theme
+  let initialTheme='light';
   try{
     const stored=localStorage.getItem('theme');
-    if(stored){initial=stored;}
-    else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){initial='dark';}
+    if(stored){initialTheme=stored;}
+    else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){initialTheme='dark';}
   }catch(e){}
-  document.documentElement.dataset.theme=initial;
-  document.documentElement.style.colorScheme=initial;
-  if (document.getElementById('themeToggle')) updateThemeLabel();
+  document.documentElement.dataset.theme=initialTheme;
+  document.documentElement.style.colorScheme=initialTheme;
 
-  const themeBtn=document.getElementById('themeToggle');
-  if(!themeBtn||!themeBtn.parentNode) return;
-
-  const wrap=document.createElement('div');
-  wrap.className='menu lang-menu';
-
-  const btn=document.createElement('button');
-  btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
-
-  const menu=document.createElement('div');
-  menu.id='lang-menu';menu.className='submenu';
-  menu.innerHTML = `
-    <a href="#" data-lang="en">English</a>
-    <a href="#" data-lang="de">Deutsch</a>
-    <a href="#" data-lang="ar">العربية</a>
-    <a href="#" data-lang="fr">Français</a>
-  `;
-
-  wrap.appendChild(btn);wrap.appendChild(menu);
-  themeBtn.parentNode.insertBefore(wrap,themeBtn);
-  btn.addEventListener('click',function(e){toggleMenu(e,'lang-menu');});
-
-  menu.addEventListener('click', function(e){
-    const a = e.target.closest('a[data-lang]');
-    if (!a) return;
-    e.preventDefault();
-    if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
-    closeMenusOnInteraction({target:null});
-    try{
-      const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
-      btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾';
-    }catch(_e){}
-  });
-
+  // Language priority: ?lang= → localStorage → 'en'
+  let initialLang = 'en';
   try{
-    const params=new URLSearchParams(location.search);
-    let lang = 'en';
-    if (params.has('lang')) {
-      lang = (params.get('lang')||'en').toLowerCase();
+    const params = new URLSearchParams(location.search);
+    if (params.has('lang')){
+      initialLang = (params.get('lang')||'en').toLowerCase();
     } else {
       const stored = localStorage.getItem('lang');
-      if (stored) lang = stored;
+      if (stored) initialLang = stored;
     }
-    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
-    btn.textContent = (map[lang] || 'EN') + ' ▾';
-  }catch(_e){}
+  }catch(e){}
+  if (!TRANSLATIONS[initialLang]) initialLang = 'en';
+
+  // Language toggle button — inserted next to theme toggle
+  const themeBtn = document.getElementById('themeToggle');
+  if (themeBtn && themeBtn.parentNode){
+    const wrap = document.createElement('div');
+    wrap.className = 'menu lang-menu';
+
+    const btn = document.createElement('button');
+    btn.id = 'langToggle';
+    btn.className = 'toggle';
+    btn.type = 'button';
+    btn.setAttribute('aria-haspopup','true');
+    btn.textContent = 'EN ▾';
+
+    const menu = document.createElement('div');
+    menu.id = 'lang-menu';
+    menu.className = 'submenu';
+    menu.innerHTML = `
+      <a href="#" data-lang="en">English</a>
+      <a href="#" data-lang="de">Deutsch</a>
+      <a href="#" data-lang="ar">العربية</a>
+      <a href="#" data-lang="fr">Français</a>
+    `;
+
+    wrap.appendChild(btn);
+    wrap.appendChild(menu);
+    themeBtn.parentNode.insertBefore(wrap, themeBtn);
+
+    btn.addEventListener('click', (e)=> toggleMenu(e,'lang-menu'));
+    menu.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[data-lang]');
+      if(!a) return;
+      e.preventDefault();
+      applyLang(a.dataset.lang);
+      closeMenusOnInteraction({target:null});
+    });
+  }
+
+  // Apply chosen language NOW (before user sees anything)
+  applyLang(initialLang);
+
+  // Plane init
+  animatePlane();
+
+  // Reveal on scroll
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced){
+    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:0.15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  }
+
+  // Hero video — graceful fade-in / hide if unavailable
+  const v = document.getElementById('heroVideo');
+  if (v){
+    v.addEventListener('loadeddata', ()=> v.classList.add('loaded'));
+    v.addEventListener('error', ()=>{ v.style.display='none'; });
+    setTimeout(()=>{ if (!v.classList.contains('loaded')) v.style.display='none'; }, 3000);
+  }
 });
-</script>
-</head>
-<body data-theme="light">
-  <div class="top-band">
-    <div class="container">
-      <header>
-        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">
-          <span aria-hidden="true"></span>
-        </button>
 
-        <a href="#home" onclick="goHome()" style="display:inline-block">
-          <img src="signature.png" alt="Signature" class="signature" />
-        </a>
+/* Generic delegated lang handler (mobile drawer, footer, etc.) */
+document.addEventListener('click', (e)=>{
+  const b = e.target.closest('[data-lang]');
+  if (!b) return;
+  e.preventDefault();
+  applyLang(b.getAttribute('data-lang'));
+});
 
-        <nav>
-          <div class="menu">
-            <a href="about.html" data-i18n="nav.about">About</a>
-            <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'about-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
-            <div id="about-menu" class="submenu">
-              <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
-              <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
-              <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
-              <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
-            </div>
-          </div>
+/* ============================================================
+   MOBILE DRAWER
+   ============================================================ */
+(function(){
+  const html = document.documentElement, body = document.body;
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const btn = document.getElementById('hamburgerBtn');
+    const drawer = document.getElementById('mobile-drawer');
+    const backdrop = document.getElementById('mobileBackdrop');
+    const closeBtn = document.getElementById('mobileCloseBtn');
+    if (!btn || !drawer || !backdrop) return;
 
-          <a href="skills.html" data-i18n="nav.skills">Skills</a>
-
-          <div class="menu">
-            <a href="projects.html" data-i18n="nav.projects">Projects</a>
-            <button class="toggle" type="button" aria-haspopup="true" onclick="toggleMenu(event,'projects-menu')" style="padding:2px 6px;margin-left:4px">▾</button>
-            <div id="projects-menu" class="submenu">
-              <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-              <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
-            </div>
-          </div>
-
-          <a href="contact.html" data-i18n="nav.contact">Contact</a>
-        </nav>
-
-        <button id="themeToggle" class="toggle" onclick="toggleTheme()">☾ Night</button>
-      </header>
-    </div>
-  </div>
-
-  <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
-  <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
-    <header>
-      <strong data-i18n="nav.projects">Menu</strong>
-      <button class="toggle" type="button" id="mobileCloseBtn" aria-label="Close menu">✕</button>
-    </header>
-
-    <nav aria-label="Mobile navigation">
-      <div class="mobile-heading" data-i18n="nav.about">About</div>
-      <div class="mobile-group">
-        <a href="about.html" data-i18n="nav.about">About</a>
-        <div class="mobile-sub">
-          <a href="about.html#profile" data-i18n="nav.about_menu.who">Profile</a>
-          <a href="about.html#background" data-i18n="nav.about_menu.background">Background</a>
-          <a href="about.html#cv" data-i18n="nav.about_menu.cv">Curriculum Vitae</a>
-          <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
-        </div>
-      </div>
-
-      <div class="mobile-heading" data-i18n="nav.skills">Skills</div>
-      <div class="mobile-group">
-        <a href="skills.html" data-i18n="nav.skills">Skills</a>
-      </div>
-
-      <div class="mobile-heading" data-i18n="nav.projects">Projects</div>
-      <div class="mobile-group">
-        <a href="projects.html" data-i18n="nav.projects">Projects</a>
-        <div class="mobile-sub">
-          <a href="projects.html#realized" data-i18n="nav.projects_menu.realized">Projects realized</a>
-          <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
-        </div>
-      </div>
-
-      <div class="mobile-heading" data-i18n="nav.contact">Contact</div>
-      <div class="mobile-group">
-        <a href="contact.html" data-i18n="nav.contact">Contact</a>
-      </div>
-    </nav>
-
-    <div class="lang-grid" aria-label="Language">
-      <button class="lang-btn" data-lang="en">EN</button>
-      <button class="lang-btn" data-lang="fr">FR</button>
-      <button class="lang-btn" data-lang="de">DE</button>
-      <button class="lang-btn" data-lang="ar">AR</button>
-    </div>
-  </aside>
-
-  <!-- ============================================================
-       HERO CINÉMATIQUE — vidéo en arrière-plan
-       Pour utiliser ta propre vidéo : place hero.mp4 à la racine.
-       Tant qu'il n'existe pas, le poster (background.jpg) s'affiche.
-       Tu peux aussi remplacer le src par une URL distante.
-       ============================================================ -->
-  <section class="hero-cinema landing" id="home">
-    <div class="hero-video-bg">
-      <video id="heroVideo" autoplay muted loop playsinline poster="background.jpg" preload="metadata">
-        <source src="hero.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="hero-overlay"></div>
-
-    <div class="flight-stage">
-      <div class="plane" aria-hidden="true">
-        <svg viewBox="0 0 64 64" width="64" height="64" xmlns="http://www.w3.org/2000/svg">
-          <path d="M62 32 L36 28 L24 8 L20 8 L26 28 L10 30 L4 22 L2 22 L4 32 L2 42 L4 42 L10 34 L26 36 L20 56 L24 56 L36 36 Z"
-                fill="#ffffff" stroke="rgba(11,95,165,0.5)" stroke-width="1"/>
-        </svg>
-      </div>
-    </div>
-
-    <span class="hero-tag mono"><span data-i18n="sections.perspective.eyebrow">Perspective</span></span>
-    <span class="hero-counter mono">01 / 06</span>
-
-    <div class="hero-content">
-      <p class="hero-eyebrow mono" data-i18n="ui.intro">Aerospace engineering · Portfolio</p>
-      <h1 class="hero-title display" data-i18n="sections.perspective.title">Shaping the future of aerospace with bold ideas</h1>
-      <p class="hero-sub" data-i18n="sections.perspective.text">Exploring horizons where engineering meets imagination. Ambitious goals, measured execution.</p>
-
-      <div class="hero-meta">
-        <div class="hero-meta-item">
-          <span class="hero-meta-label mono" data-i18n="ui.field">Field</span>
-          <span class="hero-meta-value" data-i18n="ui.field_value">Aerospace engineering &amp; systems design</span>
-        </div>
-        <div class="hero-meta-item">
-          <span class="hero-meta-label mono" data-i18n="ui.method">Method</span>
-          <span class="hero-meta-value" data-i18n="ui.method_value">From sketches to prototypes — robust, iterative, precise.</span>
-        </div>
-        <div class="hero-meta-item">
-          <span class="hero-meta-label mono" data-i18n="ui.scope">Scope</span>
-          <span class="hero-meta-value" data-i18n="ui.scope_value">Engineering beyond borders.</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-scroll-cue">
-      <span class="mono" data-i18n="ui.scroll">Scroll</span>
-    </div>
-  </section>
-
-  <!-- SECTIONS — clés data-i18n PRESERVÉES à 100% -->
-  <main class="page" id="main">
-    <div class="sections">
-
-      <section class="alt-section reverse reveal">
-        <figure class="alt-media">
-          <span class="alt-media-tag mono">02 / 06</span>
-          <img src="ChatGPT Image 8 oct. 2025, 15_47_39.jpg" alt="Wing geometry">
-        </figure>
-        <div class="alt-card" data-num="02">
-          <p class="alt-eyebrow mono" data-i18n="sections.learning.eyebrow">Lifelong learning</p>
-          <h3 class="alt-title display" data-i18n="sections.learning.title">Where curiosity fuels growth</h3>
-          <p class="alt-text" data-i18n="sections.learning.text">Endless discovery, purposeful practice, and a constant pursuit of knowledge and mastery.</p>
-        </div>
-      </section>
-
-      <section class="alt-section reveal">
-        <div class="alt-card" data-num="03">
-          <p class="alt-eyebrow mono" data-i18n="sections.principles.eyebrow">Principles</p>
-          <h3 class="alt-title display" data-i18n="sections.principles.title">Creativity · Growth · Precision</h3>
-          <p class="alt-text" data-i18n="sections.principles.text">Learning is meaningful when it expands horizons, sharpens skills, and connects theory with real-world challenges.</p>
-        </div>
-        <figure class="alt-media">
-          <span class="alt-media-tag mono">03 / 06</span>
-          <img src="ChatGPT Image 8 oct. 2025, 15_56_28.jpg" alt="Cloud layers">
-        </figure>
-      </section>
-
-      <section class="alt-section reverse reveal">
-        <figure class="alt-media">
-          <span class="alt-media-tag mono">04 / 06</span>
-          <img src="ChatGPT Image 8 oct. 2025, 16_18_09.jpg" alt="Metal texture and rivets">
-        </figure>
-        <div class="alt-card" data-num="04">
-          <p class="alt-eyebrow mono" data-i18n="sections.design.eyebrow">Designing with Purpose</p>
-          <h3 class="alt-title display" data-i18n="sections.design.title">Precision in every detail</h3>
-          <p class="alt-text" data-i18n="sections.design.text">From sketches to prototypes, every decision carries weight. Robust design, quiet confidence.</p>
-        </div>
-      </section>
-
-      <section class="alt-section reveal">
-        <div class="alt-card" data-num="05">
-          <p class="alt-eyebrow mono" data-i18n="sections.teamwork.eyebrow">Teamwork</p>
-          <h3 class="alt-title display" data-i18n="sections.teamwork.title">Collaboration is the strongest engine</h3>
-          <p class="alt-text" data-i18n="sections.teamwork.text">We move faster together, bridging disciplines, tools, and perspectives.</p>
-        </div>
-        <figure class="alt-media">
-          <span class="alt-media-tag mono">05 / 06</span>
-          <img src="ChatGPT Image 8 oct. 2025, 16_36_28.jpg" alt="Team silhouettes">
-        </figure>
-      </section>
-
-      <section class="alt-section reverse reveal">
-        <figure class="alt-media">
-          <span class="alt-media-tag mono">06 / 06</span>
-          <img src="ChatGPT Image 8 oct. 2025, 16_45_18.jpg" alt="Night sky">
-        </figure>
-        <div class="alt-card" data-num="06">
-          <p class="alt-eyebrow mono" data-i18n="sections.worldview.eyebrow">Worldview</p>
-          <h3 class="alt-title display" data-i18n="sections.worldview.title">Engineering beyond borders</h3>
-          <p class="alt-text" data-i18n="sections.worldview.text">Innovation thrives when knowledge adapts across countries, cultures, and perspectives, proving that ideas have no frontiers.</p>
-        </div>
-      </section>
-
-    </div>
-  </main>
-
-  <div class="footer-band">© 2025 Youssef Chabbou
-    <span data-i18n="footer.created_by" style="font-size:12px; color:rgba(255,255,255,0.75); float:right; text-align:right; line-height:1.4;">
-      This website was entirely created by its owner,<br>
-      Youssef Chabbou, using AI-Augmented Development.
-    </span>
-  </div>
-
-  <script>
-    /* Reveal on scroll */
-    (function(){
-      const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(prefersReduced){
-        document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
-        return;
-      }
-      const io=new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-      },{threshold:0.15});
-      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-    })();
-
-    /* Hero video — graceful fade-in, hide if unavailable */
-    (function(){
-      const v = document.getElementById('heroVideo');
-      if (!v) return;
-      v.addEventListener('loadeddata', ()=> v.classList.add('loaded'));
-      v.addEventListener('error', ()=>{ v.style.display='none'; });
-      setTimeout(()=>{
-        if (!v.classList.contains('loaded')) v.style.display='none';
-      }, 3000);
-    })();
-  </script>
-
-  <!-- =====================================================
-       Loader i18n — IDENTIQUE à ta version (non modifié)
-       ===================================================== -->
-  <script>
-(() => {
-  const SUPPORTED = ["fr","de","ar"];
-  const DEFAULT = "en";
-
-  function snapshotOriginals(){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if(!el.dataset.i18nOriginal){
-        el.dataset.i18nOriginal = el.textContent;
-      }
-    });
-  }
-  snapshotOriginals();
-
-  const get = (o, path) => path.split('.').reduce((a,k)=> (a && a[k]!=null) ? a[k] : undefined, o);
-
-  function currentLang() {
-    const params = new URLSearchParams(location.search);
-    if (params.has("lang")) {
-      const urlLang = params.get("lang");
-      const lang = (urlLang === 'en' || SUPPORTED.includes(urlLang)) ? urlLang : DEFAULT;
-      try { localStorage.setItem('lang', lang); } catch(e) {}
-      return lang;
+    function openDrawer(){
+      html.classList.add('mobile-open'); body.classList.add('mobile-open');
+      drawer.setAttribute('aria-hidden','false'); btn.setAttribute('aria-expanded','true');
+      backdrop.hidden=false;
     }
-    try {
-      const stored = localStorage.getItem('lang');
-      if (stored === 'en' || SUPPORTED.includes(stored)) return stored;
-    } catch(e) {}
-    return DEFAULT;
-  }
-
-  async function safeFetchJson(url){
-    try{
-      const res = await fetch(url, { cache: "no-cache" });
-      if (!res.ok) throw new Error(String(res.status));
-      return await res.json();
-    }catch(_){ return null; }
-  }
-
-  async function loadMergedDict(lang) {
-    const base = await safeFetchJson(`lang/${lang}.json`);
-    const page = await safeFetchJson(`lang/pages/index.${lang}.json`);
-    return Object.assign({}, base||{}, page||{});
-  }
-
-  function applyDict(dict, langCode) {
-    let missing = 0;
-    document.querySelectorAll("[data-i18n]").forEach(el => {
-      const key = el.getAttribute("data-i18n");
-      const val = get(dict, key);
-      if (val != null) el.textContent = val;
-      else missing++;
-    });
-
-    const metaTitle = get(dict, "meta.title");
-    if (metaTitle) document.title = metaTitle;
-
-    window.__i18nDict = dict || {};
-    document.documentElement.setAttribute("lang", langCode);
-    document.documentElement.setAttribute("dir", langCode === 'ar' ? 'rtl' : 'ltr');
-
-    if (window.updateThemeLabel) updateThemeLabel();
-
-    if (missing > 0) {
-      console.warn(`[i18n] ${missing} clé(s) manquante(s) dans les dictionnaires pour cette page.`);
+    function closeDrawer(){
+      html.classList.remove('mobile-open'); body.classList.remove('mobile-open');
+      drawer.setAttribute('aria-hidden','true'); btn.setAttribute('aria-expanded','false');
+      setTimeout(()=>{backdrop.hidden=true;},200);
     }
-  }
-
-  function restoreEnglish(){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if (el.dataset.i18nOriginal != null) el.textContent = el.dataset.i18nOriginal;
+    btn.addEventListener('click',()=>{
+      html.classList.contains('mobile-open') ? closeDrawer() : openDrawer();
     });
-    window.__i18nDict = {};
-    document.documentElement.setAttribute("lang", "en");
-    document.documentElement.setAttribute("dir", "ltr");
-    if (window.updateThemeLabel) updateThemeLabel();
-  }
-
-  let current = currentLang();
-
-  async function setLang(lang) {
-    if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
-    current = lang;
-    try { localStorage.setItem('lang', lang); } catch(e) {}
-
-    const u = new URL(location.href);
-    u.searchParams.set("lang", lang);
-    history.replaceState({}, "", u.pathname + u.search + location.hash);
-
-    if (lang === 'en') { restoreEnglish(); return; }
-
-    try{
-      const dict = await loadMergedDict(lang);
-      if (!dict) { restoreEnglish(); return; }
-      applyDict(dict, lang);
-    }catch(err){
-      console.error("[i18n] failed to load", lang, err);
-      restoreEnglish();
-    }
-  }
-
-  window.setLangFromMenu = setLang;
-
-  (function initLangToggleLabel(){
-    const btn = document.getElementById('langToggle');
-    if (!btn) return;
-    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
-    const lang = current;
-    btn.textContent = (map[lang] || 'EN') + ' ▾';
-  })();
-
-  setLang(current);
-
-  document.addEventListener("click", (e) => {
-    const b = e.target.closest("[data-lang]");
-    if (!b) return;
-    e.preventDefault();
-    setLang(b.getAttribute("data-lang"));
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
+    drawer.addEventListener('click', (e)=>{
+      const a = e.target.closest('a'); if (a) closeDrawer();
+      const lb = e.target.closest('.lang-btn[data-lang]');
+      if (lb){ e.preventDefault(); applyLang(lb.dataset.lang); closeDrawer(); }
+    });
   });
 })();
-  </script>
-
-  <!-- Contrôle hamburger (préservé) -->
-  <script>
-    (function(){
-      const html = document.documentElement;
-      const body = document.body;
-      const btn = document.getElementById('hamburgerBtn');
-      const drawer = document.getElementById('mobile-drawer');
-      const backdrop = document.getElementById('mobileBackdrop');
-      const closeBtn = document.getElementById('mobileCloseBtn');
-
-      function openDrawer(){
-        html.classList.add('mobile-open');
-        body.classList.add('mobile-open');
-        drawer.setAttribute('aria-hidden','false');
-        btn.setAttribute('aria-expanded','true');
-        backdrop.hidden = false;
-      }
-      function closeDrawer(){
-        html.classList.remove('mobile-open');
-        body.classList.remove('mobile-open');
-        drawer.setAttribute('aria-hidden','true');
-        btn.setAttribute('aria-expanded','false');
-        setTimeout(()=>{backdrop.hidden = true;}, 200);
-      }
-
-      if (btn){
-        btn.addEventListener('click', ()=>{
-          const isOpen = html.classList.contains('mobile-open');
-          if (isOpen) closeDrawer(); else openDrawer();
-        });
-      }
-      if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-      if (backdrop) backdrop.addEventListener('click', closeDrawer);
-      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
-
-      drawer.addEventListener('click', (e)=>{
-        const a = e.target.closest('a');
-        if (a) closeDrawer();
-      });
-
-      drawer.addEventListener('click', (e)=>{
-        const b = e.target.closest('.lang-btn[data-lang]');
-        if (!b) return;
-        e.preventDefault();
-        if (window.setLangFromMenu) window.setLangFromMenu(b.dataset.lang);
-        closeDrawer();
-      });
-    })();
-  </script>
+</script>
 </body>
 </html>
