@@ -3,11 +3,18 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — Youssef Chabbou</title>
 
-<!-- Précharge l'image de fond pour éviter le flash -->
 <link rel="preload" as="image" href="background.jpg" />
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,500&display=swap" rel="stylesheet">
+
 <style>
+  /* ============================================================
+     COLOR TOKENS — STRICTLY PRESERVED
+     ============================================================ */
   :root{
     --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85);
     --edge:24px;
@@ -28,25 +35,156 @@
   }
   body::before{
     content:"";position:fixed;inset:0;z-index:-2;
-    background:url('background.jpg') no-repeat center/cover
+    background:
+      linear-gradient(rgba(255,255,255,.62), rgba(255,255,255,.62)),
+      url('background.jpg') no-repeat center/cover;
+  }
+  [data-theme="dark"] body::before{
+    background:
+      linear-gradient(rgba(13,17,23,.62), rgba(13,17,23,.62)),
+      url('background.jpg') no-repeat center/cover;
   }
 
-  .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
+  /* Editorial typography helpers */
+  .display{font-family:'Fraunces', Georgia, serif;font-weight:300;letter-spacing:-0.025em;line-height:1}
+  .display em{font-style:italic;font-weight:300}
+  .mono{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  }
+  html[dir="rtl"] .display{font-family: system-ui,-apple-system,sans-serif;letter-spacing:0}
+
+  /* ============================================================
+     TOP BAND — same identity as index.html
+     ============================================================ */
+  .top-band{
+    position:sticky;top:0;width:100%;
+    background:rgba(11,95,165,.35);
+    backdrop-filter:blur(14px) saturate(170%);
+    -webkit-backdrop-filter:blur(14px) saturate(170%);
+    z-index:1000;
+  }
+  [data-theme="dark"] .top-band{background:rgba(11,95,165,.22)}
+  .top-band::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+    background:linear-gradient(90deg, transparent 0%, rgba(11,95,165,.28) 50%, transparent 100%);
+    z-index:0;pointer-events:none;
+  }
+  [data-theme="dark"] .top-band::after{
+    background:linear-gradient(90deg, transparent, rgba(88,166,255,.32) 50%, transparent);
+  }
+
   .container{max-width:1200px;margin:auto;padding:24px}
   header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px}
-  header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block}
-  nav{display:flex;gap:40px;align-items:center}
-  nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer}
-  nav a:hover{opacity:1;text-decoration:underline}
-  .menu{position:relative}
-  .submenu{position:absolute;top:100%;left:0;background:var(--card);border:1px solid var(--ring);border-radius:8px;min-width:160px;box-shadow:0 6px 18px rgba(0,0,0,.08);opacity:0;transform:translateY(-10px);transition:opacity .25s ease,transform .25s ease;display:none}
-  .submenu.show{display:block;opacity:1;transform:translateY(0)}
-  .submenu a{display:block;padding:6px 10px;color:var(--fg);text-decoration:none;cursor:default}
-  .submenu a:hover{background:var(--ring)}
-  .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s}
+  header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block;transition:transform .25s ease}
+  header img.signature:hover{transform:translateY(-1px)}
 
+  nav{display:flex;gap:34px;align-items:center}
+  nav a{
+    position:relative;
+    font-weight:500;text-decoration:none;color:var(--fg);
+    opacity:.92;cursor:pointer;font-size:14px;letter-spacing:0.01em;
+    padding:6px 0;transition:color .2s, opacity .2s;
+  }
+  nav a::after{
+    content:"";position:absolute;bottom:-2px;left:0;
+    width:0;height:1px;background:var(--brand);
+    transition:width .3s cubic-bezier(0.16,1,0.3,1);
+  }
+  nav a:hover{color:var(--brand);opacity:1}
+  nav a:hover::after{width:100%}
+  html[dir="rtl"] nav a::after{left:auto;right:0}
+
+  .menu{position:relative;display:flex;align-items:center;gap:2px;z-index:50}
+  .submenu{
+    position:absolute;top:100%;left:0;
+    background:var(--card);border:1px solid var(--ring);border-radius:10px;
+    min-width:200px;
+    box-shadow:0 14px 32px rgba(11,95,165,.12), 0 1px 0 rgba(255,255,255,.6) inset;
+    opacity:0;transform:translateY(-10px);transition:opacity .25s, transform .25s;
+    display:none;padding:6px;margin-top:10px;
+    z-index:50;
+  }
+  [data-theme="dark"] .submenu{box-shadow:0 14px 32px rgba(0,0,0,.4)}
+  .submenu.show{display:block;opacity:1;transform:translateY(0)}
+  .submenu a{
+    display:block;padding:9px 12px;color:var(--fg);text-decoration:none;
+    cursor:pointer;border-radius:7px;font-size:14px;
+    transition:background .18s, color .18s, padding-left .18s;
+  }
+  .submenu a:hover{background:var(--ring);color:var(--brand);padding-left:16px}
+  html[dir="rtl"] .submenu a:hover{padding-left:12px;padding-right:16px}
+
+  .toggle{
+    border:1px solid var(--ring);background:transparent;color:var(--fg);
+    padding:6px 10px;border-radius:8px;cursor:pointer;
+    transition:background .25s,color .25s,border-color .25s;font-size:13px;
+  }
+  .toggle:hover{border-color:var(--brand);color:var(--brand)}
+
+  /* ============================================================
+     PAGE HERO — modern, captivating, NO video
+     A clean editorial header with breadcrumb, large title,
+     mono section counter, and a discreet horizon line.
+     ============================================================ */
+  .page-hero{
+    position:relative;
+    padding:72px 24px 48px;
+    isolation:isolate;
+    overflow:hidden;
+  }
+  /* Soft gradient frame in brand colors */
+  .page-hero::before{
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:
+      radial-gradient(60% 80% at 12% 0%, rgba(11,95,165,.16), transparent 55%),
+      radial-gradient(45% 55% at 90% 25%, rgba(88,166,255,.16), transparent 55%);
+  }
+  [data-theme="dark"] .page-hero::before{
+    background:
+      radial-gradient(60% 80% at 12% 0%, rgba(88,166,255,.18), transparent 55%),
+      radial-gradient(45% 55% at 90% 25%, rgba(11,95,165,.28), transparent 55%);
+  }
+  .hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+  .hero-left{min-width:0}
+
+  .breadcrumbs{
+    display:flex;gap:10px;align-items:center;margin-bottom:18px;
+    color:var(--muted);
+  }
+  .breadcrumbs a{color:var(--muted);text-decoration:none;transition:color .2s}
+  .breadcrumbs a:hover{color:var(--brand)}
+  .breadcrumbs .sep{opacity:.5}
+  .breadcrumbs .current{color:var(--brand)}
+
+  .hero-title{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:300;letter-spacing:-0.025em;
+    font-size:clamp(40px, 6vw, 72px);
+    line-height:1.02;color:var(--fg);
+    margin:0 0 16px;max-width:18ch;
+  }
+  .hero-title em{font-style:italic;color:var(--brand)}
+  html[dir="rtl"] .hero-title{font-family: system-ui,-apple-system,sans-serif;letter-spacing:0}
+
+  .hero-sub{
+    color:var(--muted);font-size:16px;max-width:60ch;margin:0;
+  }
+
+  .hero-counter{
+    display:flex;align-items:center;gap:10px;color:var(--muted);
+    align-self:end;
+    white-space:nowrap;
+  }
+  .hero-counter::before{
+    content:"";display:block;width:32px;height:1px;background:var(--ring);
+  }
+  .hero-counter strong{color:var(--brand);font-weight:500}
+
+  /* ============================================================
+     SECTIONS — original layout preserved
+     ============================================================ */
   .page{max-width:1200px;margin:0 auto;padding:48px var(--edge) 24px;z-index:1;position:relative}
-  .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
 
   .sections{max-width:1200px;margin:0 auto;padding:32px 0 96px}
   .alt-section{
@@ -60,42 +198,75 @@
     background: rgba(255,255,255,0.75);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border-radius:24px;padding:28px var(--card-pad);
-    box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
-    color:#111827;height:100%;display:flex;flex-direction:column
+    box-shadow:
+      0 20px 50px -20px rgba(11,95,165,.18),
+      0 1px 0 rgba(255,255,255,.6) inset,
+      0 0 0 1px rgba(11,95,165,.04);
+    border:1px solid rgba(255,255,255,.4);
+    color:#111827;height:100%;display:flex;flex-direction:column;
+    transition:transform .5s cubic-bezier(0.16,1,0.3,1), box-shadow .5s, border-color .5s;
+  }
+  .alt-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(11,95,165,.28);
+    box-shadow:0 28px 60px -20px rgba(11,95,165,.26), 0 1px 0 rgba(255,255,255,.7) inset;
   }
   [data-theme="dark"] .alt-card{
     background: rgba(0,0,0,0.55);
-    box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;
+    border-color:rgba(255,255,255,.08);
+    box-shadow:0 20px 50px -20px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.04) inset;
     color:#eaeef5;
   }
+  [data-theme="dark"] .alt-card:hover{border-color:rgba(88,166,255,.3)}
 
   .alt-eyebrow{
     display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
     margin:0 0 10px;padding:6px 14px;border-radius:999px;
-    color:#0f172a;
-    background: linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
+    color:var(--brand);
+    background: linear-gradient(90deg, rgba(11,95,165,.14), rgba(11,95,165,.04));
+    border:1px solid rgba(11,95,165,.18);
   }
   [data-theme="dark"] .alt-eyebrow{
-    color:#e6eef8;
+    color:#9bc4ec;
     background: linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));
     border:1px solid rgba(88,166,255,.28);
   }
 
-  .alt-title{font-size:clamp(22px,2.8vw,36px);line-height:1.18;margin:0 0 12px;color:var(--fg)}
+  .alt-title{
+    font-family:'Fraunces', Georgia, serif;font-weight:300;
+    font-size:clamp(26px,3.2vw,40px);line-height:1.08;letter-spacing:-0.02em;
+    margin:0 0 12px;color:var(--fg);
+  }
   [data-theme="dark"] .alt-title{color:#f3f6fb}
-  .alt-text{margin:0;color:#111827;font-size:16px}
-  [data-theme="dark"] .alt-text{color:#eaeef5}
+  html[dir="rtl"] .alt-title{font-family:system-ui,-apple-system,sans-serif;letter-spacing:0}
 
-  .step-title{font-size:20px;margin:16px 0 6px;color:var(--fg)}
+  .alt-text{margin:0;color:#374151;font-size:16px;line-height:1.7}
+  [data-theme="dark"] .alt-text{color:#c9d1d9}
+
+  .step-title{
+    font-size:18px;font-weight:600;margin:18px 0 6px;color:var(--fg);
+    letter-spacing:-0.005em;
+  }
   [data-theme="dark"] .step-title{color:#f3f6fb}
 
-  .alt-media{border-radius:26px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.16);height:100%}
+  .alt-media{border-radius:26px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.16);height:100%;position:relative}
   .stacked-photos{display:grid;grid-template-rows:1fr 1fr;height:100%;gap:16px;padding:16px;background:rgba(255,255,255,0.10)}
   [data-theme="dark"] .stacked-photos{background:rgba(0,0,0,0.18)}
-  .stacked-photos figure{margin:0;overflow:hidden;border-radius:18px}
-  .stacked-photos img{width:100%;height:100%;object-fit:cover;display:block;transition: transform .35s ease, filter .35s ease;will-change: transform}
+  .stacked-photos figure{margin:0;overflow:hidden;border-radius:18px;position:relative}
+  .stacked-photos img{width:100%;height:100%;object-fit:cover;display:block;transition: transform .4s ease;will-change:transform}
   .stacked-photos figure:hover img,
   .stacked-photos figure:focus-within img{transform: scale(1.04)}
+
+  /* Caption tag on photos for editorial polish */
+  .photo-tag{
+    position:absolute;bottom:10px;left:10px;
+    padding:5px 10px;font-family:ui-monospace,monospace;
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    background:rgba(13,17,23,.7);color:#fff;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-radius:99px;border:1px solid rgba(255,255,255,.15);z-index:2;
+  }
+  html[dir="rtl"] .photo-tag{left:auto;right:10px}
 
   .eyebrow-stack{display:inline-block;position:relative;margin:6px 0 18px}
   .eyebrow-stack::before{
@@ -103,6 +274,7 @@
     background:rgba(255,255,255,0.95);
     border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.08);z-index:0
   }
+  [data-theme="dark"] .eyebrow-stack::before{background:rgba(13,17,23,.85)}
   .eyebrow-stack .alt-eyebrow{position:relative;z-index:1;margin:0}
 
   .block-align{ padding-left:var(--edge); padding-right:var(--edge) }
@@ -112,28 +284,85 @@
     display:flex;align-items:center;justify-content:space-between;
     border:1px solid var(--ring);border-radius:18px;padding:16px 18px;margin:14px 0;
     background:rgba(255,255,255,0.90);
+    transition:border-color .25s, transform .25s, box-shadow .25s;
+    gap:14px;flex-wrap:wrap;
+  }
+  .cv-row:hover{
+    border-color:rgba(11,95,165,.35);
+    box-shadow:0 18px 40px -20px rgba(11,95,165,.28);
+    transform:translateY(-2px);
   }
   [data-theme="dark"] .cv-row{background:rgba(0,0,0,0.78)}
-  .cv-label{font-weight:700;font-size:22px}
+  [data-theme="dark"] .cv-row:hover{border-color:rgba(88,166,255,.4)}
+
+  .cv-label{font-weight:600;font-size:18px;flex:1 1 280px;line-height:1.3}
   .btn-download{
     display:inline-flex;align-items:center;gap:10px;
     padding:12px 18px;border-radius:999px;border:0;
     background: linear-gradient(180deg, var(--brand), #0a5695);
-    color:#fff;text-decoration:none;font-weight:700;
+    color:#fff;text-decoration:none;font-weight:600;font-size:14px;
     box-shadow:0 8px 18px rgba(11,95,165,.25);
     transform:translateZ(0); transition: transform .05s ease, box-shadow .2s ease, opacity .2s ease;
     white-space:nowrap;
   }
   .btn-download:hover{opacity:.96;box-shadow:0 10px 22px rgba(11,95,165,.32)}
   .btn-download:active{transform:translateY(1px)}
-  .btn-download svg{width:18px;height:18px;flex:0 0 18px}
+  .btn-download svg{width:16px;height:16px;flex:0 0 16px}
 
   .anchor{scroll-margin-top: var(--anchor-offset)}
 
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(0.16,1,0.3,1), transform .8s cubic-bezier(0.16,1,0.3,1)}
+  .reveal.in{opacity:1;transform:translateY(0)}
+
+  /* ============================================================
+     FOOTER — same as index.html
+     ============================================================ */
+  .footer-band{
+    background-color:rgba(11,95,165,.6);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    color:#fff;margin-top:auto;position:relative;z-index:1;
+    padding:32px 32px 28px;
+  }
+  .footer-band::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg, transparent 0%, #58a6ff 25%, #fff 50%, #58a6ff 75%, transparent 100%);
+    opacity:.7;
+  }
+  .footer-grid{
+    max-width:1200px;margin:0 auto;
+    display:grid;grid-template-columns:1.1fr 1fr 1.4fr;gap:36px;align-items:start;
+  }
+  .footer-brand-block{display:flex;flex-direction:column;gap:6px}
+  .footer-brand-name{font-family:'Fraunces', Georgia, serif;font-weight:300;font-style:italic;font-size:22px;letter-spacing:-0.01em;color:#fff}
+  .footer-brand-tag{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+  .footer-nav{display:flex;flex-direction:column;gap:6px}
+  .footer-nav-title{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px}
+  .footer-nav a{color:rgba(255,255,255,.92);text-decoration:none;font-size:13.5px;transition:color .2s}
+  .footer-nav a:hover{color:#9bc4ec}
+  .footer-meta{display:flex;flex-direction:column;gap:8px;text-align:right}
+  html[dir="rtl"] .footer-meta{text-align:left}
+  .footer-meta-line{font-size:11.5px;color:rgba(255,255,255,.78);line-height:1.5}
+  .footer-copy{font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;color:rgba(255,255,255,.6);text-transform:uppercase}
+
+  .lang-menu{display:inline-block;margin-right:6px}
+  .lang-menu .toggle{font-size:12px;padding:5px 10px;border-radius:8px}
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media(max-width:1000px){
+    nav{gap:22px}
+  }
   @media(max-width:900px){
     .alt-section{grid-template-columns:1fr}
     #background .alt-media{height:auto !important}
     :root{ --anchor-offset: 72px; }
+    .hero-inner{grid-template-columns:1fr;gap:14px}
+    .hero-counter{justify-self:start}
+    html[dir="rtl"] .hero-counter{justify-self:end}
+    .footer-grid{grid-template-columns:1fr;gap:24px}
+    .footer-meta{text-align:left}
+    html[dir="rtl"] .footer-meta{text-align:right}
   }
   @media(max-width:640px){
     :root{ --edge:16px; --anchor-offset: 64px; }
@@ -146,9 +375,11 @@
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
     html,body{overflow-x:hidden}
+    .page-hero{padding:48px 18px 28px}
+    .footer-band{padding:24px 18px}
   }
 
-  /* Corrections ciblées BACKGROUND (rendu inchangé) */
+  /* Background section overrides preserved */
   #background{ align-items:start; }
   #background .alt-card{ height:auto; }
   #background .alt-media{ height:auto; }
@@ -156,9 +387,7 @@
   #background .stacked-photos figure{ height:100%; }
   #background .stacked-photos img{ object-fit:cover; }
 
-  /* =========================
-     AJOUTS : HAMBURGER MOBILE
-     ========================= */
+  /* HAMBURGER + DRAWER preserved */
   .hamburger-btn{display:none;appearance:none;border:0;background:transparent;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer}
   .hamburger-btn span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;position:relative}
   .hamburger-btn span::before,.hamburger-btn span::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--fg);border-radius:2px}
@@ -176,7 +405,6 @@
   .mobile-drawer .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:var(--bg)}
   .mobile-drawer .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
   .mobile-drawer .lang-btn:active{transform:scale(.98)}
-
   .mobile-open .mobile-backdrop{opacity:1;pointer-events:auto}
   .mobile-open .mobile-drawer{transform:translateX(0)}
 
@@ -184,87 +412,43 @@
     .hamburger-btn{display:flex}
     .top-band nav{display:none !important}
     .lang-menu{display:none !important}
-    .top-band header{
-      display:grid;
-      grid-template-columns:40px 1fr auto;
-      align-items:center;
-      gap:8px;
-    }
+    .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px}
     .top-band header > a[href="index.html#home"]{justify-self:center}
     #themeToggle{justify-self:end}
   }
-
   .hamburger-btn:focus-visible,.mobile-drawer a:focus-visible,.lang-btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
   @media (prefers-reduced-motion:reduce){
     .mobile-backdrop,.mobile-drawer{transition:none}
+    .reveal{opacity:1;transform:none;transition:none}
   }
 
-  .mobile-heading{
-    margin:14px 12px 6px;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color: var(--muted);
-    border-top:1px solid var(--ring);
-    padding-top:10px;
-  }
-  .mobile-group{ padding:2px 0 8px; }
-  .mobile-group > a{ display:block; padding:10px 12px; border-radius:10px; }
-  .mobile-sub{
-    padding:0 12px 10px;
-    margin:2px 0 6px;
-    border-left:2px solid var(--ring);
-  }
-  .mobile-sub a{
-    display:block;
-    padding:8px 12px 8px 10px;
-    border-radius:8px;
-  }
-  .mobile-sep{ height:8px; }
+  .mobile-heading{margin:14px 12px 6px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ring);padding-top:10px}
+  .mobile-group{padding:2px 0 8px}
+  .mobile-group > a{display:block;padding:10px 12px;border-radius:10px}
+  .mobile-sub{padding:0 12px 10px;margin:2px 0 6px;border-left:2px solid var(--ring)}
+  .mobile-sub a{display:block;padding:8px 12px 8px 10px;border-radius:8px}
 
-  /* header sticky + scroll interne */
-  .mobile-drawer header{
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    background: var(--bg);
-    border-bottom: 1px solid var(--ring);
-    padding-top: calc(14px + env(safe-area-inset-top, 0px));
-  }
-  .mobile-drawer nav{
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 16px;
-  }
-  .mobile-drawer nav .mobile-heading:first-of-type{
-    margin-top: 12px;
-    border-top: 0;
-    padding-top: 0;
-  }
+  .mobile-drawer header{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--ring);padding-top:calc(14px + env(safe-area-inset-top, 0px))}
+  .mobile-drawer nav{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:16px}
+  .mobile-drawer nav .mobile-heading:first-of-type{margin-top:12px;border-top:0;padding-top:0}
+  html.mobile-open, body.mobile-open{overflow:hidden}
 
-  html.mobile-open, body.mobile-open{ overflow: hidden; }
-
-  /* RTL dynamique */
-  html[dir="rtl"] body{ direction: rtl; }
-  html[dir="rtl"] .alt-card, html[dir="rtl"] .lead, html[dir="rtl"] p, html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] a{ text-align:right; }
-  html[dir="rtl"] nav{ justify-content:flex-end; }
-  html[dir="rtl"] .submenu{ left:auto; right:0; }
-  html[dir="rtl"] .mobile-drawer{ left:auto; right:0; transform:translateX(102%); }
-  html.mobile-open[dir="rtl"] .mobile-drawer{ transform:translateX(0); }
-  html[dir="rtl"] .mobile-sub{ border-left:none; border-right:2px solid var(--ring); }
+  /* RTL */
+  html[dir="rtl"] body{direction:rtl}
+  html[dir="rtl"] .alt-card,html[dir="rtl"] p,html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3,html[dir="rtl"] a{text-align:right}
+  html[dir="rtl"] nav{justify-content:flex-end}
+  html[dir="rtl"] .submenu{left:auto;right:0}
+  html[dir="rtl"] .mobile-drawer{left:auto;right:0;transform:translateX(102%)}
+  html.mobile-open[dir="rtl"] .mobile-drawer{transform:translateX(0)}
+  html[dir="rtl"] .mobile-sub{border-left:none;border-right:2px solid var(--ring)}
   @media (max-width:640px){
-    html[dir="rtl"] .top-band header{
-      grid-template-columns:auto 1fr 40px;
-    }
-    html[dir="rtl"] #themeToggle{ justify-self:start; }
-    html[dir="rtl"] .top-band header > a[href="index.html#home"]{ justify-self:center; }
+    html[dir="rtl"] .top-band header{grid-template-columns:auto 1fr 40px}
+    html[dir="rtl"] #themeToggle{justify-self:start}
+    html[dir="rtl"] .top-band header > a[href="index.html#home"]{justify-self:center}
   }
 </style>
 
 <script>
-/* Utilitaires i18n + thème */
 function i18nGet(key, fallback){
   try{ let v = window.__i18nDict; for (const p of key.split('.')) v = v && v[p]; return v ?? fallback; }
   catch(e){ return fallback; }
@@ -301,7 +485,7 @@ document.addEventListener('click',closeMenusOnInteraction,{passive:true});
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
-/* ----- Synchronisation de hauteur pour BACKGROUND ----- */
+/* Background height sync */
 function syncBackgroundHeights(){
   const section = document.getElementById('background');
   if(!section) return;
@@ -351,8 +535,6 @@ document.addEventListener('DOMContentLoaded', function(){
       try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
       setTimeout(syncBackgroundHeights, 60);
     });
-
-    // ── MODIFICATION : label bouton lit localStorage en fallback ──
     try{
       const params=new URLSearchParams(location.search);
       let lang = 'en';
@@ -420,10 +602,9 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
   <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <header>
-      <strong data-i18n="nav.about">Menu</strong>
+      <strong data-i18n="ui.menu">Menu</strong>
       <button class="toggle" type="button" id="mobileCloseBtn" aria-label="Close menu">✕</button>
     </header>
-
     <nav aria-label="Mobile navigation">
       <div class="mobile-heading" data-i18n="nav.about">About</div>
       <div class="mobile-group">
@@ -435,12 +616,10 @@ document.addEventListener('DOMContentLoaded', function(){
           <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
         </div>
       </div>
-
       <div class="mobile-heading" data-i18n="nav.skills">Skills</div>
       <div class="mobile-group">
         <a href="skills.html" data-i18n="nav.skills">Skills</a>
       </div>
-
       <div class="mobile-heading" data-i18n="nav.projects">Projects</div>
       <div class="mobile-group">
         <a href="projects.html" data-i18n="nav.projects">Projects</a>
@@ -449,13 +628,11 @@ document.addEventListener('DOMContentLoaded', function(){
           <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
         </div>
       </div>
-
       <div class="mobile-heading" data-i18n="nav.contact">Contact</div>
       <div class="mobile-group">
         <a href="contact.html" data-i18n="nav.contact">Contact</a>
       </div>
     </nav>
-
     <div class="lang-grid" aria-label="Language">
       <button class="lang-btn" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="fr">FR</button>
@@ -464,73 +641,98 @@ document.addEventListener('DOMContentLoaded', function(){
     </div>
   </aside>
 
+  <!-- ============================================================
+       PAGE HERO — editorial, no video
+       ============================================================ -->
+  <section class="page-hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="breadcrumbs mono">
+          <a href="index.html#home" data-i18n="ui.home">Home</a>
+          <span class="sep">/</span>
+          <span class="current" data-i18n="nav.about">About</span>
+        </div>
+        <h1 class="hero-title">
+          <span data-i18n="about.hero.title_a">A focused path in</span>
+          <em data-i18n="about.hero.title_b">aerospace engineering.</em>
+        </h1>
+        <p class="hero-sub" data-i18n="about.hero.sub">From early curiosity to applied work: background, training, and the systems I build today.</p>
+      </div>
+      <div class="hero-counter mono"><span data-i18n="ui.section">Section</span>&nbsp;<strong>02</strong>&nbsp;/&nbsp;06</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTIONS
+       ============================================================ -->
   <main class="page" id="main">
     <div class="sections">
 
-      <!-- ===== PROFILE ===== -->
+      <!-- ===== PROFILE — sober rewrite, "Today" first ===== -->
       <section id="profile" class="alt-section reveal anchor">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Profile</p>
-          <h3 class="alt-title" data-i18n="about.sections.who.title">Born and raised in Tunisia</h3>
-          <p class="alt-text" data-i18n="about.sections.who.tn">
-            A Mediterranean crossroads where history shaped open minds. From Carthage's legacy to vibrant craftsmanship and engineering talent today, Tunisia taught me curiosity, resilience, and a taste for precise, beautiful work.
-          </p>
-
-          <h4 class="step-title" data-i18n="about.sections.who.flight_title">First flight, first spark (2011)</h4>
-          <p class="alt-text" data-i18n="about.sections.who.flight_text">
-            I was seven, facing an Airbus A320 I never imagined so large. The engines felt monumental. Take-off scared me; cruise won me over. That mix of power and calm never left me—and it quietly set my path toward aerospace.
-          </p>
-
-          <h4 class="step-title" data-i18n="about.sections.who.maker_title">Making things my way</h4>
-          <p class="alt-text" data-i18n="about.sections.who.maker_text">
-            Even as a kid, I customized my toys—nothing standard for long. I liked to tweak, refine, and give parts a purpose. That habit of building and improving became my way of thinking.
-          </p>
+          <h3 class="alt-title display" data-i18n="about.sections.who.title">Engineering with focus and intent</h3>
 
           <h4 class="step-title" data-i18n="about.sections.who.now_title">Today</h4>
-          <p class="alt-text" data-i18n="about.sections.who.now_text">
-            I'm currently based in Germany, growing through studies and early professional projects. It's a grounded, steady journey—focused on learning, teamwork, and turning ideas into dependable aerospace work.
-          </p>
+          <p class="alt-text" data-i18n="about.sections.who.now_text">Currently based in Germany, focused on aviation: mechanical design, embedded systems, and software development for embedded platforms. The aim is steady. Bring rigor to each step, and ship work that performs.</p>
+
+          <h4 class="step-title" data-i18n="about.sections.who.maker_title">Approach</h4>
+          <p class="alt-text" data-i18n="about.sections.who.maker_text">A long-standing interest in how things work and how they can work better. That instinct to refine, to simplify, to give every component a purpose, shapes my engineering practice today.</p>
+
+          <h4 class="step-title" data-i18n="about.sections.who.flight_title">Origin</h4>
+          <p class="alt-text" data-i18n="about.sections.who.flight_text">Aerospace caught my attention early. A first flight at seven made an impression that stayed: the contrast between raw power and quiet stability set the direction long before I had the words for it.</p>
+
+          <h4 class="step-title" data-i18n="about.sections.who.tn_title">Roots</h4>
+          <p class="alt-text" data-i18n="about.sections.who.tn">Born and raised in Tunisia, a context that values curiosity, resilience, and care for craft. Those habits carried into how I approach engineering: deliberate, structured, and built to last.</p>
         </div>
 
         <div class="alt-media">
           <div class="stacked-photos" style="grid-template-rows: 1fr 1fr;">
-            <figure><img src="tunisia-skyline.jpg" alt="Tunisia — Mediterranean light" loading="lazy" decoding="async"></figure>
-            <figure><img src="first-flight-seat.jpg" alt="Childhood travel moment" loading="lazy" decoding="async"></figure>
+            <figure>
+              <img src="tunisia-skyline.jpg" alt="Tunisia, Mediterranean light" loading="lazy" decoding="async">
+              <span class="photo-tag" data-i18n="about.sections.who.photo1">Origin</span>
+            </figure>
+            <figure>
+              <img src="first-flight-seat.jpg" alt="Childhood travel moment" loading="lazy" decoding="async">
+              <span class="photo-tag" data-i18n="about.sections.who.photo2">First flight</span>
+            </figure>
           </div>
         </div>
       </section>
 
-      <!-- ===== BACKGROUND ===== -->
+      <!-- ===== BACKGROUND — sober rewrite ===== -->
       <section id="background" class="alt-section reveal anchor">
         <div class="alt-card">
           <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
+          <h3 class="alt-title display" data-i18n="about.sections.background.title">A structured education across two countries</h3>
 
-          <h4 class="step-title" data-i18n="about.sections.background.p1_title">Childhood</h4>
-          <p class="alt-text" data-i18n="about.sections.background.p1">
-            I completed my primary education in Tunis, where I began learning English at the age of seven. During this period, I regularly took part in various sports, associative, and intellectual clubs.
-          </p>
+          <h4 class="step-title" data-i18n="about.sections.background.p1_title">Early education</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p1">Primary schooling in Tunis, with English studied from the age of seven. Outside the classroom, regular involvement in sports, cultural, and academic clubs supported a steady, well-rounded foundation.</p>
 
-          <h4 class="step-title" data-i18n="about.sections.background.p2_title">High School Years</h4>
-          <p class="alt-text" data-i18n="about.sections.background.p2">
-            I attended the elite school Lycée Pilote El Menzah 8, where I strengthened my academic foundation, particularly in mathematics and physics, and started learning German at the age of seventeen. Throughout these years, I was also an active member of the charitable club Interact, which helped me develop valuable soft skills such as teamwork, communication, and leadership.
-          </p>
+          <h4 class="step-title" data-i18n="about.sections.background.p2_title">Secondary studies</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p2">Attended Lycée Pilote El Menzah 8, a selective high school, with a strong focus on mathematics and physics. German added at seventeen. Active member of the Interact charitable club, an environment that built practical teamwork, communication, and leadership skills.</p>
 
-          <h4 class="step-title" data-i18n="about.sections.background.p3_title">Higher Education in Germany</h4>
-          <p class="alt-text" data-i18n="about.sections.background.p3">
-            After high school, I moved to Germany to pursue my university studies — a new and exciting chapter in my academic and personal journey.
-          </p>
+          <h4 class="step-title" data-i18n="about.sections.background.p3_title">Higher education</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p3">Continued my studies in Germany, pursuing aerospace engineering at university level, the framework within which my current technical work has been built.</p>
         </div>
 
         <div class="alt-media">
           <div class="stacked-photos">
-            <figure><img src="school-tunis.jpg" alt="School years in Tunis" loading="lazy" decoding="async" onload="syncBackgroundHeights()"></figure>
-            <figure><img src="interact-club.jpg" alt="Club & volunteer activities" loading="lazy" decoding="async" onload="syncBackgroundHeights()"></figure>
+            <figure>
+              <img src="school-tunis.jpg" alt="School years in Tunis" loading="lazy" decoding="async" onload="syncBackgroundHeights()">
+              <span class="photo-tag" data-i18n="about.sections.background.photo1">Lycée Pilote</span>
+            </figure>
+            <figure>
+              <img src="interact-club.jpg" alt="Interact club activities" loading="lazy" decoding="async" onload="syncBackgroundHeights()">
+              <span class="photo-tag" data-i18n="about.sections.background.photo2">Interact club</span>
+            </figure>
           </div>
         </div>
       </section>
 
       <!-- ===== CV ===== -->
-      <section id="cv" class="anchor">
+      <section id="cv" class="anchor reveal">
         <div class="block-align">
           <div class="eyebrow-stack inset-left">
             <span class="alt-eyebrow" data-i18n="about.sections.cv.ribbon">Curriculum Vitae</span>
@@ -538,15 +740,15 @@ document.addEventListener('DOMContentLoaded', function(){
 
           <div class="cv-row">
             <div class="cv-label" data-i18n="about.sections.cv.row_basic">Curriculum Vitae</div>
-            <a id="cv-basic-btn" class="btn-download" href="#" target="_blank" rel="noopener" data-i18n="ui.download">
+            <a id="cv-basic-btn" class="btn-download" href="#" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
               <span data-i18n="ui.download">Download</span>
             </a>
           </div>
 
           <div class="cv-row">
-            <div class="cv-label" data-i18n="about.sections.cv.row_extended">Curriculum Vitae — Extended version</div>
-            <a id="cv-extended-btn" class="btn-download" href="#" target="_blank" rel="noopener" data-i18n="ui.download">
+            <div class="cv-label" data-i18n="about.sections.cv.row_extended">Curriculum Vitae, Extended Version</div>
+            <a id="cv-extended-btn" class="btn-download" href="#" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
               <span data-i18n="ui.download">Download</span>
             </a>
@@ -555,17 +757,23 @@ document.addEventListener('DOMContentLoaded', function(){
       </section>
 
       <!-- ===== CERTIFICATIONS ===== -->
-      <section id="certs" class="anchor">
+      <section id="certs" class="anchor reveal">
         <div class="block-align">
           <div class="eyebrow-stack inset-left">
             <span class="alt-eyebrow" data-i18n="nav.about_menu.certs">Certifications</span>
           </div>
 
           <div class="cv-row">
-            <div class="cv-label" data-i18n="about.sections.certs.admin_service">
-              Certificate for Administrative Service within a Humanitarian Organization
-            </div>
-            <a id="cert-admin-btn" class="btn-download" href="certification_0722.pdf" target="_blank" rel="noopener" data-i18n="ui.download">
+            <div class="cv-label" data-i18n="about.sections.certs.admin_service">Certificate for Administrative Service within a Humanitarian Organization</div>
+            <a id="cert-admin-btn" class="btn-download" href="certification_0722.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.certs.amr">Course Certificate, Autonomous Mobile Robots</div>
+            <a id="cert-amr-btn" class="btn-download" href="#" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
               <span data-i18n="ui.download">Download</span>
             </a>
@@ -576,127 +784,350 @@ document.addEventListener('DOMContentLoaded', function(){
     </div>
   </main>
 
-  <div class="footer-band">© 2025 Youssef Chabbou
-    <span data-i18n="footer.created_by" style="font-size:12px; color:rgba(255,255,255,0.75); float:right; text-align:right; line-height:1.4;">
-      This website was entirely created by its owner,<br>
-      Youssef Chabbou, using AI-Augmented Development.
-    </span>
-  </div>
+  <!-- ============================================================
+       FOOTER (matches index.html)
+       ============================================================ -->
+  <footer class="footer-band">
+    <div class="footer-grid">
+      <div class="footer-brand-block">
+        <span class="footer-brand-name">Youssef Chabbou</span>
+        <span class="footer-brand-tag" data-i18n="footer.brand_tag">Aerospace · Engineering · Design</span>
+      </div>
+      <div class="footer-nav">
+        <span class="footer-nav-title" data-i18n="footer.explore">Explore</span>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="skills.html" data-i18n="nav.skills">Skills</a>
+        <a href="projects.html" data-i18n="nav.projects">Projects</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="footer-meta">
+        <span class="footer-meta-line" data-i18n="footer.created_by">This website was entirely created by its owner,<br>Youssef Chabbou, using AI-Augmented Development.</span>
+        <span class="footer-copy">© 2025 Youssef Chabbou</span>
+      </div>
+    </div>
+  </footer>
 
-  <!-- =====================================================
-       i18n + liens PDF — MODIFIÉ : persistence localStorage
-       ===================================================== -->
+  <!-- ============================================================
+       INLINE TRANSLATIONS — no JSON needed, persisted in localStorage
+       ============================================================ -->
   <script>
-(() => {
-  const SUPPORTED=["fr","de","ar"]; const DEFAULT="en";
-  const PDF_MAP={
-    en:{basic:"curriculum_vitae.pdf",extended:"extended_curriculum_vitae.pdf"},
-    de:{basic:"lebenslauf.pdf",extended:"erweiterter_lebenslauf.pdf"},
-    fr:{basic:"cv.pdf",extended:"cv_détaillé.pdf"},
-    ar:{basic:"السيرة_الذاتية.pdf",extended:"السيرة_الذاتية_الموسعة.pdf"}
-  };
-
-  function snapshotOriginals(){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if(!el.dataset.i18nOriginal) el.dataset.i18nOriginal=el.textContent;
-    });
-  } snapshotOriginals();
-
-  const get=(o,p)=>p.split('.').reduce((a,k)=>a&&a[k]!=null?a[k]:undefined,o);
-
-  // ── MODIFICATION 1 : currentLang lit localStorage en fallback ──
-  function currentLang(){
-    const params=new URLSearchParams(location.search);
-    if (params.has("lang")) {
-      const l=(params.get("lang")||"").toLowerCase();
-      const lang=(l==='en'||SUPPORTED.includes(l))?l:DEFAULT;
-      // sauvegarde si la langue vient de l'URL
-      try { localStorage.setItem('lang', lang); } catch(e) {}
-      return lang;
+const TRANSLATIONS = {
+  en: {
+    meta: { title: "About, Youssef Chabbou" },
+    nav: {
+      about:"About", skills:"Skills", projects:"Projects", contact:"Contact",
+      about_menu:{ who:"Profile", background:"Background", cv:"Curriculum Vitae", certs:"Certifications" },
+      projects_menu:{ realized:"Projects realized", future:"Future projects" }
+    },
+    ui: {
+      menu:"Menu", home:"Home", section:"Section", download:"Download",
+      theme_day:"☀︎ Day", theme_night:"☾ Night"
+    },
+    about: {
+      hero: {
+        title_a:"A focused path in",
+        title_b:"aerospace engineering.",
+        sub:"From early curiosity to applied work: background, training, and the systems I build today."
+      },
+      sections: {
+        who: {
+          title:"Engineering with focus and intent",
+          now_title:"Today",
+          now_text:"Currently based in Germany, focused on aviation: mechanical design, embedded systems, and software development for embedded platforms. The aim is steady. Bring rigor to each step, and ship work that performs.",
+          maker_title:"Approach",
+          maker_text:"A long-standing interest in how things work and how they can work better. That instinct to refine, to simplify, to give every component a purpose, shapes my engineering practice today.",
+          flight_title:"Origin",
+          flight_text:"Aerospace caught my attention early. A first flight at seven made an impression that stayed: the contrast between raw power and quiet stability set the direction long before I had the words for it.",
+          tn_title:"Roots",
+          tn:"Born and raised in Tunisia, a context that values curiosity, resilience, and care for craft. Those habits carried into how I approach engineering: deliberate, structured, and built to last.",
+          photo1:"Origin", photo2:"First flight"
+        },
+        background: {
+          eyebrow:"Background",
+          title:"A structured education across two countries",
+          p1_title:"Early education",
+          p1:"Primary schooling in Tunis, with English studied from the age of seven. Outside the classroom, regular involvement in sports, cultural, and academic clubs supported a steady, well-rounded foundation.",
+          p2_title:"Secondary studies",
+          p2:"Attended Lycée Pilote El Menzah 8, a selective high school, with a strong focus on mathematics and physics. German added at seventeen. Active member of the Interact charitable club, an environment that built practical teamwork, communication, and leadership skills.",
+          p3_title:"Higher education",
+          p3:"Continued my studies in Germany, pursuing aerospace engineering at university level, the framework within which my current technical work has been built.",
+          photo1:"Lycée Pilote", photo2:"Interact club"
+        },
+        cv: {
+          ribbon:"Curriculum Vitae",
+          row_basic:"Curriculum Vitae",
+          row_extended:"Curriculum Vitae, Extended Version"
+        },
+        certs: {
+          admin_service:"Certificate for Administrative Service within a Humanitarian Organization",
+          amr:"Course Certificate, Autonomous Mobile Robots"
+        }
+      }
+    },
+    footer: {
+      brand_tag:"Aerospace · Engineering · Design",
+      explore:"Explore",
+      created_by:"This website was entirely created by its owner,<br>Youssef Chabbou, using AI-Augmented Development."
     }
-    // pas de ?lang= → lire localStorage
-    try {
+  },
+
+  fr: {
+    meta: { title: "À propos, Youssef Chabbou" },
+    nav: {
+      about:"À propos", skills:"Compétences", projects:"Projets", contact:"Contact",
+      about_menu:{ who:"Profil", background:"Parcours", cv:"Curriculum Vitae", certs:"Certifications" },
+      projects_menu:{ realized:"Projets réalisés", future:"Projets à venir" }
+    },
+    ui: {
+      menu:"Menu", home:"Accueil", section:"Section", download:"Télécharger",
+      theme_day:"☀︎ Jour", theme_night:"☾ Nuit"
+    },
+    about: {
+      hero: {
+        title_a:"Un parcours engagé en",
+        title_b:"ingénierie aérospatiale.",
+        sub:"De la curiosité initiale au travail appliqué : parcours, formation et systèmes développés aujourd'hui."
+      },
+      sections: {
+        who: {
+          title:"Ingénierie avec rigueur et intention",
+          now_title:"Aujourd'hui",
+          now_text:"Basé en Allemagne, je travaille dans le domaine aéronautique : conception mécanique, systèmes embarqués et développement logiciel pour plateformes embarquées. L'objectif reste constant. Apporter de la rigueur à chaque étape et livrer un travail qui tient la route.",
+          maker_title:"Démarche",
+          maker_text:"Un intérêt durable pour le fonctionnement des choses et la façon de les améliorer. Cet instinct d'affiner, de simplifier, de donner à chaque composant un rôle clair guide aujourd'hui ma pratique d'ingénieur.",
+          flight_title:"Point de départ",
+          flight_text:"L'aérospatial m'a attiré tôt. Un premier vol à sept ans a laissé une trace durable : le contraste entre la puissance brute et la stabilité silencieuse a fixé la direction bien avant que je ne sache la nommer.",
+          tn_title:"Racines",
+          tn:"Né et élevé en Tunisie, un environnement qui valorise la curiosité, la persévérance et le soin du travail bien fait. Ces réflexes se retrouvent dans ma manière d'aborder l'ingénierie : posée, structurée, pensée pour durer.",
+          photo1:"Origine", photo2:"Premier vol"
+        },
+        background: {
+          eyebrow:"Parcours",
+          title:"Une formation structurée à travers deux pays",
+          p1_title:"Études primaires",
+          p1:"Scolarité primaire à Tunis, avec apprentissage de l'anglais dès l'âge de sept ans. En parallèle, participation régulière à des clubs sportifs, culturels et académiques, une base d'équilibre et de constance.",
+          p2_title:"Études secondaires",
+          p2:"Lycée Pilote El Menzah 8, établissement sélectif, avec une forte orientation mathématiques et physique. Allemand ajouté à dix-sept ans. Membre actif du club caritatif Interact, un cadre où se sont construites de réelles compétences en travail d'équipe, communication et leadership.",
+          p3_title:"Études supérieures",
+          p3:"Études poursuivies en Allemagne, en ingénierie aérospatiale, le cadre dans lequel s'inscrit mon travail technique actuel.",
+          photo1:"Lycée Pilote", photo2:"Club Interact"
+        },
+        cv: {
+          ribbon:"Curriculum Vitae",
+          row_basic:"Curriculum Vitae",
+          row_extended:"Curriculum Vitae, Version détaillée"
+        },
+        certs: {
+          admin_service:"Attestation de service administratif au sein d'une organisation humanitaire",
+          amr:"Attestation de stage, Robots mobiles autonomes"
+        }
+      }
+    },
+    footer: {
+      brand_tag:"Aérospatial · Ingénierie · Conception",
+      explore:"Explorer",
+      created_by:"Site entièrement réalisé par son auteur,<br>Youssef Chabbou, en développement augmenté par l'IA."
+    }
+  },
+
+  de: {
+    meta: { title: "Über mich, Youssef Chabbou" },
+    nav: {
+      about:"Über mich", skills:"Kompetenzen", projects:"Projekte", contact:"Kontakt",
+      about_menu:{ who:"Profil", background:"Werdegang", cv:"Lebenslauf", certs:"Zertifikate" },
+      projects_menu:{ realized:"Realisierte Projekte", future:"Zukünftige Projekte" }
+    },
+    ui: {
+      menu:"Menü", home:"Start", section:"Abschnitt", download:"Herunterladen",
+      theme_day:"☀︎ Tag", theme_night:"☾ Nacht"
+    },
+    about: {
+      hero: {
+        title_a:"Ein konsequenter Weg in der",
+        title_b:"Luft- und Raumfahrttechnik.",
+        sub:"Von früher Neugier zur angewandten Arbeit: Werdegang, Ausbildung und die Systeme, an denen ich heute arbeite."
+      },
+      sections: {
+        who: {
+          title:"Ingenieurarbeit mit Klarheit und Anspruch",
+          now_title:"Heute",
+          now_text:"Derzeit in Deutschland tätig, mit Schwerpunkt Luftfahrt: mechanische Konstruktion, eingebettete Systeme und Softwareentwicklung für eingebettete Plattformen. Das Ziel bleibt stabil. Sorgfalt in jedem Schritt und Ergebnisse, die im Einsatz bestehen.",
+          maker_title:"Herangehensweise",
+          maker_text:"Ein anhaltendes Interesse daran, wie Dinge funktionieren und wie sie besser funktionieren können. Dieses Bedürfnis nach Verfeinerung, Vereinfachung und einer klaren Rolle für jedes Bauteil prägt meine Ingenieurpraxis bis heute.",
+          flight_title:"Anfang",
+          flight_text:"Die Luftfahrt zog mich früh an. Ein erster Flug mit sieben hinterließ einen bleibenden Eindruck: der Kontrast zwischen roher Leistung und ruhiger Stabilität gab die Richtung lange vor, bevor ich sie benennen konnte.",
+          tn_title:"Wurzeln",
+          tn:"Geboren und aufgewachsen in Tunesien, ein Umfeld, das Neugier, Beharrlichkeit und sorgfältige Arbeit hochhält. Diese Haltungen wirken in meiner Art zu arbeiten weiter: bewusst, strukturiert und auf Dauer angelegt.",
+          photo1:"Ursprung", photo2:"Erster Flug"
+        },
+        background: {
+          eyebrow:"Werdegang",
+          title:"Eine strukturierte Ausbildung in zwei Ländern",
+          p1_title:"Grundschulzeit",
+          p1:"Grundschule in Tunis, Englisch ab dem siebten Lebensjahr. Außerhalb des Unterrichts regelmäßige Teilnahme an Sport-, Kultur- und akademischen Clubs, eine solide, ausgewogene Basis.",
+          p2_title:"Sekundarstufe",
+          p2:"Besuch des Lycée Pilote El Menzah 8, einer selektiven Schule, mit Schwerpunkt Mathematik und Physik. Deutsch ab siebzehn. Aktives Mitglied des karitativen Clubs Interact, ein Umfeld, in dem Teamarbeit, Kommunikation und Führung praktisch gelernt wurden.",
+          p3_title:"Hochschulausbildung",
+          p3:"Weiterführendes Studium in Deutschland im Bereich Luft- und Raumfahrttechnik, der Rahmen, in dem meine heutige technische Arbeit entstanden ist.",
+          photo1:"Lycée Pilote", photo2:"Interact-Club"
+        },
+        cv: {
+          ribbon:"Lebenslauf",
+          row_basic:"Lebenslauf",
+          row_extended:"Lebenslauf, Ausführliche Fassung"
+        },
+        certs: {
+          admin_service:"Zertifikat über Verwaltungsarbeit in einer humanitären Organisation",
+          amr:"Schulungszertifikat, Autonome mobile Roboter"
+        }
+      }
+    },
+    footer: {
+      brand_tag:"Luftfahrt · Ingenieurwesen · Design",
+      explore:"Entdecken",
+      created_by:"Diese Website wurde vollständig vom Eigentümer erstellt,<br>Youssef Chabbou, mit KI-gestützter Entwicklung."
+    }
+  },
+
+  ar: {
+    meta: { title: "حول, يوسف الشبو" },
+    nav: {
+      about:"حول", skills:"المهارات", projects:"المشاريع", contact:"اتصل",
+      about_menu:{ who:"الملف الشخصي", background:"الخلفية", cv:"السيرة الذاتية", certs:"الشهادات" },
+      projects_menu:{ realized:"مشاريع منجزة", future:"مشاريع مستقبلية" }
+    },
+    ui: {
+      menu:"القائمة", home:"الرئيسية", section:"قسم", download:"تنزيل",
+      theme_day:"☀︎ نهار", theme_night:"☾ ليل"
+    },
+    about: {
+      hero: {
+        title_a:"مسار مركّز في",
+        title_b:"هندسة الفضاء الجوي.",
+        sub:"من الفضول الأول إلى العمل التطبيقي: المسار، التكوين، والأنظمة التي أعمل عليها اليوم."
+      },
+      sections: {
+        who: {
+          title:"هندسة بهدف ودقة",
+          now_title:"اليوم",
+          now_text:"مقيم حالياً في ألمانيا، أعمل في مجال الطيران: التصميم الميكانيكي، الأنظمة المدمجة، وتطوير البرمجيات للمنصات المدمجة. الهدف ثابت. صرامة في كل خطوة، ونتائج تصمد عند التطبيق.",
+          maker_title:"المنهج",
+          maker_text:"اهتمام متواصل بكيفية عمل الأشياء وكيف يمكن تحسينها. هذا الميل إلى التهذيب والتبسيط، ومنح كل عنصر دوره الواضح، يحدّد ممارستي الهندسية اليوم.",
+          flight_title:"البداية",
+          flight_text:"شدّتني الملاحة الجوية مبكراً. أول رحلة في السابعة تركت أثراً باقياً: التباين بين القوة الخام والاستقرار الهادئ رسم الاتجاه قبل أن أملك له اسماً.",
+          tn_title:"الجذور",
+          tn:"وُلدت ونشأت في تونس، بيئة تُقدّر الفضول والمثابرة والعناية بالحرفة. هذه العادات انتقلت إلى أسلوبي الهندسي: متأنٍّ، منظّم، مصمَّم ليدوم.",
+          photo1:"البداية", photo2:"أول رحلة"
+        },
+        background: {
+          eyebrow:"الخلفية",
+          title:"تكوين منظّم بين بلدين",
+          p1_title:"التعليم الابتدائي",
+          p1:"الدراسة الابتدائية في تونس، مع تعلّم الإنجليزية من سن السابعة. خارج الفصل، مشاركة منتظمة في نوادٍ رياضية وثقافية وأكاديمية, قاعدة متوازنة وثابتة.",
+          p2_title:"التعليم الثانوي",
+          p2:"التحاق بالمعهد النموذجي بالمنزه 8، وهو معهد انتقائي، مع تركيز قوي على الرياضيات والفيزياء. تعلّم الألمانية في السابعة عشرة. عضوية نشطة في نادي إنتراكت الخيري، حيث بُنيت مهارات عملية في العمل الجماعي والتواصل والقيادة.",
+          p3_title:"التعليم العالي",
+          p3:"متابعة الدراسة في ألمانيا في هندسة الفضاء الجوي على المستوى الجامعي, الإطار الذي يقوم عليه عملي التقني الحالي.",
+          photo1:"المعهد النموذجي", photo2:"نادي إنتراكت"
+        },
+        cv: {
+          ribbon:"السيرة الذاتية",
+          row_basic:"السيرة الذاتية",
+          row_extended:"السيرة الذاتية، النسخة الموسّعة"
+        },
+        certs: {
+          admin_service:"شهادة عمل إداري في منظمة إنسانية",
+          amr:"شهادة تدريب، الروبوتات المتنقلة المستقلة"
+        }
+      }
+    },
+    footer: {
+      brand_tag:"فضاء جوي · هندسة · تصميم",
+      explore:"استكشاف",
+      created_by:"هذا الموقع أنشأه صاحبه بالكامل،<br>يوسف الشبو، باستخدام تطوير معزّز بالذكاء الاصطناعي."
+    }
+  }
+};
+
+/* PDF map per language — rename your files exactly like below in your repo */
+const PDF_MAP = {
+  en: { basic:"curriculum_vitae.pdf",      extended:"extended_curriculum_vitae.pdf",  amr:"certificate_amr.pdf" },
+  fr: { basic:"cv.pdf",                    extended:"cv_detaille.pdf",                amr:"attestation_amr.pdf" },
+  de: { basic:"lebenslauf.pdf",            extended:"erweiterter_lebenslauf.pdf",     amr:"zertifikat_amr.pdf" },
+  ar: { basic:"السيرة_الذاتية.pdf",         extended:"السيرة_الذاتية_الموسعة.pdf",     amr:"شهادة_amr.pdf" }
+};
+
+function applyLang(lang){
+  if (!TRANSLATIONS[lang]) lang = 'en';
+  const dict = TRANSLATIONS[lang];
+  window.__i18nDict = dict;
+
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    const val = key.split('.').reduce((o,k)=> (o && o[k]!=null) ? o[k] : undefined, dict);
+    if (val == null) return;
+    if (typeof val === 'string' && val.includes('<')) el.innerHTML = val;
+    else el.textContent = val;
+  });
+
+  if (dict.meta && dict.meta.title) document.title = dict.meta.title;
+
+  document.documentElement.setAttribute('lang', lang);
+  document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+  try { localStorage.setItem('lang', lang); } catch(e){}
+  try{
+    const u = new URL(location.href);
+    u.searchParams.set('lang', lang);
+    history.replaceState({}, '', u.pathname + u.search + location.hash);
+  }catch(e){}
+
+  const btn = document.getElementById('langToggle');
+  if (btn){
+    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
+  }
+
+  // PDF links
+  const map = PDF_MAP[lang] || PDF_MAP.en;
+  const a1 = document.getElementById("cv-basic-btn"); if (a1) a1.href = map.basic;
+  const a2 = document.getElementById("cv-extended-btn"); if (a2) a2.href = map.extended;
+  const a3 = document.getElementById("cert-amr-btn"); if (a3) a3.href = map.amr;
+  // Admin service certificate stays the same file across languages
+  const a4 = document.getElementById("cert-admin-btn"); if (a4) a4.href = "certification_0722.pdf";
+
+  if (window.updateThemeLabel) updateThemeLabel();
+  setTimeout(()=>{ if (window.syncBackgroundHeights) window.syncBackgroundHeights(); }, 60);
+}
+window.setLangFromMenu = applyLang;
+
+document.addEventListener('DOMContentLoaded', function(){
+  let initialLang = 'en';
+  try{
+    const params = new URLSearchParams(location.search);
+    if (params.has('lang')){
+      initialLang = (params.get('lang')||'en').toLowerCase();
+    } else {
       const stored = localStorage.getItem('lang');
-      if (stored === 'en' || SUPPORTED.includes(stored)) return stored;
-    } catch(e) {}
-    return DEFAULT;
-  }
+      if (stored) initialLang = stored;
+    }
+  }catch(e){}
+  if (!TRANSLATIONS[initialLang]) initialLang = 'en';
+  applyLang(initialLang);
+});
 
-  async function loadDict(lang){
-    const res=await fetch(`lang/${lang}.json`,{cache:"no-cache"});
-    if(!res.ok) throw new Error("Missing lang file: "+lang);
-    return res.json();
-  }
+document.addEventListener('click', (e)=>{
+  const b = e.target.closest('[data-lang]');
+  if (!b) return;
+  e.preventDefault();
+  applyLang(b.getAttribute('data-lang'));
+});
 
-  function applyDict(dict,lang){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-      const key=el.getAttribute("data-i18n"); const val=get(dict,key);
-      if(val!=null) el.textContent=val;
-    });
-    const metaTitle=get(dict,"meta.title"); if(metaTitle) document.title=metaTitle;
-
-    window.__i18nDict=dict; window.__currentLang=lang;
-    document.documentElement.setAttribute("lang", lang);
-    document.documentElement.setAttribute("dir", lang === 'ar' ? 'rtl' : 'ltr');
-
-    if(window.updateThemeLabel) updateThemeLabel();
-    updateLinks(lang);
-    setTimeout(syncBackgroundHeights, 60);
-  }
-
-  function restoreEnglish(){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if(el.dataset.i18nOriginal!=null) el.textContent=el.dataset.i18nOriginal;
-    });
-    window.__i18nDict={}; window.__currentLang="en";
-    document.documentElement.setAttribute("lang","en");
-    document.documentElement.setAttribute("dir","ltr");
-    if(window.updateThemeLabel) updateThemeLabel();
-    updateLinks("en");
-    setTimeout(syncBackgroundHeights, 60);
-  }
-
-  function updateLinks(lang){
-    const map=PDF_MAP[lang] || PDF_MAP.en;
-    const b=document.getElementById("cv-basic-btn");
-    const e=document.getElementById("cv-extended-btn");
-    if(b) b.href=map.basic; if(e) e.href=map.extended;
-    const c=document.getElementById("cert-admin-btn");
-    if(c) c.href="certification_0722.pdf";
-  }
-
-  let current=currentLang();
-
-  // ── MODIFICATION 2 : setLang sauvegarde dans localStorage ──
-  function setLang(lang){
-    if(lang!=='en' && !SUPPORTED.includes(lang)) lang='en';
-    current=lang;
-    // sauvegarde pour toutes les pages suivantes
-    try { localStorage.setItem('lang', lang); } catch(e) {}
-
-    const u=new URL(location.href); u.searchParams.set("lang",lang);
-    history.replaceState({}, "", u.pathname+u.search+location.hash);
-    if(lang==='en'){ restoreEnglish(); return; }
-    loadDict(lang).then(d=>applyDict(d,lang)).catch(()=>restoreEnglish());
-  }
-
-  window.setLangFromMenu=setLang;
-
-  (function initLangToggleLabel(){
-    const btn=document.getElementById('langToggle'); if(!btn) return;
-    const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[current]||'EN')+' ▾';
-  })();
-
-  if(current==='en') restoreEnglish(); else setLang(current);
-
-  document.addEventListener("click",e=>{
-    const b=e.target.closest("[data-lang]"); if(!b) return;
-    e.preventDefault(); setLang(b.getAttribute("data-lang"));
-  },{passive:true});
-})();
+/* expose for the Background height sync defined earlier */
+window.syncBackgroundHeights = syncBackgroundHeights;
   </script>
 
-  <!-- Révélations au scroll -->
+  <!-- Reveal on scroll -->
   <script>
     (function(){
       const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -708,7 +1139,8 @@ document.addEventListener('DOMContentLoaded', function(){
     })();
   </script>
 
-  <!-- Contrôle hamburger -->
+
+  <!-- Mobile drawer (preserved) -->
   <script>
     (function(){
       const html = document.documentElement;
@@ -717,43 +1149,26 @@ document.addEventListener('DOMContentLoaded', function(){
       const drawer = document.getElementById('mobile-drawer');
       const backdrop = document.getElementById('mobileBackdrop');
       const closeBtn = document.getElementById('mobileCloseBtn');
+      if (!btn || !drawer || !backdrop) return;
 
       function openDrawer(){
-        html.classList.add('mobile-open');
-        body.classList.add('mobile-open');
-        drawer.setAttribute('aria-hidden','false');
-        btn.setAttribute('aria-expanded','true');
-        backdrop.hidden = false;
+        html.classList.add('mobile-open'); body.classList.add('mobile-open');
+        drawer.setAttribute('aria-hidden','false'); btn.setAttribute('aria-expanded','true');
+        backdrop.hidden=false;
       }
       function closeDrawer(){
-        html.classList.remove('mobile-open');
-        body.classList.remove('mobile-open');
-        drawer.setAttribute('aria-hidden','true');
-        btn.setAttribute('aria-expanded','false');
-        setTimeout(()=>{backdrop.hidden = true;}, 200);
+        html.classList.remove('mobile-open'); body.classList.remove('mobile-open');
+        drawer.setAttribute('aria-hidden','true'); btn.setAttribute('aria-expanded','false');
+        setTimeout(()=>{backdrop.hidden=true;},200);
       }
-
-      if (btn){
-        btn.addEventListener('click', ()=>{
-          const isOpen = html.classList.contains('mobile-open');
-          if (isOpen) closeDrawer(); else openDrawer();
-        });
-      }
+      btn.addEventListener('click', ()=>{ html.classList.contains('mobile-open') ? closeDrawer() : openDrawer(); });
       if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-      if (backdrop) backdrop.addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
-
       drawer.addEventListener('click', (e)=>{
-        const a = e.target.closest('a');
-        if (a) closeDrawer();
-      });
-
-      drawer.addEventListener('click', (e)=>{
-        const b = e.target.closest('.lang-btn[data-lang]');
-        if (!b) return;
-        e.preventDefault();
-        if (window.setLangFromMenu) window.setLangFromMenu(b.dataset.lang);
-        closeDrawer();
+        const a = e.target.closest('a'); if (a) closeDrawer();
+        const lb = e.target.closest('.lang-btn[data-lang]');
+        if (lb){ e.preventDefault(); if (window.setLangFromMenu) window.setLangFromMenu(lb.dataset.lang); closeDrawer(); }
       });
     })();
   </script>
