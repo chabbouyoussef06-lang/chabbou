@@ -137,58 +137,73 @@
   .alt-section{
     display:grid;
     grid-template-columns:1.05fr 1fr;
-    gap:36px;align-items:stretch;margin:54px 0;
+    gap:48px;align-items:stretch;margin:54px 0;
     padding:0 var(--edge);
   }
 
   .alt-card{
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-radius:24px;padding:28px var(--card-pad);
+    background:rgba(255,255,255,.36);
+    backdrop-filter:blur(18px) saturate(160%);
+    -webkit-backdrop-filter:blur(18px) saturate(160%);
+    border:1px solid rgba(255,255,255,.4);
+    border-radius:20px;padding:36px 32px;
     box-shadow:
       0 20px 50px -20px rgba(11,95,165,.18),
       0 1px 0 rgba(255,255,255,.6) inset,
       0 0 0 1px rgba(11,95,165,.04);
-    border:1px solid rgba(255,255,255,.4);
-    color:#111827;height:100%;display:flex;flex-direction:column;
+    color:var(--fg);
     transition:transform .5s cubic-bezier(0.16,1,0.3,1), box-shadow .5s, border-color .5s;
+    position:relative;overflow:hidden;
+    height:100%;display:flex;flex-direction:column;
   }
   .alt-card:hover{
-    transform:translateY(-3px);
-    border-color:rgba(11,95,165,.28);
-    box-shadow:0 28px 60px -20px rgba(11,95,165,.26), 0 1px 0 rgba(255,255,255,.7) inset;
+    transform:translateY(-4px);
+    border-color:rgba(11,95,165,.3);
+    box-shadow:0 28px 60px -20px rgba(11,95,165,.28), 0 1px 0 rgba(255,255,255,.7) inset;
   }
   [data-theme="dark"] .alt-card{
-    background: rgba(0,0,0,0.55);
+    background:rgba(22,27,34,.55);
     border-color:rgba(255,255,255,.08);
     box-shadow:0 20px 50px -20px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.04) inset;
-    color:#eaeef5;
   }
   [data-theme="dark"] .alt-card:hover{border-color:rgba(88,166,255,.3)}
 
+  /* Filigree number inside cards (matches index.html) */
+  .alt-card[data-num]::after{
+    content:attr(data-num);
+    position:absolute;bottom:-32px;right:-12px;
+    font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:300;
+    font-size:180px;line-height:1;color:rgba(11,95,165,.06);
+    pointer-events:none;user-select:none;
+  }
+  [data-theme="dark"] .alt-card[data-num]::after{color:rgba(88,166,255,.08)}
+  html[dir="rtl"] .alt-card[data-num]::after{right:auto;left:-12px}
+
   .alt-eyebrow{
-    display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
-    margin:0 0 10px;padding:6px 14px;border-radius:999px;
-    color:var(--brand);
-    background: linear-gradient(90deg, rgba(11,95,165,.14), rgba(11,95,165,.04));
+    display:inline-block;color:var(--brand);
+    margin:0 0 16px;padding:5px 12px;border-radius:999px;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background:linear-gradient(90deg,rgba(11,95,165,.14),rgba(11,95,165,.04));
     border:1px solid rgba(11,95,165,.18);
   }
   [data-theme="dark"] .alt-eyebrow{
-    color:#9bc4ec;
-    background: linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));
-    border:1px solid rgba(88,166,255,.28);
+    color:var(--brand);
+    background:linear-gradient(90deg,rgba(88,166,255,.20),rgba(88,166,255,.05));
+    border-color:rgba(88,166,255,.28);
   }
 
   .alt-title{
     font-family:'Fraunces', Georgia, serif;font-weight:300;
-    font-size:clamp(26px,3.2vw,40px);line-height:1.08;letter-spacing:-0.02em;
-    margin:0 0 12px;color:var(--fg);
+    font-size:clamp(26px,3.2vw,44px);line-height:1.08;letter-spacing:-0.02em;
+    margin:0 0 18px;color:var(--fg);
   }
-  [data-theme="dark"] .alt-title{color:#f3f6fb}
+  [data-theme="dark"] .alt-title{color:var(--fg)}
   html[dir="rtl"] .alt-title{font-family:system-ui,-apple-system,sans-serif;letter-spacing:0}
 
-  .alt-text{margin:0;color:#374151;font-size:16px;line-height:1.7}
-  [data-theme="dark"] .alt-text{color:#c9d1d9}
+  .alt-text{margin:0;color:var(--muted);font-size:16.5px;line-height:1.7;max-width:48ch}
+  [data-theme="light"] .alt-card .alt-text{color:#374151}
+  [data-theme="dark"] .alt-card .alt-text{color:#c9d1d9}
 
   .step-title{
     font-size:18px;font-weight:600;margin:18px 0 6px;color:var(--fg);
@@ -600,7 +615,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
       <!-- ===== PROFILE — sober rewrite, "Today" first ===== -->
       <section id="profile" class="alt-section reveal anchor">
-        <div class="alt-card">
+        <div class="alt-card" data-num="01">
           <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Profile</p>
           <h3 class="alt-title display" data-i18n="about.sections.who.title">Engineering with focus and intent</h3>
 
@@ -633,7 +648,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
       <!-- ===== BACKGROUND — sober rewrite ===== -->
       <section id="background" class="alt-section reveal anchor">
-        <div class="alt-card">
+        <div class="alt-card" data-num="02">
           <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
           <h3 class="alt-title display" data-i18n="about.sections.background.title">A structured education across two countries</h3>
 
