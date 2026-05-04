@@ -201,7 +201,9 @@
     position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
     z-index:3;color:rgba(255,255,255,.65);
     display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;
+    transition:opacity .4s ease, transform .5s ease;
   }
+  .hero-scroll-cue.is-hidden{opacity:0;transform:translateX(-50%) translateY(20px)}
   .hero-scroll-cue::after{
     content:"";width:1px;height:36px;
     background:linear-gradient(180deg, rgba(255,255,255,.7), transparent);
@@ -979,6 +981,14 @@ function animatePlane(){
 }
 window.addEventListener('scroll',animatePlane,{passive:true});
 window.addEventListener('resize',animatePlane);
+
+/* Hide the hero "Scroll" cue as soon as the user starts scrolling */
+function updateScrollCue(){
+  const cue = document.querySelector('.hero-scroll-cue');
+  if (!cue) return;
+  cue.classList.toggle('is-hidden', window.scrollY > 60);
+}
+window.addEventListener('scroll', updateScrollCue, {passive:true});
 
 /* ============================================================
    INIT — theme, language toggle, language pre-load
