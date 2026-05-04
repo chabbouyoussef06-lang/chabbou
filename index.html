@@ -63,10 +63,12 @@
   /* Refined bottom edge — soft gradient line for editorial polish */
   .top-band::after{
     content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
-    background:linear-gradient(90deg, transparent 0%, rgba(11,95,165,.5) 30%, rgba(88,166,255,.6) 50%, rgba(11,95,165,.5) 70%, transparent 100%);
+    background:linear-gradient(90deg, transparent 0%, rgba(11,95,165,.28) 50%, transparent 100%);
+    z-index:0;            /* keep behind interactive content */
+    pointer-events:none;  /* never block clicks */
   }
   [data-theme="dark"] .top-band::after{
-    background:linear-gradient(90deg, transparent, rgba(88,166,255,.5) 50%, transparent);
+    background:linear-gradient(90deg, transparent, rgba(88,166,255,.32) 50%, transparent);
   }
 
   .container{max-width:1200px;margin:auto;padding:24px}
@@ -92,7 +94,7 @@
   nav a:hover::after{width:100%}
   html[dir="rtl"] nav a::after{left:auto;right:0}
 
-  .menu{position:relative;display:flex;align-items:center;gap:2px}
+  .menu{position:relative;display:flex;align-items:center;gap:2px;z-index:50}
   .submenu{
     position:absolute;top:100%;left:0;
     background:var(--card);border:1px solid var(--ring);border-radius:10px;
@@ -100,6 +102,7 @@
     box-shadow:0 14px 32px rgba(11,95,165,.12), 0 1px 0 rgba(255,255,255,.6) inset;
     opacity:0;transform:translateY(-10px);transition:opacity .25s, transform .25s;
     display:none;padding:6px;margin-top:10px;
+    z-index:50;          /* above the top-band gradient line */
   }
   [data-theme="dark"] .submenu{box-shadow:0 14px 32px rgba(0,0,0,.4)}
   .submenu.show{display:block;opacity:1;transform:translateY(0)}
