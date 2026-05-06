@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "title": "Projekte — Youssef Chabbou",
+    "contact_title": "Kontakt — Youssef Chabbou"
+  },
+  "ui": {
+    "theme_day": "☀︎ Tag",
+    "theme_night": "☾ Nacht",
+    "download": "Herunterladen"
+  },
+  "footer": {
+    "created_by": "Diese Website wurde vollständig von ihrem Eigentümer,\nYoussef Chabbou, mit KI-unterstützter Entwicklung erstellt."
+  },
+  "nav": {
+    "about": "Über mich",
+    "skills": "Fähigkeiten",
+    "projects": "Projekte",
+    "contact": "Kontakt",
+    "about_menu": {
+      "who": "Profil",
+      "background": "Werdegang",
+      "cv": "Lebenslauf",
+      "certs": "Zertifikate"
+    },
+    "projects_menu": {
+      "realized": "Realisierte Projekte",
+      "future": "Zukünftige Projekte"
+    }
+  },
+  "sections": {
+    "perspective": {
+      "eyebrow": "Perspektive",
+      "title": "Die Zukunft der Luft- und Raumfahrt mit kühnen Ideen gestalten",
+      "text": "Horizonte erkunden, wo Ingenieurskunst auf Vorstellungskraft trifft. Ambitionierte Ziele, besonnen umgesetzt."
+    },
+    "learning": {
+      "eyebrow": "Lebenslanges Lernen",
+      "title": "Wo Neugier Wachstum antreibt",
+      "text": "Endlose Entdeckung, zielgerichtete Praxis und der stetige Weg zur Meisterschaft."
+    },
+    "principles": {
+      "eyebrow": "Grundsätze",
+      "title": "Kreativität · Wachstum · Präzision",
+      "text": "Lernen wirkt, wenn es Horizonte erweitert, Fähigkeiten schärft und Theorie mit der Praxis verbindet."
+    },
+    "design": {
+      "eyebrow": "Mit Absicht gestalten",
+      "title": "Präzision in jedem Detail",
+      "text": "Von Skizzen bis Prototypen zählt jede Entscheidung. Robustes Design, leise Zuversicht."
+    },
+    "teamwork": {
+      "eyebrow": "Teamarbeit",
+      "title": "Zusammenarbeit ist der stärkste Antrieb",
+      "text": "Gemeinsam kommen wir schneller voran – über Disziplinen, Tools und Perspektiven hinweg."
+    },
+    "worldview": {
+      "eyebrow": "Weltbild",
+      "title": "Ingenieurwesen ohne Grenzen",
+      "text": "Innovation gedeiht, wenn Wissen sich über Länder und Kulturen hinweg anpasst – Ideen kennen keine Grenzen."
+    }
+  },
+  "about": {
+    "sections": {
+      "who": {
+        "title": "In Tunesien geboren und aufgewachsen",
+        "tn": "Ein mediterraner Knotenpunkt, an dem Geschichte offene Denkweise formt. Vom Erbe Karthagos bis zum heutigen Handwerk und Ingenieurgeist – Tunesien lehrte mich Neugier, Ausdauer und Präzision.",
+        "flight_title": "Erster Flug, erster Funke (2011)",
+        "flight_text": "Mit sieben stand ich vor einem Airbus A320, viel größer als erwartet. Die Triebwerke wirkten monumental. Start machte mir Angst, die Reiseflugphase begeisterte mich – diese Ruhe in der Kraft begleitet mich bis heute.",
+        "maker_title": "Dinge bauen und verbessern",
+        "maker_text": "Schon als Kind habe ich Spielzeug angepasst – nichts blieb lange standard. Tüfteln, verfeinern, jeder Teil mit Zweck: so denke ich bis heute.",
+        "now_title": "Heute",
+        "now_text": "Ich lebe in Deutschland und wachse durch Studium und erste Projekte – mit Fokus auf Lernen, Teamarbeit und verlässliche Ergebnisse."
+      },
+      "background": {
+        "eyebrow": "Werdegang",
+        "p1_title": "Kindheit",
+        "p1": "Meine Grundschulzeit verbrachte ich in Tunis und begann dort mit sieben Jahren Englisch zu lernen. In dieser Zeit nahm ich regelmäßig an Sport-, Vereins- und Wissensklubs teil.",
+        "p2_title": "Gymnasialzeit",
+        "p2": "Ich besuchte die Eliteschule Lycée Pilote El Menzah 8, vertiefte Mathematik und Physik und begann mit 17 Deutsch zu lernen. Zudem war ich im karitativen Interact-Club aktiv und entwickelte Team-, Kommunikations- und Führungskompetenzen.",
+        "p3_title": "Hochschule in Deutschland",
+        "p3": "Nach dem Abitur zog ich für mein Studium nach Deutschland – ein neues, spannendes Kapitel meiner akademischen und persönlichen Reise."
+      },
+      "cv": {
+        "ribbon": "Lebenslauf",
+        "row_basic": "Lebenslauf",
+        "row_extended": "Lebenslauf — Ausführliche Version"
+      },
+      "certs": {
+        "admin_service": "Zertifikat für Verwaltungstätigkeit in einer humanitären Organisation"
+      }
+    }
+  },
+  "skills": {
+    "cad": {
+      "eyebrow": "Technische Fähigkeiten",
+      "title": "Rechnergestütztes Konstruieren (CAD)",
+      "text": "Gute Beherrschung von 3D-Konstruktion und parametrischer Modellierung, aufgebaut durch persönliche und akademische Projekte."
+    },
+    "team": {
+      "eyebrow": "Zwischenmenschliche Kompetenzen",
+      "title": "Teamkommunikation",
+      "text": "Erfahrung in der Zusammenarbeit in diversen Teams, Ideen teilen und zu einem konstruktiven, unterstützenden Arbeitsumfeld beitragen."
+    },
+    "admin": {
+      "eyebrow": "Organisationale Fähigkeiten",
+      "title": "Administratives und prozessuales Verständnis",
+      "text": "Fundiertes Verständnis von Unternehmensstrukturen, rechtlichen Abläufen, Hierarchien und internationalen beruflichen Protokollen."
+    },
+    "culture": {
+      "eyebrow": "Kulturelle Kompetenzen",
+      "title": "Interkulturelle Anpassungsfähigkeit",
+      "text": "Fähig, effektiv in multikulturellen Umgebungen zu arbeiten und sich an unterschiedliche Arbeitsweisen und Denkansätze anzupassen."
+    }
+  },
+  "contact": {
+    "info": {
+      "eyebrow": "Kontakt",
+      "title": "Lass uns vernetzen",
+      "desc": "Du erreichst mich über LinkedIn oder per E-Mail. Ich lebe in Braunschweig, Deutschland.",
+      "linkedin": "LinkedIn-Profil"
+    },
+    "form": {
+      "eyebrow": "Nachricht senden",
+      "title": "Kontaktformular",
+      "email_label": "Deine E-Mail",
+      "email_ph": "du@beispiel.de",
+      "subject_label": "Betreff",
+      "subject_ph": "Thema…",
+      "message_label": "Nachricht",
+      "message_ph": "Schreibe deine Nachricht…",
+      "attachment_label": "Anhang",
+      "attachment_hint": "Optional. Relevante Datei(en) anhängen.",
+      "send_btn": "Senden",
+      "sending": "Senden…",
+      "success": "Nachricht erfolgreich gesendet. Danke!",
+      "error": "Senden fehlgeschlagen. Bitte erneut versuchen oder mich direkt per E-Mail kontaktieren.",
+      "error_network": "Netzwerkfehler. Bitte erneut versuchen."
+    }
+  },
+  "projects": {
+    "realized": {
+      "title": "Realisierte Projekte",
+      "card_title": "Mechanik in Bewegung: Vom Design zur Fertigung",
+      "card_intro": "Ein mechanisches Dosenpress-System als erster Schritt zum Recycling leerer Dosen – mit zentralen Koppelgetrieben wie Schlittenführung und Zahnradmechanismus. Zunächst im CAD entwickelt und anschließend mit konventioneller und CNC-Bearbeitung gefertigt. Das Projekt vertiefte mein Verständnis grundlegender mechanischer Prinzipien – eine der Säulen der Luft- und Raumfahrttechnik. Realisiert mit Unterstützung von AFAMEC und dem Engineering-Team."
+    },
+    "future": {
+      "eyebrow": "Roadmap",
+      "card_intro": "Eine kommende wissenschaftliche Review, die technische und wirtschaftliche Faktoren hinter dem Scheitern eines legendären Flugzeugs untersucht – mit dem Ziel, Innovation, Ambition und Lehren für zukünftiges Luftfahrtdesign zu analysieren.",
+      "cta_participate_html": "Wenn du an diesem Projekt mitwirken möchtest, kontaktiere mich <a href=\"contact.html\">hier</a>."
+    }
+  }
+}

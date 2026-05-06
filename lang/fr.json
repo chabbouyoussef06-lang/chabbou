@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "title": "Projets — Youssef Chabbou",
+    "contact_title": "Contact — Youssef Chabbou"
+  },
+  "ui": {
+    "theme_day": "☀︎ Jour",
+    "theme_night": "☾ Nuit",
+    "download": "Télécharger"
+  },
+  "footer": {
+    "created_by": "Ce site a été entièrement créé par son propriétaire,\nYoussef Chabbou, avec un développement assisté par IA."
+  },
+  "nav": {
+    "about": "À propos",
+    "skills": "Compétences",
+    "projects": "Projets",
+    "contact": "Contact",
+    "about_menu": {
+      "who": "Profil",
+      "background": "Parcours",
+      "cv": "Curriculum vitae",
+      "certs": "Certifications"
+    },
+    "projects_menu": {
+      "realized": "Projets réalisés",
+      "future": "Projets à venir"
+    }
+  },
+  "sections": {
+    "perspective": {
+      "eyebrow": "Perspective",
+      "title": "Façonner l’avenir de l’aérospatial avec des idées audacieuses",
+      "text": "Explorer l’horizon où l’ingénierie rencontre l’imagination. Objectifs ambitieux, exécution mesurée."
+    },
+    "learning": {
+      "eyebrow": "Apprentissage continu",
+      "title": "Là où la curiosité nourrit la progression",
+      "text": "Découverte sans fin, pratique intentionnelle et quête constante de la maîtrise."
+    },
+    "principles": {
+      "eyebrow": "Principes",
+      "title": "Créativité · Croissance · Précision",
+      "text": "L’apprentissage prend son sens quand il élargit les horizons, affine les compétences et relie la théorie au réel."
+    },
+    "design": {
+      "eyebrow": "Concevoir avec intention",
+      "title": "La précision dans chaque détail",
+      "text": "Des croquis aux prototypes, chaque décision compte. Conception robuste, confiance calme."
+    },
+    "teamwork": {
+      "eyebrow": "Travail d’équipe",
+      "title": "La collaboration est le moteur le plus puissant",
+      "text": "On avance plus vite ensemble, en reliant disciplines, outils et perspectives."
+    },
+    "worldview": {
+      "eyebrow": "Vision du monde",
+      "title": "Ingénierie sans frontières",
+      "text": "L’innovation s’épanouit lorsque le savoir s’adapte entre pays et cultures — les idées n’ont pas de frontières."
+    }
+  },
+  "about": {
+    "sections": {
+      "who": {
+        "title": "Né et grandi en Tunisie",
+        "tn": "Carrefour méditerranéen où l’histoire a forgé des esprits ouverts. De l’héritage de Carthage au savoir-faire actuel, la Tunisie m’a appris la curiosité, la résilience et le goût du travail précis et soigné.",
+        "flight_title": "Premier vol, première étincelle (2011)",
+        "flight_text": "À sept ans, face à un Airbus A320 bien plus grand que je ne l’imaginais. Les réacteurs m’ont impressionné. Le décollage m’a fait peur, puis la croisière m’a conquis. Ce mélange de puissance et de calme ne m’a jamais quitté.",
+        "maker_title": "Fabriquer, modifier, améliorer",
+        "maker_text": "Enfant déjà, je personnalisais mes jouets : rien ne restait standard. Ajuster, affiner, donner un rôle à chaque pièce — c’est devenu ma façon de penser.",
+        "now_title": "Aujourd’hui",
+        "now_text": "Basé en Allemagne, j’évolue entre études et premiers projets. Une progression solide, centrée sur l’apprentissage, l’esprit d’équipe et la fiabilité des résultats."
+      },
+      "background": {
+        "eyebrow": "Parcours",
+        "p1_title": "Enfance",
+        "p1": "J’ai effectué ma scolarité primaire à Tunis, où j’ai commencé l’anglais à l’âge de sept ans. Pendant cette période, je participais régulièrement à des clubs sportifs, associatifs et intellectuels.",
+        "p2_title": "Lycée",
+        "p2": "J’ai fréquenté le lycée d’excellence Lycée Pilote El Menzah 8, où j’ai consolidé mes bases en mathématiques et en physique et commencé l’allemand à 17 ans. J’ai également été actif au club caritatif Interact, développant esprit d’équipe, communication et leadership.",
+        "p3_title": "Études supérieures en Allemagne",
+        "p3": "Après le lycée, je suis parti en Allemagne pour mes études universitaires — une nouvelle étape stimulante sur les plans académique et personnel."
+      },
+      "cv": {
+        "ribbon": "Curriculum vitae",
+        "row_basic": "Curriculum vitae",
+        "row_extended": "Curriculum vitae — version détaillée"
+      },
+      "certs": {
+        "admin_service": "Certificat de service administratif au sein d’une organisation humanitaire"
+      }
+    }
+  },
+  "skills": {
+    "cad": {
+      "eyebrow": "Compétences techniques",
+      "title": "Design assisté par ordinateur (CAO)",
+      "text": "Maîtrise des outils de conception mécanique 3D et de modélisation paramétrique, développée à travers des projets personnels et académiques."
+    },
+    "team": {
+      "eyebrow": "Compétences interpersonnelles",
+      "title": "Communication d’équipe",
+      "text": "Expérience de collaboration au sein d’équipes diverses, partage d’idées et contribution à un environnement de travail constructif et bienveillant."
+    },
+    "admin": {
+      "eyebrow": "Compétences organisationnelles",
+      "title": "Compréhension administrative et procédurale",
+      "text": "Bonne compréhension des structures d’entreprise, des processus juridiques, des hiérarchies et des protocoles professionnels internationaux."
+    },
+    "culture": {
+      "eyebrow": "Compétences culturelles",
+      "title": "Adaptabilité interculturelle",
+      "text": "Capacité à travailler efficacement dans des environnements multiculturels et à s’adapter à différentes approches et façons de penser."
+    }
+  },
+  "contact": {
+    "info": {
+      "eyebrow": "Contact",
+      "title": "Entrons en contact",
+      "desc": "Vous pouvez me joindre sur LinkedIn ou par e-mail. Je suis basé à Brunswick (Braunschweig), Allemagne.",
+      "linkedin": "Profil LinkedIn"
+    },
+    "form": {
+      "eyebrow": "Envoyer un message",
+      "title": "Formulaire de contact",
+      "email_label": "Votre e-mail",
+      "email_ph": "vous@exemple.com",
+      "subject_label": "Objet",
+      "subject_ph": "Sujet…",
+      "message_label": "Message",
+      "message_ph": "Écrivez votre message…",
+      "attachment_label": "Pièce jointe",
+      "attachment_hint": "Optionnel. Ajoutez des fichier(s) pertinent(s).",
+      "send_btn": "Envoyer",
+      "sending": "Envoi…",
+      "success": "Message envoyé avec succès. Merci !",
+      "error": "Échec de l’envoi. Veuillez réessayer ou contactez-moi par e-mail.",
+      "error_network": "Erreur réseau. Veuillez réessayer."
+    }
+  },
+  "projects": {
+    "realized": {
+      "title": "Projets réalisés",
+      "card_title": "Mécanique en mouvement : du design à la fabrication",
+      "card_intro": "Un système mécanique de presse à canettes comme premier pas vers le recyclage des canettes vides — intégrant des liaisons clés comme la glissière sur rail et des engrenages. D’abord conçu en CAO puis fabriqué par usinage conventionnel et CNC. Ce projet a renforcé ma compréhension des principes mécaniques fondamentaux, l’une des bases de l’ingénierie aérospatiale. Réalisé avec le soutien d’AFAMEC et de son équipe d’ingénierie."
+    },
+    "future": {
+      "eyebrow": "Feuille de route",
+      "card_intro": "Une revue scientifique à venir, explorant les facteurs techniques et commerciaux derrière l’échec d’un avion légendaire — pour analyser l’innovation, l’ambition et les leçons pour le design aérospatial futur.",
+      "cta_participate_html": "Si vous souhaitez participer à ce projet, contactez-moi <a href=\"contact.html\">ici</a>."
+    }
+  }
+}
