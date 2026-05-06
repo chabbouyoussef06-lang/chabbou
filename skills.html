@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>About — Youssef Chabbou</title>
+<title>Skills — Youssef Chabbou</title>
 
 <link rel="preload" as="image" href="background.jpg" />
 
@@ -48,7 +48,7 @@
   html[dir="rtl"] .display{font-family: system-ui,-apple-system,sans-serif;letter-spacing:0}
 
   /* ============================================================
-     TOP BAND — same identity as index.html
+     TOP BAND
      ============================================================ */
   .top-band{
     position:sticky;top:0;width:100%;
@@ -122,7 +122,7 @@
   .breadcrumbs .current{color:var(--brand)}
 
   /* ============================================================
-     SECTIONS — original layout preserved
+     PAGE & SECTIONS
      ============================================================ */
   .page{max-width:1200px;margin:0 auto;padding:48px var(--edge) 24px;z-index:1;position:relative}
 
@@ -133,6 +133,7 @@
     gap:48px;align-items:stretch;margin:54px 0;
     padding:0 var(--edge);
   }
+  .alt-section.reverse{grid-template-columns:1fr 1.05fr}
 
   .alt-card{
     background:rgba(255,255,255,.36);
@@ -161,7 +162,7 @@
   }
   [data-theme="dark"] .alt-card:hover{border-color:rgba(88,166,255,.3)}
 
-  /* Filigree number inside cards (matches index.html) */
+  /* Filigree number inside cards */
   .alt-card[data-num]::after{
     content:attr(data-num);
     position:absolute;bottom:-32px;right:-12px;
@@ -191,39 +192,26 @@
     font-size:clamp(26px,3.2vw,44px);line-height:1.08;letter-spacing:-0.02em;
     margin:0 0 18px;color:var(--fg);
   }
-  [data-theme="dark"] .alt-title{color:var(--fg)}
   html[dir="rtl"] .alt-title{font-family:system-ui,-apple-system,sans-serif;letter-spacing:0}
 
   .alt-text{margin:0;color:var(--muted);font-size:16.5px;line-height:1.7;max-width:48ch}
   [data-theme="light"] .alt-card .alt-text{color:#374151}
   [data-theme="dark"] .alt-card .alt-text{color:#c9d1d9}
 
-  .step-title{
-    font-size:18px;font-weight:600;margin:18px 0 6px;color:var(--fg);
-    letter-spacing:-0.005em;
-  }
-  [data-theme="dark"] .step-title{color:#f3f6fb}
-
+  /* Photos */
   .alt-media{
     border-radius:22px;overflow:hidden;
     box-shadow:0 24px 50px -10px rgba(0,0,0,.22);
     height:100%;position:relative;
-  }
-  .stacked-photos{
-    display:grid;grid-template-rows:1fr 1fr;
-    height:100%;gap:14px;padding:14px;
     background:transparent;
   }
-  .stacked-photos figure{margin:0;overflow:hidden;border-radius:16px;position:relative;box-shadow:0 14px 30px -10px rgba(0,0,0,.2)}
-  .stacked-photos img{
-    width:100%;height:100%;object-fit:cover;display:block;
-    transform:scale(1.02);
-    transition:transform .8s ease;will-change:transform;
+  .alt-media img{
+    display:block;width:100%;height:100%;
+    aspect-ratio:16/10;object-fit:cover;
+    transform:scale(1.02);transition:transform .8s ease;will-change:transform;
   }
-  .stacked-photos figure:hover img,
-  .stacked-photos figure:focus-within img{transform:scale(1.08)}
+  .alt-media:hover img{transform:scale(1.08)}
 
-  /* Caption tag on photos — same style as index.html .alt-media-tag */
   .photo-tag{
     position:absolute;bottom:14px;left:14px;
     padding:6px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
@@ -234,102 +222,12 @@
   }
   html[dir="rtl"] .photo-tag{left:auto;right:14px}
 
-  /* The floating "Curriculum Vitae" / "Certifications" eyebrow chips
-     above each section need their own liquid-glass surface so they stay
-     readable when the background image is busy. */
-  .eyebrow-stack{
-    display:inline-block;position:relative;margin:6px 0 18px;
-    padding:0;border-radius:999px;
-    background:rgba(255,255,255,.36);
-    backdrop-filter:blur(18px) saturate(160%);
-    -webkit-backdrop-filter:blur(18px) saturate(160%);
-    border:1px solid rgba(255,255,255,.4);
-    box-shadow:
-      0 10px 28px -14px rgba(11,95,165,.18),
-      0 1px 0 rgba(255,255,255,.6) inset;
-  }
-  [data-theme="dark"] .eyebrow-stack{
-    background:rgba(22,27,34,.55);
-    border-color:rgba(255,255,255,.08);
-    box-shadow:
-      0 10px 28px -14px rgba(0,0,0,.5),
-      0 1px 0 rgba(255,255,255,.04) inset;
-  }
-  .eyebrow-stack .alt-eyebrow{
-    position:relative;z-index:1;margin:0;
-    /* keep the blue tinted gradient + brand border on the inner pill */
-  }
-
-  .block-align{ padding-left:var(--edge); padding-right:var(--edge) }
-  .inset-left{ margin-left: calc(var(--edge) + var(--card-pad)); }
-
-  .cv-row{
-    display:flex;align-items:center;justify-content:space-between;
-    border:1px solid rgba(255,255,255,.4);
-    border-radius:18px;padding:18px 22px;margin:14px 0;
-    background:rgba(255,255,255,.36);
-    backdrop-filter:blur(18px) saturate(160%);
-    -webkit-backdrop-filter:blur(18px) saturate(160%);
-    box-shadow:
-      0 20px 50px -20px rgba(11,95,165,.18),
-      0 1px 0 rgba(255,255,255,.6) inset,
-      0 0 0 1px rgba(11,95,165,.04);
-    transition:border-color .25s, transform .25s, box-shadow .25s;
-    gap:14px;flex-wrap:wrap;
-  }
-  .cv-row:hover{
-    transform:translateY(-3px);
-    border-color:rgba(11,95,165,.3);
-    box-shadow:
-      0 28px 60px -20px rgba(11,95,165,.28),
-      0 1px 0 rgba(255,255,255,.7) inset;
-  }
-  [data-theme="dark"] .cv-row{
-    background:rgba(22,27,34,.55);
-    border-color:rgba(255,255,255,.08);
-    box-shadow:0 20px 50px -20px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.04) inset;
-  }
-  [data-theme="dark"] .cv-row:hover{border-color:rgba(88,166,255,.3)}
-
-  .cv-label{font-weight:600;font-size:17px;flex:1 1 280px;line-height:1.35;color:var(--fg)}
-  .btn-download{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:6px 0 7px;
-    border:0;
-    background:transparent;
-    color:#1f3b5d;
-    text-decoration:none;
-    font-family:'Fraunces', Georgia, serif;
-    font-style:italic;
-    font-weight:400;
-    font-size:16px;
-    letter-spacing:0.005em;
-    border-bottom:1px solid currentColor;
-    transition:gap .25s ease, color .25s ease, opacity .25s ease;
-    white-space:nowrap;
-  }
-  .btn-download:hover{
-    gap:14px;
-    opacity:.78;
-  }
-  .btn-download:active{opacity:.6}
-  .btn-download svg{width:14px;height:14px;flex:0 0 14px;opacity:.7;transition:transform .25s ease}
-  .btn-download:hover svg{transform:translateY(1px)}
-
-  [data-theme="dark"] .btn-download{
-    color:#cfd8e3;
-  }
-  [data-theme="dark"] .btn-download:hover{
-    color:#eef2f7;opacity:1;
-  }
-
-  .anchor{scroll-margin-top: var(--anchor-offset)}
-
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(0.16,1,0.3,1), transform .8s cubic-bezier(0.16,1,0.3,1)}
   .reveal.in{opacity:1;transform:translateY(0)}
+  section[id]{scroll-margin-top:var(--anchor-offset)}
 
   /* ============================================================
-     FOOTER — same as index.html
+     FOOTER
      ============================================================ */
   .footer-band{
     background-color:rgba(11,95,165,.6);
@@ -364,12 +262,12 @@
   /* ============================================================
      RESPONSIVE
      ============================================================ */
-  @media(max-width:1000px){
-    nav{gap:22px}
-  }
+  @media(max-width:1000px){nav{gap:22px}}
   @media(max-width:900px){
-    .alt-section{grid-template-columns:1fr}
-    #background .alt-media{height:auto !important}
+    .alt-section,.alt-section.reverse{grid-template-columns:1fr;gap:32px;margin:40px 0}
+    .alt-section.reverse .alt-card{order:2}
+    .alt-section.reverse .alt-media{order:1}
+    .alt-media img{aspect-ratio:16/11}
     :root{ --anchor-offset: 72px; }
     .footer-grid{grid-template-columns:1fr;gap:24px}
     .footer-meta{text-align:left}
@@ -386,16 +284,10 @@
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
     html,body{overflow-x:hidden}
+    .alt-card{padding:26px 22px}
+    .alt-card[data-num]::after{font-size:120px}
     .footer-band{padding:24px 18px}
   }
-
-  /* Background section overrides preserved */
-  #background{ align-items:start; }
-  #background .alt-card{ height:auto; }
-  #background .alt-media{ height:auto; }
-  #background .stacked-photos{ height:100%; grid-template-rows:1fr 1fr; }
-  #background .stacked-photos figure{ height:100%; }
-  #background .stacked-photos img{ object-fit:cover; }
 
   /* HAMBURGER + DRAWER preserved */
   .hamburger-btn{display:none;appearance:none;border:0;background:transparent;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer}
@@ -423,7 +315,7 @@
     .top-band nav{display:none !important}
     .lang-menu{display:none !important}
     .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px}
-    .top-band header > a[href="index.html#home"]{justify-self:center}
+    .top-band header > a[href="index.html"]{justify-self:center}
     #themeToggle{justify-self:end}
   }
   .hamburger-btn:focus-visible,.mobile-drawer a:focus-visible,.lang-btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
@@ -454,7 +346,7 @@
   @media (max-width:640px){
     html[dir="rtl"] .top-band header{grid-template-columns:auto 1fr 40px}
     html[dir="rtl"] #themeToggle{justify-self:start}
-    html[dir="rtl"] .top-band header > a[href="index.html#home"]{justify-self:center}
+    html[dir="rtl"] .top-band header > a[href="index.html"]{justify-self:center}
   }
 </style>
 
@@ -495,22 +387,6 @@ document.addEventListener('click',closeMenusOnInteraction,{passive:true});
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
-/* Background height sync */
-function syncBackgroundHeights(){
-  const section = document.getElementById('background');
-  if(!section) return;
-  const isSingleColumn = window.matchMedia('(max-width: 900px)').matches;
-  const card = section.querySelector('.alt-card');
-  const media = section.querySelector('.alt-media');
-  if(!card || !media) return;
-  media.style.height = '';
-  if(isSingleColumn) return;
-  const target = card.getBoundingClientRect().height;
-  if(target < 10) return;
-  media.style.height = target + 'px';
-}
-const debounce=(fn,ms)=>{let t;return function(){clearTimeout(t);t=setTimeout(()=>fn.apply(this,arguments),ms)}};
-
 document.addEventListener('DOMContentLoaded', function(){
   let initial='light';
   try{
@@ -543,7 +419,6 @@ document.addEventListener('DOMContentLoaded', function(){
       if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
       closeMenusOnInteraction({target:null});
       try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
-      setTimeout(syncBackgroundHeights, 60);
     });
     try{
       const params=new URLSearchParams(location.search);
@@ -558,11 +433,6 @@ document.addEventListener('DOMContentLoaded', function(){
       btn.textContent=(map[lang]||'EN')+' ▾';
     }catch(_e){}
   }
-
-  syncBackgroundHeights();
-  window.addEventListener('load', syncBackgroundHeights, {once:true, passive:true});
-  document.fonts && document.fonts.ready && document.fonts.ready.then(()=>syncBackgroundHeights());
-  window.addEventListener('resize', debounce(syncBackgroundHeights, 120), {passive:true});
 });
 </script>
 </head>
@@ -574,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <span aria-hidden="true"></span>
         </button>
 
-        <a href="index.html#home" style="display:inline-block">
+        <a href="index.html" style="display:inline-block">
           <img src="signature.png" alt="Signature" class="signature" fetchpriority="high" />
         </a>
 
@@ -651,139 +521,72 @@ document.addEventListener('DOMContentLoaded', function(){
     </div>
   </aside>
 
-  <!-- ============================================================
-       SECTIONS
-       ============================================================ -->
   <main class="page" id="main">
 
     <!-- Breadcrumb path -->
     <nav class="breadcrumbs mono" aria-label="Breadcrumb">
-      <a href="index.html#home" data-i18n="ui.home">Home</a>
+      <a href="index.html" data-i18n="ui.home">Home</a>
       <span class="sep">/</span>
-      <span class="current" data-i18n="nav.about">About</span>
+      <span class="current" data-i18n="nav.skills">Skills</span>
     </nav>
 
     <div class="sections">
 
-      <!-- ===== PROFILE — sober rewrite, "Today" first ===== -->
-      <section id="profile" class="alt-section reveal anchor">
+      <!-- 01 — Technical Skills / CAD -->
+      <section id="technical" class="alt-section reverse reveal">
+        <figure class="alt-media">
+          <span class="photo-tag mono">01 / 04</span>
+          <img src="cad.jpg" alt="CAD workspace and parametric model" loading="lazy" decoding="async">
+        </figure>
         <div class="alt-card" data-num="01">
-          <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Profile</p>
-          <h3 class="alt-title display" data-i18n="about.sections.who.title">Engineering with focus and intent</h3>
-
-          <h4 class="step-title" data-i18n="about.sections.who.now_title">Today</h4>
-          <p class="alt-text" data-i18n="about.sections.who.now_text">Currently based in Germany, focused on aviation: mechanical design, embedded systems, and software development for embedded platforms. The aim is steady. Bring rigor to each step, and ship work that performs.</p>
-
-          <h4 class="step-title" data-i18n="about.sections.who.maker_title">Approach</h4>
-          <p class="alt-text" data-i18n="about.sections.who.maker_text">A long-standing interest in how things work and how they can work better. That instinct to refine, to simplify, to give every component a purpose, shapes my engineering practice today.</p>
-
-          <h4 class="step-title" data-i18n="about.sections.who.flight_title">Origin</h4>
-          <p class="alt-text" data-i18n="about.sections.who.flight_text">Aerospace caught my attention early. A first flight at seven made an impression that stayed: the contrast between raw power and quiet stability set the direction long before I had the words for it.</p>
-
-          <h4 class="step-title" data-i18n="about.sections.who.tn_title">Roots</h4>
-          <p class="alt-text" data-i18n="about.sections.who.tn">Born and raised in Tunisia, a context that values curiosity, resilience, and care for craft. Those habits carried into how I approach engineering: deliberate, structured, and built to last.</p>
-        </div>
-
-        <div class="alt-media">
-          <div class="stacked-photos" style="grid-template-rows: 1fr 1fr;">
-            <figure>
-              <img src="tunisia-skyline.jpg" alt="Tunisia, Mediterranean light" loading="lazy" decoding="async">
-              <span class="photo-tag" data-i18n="about.sections.who.photo1">Origin</span>
-            </figure>
-            <figure>
-              <img src="first-flight-seat.jpg" alt="Childhood travel moment" loading="lazy" decoding="async">
-              <span class="photo-tag" data-i18n="about.sections.who.photo2">First flight</span>
-            </figure>
-          </div>
+          <p class="alt-eyebrow" data-i18n="skills.cad.eyebrow">Technical Skills</p>
+          <h3 class="alt-title display" data-i18n="skills.cad.title">Computer-Aided Design (CAD)</h3>
+          <p class="alt-text" data-i18n="skills.cad.text">Good command of 3D mechanical design and parametric modeling tools, developed through personal and academic projects.</p>
         </div>
       </section>
 
-      <!-- ===== BACKGROUND — sober rewrite ===== -->
-      <section id="background" class="alt-section reveal anchor">
+      <!-- 02 — Interpersonal Skills -->
+      <section id="interpersonal" class="alt-section reveal">
         <div class="alt-card" data-num="02">
-          <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
-          <h3 class="alt-title display" data-i18n="about.sections.background.title">A structured education across two countries</h3>
-
-          <h4 class="step-title" data-i18n="about.sections.background.p1_title">Early education</h4>
-          <p class="alt-text" data-i18n="about.sections.background.p1">Primary schooling in Tunis, with English studied from the age of seven. Outside the classroom, regular involvement in sports, cultural, and academic clubs supported a steady, well-rounded foundation.</p>
-
-          <h4 class="step-title" data-i18n="about.sections.background.p2_title">Secondary studies</h4>
-          <p class="alt-text" data-i18n="about.sections.background.p2">Attended Lycée Pilote El Menzah 8, a selective high school, with a strong focus on mathematics and physics. German added at seventeen. Active member of the Interact charitable club, an environment that built practical teamwork, communication, and leadership skills.</p>
-
-          <h4 class="step-title" data-i18n="about.sections.background.p3_title">Higher education</h4>
-          <p class="alt-text" data-i18n="about.sections.background.p3">Continued my studies in Germany, pursuing aerospace engineering at university level, the framework within which my current technical work has been built.</p>
+          <p class="alt-eyebrow" data-i18n="skills.team.eyebrow">Interpersonal Skills</p>
+          <h3 class="alt-title display" data-i18n="skills.team.title">Team Communication</h3>
+          <p class="alt-text" data-i18n="skills.team.text">Experienced in collaborating within diverse teams, sharing ideas, and contributing to a constructive and supportive work environment.</p>
         </div>
+        <figure class="alt-media">
+          <span class="photo-tag mono">02 / 04</span>
+          <img src="team-comm.jpg" alt="Team collaborating around a whiteboard" loading="lazy" decoding="async">
+        </figure>
+      </section>
 
-        <div class="alt-media">
-          <div class="stacked-photos">
-            <figure>
-              <img src="school-tunis.jpg" alt="School years in Tunis" loading="lazy" decoding="async" onload="syncBackgroundHeights()">
-              <span class="photo-tag" data-i18n="about.sections.background.photo1">Lycée Pilote</span>
-            </figure>
-            <figure>
-              <img src="interact-club.jpg" alt="Interact club activities" loading="lazy" decoding="async" onload="syncBackgroundHeights()">
-              <span class="photo-tag" data-i18n="about.sections.background.photo2">Interact club</span>
-            </figure>
-          </div>
+      <!-- 03 — Organizational Skills -->
+      <section id="organizational" class="alt-section reverse reveal">
+        <figure class="alt-media">
+          <span class="photo-tag mono">03 / 04</span>
+          <img src="org-admin.jpg" alt="Organizational charts and documents" loading="lazy" decoding="async">
+        </figure>
+        <div class="alt-card" data-num="03">
+          <p class="alt-eyebrow" data-i18n="skills.admin.eyebrow">Organizational Skills</p>
+          <h3 class="alt-title display" data-i18n="skills.admin.title">Administrative and Procedural Understanding</h3>
+          <p class="alt-text" data-i18n="skills.admin.text">Solid grasp of company structures, legal processes, hierarchies, and international professional protocols.</p>
         </div>
       </section>
 
-      <!-- ===== CV ===== -->
-      <section id="cv" class="anchor reveal">
-        <div class="block-align">
-          <div class="eyebrow-stack inset-left">
-            <span class="alt-eyebrow" data-i18n="about.sections.cv.ribbon">Curriculum Vitae</span>
-          </div>
-
-          <div class="cv-row">
-            <div class="cv-label" data-i18n="about.sections.cv.row_basic">Curriculum Vitae</div>
-            <a id="cv-basic-btn" class="btn-download" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
-              <span data-i18n="ui.download">Download</span>
-            </a>
-          </div>
-
-          <div class="cv-row">
-            <div class="cv-label" data-i18n="about.sections.cv.row_extended">Curriculum Vitae, Extended Version</div>
-            <a id="cv-extended-btn" class="btn-download" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
-              <span data-i18n="ui.download">Download</span>
-            </a>
-          </div>
+      <!-- 04 — Cultural Skills -->
+      <section id="cultural" class="alt-section reveal">
+        <div class="alt-card" data-num="04">
+          <p class="alt-eyebrow" data-i18n="skills.culture.eyebrow">Cultural Skills</p>
+          <h3 class="alt-title display" data-i18n="skills.culture.title">Intercultural Adaptability</h3>
+          <p class="alt-text" data-i18n="skills.culture.text">Able to work effectively in multicultural environments and adapt to different work approaches and mindsets.</p>
         </div>
-      </section>
-
-      <!-- ===== CERTIFICATIONS ===== -->
-      <section id="certs" class="anchor reveal">
-        <div class="block-align">
-          <div class="eyebrow-stack inset-left">
-            <span class="alt-eyebrow" data-i18n="nav.about_menu.certs">Certifications</span>
-          </div>
-
-          <div class="cv-row">
-            <div class="cv-label" data-i18n="about.sections.certs.admin_service">Certificate for Administrative Service within a Humanitarian Organization</div>
-            <a id="cert-admin-btn" class="btn-download" href="certification_0722.pdf" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
-              <span data-i18n="ui.download">Download</span>
-            </a>
-          </div>
-
-          <div class="cv-row">
-            <div class="cv-label" data-i18n="about.sections.certs.amr">Course Certificate, Autonomous Mobile Robots</div>
-            <a id="cert-amr-btn" class="btn-download" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
-              <span data-i18n="ui.download">Download</span>
-            </a>
-          </div>
-        </div>
+        <figure class="alt-media">
+          <span class="photo-tag mono">04 / 04</span>
+          <img src="intercultural.jpg" alt="Global network and multicultural collaboration" loading="lazy" decoding="async">
+        </figure>
       </section>
 
     </div>
   </main>
 
-  <!-- ============================================================
-       FOOTER (matches index.html)
-       ============================================================ -->
   <footer class="footer-band">
     <div class="footer-grid">
       <div class="footer-brand-block">
@@ -805,60 +608,38 @@ document.addEventListener('DOMContentLoaded', function(){
   </footer>
 
   <!-- ============================================================
-       INLINE TRANSLATIONS — no JSON needed, persisted in localStorage
+       INLINE TRANSLATIONS
        ============================================================ -->
   <script>
 const TRANSLATIONS = {
   en: {
-    meta: { title: "About, Youssef Chabbou" },
+    meta: { title: "Skills — Youssef Chabbou" },
     nav: {
       about:"About", skills:"Skills", projects:"Projects", contact:"Contact",
       about_menu:{ who:"Profile", background:"Background", cv:"Curriculum Vitae", certs:"Certifications" },
       projects_menu:{ realized:"Projects realized", future:"Future projects" }
     },
-    ui: {
-      menu:"Menu", home:"Home", section:"Section", download:"Download",
-      theme_day:"☀︎ Day", theme_night:"☾ Night"
-    },
-    about: {
-      hero: {
-        title_a:"A focused path in",
-        title_b:"aerospace engineering.",
-        sub:"From early curiosity to applied work: background, training, and the systems I build today."
+    ui: { menu:"Menu", home:"Home", theme_day:"☀︎ Day", theme_night:"☾ Night" },
+    skills: {
+      cad: {
+        eyebrow:"Technical Skills",
+        title:"Computer-Aided Design (CAD)",
+        text:"Good command of 3D mechanical design and parametric modeling tools, developed through personal and academic projects."
       },
-      sections: {
-        who: {
-          title:"Engineering with focus and intent",
-          now_title:"Today",
-          now_text:"Currently based in Germany, focused on aviation: mechanical design, embedded systems, and software development for embedded platforms. The aim is steady. Bring rigor to each step, and ship work that performs.",
-          maker_title:"Approach",
-          maker_text:"A long-standing interest in how things work and how they can work better. That instinct to refine, to simplify, to give every component a purpose, shapes my engineering practice today.",
-          flight_title:"Origin",
-          flight_text:"Aerospace caught my attention early. A first flight at seven made an impression that stayed: the contrast between raw power and quiet stability set the direction long before I had the words for it.",
-          tn_title:"Roots",
-          tn:"Born and raised in Tunisia, a context that values curiosity, resilience, and care for craft. Those habits carried into how I approach engineering: deliberate, structured, and built to last.",
-          photo1:"Origin", photo2:"First flight"
-        },
-        background: {
-          eyebrow:"Background",
-          title:"A structured education across two countries",
-          p1_title:"Early education",
-          p1:"Primary schooling in Tunis, with English studied from the age of seven. Outside the classroom, regular involvement in sports, cultural, and academic clubs supported a steady, well-rounded foundation.",
-          p2_title:"Secondary studies",
-          p2:"Attended Lycée Pilote El Menzah 8, a selective high school, with a strong focus on mathematics and physics. German added at seventeen. Active member of the Interact charitable club, an environment that built practical teamwork, communication, and leadership skills.",
-          p3_title:"Higher education",
-          p3:"Continued my studies in Germany, pursuing aerospace engineering at university level, the framework within which my current technical work has been built.",
-          photo1:"Lycée Pilote", photo2:"Interact club"
-        },
-        cv: {
-          ribbon:"Curriculum Vitae",
-          row_basic:"Curriculum Vitae",
-          row_extended:"Curriculum Vitae, Extended Version"
-        },
-        certs: {
-          admin_service:"Certificate for Administrative Service within a Humanitarian Organization",
-          amr:"Course Certificate, Autonomous Mobile Robots"
-        }
+      team: {
+        eyebrow:"Interpersonal Skills",
+        title:"Team Communication",
+        text:"Experienced in collaborating within diverse teams, sharing ideas, and contributing to a constructive and supportive work environment."
+      },
+      admin: {
+        eyebrow:"Organizational Skills",
+        title:"Administrative and Procedural Understanding",
+        text:"Solid grasp of company structures, legal processes, hierarchies, and international professional protocols."
+      },
+      culture: {
+        eyebrow:"Cultural Skills",
+        title:"Intercultural Adaptability",
+        text:"Able to work effectively in multicultural environments and adapt to different work approaches and mindsets."
       }
     },
     footer: {
@@ -869,55 +650,33 @@ const TRANSLATIONS = {
   },
 
   fr: {
-    meta: { title: "À propos, Youssef Chabbou" },
+    meta: { title: "Compétences — Youssef Chabbou" },
     nav: {
       about:"À propos", skills:"Compétences", projects:"Projets", contact:"Contact",
       about_menu:{ who:"Profil", background:"Parcours", cv:"Curriculum Vitae", certs:"Certifications" },
       projects_menu:{ realized:"Projets réalisés", future:"Projets à venir" }
     },
-    ui: {
-      menu:"Menu", home:"Accueil", section:"Section", download:"Télécharger",
-      theme_day:"☀︎ Jour", theme_night:"☾ Nuit"
-    },
-    about: {
-      hero: {
-        title_a:"Un parcours engagé en",
-        title_b:"ingénierie aérospatiale.",
-        sub:"De la curiosité initiale au travail appliqué : parcours, formation et systèmes développés aujourd'hui."
+    ui: { menu:"Menu", home:"Accueil", theme_day:"☀︎ Jour", theme_night:"☾ Nuit" },
+    skills: {
+      cad: {
+        eyebrow:"Compétences techniques",
+        title:"Conception assistée par ordinateur (CAO)",
+        text:"Bonne maîtrise des outils de conception mécanique 3D et de modélisation paramétrique, développée à travers des projets personnels et académiques."
       },
-      sections: {
-        who: {
-          title:"Ingénierie avec rigueur et intention",
-          now_title:"Aujourd'hui",
-          now_text:"Basé en Allemagne, je travaille dans le domaine aéronautique : conception mécanique, systèmes embarqués et développement logiciel pour plateformes embarquées. L'objectif reste constant. Apporter de la rigueur à chaque étape et livrer un travail qui tient la route.",
-          maker_title:"Démarche",
-          maker_text:"Un intérêt durable pour le fonctionnement des choses et la façon de les améliorer. Cet instinct d'affiner, de simplifier, de donner à chaque composant un rôle clair guide aujourd'hui ma pratique d'ingénieur.",
-          flight_title:"Point de départ",
-          flight_text:"L'aérospatial m'a attiré tôt. Un premier vol à sept ans a laissé une trace durable : le contraste entre la puissance brute et la stabilité silencieuse a fixé la direction bien avant que je ne sache la nommer.",
-          tn_title:"Racines",
-          tn:"Né et élevé en Tunisie, un environnement qui valorise la curiosité, la persévérance et le soin du travail bien fait. Ces réflexes se retrouvent dans ma manière d'aborder l'ingénierie : posée, structurée, pensée pour durer.",
-          photo1:"Origine", photo2:"Premier vol"
-        },
-        background: {
-          eyebrow:"Parcours",
-          title:"Une formation structurée à travers deux pays",
-          p1_title:"Études primaires",
-          p1:"Scolarité primaire à Tunis, avec apprentissage de l'anglais dès l'âge de sept ans. En parallèle, participation régulière à des clubs sportifs, culturels et académiques, une base d'équilibre et de constance.",
-          p2_title:"Études secondaires",
-          p2:"Lycée Pilote El Menzah 8, établissement sélectif, avec une forte orientation mathématiques et physique. Allemand ajouté à dix-sept ans. Membre actif du club caritatif Interact, un cadre où se sont construites de réelles compétences en travail d'équipe, communication et leadership.",
-          p3_title:"Études supérieures",
-          p3:"Études poursuivies en Allemagne, en ingénierie aérospatiale, le cadre dans lequel s'inscrit mon travail technique actuel.",
-          photo1:"Lycée Pilote", photo2:"Club Interact"
-        },
-        cv: {
-          ribbon:"Curriculum Vitae",
-          row_basic:"Curriculum Vitae",
-          row_extended:"Curriculum Vitae, Version détaillée"
-        },
-        certs: {
-          admin_service:"Attestation de service administratif au sein d'une organisation humanitaire",
-          amr:"Attestation de stage, Robots mobiles autonomes"
-        }
+      team: {
+        eyebrow:"Compétences relationnelles",
+        title:"Communication d'équipe",
+        text:"Habitué à collaborer au sein d'équipes variées, à partager des idées et à contribuer à un environnement de travail constructif et bienveillant."
+      },
+      admin: {
+        eyebrow:"Compétences organisationnelles",
+        title:"Compréhension administrative et procédurale",
+        text:"Bonne compréhension des structures d'entreprise, des processus juridiques, des hiérarchies et des protocoles professionnels internationaux."
+      },
+      culture: {
+        eyebrow:"Compétences culturelles",
+        title:"Adaptabilité interculturelle",
+        text:"Capacité à travailler efficacement en environnement multiculturel et à s'adapter à différentes approches et mentalités professionnelles."
       }
     },
     footer: {
@@ -928,55 +687,33 @@ const TRANSLATIONS = {
   },
 
   de: {
-    meta: { title: "Über mich, Youssef Chabbou" },
+    meta: { title: "Kompetenzen — Youssef Chabbou" },
     nav: {
       about:"Über mich", skills:"Kompetenzen", projects:"Projekte", contact:"Kontakt",
       about_menu:{ who:"Profil", background:"Werdegang", cv:"Lebenslauf", certs:"Zertifikate" },
       projects_menu:{ realized:"Realisierte Projekte", future:"Zukünftige Projekte" }
     },
-    ui: {
-      menu:"Menü", home:"Start", section:"Abschnitt", download:"Herunterladen",
-      theme_day:"☀︎ Tag", theme_night:"☾ Nacht"
-    },
-    about: {
-      hero: {
-        title_a:"Ein konsequenter Weg in der",
-        title_b:"Luft- und Raumfahrttechnik.",
-        sub:"Von früher Neugier zur angewandten Arbeit: Werdegang, Ausbildung und die Systeme, an denen ich heute arbeite."
+    ui: { menu:"Menü", home:"Start", theme_day:"☀︎ Tag", theme_night:"☾ Nacht" },
+    skills: {
+      cad: {
+        eyebrow:"Technische Kompetenzen",
+        title:"Rechnergestütztes Konstruieren (CAD)",
+        text:"Gute Beherrschung von Werkzeugen für mechanisches 3D-Design und parametrische Modellierung, gefestigt durch persönliche und akademische Projekte."
       },
-      sections: {
-        who: {
-          title:"Ingenieurarbeit mit Klarheit und Anspruch",
-          now_title:"Heute",
-          now_text:"Derzeit in Deutschland tätig, mit Schwerpunkt Luftfahrt: mechanische Konstruktion, eingebettete Systeme und Softwareentwicklung für eingebettete Plattformen. Das Ziel bleibt stabil. Sorgfalt in jedem Schritt und Ergebnisse, die im Einsatz bestehen.",
-          maker_title:"Herangehensweise",
-          maker_text:"Ein anhaltendes Interesse daran, wie Dinge funktionieren und wie sie besser funktionieren können. Dieses Bedürfnis nach Verfeinerung, Vereinfachung und einer klaren Rolle für jedes Bauteil prägt meine Ingenieurpraxis bis heute.",
-          flight_title:"Anfang",
-          flight_text:"Die Luftfahrt zog mich früh an. Ein erster Flug mit sieben hinterließ einen bleibenden Eindruck: der Kontrast zwischen roher Leistung und ruhiger Stabilität gab die Richtung lange vor, bevor ich sie benennen konnte.",
-          tn_title:"Wurzeln",
-          tn:"Geboren und aufgewachsen in Tunesien, ein Umfeld, das Neugier, Beharrlichkeit und sorgfältige Arbeit hochhält. Diese Haltungen wirken in meiner Art zu arbeiten weiter: bewusst, strukturiert und auf Dauer angelegt.",
-          photo1:"Ursprung", photo2:"Erster Flug"
-        },
-        background: {
-          eyebrow:"Werdegang",
-          title:"Eine strukturierte Ausbildung in zwei Ländern",
-          p1_title:"Grundschulzeit",
-          p1:"Grundschule in Tunis, Englisch ab dem siebten Lebensjahr. Außerhalb des Unterrichts regelmäßige Teilnahme an Sport-, Kultur- und akademischen Clubs, eine solide, ausgewogene Basis.",
-          p2_title:"Sekundarstufe",
-          p2:"Besuch des Lycée Pilote El Menzah 8, einer selektiven Schule, mit Schwerpunkt Mathematik und Physik. Deutsch ab siebzehn. Aktives Mitglied des karitativen Clubs Interact, ein Umfeld, in dem Teamarbeit, Kommunikation und Führung praktisch gelernt wurden.",
-          p3_title:"Hochschulausbildung",
-          p3:"Weiterführendes Studium in Deutschland im Bereich Luft- und Raumfahrttechnik, der Rahmen, in dem meine heutige technische Arbeit entstanden ist.",
-          photo1:"Lycée Pilote", photo2:"Interact-Club"
-        },
-        cv: {
-          ribbon:"Lebenslauf",
-          row_basic:"Lebenslauf",
-          row_extended:"Lebenslauf, Ausführliche Fassung"
-        },
-        certs: {
-          admin_service:"Zertifikat über Verwaltungsarbeit in einer humanitären Organisation",
-          amr:"Schulungszertifikat, Autonome mobile Roboter"
-        }
+      team: {
+        eyebrow:"Soziale Kompetenzen",
+        title:"Teamkommunikation",
+        text:"Erfahrung in der Zusammenarbeit in vielfältigen Teams, im Austausch von Ideen und im Beitrag zu einem konstruktiven und unterstützenden Arbeitsumfeld."
+      },
+      admin: {
+        eyebrow:"Organisatorische Kompetenzen",
+        title:"Administratives und prozessuales Verständnis",
+        text:"Solides Verständnis für Unternehmensstrukturen, rechtliche Abläufe, Hierarchien und internationale professionelle Protokolle."
+      },
+      culture: {
+        eyebrow:"Interkulturelle Kompetenzen",
+        title:"Interkulturelle Anpassungsfähigkeit",
+        text:"Fähigkeit, in multikulturellen Umfeldern wirkungsvoll zu arbeiten und sich an unterschiedliche Arbeitsweisen und Denkweisen anzupassen."
       }
     },
     footer: {
@@ -987,55 +724,33 @@ const TRANSLATIONS = {
   },
 
   ar: {
-    meta: { title: "حول, يوسف الشبو" },
+    meta: { title: "المهارات — يوسف الشبو" },
     nav: {
       about:"حول", skills:"المهارات", projects:"المشاريع", contact:"اتصل",
       about_menu:{ who:"الملف الشخصي", background:"الخلفية", cv:"السيرة الذاتية", certs:"الشهادات" },
       projects_menu:{ realized:"مشاريع منجزة", future:"مشاريع مستقبلية" }
     },
-    ui: {
-      menu:"القائمة", home:"الرئيسية", section:"قسم", download:"تنزيل",
-      theme_day:"☀︎ نهار", theme_night:"☾ ليل"
-    },
-    about: {
-      hero: {
-        title_a:"مسار مركّز في",
-        title_b:"هندسة الفضاء الجوي.",
-        sub:"من الفضول الأول إلى العمل التطبيقي: المسار، التكوين، والأنظمة التي أعمل عليها اليوم."
+    ui: { menu:"القائمة", home:"الرئيسية", theme_day:"☀︎ نهار", theme_night:"☾ ليل" },
+    skills: {
+      cad: {
+        eyebrow:"المهارات التقنية",
+        title:"التصميم بمساعدة الحاسوب (CAD)",
+        text:"إتقان جيد لأدوات التصميم الميكانيكي ثلاثي الأبعاد والنمذجة البارامترية، اكتُسب عبر مشاريع شخصية وأكاديمية."
       },
-      sections: {
-        who: {
-          title:"هندسة بهدف ودقة",
-          now_title:"اليوم",
-          now_text:"مقيم حالياً في ألمانيا، أعمل في مجال الطيران: التصميم الميكانيكي، الأنظمة المدمجة، وتطوير البرمجيات للمنصات المدمجة. الهدف ثابت. صرامة في كل خطوة، ونتائج تصمد عند التطبيق.",
-          maker_title:"المنهج",
-          maker_text:"اهتمام متواصل بكيفية عمل الأشياء وكيف يمكن تحسينها. هذا الميل إلى التهذيب والتبسيط، ومنح كل عنصر دوره الواضح، يحدّد ممارستي الهندسية اليوم.",
-          flight_title:"البداية",
-          flight_text:"شدّتني الملاحة الجوية مبكراً. أول رحلة في السابعة تركت أثراً باقياً: التباين بين القوة الخام والاستقرار الهادئ رسم الاتجاه قبل أن أملك له اسماً.",
-          tn_title:"الجذور",
-          tn:"وُلدت ونشأت في تونس، بيئة تُقدّر الفضول والمثابرة والعناية بالحرفة. هذه العادات انتقلت إلى أسلوبي الهندسي: متأنٍّ، منظّم، مصمَّم ليدوم.",
-          photo1:"البداية", photo2:"أول رحلة"
-        },
-        background: {
-          eyebrow:"الخلفية",
-          title:"تكوين منظّم بين بلدين",
-          p1_title:"التعليم الابتدائي",
-          p1:"الدراسة الابتدائية في تونس، مع تعلّم الإنجليزية من سن السابعة. خارج الفصل، مشاركة منتظمة في نوادٍ رياضية وثقافية وأكاديمية, قاعدة متوازنة وثابتة.",
-          p2_title:"التعليم الثانوي",
-          p2:"التحاق بالمعهد النموذجي بالمنزه 8، وهو معهد انتقائي، مع تركيز قوي على الرياضيات والفيزياء. تعلّم الألمانية في السابعة عشرة. عضوية نشطة في نادي إنتراكت الخيري، حيث بُنيت مهارات عملية في العمل الجماعي والتواصل والقيادة.",
-          p3_title:"التعليم العالي",
-          p3:"متابعة الدراسة في ألمانيا في هندسة الفضاء الجوي على المستوى الجامعي, الإطار الذي يقوم عليه عملي التقني الحالي.",
-          photo1:"المعهد النموذجي", photo2:"نادي إنتراكت"
-        },
-        cv: {
-          ribbon:"السيرة الذاتية",
-          row_basic:"السيرة الذاتية",
-          row_extended:"السيرة الذاتية، النسخة الموسّعة"
-        },
-        certs: {
-          admin_service:"شهادة عمل إداري في منظمة إنسانية",
-          amr:"شهادة تدريب، الروبوتات المتنقلة المستقلة"
-        }
+      team: {
+        eyebrow:"المهارات الشخصية",
+        title:"التواصل ضمن فريق",
+        text:"خبرة في العمل ضمن فرق متنوعة، وتبادل الأفكار، والإسهام في بيئة عمل بنّاءة وداعمة."
+      },
+      admin: {
+        eyebrow:"المهارات التنظيمية",
+        title:"الفهم الإداري والإجرائي",
+        text:"إلمام جيد بهياكل الشركات، والإجراءات القانونية، والتسلسل الإداري، والبروتوكولات المهنية الدولية."
+      },
+      culture: {
+        eyebrow:"المهارات الثقافية",
+        title:"التكيّف بين الثقافات",
+        text:"القدرة على العمل بفاعلية في بيئات متعددة الثقافات والتكيّف مع أساليب العمل والعقليات المختلفة."
       }
     },
     footer: {
@@ -1044,14 +759,6 @@ const TRANSLATIONS = {
       created_by:"هذا الموقع أنشأه صاحبه بالكامل،<br>يوسف الشبو، باستخدام تطوير معزّز بالذكاء الاصطناعي."
     }
   }
-};
-
-/* PDF map per language — rename your files exactly like below in your repo */
-const PDF_MAP = {
-  en: { basic:"curriculum_vitae.pdf",      extended:"extended_curriculum_vitae.pdf",  amr:"certificate_amr.pdf" },
-  fr: { basic:"cv.pdf",                    extended:"cv_detaille.pdf",                amr:"attestation_amr.pdf" },
-  de: { basic:"lebenslauf.pdf",            extended:"erweiterter_lebenslauf.pdf",     amr:"zertifikat_amr.pdf" },
-  ar: { basic:"السيرة_الذاتية.pdf",         extended:"السيرة_الذاتية_الموسعة.pdf",     amr:"شهادة_amr.pdf" }
 };
 
 function applyLang(lang){
@@ -1085,16 +792,7 @@ function applyLang(lang){
     btn.textContent = (map[lang] || 'EN') + ' ▾';
   }
 
-  // PDF links
-  const map = PDF_MAP[lang] || PDF_MAP.en;
-  const a1 = document.getElementById("cv-basic-btn"); if (a1) a1.href = map.basic;
-  const a2 = document.getElementById("cv-extended-btn"); if (a2) a2.href = map.extended;
-  const a3 = document.getElementById("cert-amr-btn"); if (a3) a3.href = map.amr;
-  // Admin service certificate stays the same file across languages
-  const a4 = document.getElementById("cert-admin-btn"); if (a4) a4.href = "certification_0722.pdf";
-
   if (window.updateThemeLabel) updateThemeLabel();
-  setTimeout(()=>{ if (window.syncBackgroundHeights) window.syncBackgroundHeights(); }, 60);
 }
 window.setLangFromMenu = applyLang;
 
@@ -1119,9 +817,6 @@ document.addEventListener('click', (e)=>{
   e.preventDefault();
   applyLang(b.getAttribute('data-lang'));
 });
-
-/* expose for the Background height sync defined earlier */
-window.syncBackgroundHeights = syncBackgroundHeights;
   </script>
 
   <!-- Reveal on scroll -->
@@ -1136,8 +831,7 @@ window.syncBackgroundHeights = syncBackgroundHeights;
     })();
   </script>
 
-
-  <!-- Mobile drawer (preserved) -->
+  <!-- Mobile drawer -->
   <script>
     (function(){
       const html = document.documentElement;
