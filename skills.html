@@ -3,12 +3,24 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — Youssef Chabbou</title>
+
+<link rel="preload" as="image" href="background.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,500&display=swap" rel="stylesheet">
 
 <style>
+  /* ============================================================
+     COLOR TOKENS — STRICTLY PRESERVED
+     ============================================================ */
   :root{
     --bg:#fff;--fg:#1f2937;--muted:#6b7280;--brand:#0b5fa5;--card:#f8fafc;--ring:#dbeafe;--overlay:rgba(255,255,255,0.85);
     --edge:24px;
     --card-pad:26px;
+    --sticky-h:80px;
+    --anchor-offset: calc(var(--sticky-h) + 24px);
   }
   [data-theme="dark"]{
     --bg:#0d1117;--fg:#e6edf3;--muted:#8b949e;--brand:#58a6ff;--card:#161b22;--ring:#30363d;--overlay:rgba(0,0,0,0.7)
@@ -26,93 +38,345 @@
     background:url('background.jpg') no-repeat center/cover
   }
 
-  .top-band{position:sticky;top:0;width:100%;background:rgba(11,95,165,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000}
+  /* Editorial typography helpers */
+  .display{font-family:'Fraunces', Georgia, serif;font-weight:300;letter-spacing:-0.025em;line-height:1}
+  .display em{font-style:italic;font-weight:300}
+  .mono{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  }
+  html[dir="rtl"] .display{font-family: system-ui,-apple-system,sans-serif;letter-spacing:0}
+
+  /* ============================================================
+     TOP BAND — same identity as index.html
+     ============================================================ */
+  .top-band{
+    position:sticky;top:0;width:100%;
+    background:rgba(11,95,165,.35);
+    backdrop-filter:blur(14px) saturate(170%);
+    -webkit-backdrop-filter:blur(14px) saturate(170%);
+    z-index:1000;
+  }
+  [data-theme="dark"] .top-band{background:rgba(11,95,165,.22)}
+
   .container{max-width:1200px;margin:auto;padding:24px}
   header{display:flex;align-items:center;justify-content:space-between;padding:4px 12px;min-height:40px}
-  header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block}
-  nav{display:flex;gap:40px;align-items:center}
-  nav a{font-weight:500;text-decoration:none;color:var(--fg);opacity:.9;cursor:pointer}
-  nav a:hover{opacity:1;text-decoration:underline}
-  .menu{position:relative}
-  .submenu{position:absolute;top:100%;left:0;background:var(--card);border:1px solid var(--ring);border-radius:8px;min-width:160px;box-shadow:0 6px 18px rgba(0,0,0,.08);opacity:0;transform:translateY(-10px);transition:opacity .25s ease,transform .25s ease;display:none}
+  header img.signature{height:40px;width:auto;object-fit:contain;cursor:pointer;display:block;transition:transform .25s ease}
+  header img.signature:hover{transform:translateY(-1px)}
+
+  nav{display:flex;gap:34px;align-items:center}
+  nav a{
+    position:relative;
+    font-weight:500;text-decoration:none;color:var(--fg);
+    opacity:.92;cursor:pointer;font-size:14px;letter-spacing:0.01em;
+    padding:6px 0;transition:color .2s, opacity .2s;
+  }
+  nav a::after{
+    content:"";position:absolute;bottom:-2px;left:0;
+    width:0;height:1px;background:var(--brand);
+    transition:width .3s cubic-bezier(0.16,1,0.3,1);
+  }
+  nav a:hover{color:var(--brand);opacity:1}
+  nav a:hover::after{width:100%}
+  html[dir="rtl"] nav a::after{left:auto;right:0}
+
+  .menu{position:relative;display:flex;align-items:center;gap:2px;z-index:50}
+  .submenu{
+    position:absolute;top:100%;left:0;
+    background:var(--card);border:1px solid var(--ring);border-radius:10px;
+    min-width:200px;
+    box-shadow:0 14px 32px rgba(11,95,165,.12), 0 1px 0 rgba(255,255,255,.6) inset;
+    opacity:0;transform:translateY(-10px);transition:opacity .25s, transform .25s;
+    display:none;padding:6px;margin-top:10px;
+    z-index:50;
+  }
+  [data-theme="dark"] .submenu{box-shadow:0 14px 32px rgba(0,0,0,.4)}
   .submenu.show{display:block;opacity:1;transform:translateY(0)}
-  .submenu a{display:block;padding:6px 10px;color:var(--fg);text-decoration:none;cursor:default}
-  .submenu a:hover{background:var(--ring)}
-  .toggle{border:1px solid var(--ring);background:transparent;color:var(--fg);padding:4px 8px;border-radius:8px;cursor:pointer;transition:background .3s,color .3s}
+  .submenu a{
+    display:block;padding:9px 12px;color:var(--fg);text-decoration:none;
+    cursor:pointer;border-radius:7px;font-size:14px;
+    transition:background .18s, color .18s, padding-left .18s;
+  }
+  .submenu a:hover{background:var(--ring);color:var(--brand);padding-left:16px}
+  html[dir="rtl"] .submenu a:hover{padding-left:12px;padding-right:16px}
 
-  .page{max-width:1200px;margin:0 auto;padding:32px 24px 24px;z-index:1;position:relative}
-  .footer-band{background-color:rgba(11,95,165,.6);color:#fff;text-align:left;padding:20px;margin-top:auto;position:relative;z-index:1}
+  .toggle{
+    border:1px solid var(--ring);background:transparent;color:var(--fg);
+    padding:6px 10px;border-radius:8px;cursor:pointer;
+    transition:background .25s,color .25s,border-color .25s;font-size:13px;
+  }
+  .toggle:hover{border-color:var(--brand);color:var(--brand)}
 
-  .top-band,header,nav{max-width:100vw}
-  header>*{min-width:0}
-  nav{min-width:0}
+  /* ============================================================
+     BREADCRUMBS
+     ============================================================ */
+  .breadcrumbs{
+    display:flex;gap:10px;align-items:center;
+    color:var(--muted);
+    padding:0 var(--edge);
+    margin:0 0 4px;
+  }
+  .breadcrumbs a{color:var(--muted);text-decoration:none;transition:color .2s}
+  .breadcrumbs a:hover{color:var(--brand)}
+  .breadcrumbs .sep{opacity:.5}
+  .breadcrumbs .current{color:var(--brand)}
 
-  .sections{max-width:1200px;margin:0 auto;padding:24px 24px 96px}
+  /* ============================================================
+     SECTIONS — original layout preserved
+     ============================================================ */
+  .page{max-width:1200px;margin:0 auto;padding:48px var(--edge) 24px;z-index:1;position:relative}
+
+  .sections{max-width:1200px;margin:0 auto;padding:32px 0 96px}
   .alt-section{
     display:grid;
     grid-template-columns:1.05fr 1fr;
-    gap:36px;
-    align-items:center;
-    margin:60px 0;
+    gap:48px;align-items:stretch;margin:54px 0;
+    padding:0 var(--edge);
   }
-  .alt-section.reverse{grid-template-columns:1fr 1.05fr}
 
   .alt-card{
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-radius:24px;
-    padding:28px var(--card-pad);
-    box-shadow:0 10px 30px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.14) inset;
-    color:#111827;
-    display:flex;flex-direction:column;
+    background:rgba(255,255,255,.36);
+    backdrop-filter:blur(18px) saturate(160%);
+    -webkit-backdrop-filter:blur(18px) saturate(160%);
+    border:1px solid rgba(255,255,255,.4);
+    border-radius:20px;padding:36px 32px;
+    box-shadow:
+      0 20px 50px -20px rgba(11,95,165,.18),
+      0 1px 0 rgba(255,255,255,.6) inset,
+      0 0 0 1px rgba(11,95,165,.04);
+    color:var(--fg);
+    transition:transform .5s cubic-bezier(0.16,1,0.3,1), box-shadow .5s, border-color .5s;
+    position:relative;overflow:hidden;
+    height:100%;display:flex;flex-direction:column;
+  }
+  .alt-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(11,95,165,.3);
+    box-shadow:0 28px 60px -20px rgba(11,95,165,.28), 0 1px 0 rgba(255,255,255,.7) inset;
   }
   [data-theme="dark"] .alt-card{
-    background: rgba(0,0,0,0.55);
-    box-shadow:0 10px 30px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.06) inset;
-    color:#eaeef5;
+    background:rgba(22,27,34,.55);
+    border-color:rgba(255,255,255,.08);
+    box-shadow:0 20px 50px -20px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.04) inset;
   }
+  [data-theme="dark"] .alt-card:hover{border-color:rgba(88,166,255,.3)}
+
+  /* Filigree number inside cards (matches index.html) */
+  .alt-card[data-num]::after{
+    content:attr(data-num);
+    position:absolute;bottom:-32px;right:-12px;
+    font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:300;
+    font-size:180px;line-height:1;color:rgba(11,95,165,.06);
+    pointer-events:none;user-select:none;
+  }
+  [data-theme="dark"] .alt-card[data-num]::after{color:rgba(88,166,255,.08)}
+  html[dir="rtl"] .alt-card[data-num]::after{right:auto;left:-12px}
 
   .alt-eyebrow{
-    display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#0f172a;
-    margin:0 0 10px;padding:6px 14px;border-radius:999px;
-    background: linear-gradient(90deg, rgba(11,95,165,.18), rgba(11,95,165,.06));
+    display:inline-block;color:var(--brand);
+    margin:0 0 16px;padding:5px 12px;border-radius:999px;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background:linear-gradient(90deg,rgba(11,95,165,.14),rgba(11,95,165,.04));
+    border:1px solid rgba(11,95,165,.18);
   }
   [data-theme="dark"] .alt-eyebrow{
-    color:#e6eef8;
-    background: linear-gradient(180deg, rgba(2,6,23,.88), rgba(2,6,23,.72));
-    border:1px solid rgba(88,166,255,.28);
+    color:var(--brand);
+    background:linear-gradient(90deg,rgba(88,166,255,.20),rgba(88,166,255,.05));
+    border-color:rgba(88,166,255,.28);
   }
 
-  .alt-title{font-size:clamp(22px,2.8vw,36px);line-height:1.18;margin:0 0 12px;color:var(--fg)}
-  [data-theme="dark"] .alt-title{color:#f3f6fb}
+  .alt-title{
+    font-family:'Fraunces', Georgia, serif;font-weight:300;
+    font-size:clamp(26px,3.2vw,44px);line-height:1.08;letter-spacing:-0.02em;
+    margin:0 0 18px;color:var(--fg);
+  }
+  [data-theme="dark"] .alt-title{color:var(--fg)}
+  html[dir="rtl"] .alt-title{font-family:system-ui,-apple-system,sans-serif;letter-spacing:0}
 
-  .alt-text{margin:0;color:#111827;font-size:16px}
-  [data-theme="dark"] .alt-text{color:#eaeef5}
+  .alt-text{margin:0;color:var(--muted);font-size:16.5px;line-height:1.7;max-width:48ch}
+  [data-theme="light"] .alt-card .alt-text{color:#374151}
+  [data-theme="dark"] .alt-card .alt-text{color:#c9d1d9}
 
-  figure{margin:0}
+  .step-title{
+    font-size:18px;font-weight:600;margin:18px 0 6px;color:var(--fg);
+    letter-spacing:-0.005em;
+  }
+  [data-theme="dark"] .step-title{color:#f3f6fb}
+
   .alt-media{
-    border-radius:26px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.16);
-    display:block;background:rgba(255,255,255,0.10);aspect-ratio:16/10;
+    border-radius:22px;overflow:hidden;
+    box-shadow:0 24px 50px -10px rgba(0,0,0,.22);
+    height:100%;position:relative;
   }
-  .alt-media img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform .6s ease;}
-  .alt-media:hover img{transform:scale(1.06)}
+  .stacked-photos{
+    display:grid;grid-template-rows:1fr 1fr;
+    height:100%;gap:14px;padding:14px;
+    background:transparent;
+  }
+  .stacked-photos figure{margin:0;overflow:hidden;border-radius:16px;position:relative;box-shadow:0 14px 30px -10px rgba(0,0,0,.2)}
+  .stacked-photos img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transform:scale(1.02);
+    transition:transform .8s ease;will-change:transform;
+  }
+  .stacked-photos figure:hover img,
+  .stacked-photos figure:focus-within img{transform:scale(1.08)}
 
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+  /* Caption tag on photos — same style as index.html .alt-media-tag */
+  .photo-tag{
+    position:absolute;bottom:14px;left:14px;
+    padding:6px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    background:rgba(13,17,23,.7);color:#fff;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-radius:999px;border:1px solid rgba(255,255,255,.15);z-index:2;
+  }
+  html[dir="rtl"] .photo-tag{left:auto;right:14px}
+
+  /* The floating "Curriculum Vitae" / "Certifications" eyebrow chips
+     above each section need their own liquid-glass surface so they stay
+     readable when the background image is busy. */
+  .eyebrow-stack{
+    display:inline-block;position:relative;margin:6px 0 18px;
+    padding:0;border-radius:999px;
+    background:rgba(255,255,255,.36);
+    backdrop-filter:blur(18px) saturate(160%);
+    -webkit-backdrop-filter:blur(18px) saturate(160%);
+    border:1px solid rgba(255,255,255,.4);
+    box-shadow:
+      0 10px 28px -14px rgba(11,95,165,.18),
+      0 1px 0 rgba(255,255,255,.6) inset;
+  }
+  [data-theme="dark"] .eyebrow-stack{
+    background:rgba(22,27,34,.55);
+    border-color:rgba(255,255,255,.08);
+    box-shadow:
+      0 10px 28px -14px rgba(0,0,0,.5),
+      0 1px 0 rgba(255,255,255,.04) inset;
+  }
+  .eyebrow-stack .alt-eyebrow{
+    position:relative;z-index:1;margin:0;
+    /* keep the blue tinted gradient + brand border on the inner pill */
+  }
+
+  .block-align{ padding-left:var(--edge); padding-right:var(--edge) }
+  .inset-left{ margin-left: calc(var(--edge) + var(--card-pad)); }
+
+  .cv-row{
+    display:flex;align-items:center;justify-content:space-between;
+    border:1px solid rgba(255,255,255,.4);
+    border-radius:18px;padding:18px 22px;margin:14px 0;
+    background:rgba(255,255,255,.36);
+    backdrop-filter:blur(18px) saturate(160%);
+    -webkit-backdrop-filter:blur(18px) saturate(160%);
+    box-shadow:
+      0 20px 50px -20px rgba(11,95,165,.18),
+      0 1px 0 rgba(255,255,255,.6) inset,
+      0 0 0 1px rgba(11,95,165,.04);
+    transition:border-color .25s, transform .25s, box-shadow .25s;
+    gap:14px;flex-wrap:wrap;
+  }
+  .cv-row:hover{
+    transform:translateY(-3px);
+    border-color:rgba(11,95,165,.3);
+    box-shadow:
+      0 28px 60px -20px rgba(11,95,165,.28),
+      0 1px 0 rgba(255,255,255,.7) inset;
+  }
+  [data-theme="dark"] .cv-row{
+    background:rgba(22,27,34,.55);
+    border-color:rgba(255,255,255,.08);
+    box-shadow:0 20px 50px -20px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.04) inset;
+  }
+  [data-theme="dark"] .cv-row:hover{border-color:rgba(88,166,255,.3)}
+
+  .cv-label{font-weight:600;font-size:17px;flex:1 1 280px;line-height:1.35;color:var(--fg)}
+  .btn-download{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:6px 0 7px;
+    border:0;
+    background:transparent;
+    color:#1f3b5d;
+    text-decoration:none;
+    font-family:'Fraunces', Georgia, serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:16px;
+    letter-spacing:0.005em;
+    border-bottom:1px solid currentColor;
+    transition:gap .25s ease, color .25s ease, opacity .25s ease;
+    white-space:nowrap;
+  }
+  .btn-download:hover{
+    gap:14px;
+    opacity:.78;
+  }
+  .btn-download:active{opacity:.6}
+  .btn-download svg{width:14px;height:14px;flex:0 0 14px;opacity:.7;transition:transform .25s ease}
+  .btn-download:hover svg{transform:translateY(1px)}
+
+  [data-theme="dark"] .btn-download{
+    color:#cfd8e3;
+  }
+  [data-theme="dark"] .btn-download:hover{
+    color:#eef2f7;opacity:1;
+  }
+
+  .anchor{scroll-margin-top: var(--anchor-offset)}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(0.16,1,0.3,1), transform .8s cubic-bezier(0.16,1,0.3,1)}
   .reveal.in{opacity:1;transform:translateY(0)}
 
-  .lang-menu{display:inline-block;margin-right:4px}
-  .lang-menu .toggle{font-size:12px;padding:4px 8px;border-radius:8px}
+  /* ============================================================
+     FOOTER — same as index.html
+     ============================================================ */
+  .footer-band{
+    background-color:rgba(11,95,165,.6);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    color:#fff;margin-top:auto;position:relative;z-index:1;
+    padding:32px 32px 28px;
+  }
+  .footer-band::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg, transparent 0%, #58a6ff 25%, #fff 50%, #58a6ff 75%, transparent 100%);
+    opacity:.7;
+  }
+  .footer-grid{
+    max-width:1200px;margin:0 auto;
+    display:grid;grid-template-columns:1.1fr 1fr 1.4fr;gap:36px;align-items:start;
+  }
+  .footer-brand-block{display:flex;flex-direction:column;gap:6px}
+  .footer-brand-name{font-family:'Fraunces', Georgia, serif;font-weight:300;font-style:italic;font-size:22px;letter-spacing:-0.01em;color:#fff}
+  .footer-brand-tag{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+  .footer-nav{display:flex;flex-direction:column;gap:6px}
+  .footer-nav-title{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px}
+  .footer-nav a{color:rgba(255,255,255,.92);text-decoration:none;font-size:13.5px;transition:color .2s}
+  .footer-nav a:hover{color:#9bc4ec}
+  .footer-meta{display:flex;flex-direction:column;gap:8px;text-align:right}
+  html[dir="rtl"] .footer-meta{text-align:left}
+  .footer-meta-line{font-size:11.5px;color:rgba(255,255,255,.78);line-height:1.5}
+  .footer-copy{font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;color:rgba(255,255,255,.6);text-transform:uppercase}
 
-  section[id]{scroll-margin-top:120px}
+  .lang-menu{display:inline-block;margin-right:6px}
+  .lang-menu .toggle{font-size:12px;padding:5px 10px;border-radius:8px}
 
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media(max-width:1000px){
+    nav{gap:22px}
+  }
   @media(max-width:900px){
-    .sections{padding:16px 16px 72px}
-    .alt-section,.alt-section.reverse{grid-template-columns:1fr}
-    .alt-section.reverse .alt-card{order:2}
-    .alt-section.reverse .alt-media{order:1}
-    .alt-media{width:100%}
+    .alt-section{grid-template-columns:1fr}
+    #background .alt-media{height:auto !important}
+    :root{ --anchor-offset: 72px; }
+    .footer-grid{grid-template-columns:1fr;gap:24px}
+    .footer-meta{text-align:left}
+    html[dir="rtl"] .footer-meta{text-align:right}
   }
   @media(max-width:640px){
+    :root{ --edge:16px; --anchor-offset: 64px; }
     .container{padding:12px 16px}
     .top-band{position:static}
     header{flex-wrap:wrap;gap:8px}
@@ -122,9 +386,18 @@
     .toggle{padding:6px 10px;font-size:14px}
     .submenu{max-width:calc(100vw - 24px);overflow-wrap:anywhere;left:0;right:auto}
     html,body{overflow-x:hidden}
+    .footer-band{padding:24px 18px}
   }
 
-  /* HAMBURGER MOBILE */
+  /* Background section overrides preserved */
+  #background{ align-items:start; }
+  #background .alt-card{ height:auto; }
+  #background .alt-media{ height:auto; }
+  #background .stacked-photos{ height:100%; grid-template-rows:1fr 1fr; }
+  #background .stacked-photos figure{ height:100%; }
+  #background .stacked-photos img{ object-fit:cover; }
+
+  /* HAMBURGER + DRAWER preserved */
   .hamburger-btn{display:none;appearance:none;border:0;background:transparent;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer}
   .hamburger-btn span{display:block;width:22px;height:2px;background:var(--fg);border-radius:2px;position:relative}
   .hamburger-btn span::before,.hamburger-btn span::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--fg);border-radius:2px}
@@ -142,7 +415,6 @@
   .mobile-drawer .lang-grid{padding:12px;border-top:1px solid var(--ring);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:var(--bg)}
   .mobile-drawer .lang-btn{padding:10px;border:1px solid var(--ring);border-radius:10px;background:var(--card);text-align:center;cursor:pointer}
   .mobile-drawer .lang-btn:active{transform:scale(.98)}
-
   .mobile-open .mobile-backdrop{opacity:1;pointer-events:auto}
   .mobile-open .mobile-drawer{transform:translateX(0)}
 
@@ -150,50 +422,46 @@
     .hamburger-btn{display:flex}
     .top-band nav{display:none !important}
     .lang-menu{display:none !important}
-    .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px;}
-    .top-band header > a[href="index.html"]{justify-self:center}
+    .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px}
+    .top-band header > a[href="index.html#home"]{justify-self:center}
     #themeToggle{justify-self:end}
   }
-
   .hamburger-btn:focus-visible,.mobile-drawer a:focus-visible,.lang-btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
-  @media (prefers-reduced-motion:reduce){.mobile-backdrop,.mobile-drawer{transition:none}}
+  @media (prefers-reduced-motion:reduce){
+    .mobile-backdrop,.mobile-drawer{transition:none}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
 
-  .mobile-heading{margin:14px 12px 6px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ring);padding-top:10px;}
-  .mobile-group{padding:2px 0 8px;}
-  .mobile-group > a{display:block;padding:10px 12px;border-radius:10px;}
-  .mobile-sub{padding:0 12px 10px;margin:2px 0 6px;border-left:2px solid var(--ring);}
-  .mobile-sub a{display:block;padding:8px 12px 8px 10px;border-radius:8px;}
-  .mobile-sep{height:8px;}
+  .mobile-heading{margin:14px 12px 6px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ring);padding-top:10px}
+  .mobile-group{padding:2px 0 8px}
+  .mobile-group > a{display:block;padding:10px 12px;border-radius:10px}
+  .mobile-sub{padding:0 12px 10px;margin:2px 0 6px;border-left:2px solid var(--ring)}
+  .mobile-sub a{display:block;padding:8px 12px 8px 10px;border-radius:8px}
 
-  .mobile-drawer header{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--ring);padding-top:calc(14px + env(safe-area-inset-top, 0px));}
-  .mobile-drawer nav{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:16px;}
-  .mobile-drawer nav .mobile-heading:first-of-type{margin-top:12px;border-top:0;padding-top:0;}
+  .mobile-drawer header{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--ring);padding-top:calc(14px + env(safe-area-inset-top, 0px))}
+  .mobile-drawer nav{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:16px}
+  .mobile-drawer nav .mobile-heading:first-of-type{margin-top:12px;border-top:0;padding-top:0}
+  html.mobile-open, body.mobile-open{overflow:hidden}
 
-  html.mobile-open, body.mobile-open{overflow:hidden;}
-
-  /* RTL dynamique */
-  html[dir="rtl"] body{direction:rtl;}
-  html[dir="rtl"] .alt-card, html[dir="rtl"] .alt-text, html[dir="rtl"] .alt-title, html[dir="rtl"] p, html[dir="rtl"] h3, html[dir="rtl"] a{text-align:right;}
-  html[dir="rtl"] nav{justify-content:flex-end;}
-  html[dir="rtl"] .submenu{left:auto;right:0;}
-  html[dir="rtl"] .mobile-drawer{left:auto;right:0;transform:translateX(102%);}
-  html.mobile-open[dir="rtl"] .mobile-drawer{transform:translateX(0);}
-  html[dir="rtl"] .mobile-sub{border-left:none;border-right:2px solid var(--ring);}
+  /* RTL */
+  html[dir="rtl"] body{direction:rtl}
+  html[dir="rtl"] .alt-card,html[dir="rtl"] p,html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3,html[dir="rtl"] a{text-align:right}
+  html[dir="rtl"] nav{justify-content:flex-end}
+  html[dir="rtl"] .submenu{left:auto;right:0}
+  html[dir="rtl"] .mobile-drawer{left:auto;right:0;transform:translateX(102%)}
+  html.mobile-open[dir="rtl"] .mobile-drawer{transform:translateX(0)}
+  html[dir="rtl"] .mobile-sub{border-left:none;border-right:2px solid var(--ring)}
   @media (max-width:640px){
-    html[dir="rtl"] .top-band header{grid-template-columns:auto 1fr 40px;}
-    html[dir="rtl"] #themeToggle{justify-self:start;}
-    html[dir="rtl"] .top-band header > a[href="index.html"]{justify-self:center;}
+    html[dir="rtl"] .top-band header{grid-template-columns:auto 1fr 40px}
+    html[dir="rtl"] #themeToggle{justify-self:start}
+    html[dir="rtl"] .top-band header > a[href="index.html#home"]{justify-self:center}
   }
 </style>
 
 <script>
-/* ===== Helpers i18n pour le bouton thème ===== */
 function i18nGet(key, fallback){
-  try{
-    let v = window.__i18nDict;
-    for (const part of key.split('.')) v = v && v[part];
-    return v || fallback;
-  }catch(e){ return fallback; }
+  try{ let v = window.__i18nDict; for (const p of key.split('.')) v = v && v[p]; return v ?? fallback; }
+  catch(e){ return fallback; }
 }
 function updateThemeLabel(){
   const btn = document.getElementById('themeToggle');
@@ -203,18 +471,14 @@ function updateThemeLabel(){
   const night= i18nGet('ui.theme_night','☾ Night');
   btn.textContent = isDark ? day : night;
 }
-
-/* ===== Thème ===== */
 function toggleTheme(){
   const html=document.documentElement;
   const next=html.dataset.theme==='dark'?'light':'dark';
   html.dataset.theme=next;
   try{localStorage.setItem('theme',next);}catch(e){}
   document.documentElement.style.colorScheme=next;
-  if (document.getElementById('themeToggle')) updateThemeLabel();
+  updateThemeLabel();
 }
-
-/* ===== Menus ===== */
 function toggleMenu(e,id){
   e.preventDefault();
   const m=document.getElementById(id);
@@ -227,12 +491,27 @@ function closeMenusOnInteraction(ev){
   const inside=ev.target&&ev.target.closest&&ev.target.closest('.menu');
   if(!inside){document.querySelectorAll('.submenu').forEach(m=>{m.classList.remove('show');setTimeout(()=>m.style.display='none',250);});}
 }
-document.addEventListener('click',closeMenusOnInteraction);
+document.addEventListener('click',closeMenusOnInteraction,{passive:true});
 document.addEventListener('scroll',()=>closeMenusOnInteraction({target:null}),{passive:true});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenusOnInteraction({target:null});});
 
-/* ===== Init thème + languette ===== */
-document.addEventListener('DOMContentLoaded',function(){
+/* Background height sync */
+function syncBackgroundHeights(){
+  const section = document.getElementById('background');
+  if(!section) return;
+  const isSingleColumn = window.matchMedia('(max-width: 900px)').matches;
+  const card = section.querySelector('.alt-card');
+  const media = section.querySelector('.alt-media');
+  if(!card || !media) return;
+  media.style.height = '';
+  if(isSingleColumn) return;
+  const target = card.getBoundingClientRect().height;
+  if(target < 10) return;
+  media.style.height = target + 'px';
+}
+const debounce=(fn,ms)=>{let t;return function(){clearTimeout(t);t=setTimeout(()=>fn.apply(this,arguments),ms)}};
+
+document.addEventListener('DOMContentLoaded', function(){
   let initial='light';
   try{
     const stored=localStorage.getItem('theme');
@@ -241,59 +520,52 @@ document.addEventListener('DOMContentLoaded',function(){
   }catch(e){}
   document.documentElement.dataset.theme=initial;
   document.documentElement.style.colorScheme=initial;
-  if (document.getElementById('themeToggle')) updateThemeLabel();
+  updateThemeLabel();
 
   const themeBtn=document.getElementById('themeToggle');
-  if(!themeBtn||!themeBtn.parentNode) return;
-
-  const wrap=document.createElement('div');
-  wrap.className='menu lang-menu';
-
-  const btn=document.createElement('button');
-  btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
-
-  const menu=document.createElement('div');
-  menu.id='lang-menu';menu.className='submenu';
-  menu.innerHTML = `
-    <a href="#" data-lang="en">English</a>
-    <a href="#" data-lang="de">Deutsch</a>
-    <a href="#" data-lang="ar">العربية</a>
-    <a href="#" data-lang="fr">Français</a>
-  `;
-
-  wrap.appendChild(btn);wrap.appendChild(menu);
-  themeBtn.parentNode.insertBefore(wrap,themeBtn);
-  btn.addEventListener('click',function(e){toggleMenu(e,'lang-menu');});
-
-  menu.addEventListener('click', function(e){
-    const a = e.target.closest('a[data-lang]');
-    if (!a) return;
-    e.preventDefault();
-    if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
-    closeMenusOnInteraction({target:null});
+  if(themeBtn && themeBtn.parentNode){
+    const wrap=document.createElement('div'); wrap.className='menu lang-menu';
+    const btn=document.createElement('button');
+    btn.id='langToggle';btn.className='toggle';btn.type='button';btn.setAttribute('aria-haspopup','true');btn.textContent='EN ▾';
+    const menu=document.createElement('div'); menu.id='lang-menu';menu.className='submenu';
+    menu.innerHTML = `
+      <a href="#" data-lang="en">English</a>
+      <a href="#" data-lang="de">Deutsch</a>
+      <a href="#" data-lang="ar">العربية</a>
+      <a href="#" data-lang="fr">Français</a>
+    `;
+    wrap.appendChild(btn);wrap.appendChild(menu);
+    themeBtn.parentNode.insertBefore(wrap,themeBtn);
+    btn.addEventListener('click',e=>toggleMenu(e,'lang-menu'));
+    menu.addEventListener('click', function(e){
+      const a = e.target.closest('a[data-lang]'); if (!a) return;
+      e.preventDefault();
+      if (window.setLangFromMenu) window.setLangFromMenu(a.dataset.lang);
+      closeMenusOnInteraction({target:null});
+      try{ const map={en:'EN',fr:'FR',de:'DE',ar:'AR'}; btn.textContent=(map[a.dataset.lang]||'EN')+' ▾'; }catch(_e){}
+      setTimeout(syncBackgroundHeights, 60);
+    });
     try{
-      const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
-      btn.textContent = (map[a.dataset.lang] || 'EN') + ' ▾';
+      const params=new URLSearchParams(location.search);
+      let lang = 'en';
+      if (params.has('lang')) {
+        lang = (params.get('lang')||'en').toLowerCase();
+      } else {
+        const stored = localStorage.getItem('lang');
+        if (stored) lang = stored;
+      }
+      const map={en:'EN',fr:'FR',de:'DE',ar:'AR'};
+      btn.textContent=(map[lang]||'EN')+' ▾';
     }catch(_e){}
-  });
+  }
 
-  // ── MODIFICATION : label bouton lit localStorage en fallback ──
-  try{
-    const params=new URLSearchParams(location.search);
-    let lang = 'en';
-    if (params.has('lang')) {
-      lang = (params.get('lang')||'en').toLowerCase();
-    } else {
-      const stored = localStorage.getItem('lang');
-      if (stored) lang = stored;
-    }
-    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
-    btn.textContent = (map[lang] || 'EN') + ' ▾';
-  }catch(_e){}
+  syncBackgroundHeights();
+  window.addEventListener('load', syncBackgroundHeights, {once:true, passive:true});
+  document.fonts && document.fonts.ready && document.fonts.ready.then(()=>syncBackgroundHeights());
+  window.addEventListener('resize', debounce(syncBackgroundHeights, 120), {passive:true});
 });
 </script>
 </head>
-
 <body data-theme="light">
   <div class="top-band">
     <div class="container">
@@ -302,8 +574,8 @@ document.addEventListener('DOMContentLoaded',function(){
           <span aria-hidden="true"></span>
         </button>
 
-        <a href="index.html" style="display:inline-block">
-          <img src="signature.png" alt="Signature" class="signature" />
+        <a href="index.html#home" style="display:inline-block">
+          <img src="signature.png" alt="Signature" class="signature" fetchpriority="high" />
         </a>
 
         <nav>
@@ -340,10 +612,9 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
   <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <header>
-      <strong data-i18n="nav.skills">Menu</strong>
+      <strong data-i18n="ui.menu">Menu</strong>
       <button class="toggle" type="button" id="mobileCloseBtn" aria-label="Close menu">✕</button>
     </header>
-
     <nav aria-label="Mobile navigation">
       <div class="mobile-heading" data-i18n="nav.about">About</div>
       <div class="mobile-group">
@@ -355,12 +626,10 @@ document.addEventListener('DOMContentLoaded',function(){
           <a href="about.html#certs" data-i18n="nav.about_menu.certs">Certifications</a>
         </div>
       </div>
-
       <div class="mobile-heading" data-i18n="nav.skills">Skills</div>
       <div class="mobile-group">
         <a href="skills.html" data-i18n="nav.skills">Skills</a>
       </div>
-
       <div class="mobile-heading" data-i18n="nav.projects">Projects</div>
       <div class="mobile-group">
         <a href="projects.html" data-i18n="nav.projects">Projects</a>
@@ -369,13 +638,11 @@ document.addEventListener('DOMContentLoaded',function(){
           <a href="projects.html#future" data-i18n="nav.projects_menu.future">Future projects</a>
         </div>
       </div>
-
       <div class="mobile-heading" data-i18n="nav.contact">Contact</div>
       <div class="mobile-group">
         <a href="contact.html" data-i18n="nav.contact">Contact</a>
       </div>
     </nav>
-
     <div class="lang-grid" aria-label="Language">
       <button class="lang-btn" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="fr">FR</button>
@@ -384,82 +651,484 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
   </aside>
 
+  <!-- ============================================================
+       SECTIONS
+       ============================================================ -->
   <main class="page" id="main">
+
+    <!-- Breadcrumb path -->
+    <nav class="breadcrumbs mono" aria-label="Breadcrumb">
+      <a href="index.html#home" data-i18n="ui.home">Home</a>
+      <span class="sep">/</span>
+      <span class="current" data-i18n="nav.about">About</span>
+    </nav>
+
     <div class="sections">
 
-      <!-- Technical Skills / CAD -->
-      <section id="technical" class="alt-section reverse reveal">
-        <figure class="alt-media">
-          <img src="cad.jpg" alt="CAD workspace and parametric model" loading="lazy" decoding="async">
-        </figure>
-        <div class="alt-card">
-          <p class="alt-eyebrow" data-i18n="skills.cad.eyebrow">Technical Skills</p>
-          <h3 class="alt-title" data-i18n="skills.cad.title">Computer-Aided Design (CAD)</h3>
-          <p class="alt-text" data-i18n="skills.cad.text">
-            Good command of 3D mechanical design and parametric modeling tools, developed through personal and academic projects.
-          </p>
+      <!-- ===== PROFILE — sober rewrite, "Today" first ===== -->
+      <section id="profile" class="alt-section reveal anchor">
+        <div class="alt-card" data-num="01">
+          <p class="alt-eyebrow" data-i18n="nav.about_menu.who">Profile</p>
+          <h3 class="alt-title display" data-i18n="about.sections.who.title">Engineering with focus and intent</h3>
+
+          <h4 class="step-title" data-i18n="about.sections.who.now_title">Today</h4>
+          <p class="alt-text" data-i18n="about.sections.who.now_text">Currently based in Germany, focused on aviation: mechanical design, embedded systems, and software development for embedded platforms. The aim is steady. Bring rigor to each step, and ship work that performs.</p>
+
+          <h4 class="step-title" data-i18n="about.sections.who.maker_title">Approach</h4>
+          <p class="alt-text" data-i18n="about.sections.who.maker_text">A long-standing interest in how things work and how they can work better. That instinct to refine, to simplify, to give every component a purpose, shapes my engineering practice today.</p>
+
+          <h4 class="step-title" data-i18n="about.sections.who.flight_title">Origin</h4>
+          <p class="alt-text" data-i18n="about.sections.who.flight_text">Aerospace caught my attention early. A first flight at seven made an impression that stayed: the contrast between raw power and quiet stability set the direction long before I had the words for it.</p>
+
+          <h4 class="step-title" data-i18n="about.sections.who.tn_title">Roots</h4>
+          <p class="alt-text" data-i18n="about.sections.who.tn">Born and raised in Tunisia, a context that values curiosity, resilience, and care for craft. Those habits carried into how I approach engineering: deliberate, structured, and built to last.</p>
+        </div>
+
+        <div class="alt-media">
+          <div class="stacked-photos" style="grid-template-rows: 1fr 1fr;">
+            <figure>
+              <img src="tunisia-skyline.jpg" alt="Tunisia, Mediterranean light" loading="lazy" decoding="async">
+              <span class="photo-tag" data-i18n="about.sections.who.photo1">Origin</span>
+            </figure>
+            <figure>
+              <img src="first-flight-seat.jpg" alt="Childhood travel moment" loading="lazy" decoding="async">
+              <span class="photo-tag" data-i18n="about.sections.who.photo2">First flight</span>
+            </figure>
+          </div>
         </div>
       </section>
 
-      <!-- Interpersonal Skills -->
-      <section id="interpersonal" class="alt-section reveal">
-        <figure class="alt-media">
-          <img src="team-comm.jpg" alt="Team collaborating around a whiteboard" loading="lazy" decoding="async">
-        </figure>
-        <div class="alt-card">
-          <p class="alt-eyebrow" data-i18n="skills.team.eyebrow">Interpersonal Skills</p>
-          <h3 class="alt-title" data-i18n="skills.team.title">Team Communication</h3>
-          <p class="alt-text" data-i18n="skills.team.text">
-            Experienced in collaborating within diverse teams, sharing ideas, and contributing to a constructive and supportive work environment.
-          </p>
+      <!-- ===== BACKGROUND — sober rewrite ===== -->
+      <section id="background" class="alt-section reveal anchor">
+        <div class="alt-card" data-num="02">
+          <p class="alt-eyebrow" data-i18n="about.sections.background.eyebrow">Background</p>
+          <h3 class="alt-title display" data-i18n="about.sections.background.title">A structured education across two countries</h3>
+
+          <h4 class="step-title" data-i18n="about.sections.background.p1_title">Early education</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p1">Primary schooling in Tunis, with English studied from the age of seven. Outside the classroom, regular involvement in sports, cultural, and academic clubs supported a steady, well-rounded foundation.</p>
+
+          <h4 class="step-title" data-i18n="about.sections.background.p2_title">Secondary studies</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p2">Attended Lycée Pilote El Menzah 8, a selective high school, with a strong focus on mathematics and physics. German added at seventeen. Active member of the Interact charitable club, an environment that built practical teamwork, communication, and leadership skills.</p>
+
+          <h4 class="step-title" data-i18n="about.sections.background.p3_title">Higher education</h4>
+          <p class="alt-text" data-i18n="about.sections.background.p3">Continued my studies in Germany, pursuing aerospace engineering at university level, the framework within which my current technical work has been built.</p>
+        </div>
+
+        <div class="alt-media">
+          <div class="stacked-photos">
+            <figure>
+              <img src="school-tunis.jpg" alt="School years in Tunis" loading="lazy" decoding="async" onload="syncBackgroundHeights()">
+              <span class="photo-tag" data-i18n="about.sections.background.photo1">Lycée Pilote</span>
+            </figure>
+            <figure>
+              <img src="interact-club.jpg" alt="Interact club activities" loading="lazy" decoding="async" onload="syncBackgroundHeights()">
+              <span class="photo-tag" data-i18n="about.sections.background.photo2">Interact club</span>
+            </figure>
+          </div>
         </div>
       </section>
 
-      <!-- Organizational Skills -->
-      <section id="organizational" class="alt-section reverse reveal">
-        <figure class="alt-media">
-          <img src="org-admin.jpg" alt="Organizational charts and documents" loading="lazy" decoding="async">
-        </figure>
-        <div class="alt-card">
-          <p class="alt-eyebrow" data-i18n="skills.admin.eyebrow">Organizational Skills</p>
-          <h3 class="alt-title" data-i18n="skills.admin.title">Administrative and Procedural Understanding</h3>
-          <p class="alt-text" data-i18n="skills.admin.text">
-            Solid grasp of company structures, legal processes, hierarchies, and international professional protocols.
-          </p>
+      <!-- ===== CV ===== -->
+      <section id="cv" class="anchor reveal">
+        <div class="block-align">
+          <div class="eyebrow-stack inset-left">
+            <span class="alt-eyebrow" data-i18n="about.sections.cv.ribbon">Curriculum Vitae</span>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.cv.row_basic">Curriculum Vitae</div>
+            <a id="cv-basic-btn" class="btn-download" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.cv.row_extended">Curriculum Vitae, Extended Version</div>
+            <a id="cv-extended-btn" class="btn-download" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
         </div>
       </section>
 
-      <!-- Cultural Skills -->
-      <section id="cultural" class="alt-section reveal">
-        <figure class="alt-media">
-          <img src="intercultural.jpg" alt="Global network and multicultural collaboration" loading="lazy" decoding="async">
-        </figure>
-        <div class="alt-card">
-          <p class="alt-eyebrow" data-i18n="skills.culture.eyebrow">Cultural Skills</p>
-          <h3 class="alt-title" data-i18n="skills.culture.title">Intercultural Adaptability</h3>
-          <p class="alt-text" data-i18n="skills.culture.text">
-            Able to work effectively in multicultural environments and adapt to different work approaches and mindsets.
-          </p>
+      <!-- ===== CERTIFICATIONS ===== -->
+      <section id="certs" class="anchor reveal">
+        <div class="block-align">
+          <div class="eyebrow-stack inset-left">
+            <span class="alt-eyebrow" data-i18n="nav.about_menu.certs">Certifications</span>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.certs.admin_service">Certificate for Administrative Service within a Humanitarian Organization</div>
+            <a id="cert-admin-btn" class="btn-download" href="certification_0722.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
+
+          <div class="cv-row">
+            <div class="cv-label" data-i18n="about.sections.certs.amr">Course Certificate, Autonomous Mobile Robots</div>
+            <a id="cert-amr-btn" class="btn-download" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4.001 4a1 1 0 0 1-1.412 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1zM5 20a1 1 0 1 1 0-2h14a1 1 0 1 1 0 2H5z"/></svg>
+              <span data-i18n="ui.download">Download</span>
+            </a>
+          </div>
         </div>
       </section>
 
     </div>
   </main>
 
-  <div class="footer-band">© 2025 Youssef Chabbou
-    <span data-i18n="footer.created_by" style="font-size:12px; color:rgba(255,255,255,0.75); float:right; text-align:right; line-height:1.4;">
-      This website was entirely created by its owner,<br>
-      Youssef Chabbou, using AI-Augmented Development.
-    </span>
-  </div>
+  <!-- ============================================================
+       FOOTER (matches index.html)
+       ============================================================ -->
+  <footer class="footer-band">
+    <div class="footer-grid">
+      <div class="footer-brand-block">
+        <span class="footer-brand-name">Youssef Chabbou</span>
+        <span class="footer-brand-tag" data-i18n="footer.brand_tag">Aerospace · Engineering · Design</span>
+      </div>
+      <div class="footer-nav">
+        <span class="footer-nav-title" data-i18n="footer.explore">Explore</span>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="skills.html" data-i18n="nav.skills">Skills</a>
+        <a href="projects.html" data-i18n="nav.projects">Projects</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="footer-meta">
+        <span class="footer-meta-line" data-i18n="footer.created_by">This website was entirely created by its owner,<br>Youssef Chabbou, using AI-Augmented Development.</span>
+        <span class="footer-copy">© 2025 Youssef Chabbou</span>
+      </div>
+    </div>
+  </footer>
 
+  <!-- ============================================================
+       INLINE TRANSLATIONS — no JSON needed, persisted in localStorage
+       ============================================================ -->
+  <script>
+const TRANSLATIONS = {
+  en: {
+    meta: { title: "About, Youssef Chabbou" },
+    nav: {
+      about:"About", skills:"Skills", projects:"Projects", contact:"Contact",
+      about_menu:{ who:"Profile", background:"Background", cv:"Curriculum Vitae", certs:"Certifications" },
+      projects_menu:{ realized:"Projects realized", future:"Future projects" }
+    },
+    ui: {
+      menu:"Menu", home:"Home", section:"Section", download:"Download",
+      theme_day:"☀︎ Day", theme_night:"☾ Night"
+    },
+    about: {
+      hero: {
+        title_a:"A focused path in",
+        title_b:"aerospace engineering.",
+        sub:"From early curiosity to applied work: background, training, and the systems I build today."
+      },
+      sections: {
+        who: {
+          title:"Engineering with focus and intent",
+          now_title:"Today",
+          now_text:"Currently based in Germany, focused on aviation: mechanical design, embedded systems, and software development for embedded platforms. The aim is steady. Bring rigor to each step, and ship work that performs.",
+          maker_title:"Approach",
+          maker_text:"A long-standing interest in how things work and how they can work better. That instinct to refine, to simplify, to give every component a purpose, shapes my engineering practice today.",
+          flight_title:"Origin",
+          flight_text:"Aerospace caught my attention early. A first flight at seven made an impression that stayed: the contrast between raw power and quiet stability set the direction long before I had the words for it.",
+          tn_title:"Roots",
+          tn:"Born and raised in Tunisia, a context that values curiosity, resilience, and care for craft. Those habits carried into how I approach engineering: deliberate, structured, and built to last.",
+          photo1:"Origin", photo2:"First flight"
+        },
+        background: {
+          eyebrow:"Background",
+          title:"A structured education across two countries",
+          p1_title:"Early education",
+          p1:"Primary schooling in Tunis, with English studied from the age of seven. Outside the classroom, regular involvement in sports, cultural, and academic clubs supported a steady, well-rounded foundation.",
+          p2_title:"Secondary studies",
+          p2:"Attended Lycée Pilote El Menzah 8, a selective high school, with a strong focus on mathematics and physics. German added at seventeen. Active member of the Interact charitable club, an environment that built practical teamwork, communication, and leadership skills.",
+          p3_title:"Higher education",
+          p3:"Continued my studies in Germany, pursuing aerospace engineering at university level, the framework within which my current technical work has been built.",
+          photo1:"Lycée Pilote", photo2:"Interact club"
+        },
+        cv: {
+          ribbon:"Curriculum Vitae",
+          row_basic:"Curriculum Vitae",
+          row_extended:"Curriculum Vitae, Extended Version"
+        },
+        certs: {
+          admin_service:"Certificate for Administrative Service within a Humanitarian Organization",
+          amr:"Course Certificate, Autonomous Mobile Robots"
+        }
+      }
+    },
+    footer: {
+      brand_tag:"Aerospace · Engineering · Design",
+      explore:"Explore",
+      created_by:"This website was entirely created by its owner,<br>Youssef Chabbou, using AI-Augmented Development."
+    }
+  },
+
+  fr: {
+    meta: { title: "À propos, Youssef Chabbou" },
+    nav: {
+      about:"À propos", skills:"Compétences", projects:"Projets", contact:"Contact",
+      about_menu:{ who:"Profil", background:"Parcours", cv:"Curriculum Vitae", certs:"Certifications" },
+      projects_menu:{ realized:"Projets réalisés", future:"Projets à venir" }
+    },
+    ui: {
+      menu:"Menu", home:"Accueil", section:"Section", download:"Télécharger",
+      theme_day:"☀︎ Jour", theme_night:"☾ Nuit"
+    },
+    about: {
+      hero: {
+        title_a:"Un parcours engagé en",
+        title_b:"ingénierie aérospatiale.",
+        sub:"De la curiosité initiale au travail appliqué : parcours, formation et systèmes développés aujourd'hui."
+      },
+      sections: {
+        who: {
+          title:"Ingénierie avec rigueur et intention",
+          now_title:"Aujourd'hui",
+          now_text:"Basé en Allemagne, je travaille dans le domaine aéronautique : conception mécanique, systèmes embarqués et développement logiciel pour plateformes embarquées. L'objectif reste constant. Apporter de la rigueur à chaque étape et livrer un travail qui tient la route.",
+          maker_title:"Démarche",
+          maker_text:"Un intérêt durable pour le fonctionnement des choses et la façon de les améliorer. Cet instinct d'affiner, de simplifier, de donner à chaque composant un rôle clair guide aujourd'hui ma pratique d'ingénieur.",
+          flight_title:"Point de départ",
+          flight_text:"L'aérospatial m'a attiré tôt. Un premier vol à sept ans a laissé une trace durable : le contraste entre la puissance brute et la stabilité silencieuse a fixé la direction bien avant que je ne sache la nommer.",
+          tn_title:"Racines",
+          tn:"Né et élevé en Tunisie, un environnement qui valorise la curiosité, la persévérance et le soin du travail bien fait. Ces réflexes se retrouvent dans ma manière d'aborder l'ingénierie : posée, structurée, pensée pour durer.",
+          photo1:"Origine", photo2:"Premier vol"
+        },
+        background: {
+          eyebrow:"Parcours",
+          title:"Une formation structurée à travers deux pays",
+          p1_title:"Études primaires",
+          p1:"Scolarité primaire à Tunis, avec apprentissage de l'anglais dès l'âge de sept ans. En parallèle, participation régulière à des clubs sportifs, culturels et académiques, une base d'équilibre et de constance.",
+          p2_title:"Études secondaires",
+          p2:"Lycée Pilote El Menzah 8, établissement sélectif, avec une forte orientation mathématiques et physique. Allemand ajouté à dix-sept ans. Membre actif du club caritatif Interact, un cadre où se sont construites de réelles compétences en travail d'équipe, communication et leadership.",
+          p3_title:"Études supérieures",
+          p3:"Études poursuivies en Allemagne, en ingénierie aérospatiale, le cadre dans lequel s'inscrit mon travail technique actuel.",
+          photo1:"Lycée Pilote", photo2:"Club Interact"
+        },
+        cv: {
+          ribbon:"Curriculum Vitae",
+          row_basic:"Curriculum Vitae",
+          row_extended:"Curriculum Vitae, Version détaillée"
+        },
+        certs: {
+          admin_service:"Attestation de service administratif au sein d'une organisation humanitaire",
+          amr:"Attestation de stage, Robots mobiles autonomes"
+        }
+      }
+    },
+    footer: {
+      brand_tag:"Aérospatial · Ingénierie · Conception",
+      explore:"Explorer",
+      created_by:"Site entièrement réalisé par son auteur,<br>Youssef Chabbou, en développement augmenté par l'IA."
+    }
+  },
+
+  de: {
+    meta: { title: "Über mich, Youssef Chabbou" },
+    nav: {
+      about:"Über mich", skills:"Kompetenzen", projects:"Projekte", contact:"Kontakt",
+      about_menu:{ who:"Profil", background:"Werdegang", cv:"Lebenslauf", certs:"Zertifikate" },
+      projects_menu:{ realized:"Realisierte Projekte", future:"Zukünftige Projekte" }
+    },
+    ui: {
+      menu:"Menü", home:"Start", section:"Abschnitt", download:"Herunterladen",
+      theme_day:"☀︎ Tag", theme_night:"☾ Nacht"
+    },
+    about: {
+      hero: {
+        title_a:"Ein konsequenter Weg in der",
+        title_b:"Luft- und Raumfahrttechnik.",
+        sub:"Von früher Neugier zur angewandten Arbeit: Werdegang, Ausbildung und die Systeme, an denen ich heute arbeite."
+      },
+      sections: {
+        who: {
+          title:"Ingenieurarbeit mit Klarheit und Anspruch",
+          now_title:"Heute",
+          now_text:"Derzeit in Deutschland tätig, mit Schwerpunkt Luftfahrt: mechanische Konstruktion, eingebettete Systeme und Softwareentwicklung für eingebettete Plattformen. Das Ziel bleibt stabil. Sorgfalt in jedem Schritt und Ergebnisse, die im Einsatz bestehen.",
+          maker_title:"Herangehensweise",
+          maker_text:"Ein anhaltendes Interesse daran, wie Dinge funktionieren und wie sie besser funktionieren können. Dieses Bedürfnis nach Verfeinerung, Vereinfachung und einer klaren Rolle für jedes Bauteil prägt meine Ingenieurpraxis bis heute.",
+          flight_title:"Anfang",
+          flight_text:"Die Luftfahrt zog mich früh an. Ein erster Flug mit sieben hinterließ einen bleibenden Eindruck: der Kontrast zwischen roher Leistung und ruhiger Stabilität gab die Richtung lange vor, bevor ich sie benennen konnte.",
+          tn_title:"Wurzeln",
+          tn:"Geboren und aufgewachsen in Tunesien, ein Umfeld, das Neugier, Beharrlichkeit und sorgfältige Arbeit hochhält. Diese Haltungen wirken in meiner Art zu arbeiten weiter: bewusst, strukturiert und auf Dauer angelegt.",
+          photo1:"Ursprung", photo2:"Erster Flug"
+        },
+        background: {
+          eyebrow:"Werdegang",
+          title:"Eine strukturierte Ausbildung in zwei Ländern",
+          p1_title:"Grundschulzeit",
+          p1:"Grundschule in Tunis, Englisch ab dem siebten Lebensjahr. Außerhalb des Unterrichts regelmäßige Teilnahme an Sport-, Kultur- und akademischen Clubs, eine solide, ausgewogene Basis.",
+          p2_title:"Sekundarstufe",
+          p2:"Besuch des Lycée Pilote El Menzah 8, einer selektiven Schule, mit Schwerpunkt Mathematik und Physik. Deutsch ab siebzehn. Aktives Mitglied des karitativen Clubs Interact, ein Umfeld, in dem Teamarbeit, Kommunikation und Führung praktisch gelernt wurden.",
+          p3_title:"Hochschulausbildung",
+          p3:"Weiterführendes Studium in Deutschland im Bereich Luft- und Raumfahrttechnik, der Rahmen, in dem meine heutige technische Arbeit entstanden ist.",
+          photo1:"Lycée Pilote", photo2:"Interact-Club"
+        },
+        cv: {
+          ribbon:"Lebenslauf",
+          row_basic:"Lebenslauf",
+          row_extended:"Lebenslauf, Ausführliche Fassung"
+        },
+        certs: {
+          admin_service:"Zertifikat über Verwaltungsarbeit in einer humanitären Organisation",
+          amr:"Schulungszertifikat, Autonome mobile Roboter"
+        }
+      }
+    },
+    footer: {
+      brand_tag:"Luftfahrt · Ingenieurwesen · Design",
+      explore:"Entdecken",
+      created_by:"Diese Website wurde vollständig vom Eigentümer erstellt,<br>Youssef Chabbou, mit KI-gestützter Entwicklung."
+    }
+  },
+
+  ar: {
+    meta: { title: "حول, يوسف الشبو" },
+    nav: {
+      about:"حول", skills:"المهارات", projects:"المشاريع", contact:"اتصل",
+      about_menu:{ who:"الملف الشخصي", background:"الخلفية", cv:"السيرة الذاتية", certs:"الشهادات" },
+      projects_menu:{ realized:"مشاريع منجزة", future:"مشاريع مستقبلية" }
+    },
+    ui: {
+      menu:"القائمة", home:"الرئيسية", section:"قسم", download:"تنزيل",
+      theme_day:"☀︎ نهار", theme_night:"☾ ليل"
+    },
+    about: {
+      hero: {
+        title_a:"مسار مركّز في",
+        title_b:"هندسة الفضاء الجوي.",
+        sub:"من الفضول الأول إلى العمل التطبيقي: المسار، التكوين، والأنظمة التي أعمل عليها اليوم."
+      },
+      sections: {
+        who: {
+          title:"هندسة بهدف ودقة",
+          now_title:"اليوم",
+          now_text:"مقيم حالياً في ألمانيا، أعمل في مجال الطيران: التصميم الميكانيكي، الأنظمة المدمجة، وتطوير البرمجيات للمنصات المدمجة. الهدف ثابت. صرامة في كل خطوة، ونتائج تصمد عند التطبيق.",
+          maker_title:"المنهج",
+          maker_text:"اهتمام متواصل بكيفية عمل الأشياء وكيف يمكن تحسينها. هذا الميل إلى التهذيب والتبسيط، ومنح كل عنصر دوره الواضح، يحدّد ممارستي الهندسية اليوم.",
+          flight_title:"البداية",
+          flight_text:"شدّتني الملاحة الجوية مبكراً. أول رحلة في السابعة تركت أثراً باقياً: التباين بين القوة الخام والاستقرار الهادئ رسم الاتجاه قبل أن أملك له اسماً.",
+          tn_title:"الجذور",
+          tn:"وُلدت ونشأت في تونس، بيئة تُقدّر الفضول والمثابرة والعناية بالحرفة. هذه العادات انتقلت إلى أسلوبي الهندسي: متأنٍّ، منظّم، مصمَّم ليدوم.",
+          photo1:"البداية", photo2:"أول رحلة"
+        },
+        background: {
+          eyebrow:"الخلفية",
+          title:"تكوين منظّم بين بلدين",
+          p1_title:"التعليم الابتدائي",
+          p1:"الدراسة الابتدائية في تونس، مع تعلّم الإنجليزية من سن السابعة. خارج الفصل، مشاركة منتظمة في نوادٍ رياضية وثقافية وأكاديمية, قاعدة متوازنة وثابتة.",
+          p2_title:"التعليم الثانوي",
+          p2:"التحاق بالمعهد النموذجي بالمنزه 8، وهو معهد انتقائي، مع تركيز قوي على الرياضيات والفيزياء. تعلّم الألمانية في السابعة عشرة. عضوية نشطة في نادي إنتراكت الخيري، حيث بُنيت مهارات عملية في العمل الجماعي والتواصل والقيادة.",
+          p3_title:"التعليم العالي",
+          p3:"متابعة الدراسة في ألمانيا في هندسة الفضاء الجوي على المستوى الجامعي, الإطار الذي يقوم عليه عملي التقني الحالي.",
+          photo1:"المعهد النموذجي", photo2:"نادي إنتراكت"
+        },
+        cv: {
+          ribbon:"السيرة الذاتية",
+          row_basic:"السيرة الذاتية",
+          row_extended:"السيرة الذاتية، النسخة الموسّعة"
+        },
+        certs: {
+          admin_service:"شهادة عمل إداري في منظمة إنسانية",
+          amr:"شهادة تدريب، الروبوتات المتنقلة المستقلة"
+        }
+      }
+    },
+    footer: {
+      brand_tag:"فضاء جوي · هندسة · تصميم",
+      explore:"استكشاف",
+      created_by:"هذا الموقع أنشأه صاحبه بالكامل،<br>يوسف الشبو، باستخدام تطوير معزّز بالذكاء الاصطناعي."
+    }
+  }
+};
+
+/* PDF map per language — rename your files exactly like below in your repo */
+const PDF_MAP = {
+  en: { basic:"curriculum_vitae.pdf",      extended:"extended_curriculum_vitae.pdf",  amr:"certificate_amr.pdf" },
+  fr: { basic:"cv.pdf",                    extended:"cv_detaille.pdf",                amr:"attestation_amr.pdf" },
+  de: { basic:"lebenslauf.pdf",            extended:"erweiterter_lebenslauf.pdf",     amr:"zertifikat_amr.pdf" },
+  ar: { basic:"السيرة_الذاتية.pdf",         extended:"السيرة_الذاتية_الموسعة.pdf",     amr:"شهادة_amr.pdf" }
+};
+
+function applyLang(lang){
+  if (!TRANSLATIONS[lang]) lang = 'en';
+  const dict = TRANSLATIONS[lang];
+  window.__i18nDict = dict;
+
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    const val = key.split('.').reduce((o,k)=> (o && o[k]!=null) ? o[k] : undefined, dict);
+    if (val == null) return;
+    if (typeof val === 'string' && val.includes('<')) el.innerHTML = val;
+    else el.textContent = val;
+  });
+
+  if (dict.meta && dict.meta.title) document.title = dict.meta.title;
+
+  document.documentElement.setAttribute('lang', lang);
+  document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+  try { localStorage.setItem('lang', lang); } catch(e){}
+  try{
+    const u = new URL(location.href);
+    u.searchParams.set('lang', lang);
+    history.replaceState({}, '', u.pathname + u.search + location.hash);
+  }catch(e){}
+
+  const btn = document.getElementById('langToggle');
+  if (btn){
+    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
+    btn.textContent = (map[lang] || 'EN') + ' ▾';
+  }
+
+  // PDF links
+  const map = PDF_MAP[lang] || PDF_MAP.en;
+  const a1 = document.getElementById("cv-basic-btn"); if (a1) a1.href = map.basic;
+  const a2 = document.getElementById("cv-extended-btn"); if (a2) a2.href = map.extended;
+  const a3 = document.getElementById("cert-amr-btn"); if (a3) a3.href = map.amr;
+  // Admin service certificate stays the same file across languages
+  const a4 = document.getElementById("cert-admin-btn"); if (a4) a4.href = "certification_0722.pdf";
+
+  if (window.updateThemeLabel) updateThemeLabel();
+  setTimeout(()=>{ if (window.syncBackgroundHeights) window.syncBackgroundHeights(); }, 60);
+}
+window.setLangFromMenu = applyLang;
+
+document.addEventListener('DOMContentLoaded', function(){
+  let initialLang = 'en';
+  try{
+    const params = new URLSearchParams(location.search);
+    if (params.has('lang')){
+      initialLang = (params.get('lang')||'en').toLowerCase();
+    } else {
+      const stored = localStorage.getItem('lang');
+      if (stored) initialLang = stored;
+    }
+  }catch(e){}
+  if (!TRANSLATIONS[initialLang]) initialLang = 'en';
+  applyLang(initialLang);
+});
+
+document.addEventListener('click', (e)=>{
+  const b = e.target.closest('[data-lang]');
+  if (!b) return;
+  e.preventDefault();
+  applyLang(b.getAttribute('data-lang'));
+});
+
+/* expose for the Background height sync defined earlier */
+window.syncBackgroundHeights = syncBackgroundHeights;
+  </script>
+
+  <!-- Reveal on scroll -->
   <script>
     (function(){
       const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(prefersReduced){
-        document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
-        return;
-      }
+      if(prefersReduced){ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')); return; }
       const io=new IntersectionObserver((entries)=>{
         entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
       },{threshold:0.15});
@@ -467,113 +1136,8 @@ document.addEventListener('DOMContentLoaded',function(){
     })();
   </script>
 
-  <!-- =====================================================
-       Loader i18n — MODIFIÉ : persistence via localStorage
-       ===================================================== -->
-  <script>
-(() => {
-  const SUPPORTED = ["fr","de","ar"];
-  const DEFAULT = "en";
 
-  function snapshotOriginals(){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if(!el.dataset.i18nOriginal){
-        el.dataset.i18nOriginal = el.textContent;
-      }
-    });
-  }
-  snapshotOriginals();
-
-  const get = (o, path) => path.split('.').reduce((a,k)=> (a && a[k]!=null) ? a[k] : undefined, o);
-
-  // ── MODIFICATION 1 : currentLang lit localStorage en fallback ──
-  function currentLang() {
-    const params = new URLSearchParams(location.search);
-    if (params.has("lang")) {
-      const urlLang = params.get("lang");
-      const lang = (urlLang === 'en' || SUPPORTED.includes(urlLang)) ? urlLang : DEFAULT;
-      try { localStorage.setItem('lang', lang); } catch(e) {}
-      return lang;
-    }
-    try {
-      const stored = localStorage.getItem('lang');
-      if (stored === 'en' || SUPPORTED.includes(stored)) return stored;
-    } catch(e) {}
-    return DEFAULT;
-  }
-
-  async function loadDict(lang) {
-    const res = await fetch(`lang/${lang}.json`, { cache: "no-cache" });
-    if (!res.ok) throw new Error("Missing lang file: "+lang);
-    return res.json();
-  }
-
-  function applyDict(dict, langCode) {
-    document.querySelectorAll("[data-i18n]").forEach(el => {
-      const key = el.getAttribute("data-i18n");
-      const val = get(dict, key);
-      if (val != null) el.textContent = val;
-    });
-    const metaTitle = get(dict, "meta.title");
-    if (metaTitle) document.title = metaTitle;
-
-    window.__i18nDict = dict || {};
-    document.documentElement.setAttribute("lang", langCode);
-    document.documentElement.setAttribute("dir", langCode === 'ar' ? 'rtl' : 'ltr');
-
-    if (window.updateThemeLabel) updateThemeLabel();
-  }
-
-  function restoreEnglish(){
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-      if (el.dataset.i18nOriginal != null) el.textContent = el.dataset.i18nOriginal;
-    });
-    window.__i18nDict = {};
-    document.documentElement.setAttribute("lang", "en");
-    document.documentElement.setAttribute("dir", "ltr");
-    if (window.updateThemeLabel) updateThemeLabel();
-  }
-
-  let current = currentLang();
-
-  // ── MODIFICATION 2 : setLang sauvegarde dans localStorage ──
-  function setLang(lang) {
-    if (lang !== 'en' && !SUPPORTED.includes(lang)) lang = 'en';
-    current = lang;
-    try { localStorage.setItem('lang', lang); } catch(e) {}
-
-    const u = new URL(location.href);
-    u.searchParams.set("lang", lang);
-    history.replaceState({}, "", u.pathname + u.search + location.hash);
-
-    if (lang === 'en') { restoreEnglish(); return; }
-    loadDict(lang).then(d=>applyDict(d, lang)).catch(err=>{
-      console.error(err);
-      restoreEnglish();
-    });
-  }
-
-  window.setLangFromMenu = setLang;
-
-  (function initLangToggleLabel(){
-    const btn = document.getElementById('langToggle');
-    if (!btn) return;
-    const map = {en:'EN', fr:'FR', de:'DE', ar:'AR'};
-    btn.textContent = (map[current] || 'EN') + ' ▾';
-  })();
-
-  setLang(current);
-
-  document.addEventListener("click", (e) => {
-    const b = e.target.closest("[data-lang]");
-    if (!b) return;
-    e.preventDefault();
-    setLang(b.getAttribute("data-lang"));
-  });
-})();
-  </script>
-
-  <!-- Contrôle hamburger -->
+  <!-- Mobile drawer (preserved) -->
   <script>
     (function(){
       const html = document.documentElement;
@@ -582,43 +1146,26 @@ document.addEventListener('DOMContentLoaded',function(){
       const drawer = document.getElementById('mobile-drawer');
       const backdrop = document.getElementById('mobileBackdrop');
       const closeBtn = document.getElementById('mobileCloseBtn');
+      if (!btn || !drawer || !backdrop) return;
 
       function openDrawer(){
-        html.classList.add('mobile-open');
-        body.classList.add('mobile-open');
-        drawer.setAttribute('aria-hidden','false');
-        btn.setAttribute('aria-expanded','true');
-        backdrop.hidden = false;
+        html.classList.add('mobile-open'); body.classList.add('mobile-open');
+        drawer.setAttribute('aria-hidden','false'); btn.setAttribute('aria-expanded','true');
+        backdrop.hidden=false;
       }
       function closeDrawer(){
-        html.classList.remove('mobile-open');
-        body.classList.remove('mobile-open');
-        drawer.setAttribute('aria-hidden','true');
-        btn.setAttribute('aria-expanded','false');
-        setTimeout(()=>{backdrop.hidden = true;}, 200);
+        html.classList.remove('mobile-open'); body.classList.remove('mobile-open');
+        drawer.setAttribute('aria-hidden','true'); btn.setAttribute('aria-expanded','false');
+        setTimeout(()=>{backdrop.hidden=true;},200);
       }
-
-      if (btn){
-        btn.addEventListener('click', ()=>{
-          const isOpen = html.classList.contains('mobile-open');
-          if (isOpen) closeDrawer(); else openDrawer();
-        });
-      }
+      btn.addEventListener('click', ()=>{ html.classList.contains('mobile-open') ? closeDrawer() : openDrawer(); });
       if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-      if (backdrop) backdrop.addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
-
       drawer.addEventListener('click', (e)=>{
-        const a = e.target.closest('a');
-        if (a) closeDrawer();
-      });
-
-      drawer.addEventListener('click', (e)=>{
-        const b = e.target.closest('.lang-btn[data-lang]');
-        if (!b) return;
-        e.preventDefault();
-        if (window.setLangFromMenu) window.setLangFromMenu(b.dataset.lang);
-        closeDrawer();
+        const a = e.target.closest('a'); if (a) closeDrawer();
+        const lb = e.target.closest('.lang-btn[data-lang]');
+        if (lb){ e.preventDefault(); if (window.setLangFromMenu) window.setLangFromMenu(lb.dataset.lang); closeDrawer(); }
       });
     })();
   </script>
