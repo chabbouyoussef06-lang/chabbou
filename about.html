@@ -234,8 +234,31 @@
   }
   html[dir="rtl"] .photo-tag{left:auto;right:14px}
 
-  .eyebrow-stack{display:inline-block;position:relative;margin:6px 0 18px}
-  .eyebrow-stack .alt-eyebrow{position:relative;z-index:1;margin:0}
+  /* The floating "Curriculum Vitae" / "Certifications" eyebrow chips
+     above each section need their own liquid-glass surface so they stay
+     readable when the background image is busy. */
+  .eyebrow-stack{
+    display:inline-block;position:relative;margin:6px 0 18px;
+    padding:0;border-radius:999px;
+    background:rgba(255,255,255,.36);
+    backdrop-filter:blur(18px) saturate(160%);
+    -webkit-backdrop-filter:blur(18px) saturate(160%);
+    border:1px solid rgba(255,255,255,.4);
+    box-shadow:
+      0 10px 28px -14px rgba(11,95,165,.18),
+      0 1px 0 rgba(255,255,255,.6) inset;
+  }
+  [data-theme="dark"] .eyebrow-stack{
+    background:rgba(22,27,34,.55);
+    border-color:rgba(255,255,255,.08);
+    box-shadow:
+      0 10px 28px -14px rgba(0,0,0,.5),
+      0 1px 0 rgba(255,255,255,.04) inset;
+  }
+  .eyebrow-stack .alt-eyebrow{
+    position:relative;z-index:1;margin:0;
+    /* keep the blue tinted gradient + brand border on the inner pill */
+  }
 
   .block-align{ padding-left:var(--edge); padding-right:var(--edge) }
   .inset-left{ margin-left: calc(var(--edge) + var(--card-pad)); }
