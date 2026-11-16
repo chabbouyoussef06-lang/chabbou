@@ -16,7 +16,7 @@
     document.querySelectorAll('[data-doc]').forEach(function (a) {
       var entry = (cfg.docs || {})[a.getAttribute('data-doc')];
       if (!entry) return;
-      var url = (cfg.docsFolder || '') + encodeURI(entry[lang] || entry.en);
+      var url = window.__root + (cfg.docsFolder || '') + encodeURI(entry[lang] || entry.en);
       var label = a.querySelector('[data-label]');
       check(url).then(function (ok) {
         a.classList.toggle('is-missing', !ok);

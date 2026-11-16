@@ -4,6 +4,8 @@
    and starts downloading the translation file right away. */
 (function () {
   var root = document.documentElement;
+  // Site root URL (ends with '/'), derived from this script's own address so pages can live in sub-folders.
+  window.__root = new URL('..', document.currentScript.src).href;
   var LANGS = ['en', 'fr', 'de', 'ar'];
 
   // Theme: saved choice → system preference → light
@@ -30,7 +32,7 @@
 
   // Start fetching the dictionary immediately; site.js picks the promise up.
   window.__lang = lang;
-  window.__dictPromise = fetch('lang/' + lang + '.json').then(function (r) {
+  window.__dictPromise = fetch(window.__root + 'lang/' + lang + '.json').then(function (r) {
     if (!r.ok) throw new Error('lang file missing: ' + lang);
     return r.json();
   });
