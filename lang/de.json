@@ -155,7 +155,6 @@
       "title": "Realisierte Projekte"
     },
     "realized2": {
-      "eyebrow": "Flugdaten · TU Braunschweig",
       "title": "Verarbeitung und Analyse simulierter Flugdaten",
       "intro": "Im Rahmen eines Projekts an der TU Braunschweig haben wir die GPS-Daten ausgewertet, die bei Anflügen auf Keflavík mit einer Cessna 172P in FlightGear aufgezeichnet wurden. Wir haben die Flugbahnen rekonstruiert, die GPS-Spuren auf Karten dargestellt und die seitlichen und vertikalen Abweichungen von den Flugreferenzen berechnet. Anhand der Sinkflugprofile und statistischer Kennzahlen, darunter der quadratische Mittelwert (RMS-Fehler), konnten wir die Phasen mit den größten Abweichungen identifizieren.",
       "cap_cockpit": "Cockpit der Cessna 172P",
