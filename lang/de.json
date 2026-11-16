@@ -153,6 +153,16 @@
       "card_intro": "Ein mechanisches Dosenpress-System als erster Schritt zum Recycling leerer Dosen – mit zentralen Koppelgetrieben wie Schlittenführung und Zahnradmechanismus. Zunächst im CAD entwickelt und anschließend mit konventioneller und CNC-Bearbeitung gefertigt. Das Projekt vertiefte mein Verständnis grundlegender mechanischer Prinzipien – eine der Säulen der Luft- und Raumfahrttechnik. Realisiert mit Unterstützung von AFAMEC und dem Engineering-Team.",
       "card_title": "Mechanik in Bewegung: Vom Design zur Fertigung",
       "title": "Realisierte Projekte"
+    },
+    "realized2": {
+      "eyebrow": "Flugdaten · TU Braunschweig",
+      "title": "Verarbeitung und Analyse simulierter Flugdaten",
+      "intro": "Im Rahmen eines Projekts an der TU Braunschweig haben wir die GPS-Daten ausgewertet, die bei Anflügen auf Keflavík mit einer Cessna 172P in FlightGear aufgezeichnet wurden. Wir haben die Flugbahnen rekonstruiert, die GPS-Spuren auf Karten dargestellt und die seitlichen und vertikalen Abweichungen von den Flugreferenzen berechnet. Anhand der Sinkflugprofile und statistischer Kennzahlen, darunter der quadratische Mittelwert (RMS-Fehler), konnten wir die Phasen mit den größten Abweichungen identifizieren.",
+      "cap_cockpit": "Cockpit der Cessna 172P",
+      "cap_map": "GPS-Spur · Keflavík",
+      "alt_cockpit": "Cockpitansicht der Cessna 172P im Endanflug auf Keflavík in FlightGear",
+      "alt_map": "GPS-Spur des ILS-Anflugs auf einer Karte der Halbinsel Reykjanes",
+      "alt_profile": "Höhe über der Entfernung zum Endpunkt im Vergleich zum 3°-Gleitpfad"
     }
   },
   "contact": {

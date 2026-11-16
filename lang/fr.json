@@ -153,6 +153,16 @@
       "card_intro": "Un système mécanique de presse à canettes comme premier pas vers le recyclage des canettes vides — intégrant des liaisons clés comme la glissière sur rail et des engrenages. D’abord conçu en CAO puis fabriqué par usinage conventionnel et CNC. Ce projet a renforcé ma compréhension des principes mécaniques fondamentaux, l’une des bases de l’ingénierie aérospatiale. Réalisé avec le soutien d’AFAMEC et de son équipe d’ingénierie.",
       "card_title": "Mécanique en mouvement : du design à la fabrication",
       "title": "Projets réalisés"
+    },
+    "realized2": {
+      "eyebrow": "Données de vol · TU Braunschweig",
+      "title": "Traitement et analyse de données de vol simulé",
+      "intro": "Dans le cadre d’un projet à la TU Braunschweig, nous avons exploité les données GPS enregistrées lors d’approches à Keflavík avec un Cessna 172P dans FlightGear. Nous avons reconstruit les trajectoires, cartographié les traces GPS et calculé les écarts latéraux et verticaux par rapport aux références de vol. Les profils de descente et les indicateurs statistiques, dont l’erreur quadratique moyenne (RMS), nous ont permis d’identifier les phases où les écarts étaient les plus marqués.",
+      "cap_cockpit": "Cockpit du Cessna 172P",
+      "cap_map": "Trace GPS · Keflavík",
+      "alt_cockpit": "Vue du cockpit du Cessna 172P en finale vers Keflavík dans FlightGear",
+      "alt_map": "Trace GPS de l’approche ILS cartographiée sur la péninsule de Reykjanes",
+      "alt_profile": "Altitude en fonction de la distance au point final, comparée à la pente de 3°"
     }
   },
   "contact": {
