@@ -146,7 +146,7 @@
   "projects": {
     "future": {
       "card_intro": "Eine kommende wissenschaftliche Review, die technische und wirtschaftliche Faktoren hinter dem Scheitern eines legendären Flugzeugs untersucht – mit dem Ziel, Innovation, Ambition und Lehren für zukünftiges Luftfahrtdesign zu analysieren.",
-      "cta_participate_html": "Wenn du an diesem Projekt mitwirken möchtest, kontaktiere mich <a href=\"contact.html\">hier</a>.",
+      "cta_participate_html": "Wenn du an diesem Projekt mitwirken möchtest, kontaktiere mich <a href=\"../contact/\">hier</a>.",
       "eyebrow": "Roadmap"
     },
     "realized": {
@@ -162,6 +162,8 @@
       "email_label": "Deine E-Mail",
       "email_ph": "du@beispiel.de",
       "error": "Senden fehlgeschlagen. Bitte erneut versuchen oder mich direkt per E-Mail kontaktieren.",
+      "required": "Bitte fülle dieses Feld aus.",
+      "email_invalid": "Bitte gib eine gültige E-Mail-Adresse ein.",
       "error_network": "Netzwerkfehler. Bitte erneut versuchen.",
       "eyebrow": "Nachricht senden",
       "mailto_note": "Ihre E-Mail-App öffnet sich mit der vorbereiteten Nachricht.",
