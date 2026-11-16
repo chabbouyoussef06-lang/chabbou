@@ -153,6 +153,16 @@
       "card_intro": "A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.",
       "card_title": "Mechanics in Motion: From Design to Manufacturing",
       "title": "Realized Projects"
+    },
+    "realized2": {
+      "eyebrow": "Flight data · TU Braunschweig",
+      "title": "Processing and Analysis of Simulated Flight Data",
+      "intro": "As part of a project at TU Braunschweig, we used the GPS data recorded during approaches to Keflavík in a Cessna 172P in FlightGear. We reconstructed the trajectories, mapped the GPS tracks and calculated the lateral and vertical deviations from the flight references. The descent profiles and statistical indicators, including the root mean square (RMS) error, allowed us to identify the phases where the deviations were largest.",
+      "cap_cockpit": "Cessna 172P cockpit",
+      "cap_map": "GPS track · Keflavík",
+      "alt_cockpit": "Cessna 172P cockpit view on final approach to Keflavík in FlightGear",
+      "alt_map": "GPS track of the ILS approach plotted on a map of the Reykjanes peninsula",
+      "alt_profile": "Altitude versus distance to the final point, compared with the 3° glidepath"
     }
   },
   "contact": {

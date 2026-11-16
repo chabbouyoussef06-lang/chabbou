@@ -119,6 +119,35 @@ html[dir="rtl"] .btn-download{font-family:var(--font-sans);font-style:normal}
 .cta-link{color:var(--brand);font-weight:600;text-underline-offset:3px}
 .alt-card .alt-text+.alt-text{margin-top:14px}
 
+/* ---------- Projects: flight-data gallery (map tall on the left, cockpit + chart stacked on the right) ---- */
+.flight-gallery{
+  display:grid;grid-template-columns:47fr 53fr;gap:12px;padding:12px;border-radius:28px;direction:ltr;
+  background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);
+  backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+}
+.flight-gallery figure{margin:0;position:relative;overflow:hidden;border-radius:18px;box-shadow:0 12px 20px -10px rgba(0,0,0,.3);min-width:0}
+.flight-gallery img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.flight-gallery figure:hover img{transform:scale(1.04)}
+#flight-data.alt-section{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+.fg-map{grid-row:1 / span 2;min-height:100%}
+.fg-map img{position:absolute;inset:0}
+.fg-cockpit{aspect-ratio:956/535}
+.fg-profile{aspect-ratio:1212/732;background:#d9d3ca}
+/* the chart's white sheet takes the warm neutral of the frame; lines and text stay as drawn */
+.fg-profile img{mix-blend-mode:multiply}
+.fg-tag{
+  position:absolute;left:10px;bottom:10px;z-index:2;padding:4px 10px;border-radius:999px;
+  background:rgba(13,17,23,.62);color:#fff;border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+}
+html[dir="rtl"] .fg-tag{font-family:var(--font-sans);letter-spacing:0;font-size:12px}
+@media (max-width:900px){#flight-data.alt-section{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){
+  .flight-gallery{grid-template-columns:1fr;border-radius:22px}
+  .fg-map{grid-row:auto;min-height:0;aspect-ratio:878/760}
+}
+
 /* ---------- Contact ------------------------------------------------------ */
 .contact-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);align-items:start;gap:28px}
 .contact-grid .alt-card{min-width:0;height:auto;word-break:break-word;overflow-wrap:anywhere}
@@ -213,3 +242,4 @@ html[dir="rtl"] .info-row,html[dir="rtl"] .contact-form{direction:rtl}
 html[dir="rtl"] .input,html[dir="rtl"] .textarea{text-align:right}
 html[dir="rtl"] .media-frame{direction:ltr}
 @media (max-width:640px){.submit{width:100%;justify-content:space-between}}
+html[dir="rtl"] .fg-tag{left:10px}
