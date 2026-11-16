@@ -31,3 +31,6 @@ Copier une page existante, définir `body[data-page]`, ajouter `meta.<page>` dan
 - Accueil `/` · `/about/` · `/skills/` · `/projects/` · `/contact/` ; ancres : `/about/#cv`, `/projects/#future`…
 - `?lang=fr|de|ar` force la langue (ajouté automatiquement quand on change de langue).
 - Les chemins des scripts sont calculés depuis `js/boot.js` (`window.__root`) : une page peut vivre dans n'importe quel dossier.
+
+## Cache
+Après toute modification de `css/` ou `js/`, lancer `python3 tools/bust.py` : il ajoute `?v=<empreinte>` aux liens des pages pour que les navigateurs rechargent les nouveaux fichiers.
