@@ -146,7 +146,7 @@
   "projects": {
     "future": {
       "card_intro": "An upcoming scientific review exploring the technical and commercial factors behind a legendary aircraft's downfall — a project aiming to analyze innovation, ambition, and lessons for future aerospace design.",
-      "cta_participate_html": "If you'd like to participate in this project, contact me <a href=\"contact.html\">here</a>.",
+      "cta_participate_html": "If you'd like to participate in this project, contact me <a href=\"../contact/\">here</a>.",
       "eyebrow": "Roadmap"
     },
     "realized": {
@@ -162,6 +162,8 @@
       "email_label": "Your e-mail",
       "email_ph": "you@example.com",
       "error": "Sending failed. Please try again or email me directly.",
+      "required": "Please fill in this field.",
+      "email_invalid": "Please enter a valid e-mail address.",
       "error_network": "Network error. Please try again.",
       "eyebrow": "Send a message",
       "mailto_note": "Your e-mail app will open with your message ready to send.",
