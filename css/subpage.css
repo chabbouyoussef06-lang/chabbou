@@ -83,10 +83,9 @@ html[dir="rtl"] .btn-download{font-family:var(--font-sans);font-style:normal}
 .media-slide{flex:0 0 100%;min-width:100%;height:100%;position:relative;overflow:hidden}
 .media-slide img,.media-slide video{width:100%;height:100%;object-fit:cover;display:block}
 .media-slide img{filter:drop-shadow(0 10px 18px rgba(0,0,0,.22))}
-/* the clip is three portrait films: the <video> stays invisible, js paints each third on a rounded canvas tile */
-.media-slide video{position:absolute;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none}
+/* video slide: three portrait films, one rounded tile each (same geometry as the photo tiles) */
 .media-tiles{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5%;filter:drop-shadow(0 10px 18px rgba(0,0,0,.22))}
-.media-tiles canvas{width:100%;height:100%;display:block;border-radius:clamp(12px,2.1vw,22px);background:rgba(13,17,23,.25)}
+.media-tiles video{width:100%;height:100%;display:block;object-fit:cover;border-radius:clamp(12px,2.1vw,22px);background:rgba(13,17,23,.25)}
 .media-nav{
   position:absolute;top:50%;transform:translateY(-50%);z-index:3;
   width:38px;height:38px;border-radius:999px;display:flex;align-items:center;justify-content:center;
