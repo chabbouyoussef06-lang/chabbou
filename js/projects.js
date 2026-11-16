@@ -65,12 +65,16 @@
   /* The clip is three portrait films side by side: paint each third on its own rounded canvas tile,
      exactly like the photo slides (works in every browser, no CSS masking). */
   var canvases = Array.prototype.slice.call(box.querySelectorAll('.media-tiles canvas'));
+  // The three films are not exactly thirds (seams at x≈440 and x≈836 of 1280): crop inside each panel, away from the seams.
+  var PANELS = [[0, 436], [446, 831], [840, 1280]];
   function paint(src, sw, sh) {
     if (!sw || !sh) return;
+    var k1 = sw / 1280;
     canvases.forEach(function (c, k) {
-      var ctx = c.getContext('2d'), third = sw / 3, ta = c.width / c.height, sa = third / sh;
-      var cw = sa > ta ? sh * ta : third, ch = sa > ta ? sh : third / ta;
-      ctx.drawImage(src, k * third + (third - cw) / 2, (sh - ch) / 2, cw, ch, 0, 0, c.width, c.height);
+      var ctx = c.getContext('2d'), x0 = PANELS[k][0] * k1, pw = (PANELS[k][1] - PANELS[k][0]) * k1;
+      var ta = c.width / c.height, sa = pw / sh;
+      var cw = sa > ta ? sh * ta : pw, ch = sa > ta ? sh : pw / ta;
+      ctx.drawImage(src, x0 + (pw - cw) / 2, (sh - ch) / 2, cw, ch, 0, 0, c.width, c.height);
     });
   }
   if (video && canvases.length) {
