@@ -62,6 +62,33 @@
     if (document.hidden) { clearTimer(); if (video) video.pause(); } else if (auto) show(index, false);
   });
 
+  /* The clip is three portrait films side by side: paint each third on its own rounded canvas tile,
+     exactly like the photo slides (works in every browser, no CSS masking). */
+  var canvases = Array.prototype.slice.call(box.querySelectorAll('.media-tiles canvas'));
+  function paint(src, sw, sh) {
+    if (!sw || !sh) return;
+    canvases.forEach(function (c, k) {
+      var ctx = c.getContext('2d'), third = sw / 3, ta = c.width / c.height, sa = third / sh;
+      var cw = sa > ta ? sh * ta : third, ch = sa > ta ? sh : third / ta;
+      ctx.drawImage(src, k * third + (third - cw) / 2, (sh - ch) / 2, cw, ch, 0, 0, c.width, c.height);
+    });
+  }
+  if (video && canvases.length) {
+    var poster = new Image();
+    poster.onload = function () { if (video.paused && !video.currentTime) paint(poster, poster.naturalWidth, poster.naturalHeight); };
+    poster.src = video.getAttribute('poster');
+    var drawing = false;
+    var frame = function () {
+      paint(video, video.videoWidth, video.videoHeight);
+      if (!video.paused && !video.ended) requestAnimationFrame(frame); else drawing = false;
+    };
+    var kick = function () { if (!drawing) { drawing = true; requestAnimationFrame(frame); } };
+    video.addEventListener('play', kick);
+    video.addEventListener('playing', kick);
+    video.addEventListener('seeked', function () { paint(video, video.videoWidth, video.videoHeight); });
+    video.addEventListener('loadeddata', function () { paint(video, video.videoWidth, video.videoHeight); });
+  }
+
   show(0, false);
 
   /* "Rotate your phone" hint: phones in portrait only, disappears on touch, rotation or after a few seconds */
