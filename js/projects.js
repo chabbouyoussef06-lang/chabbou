@@ -16,7 +16,7 @@
   var videos = Array.prototype.slice.call(box.querySelectorAll('video'));
   var master = videos[0];
   var dotsBox = box.querySelector('.media-dots');
-  var PHOTO_MS = 5500;                       // time each photo slide stays on screen
+  var PHOTO_MS = 3500;                       // time each photo slide stays on screen
   var index = 0, timer = null, hovering = false;
 
   var dots = slides.map(function (_, i) {

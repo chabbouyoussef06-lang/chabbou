@@ -155,7 +155,6 @@
       "title": "Projets réalisés"
     },
     "realized2": {
-      "eyebrow": "Données de vol · TU Braunschweig",
       "title": "Traitement et analyse de données de vol simulé",
       "intro": "Dans le cadre d’un projet à la TU Braunschweig, nous avons exploité les données GPS enregistrées lors d’approches à Keflavík avec un Cessna 172P dans FlightGear. Nous avons reconstruit les trajectoires, cartographié les traces GPS et calculé les écarts latéraux et verticaux par rapport aux références de vol. Les profils de descente et les indicateurs statistiques, dont l’erreur quadratique moyenne (RMS), nous ont permis d’identifier les phases où les écarts étaient les plus marqués.",
       "cap_cockpit": "Cockpit du Cessna 172P",
