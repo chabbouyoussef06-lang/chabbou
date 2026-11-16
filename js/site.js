@@ -27,7 +27,7 @@
     if (dicts[lang]) return Promise.resolve(dicts[lang]);
     var p = (lang === window.__lang && window.__dictPromise)
       ? window.__dictPromise
-      : fetch('lang/' + lang + '.json').then(function (r) {
+      : fetch(window.__root + 'lang/' + lang + '.json').then(function (r) {
           if (!r.ok) throw new Error('lang file missing: ' + lang);
           return r.json();
         });
@@ -75,8 +75,9 @@
   function setLang(lang, opts) {
     if (['en', 'fr', 'de', 'ar'].indexOf(lang) < 0) lang = 'en';
     store('lang', lang);
-    try { // keep the address shareable: …?lang=fr
-      var u = new URL(location.href); u.searchParams.set('lang', lang);
+    if (opts && opts.user) try { // only when the visitor picks a language: …?lang=fr stays shareable, plain URLs stay clean
+      var u = new URL(location.href);
+      if (lang === 'en') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
       history.replaceState({}, '', u.pathname + u.search + location.hash);
     } catch (e) {}
     return loadDict(lang).then(function (d) { applyDict(d, lang); })
@@ -133,7 +134,7 @@
     var langEl = target.closest('[data-lang]');
     if (langEl) {
       e.preventDefault();
-      setLang(langEl.getAttribute('data-lang'));
+      setLang(langEl.getAttribute('data-lang'), { user: true });
       closeMenus(); setDrawer(false);
       return;
     }
