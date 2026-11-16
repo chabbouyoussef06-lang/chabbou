@@ -146,7 +146,7 @@
   "projects": {
     "future": {
       "card_intro": "Une revue scientifique à venir, explorant les facteurs techniques et commerciaux derrière l’échec d’un avion légendaire — pour analyser l’innovation, l’ambition et les leçons pour le design aérospatial futur.",
-      "cta_participate_html": "Si vous souhaitez participer à ce projet, contactez-moi <a href=\"contact.html\">ici</a>.",
+      "cta_participate_html": "Si vous souhaitez participer à ce projet, contactez-moi <a href=\"../contact/\">ici</a>.",
       "eyebrow": "Feuille de route"
     },
     "realized": {
@@ -162,6 +162,8 @@
       "email_label": "Votre e-mail",
       "email_ph": "vous@exemple.com",
       "error": "Échec de l’envoi. Veuillez réessayer ou contactez-moi par e-mail.",
+      "required": "Veuillez renseigner ce champ.",
+      "email_invalid": "Veuillez saisir une adresse e-mail valide.",
       "error_network": "Erreur réseau. Veuillez réessayer.",
       "eyebrow": "Envoyer un message",
       "mailto_note": "Votre application e-mail va s'ouvrir avec votre message prêt à envoyer.",

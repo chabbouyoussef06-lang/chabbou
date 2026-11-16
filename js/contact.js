@@ -17,6 +17,17 @@
     status.textContent = t(key, fallback);
   }
 
+  // Browser validation bubbles follow the OS language, not the page language: use the site's own wording.
+  function problem(el) {
+    if (el.validity.valueMissing) return t('contact.form.required', 'Please fill in this field.');
+    if (el.validity.typeMismatch) return t('contact.form.email_invalid', 'Please enter a valid e-mail address.');
+    return '';
+  }
+  Array.prototype.forEach.call(form.querySelectorAll('input, textarea'), function (el) {
+    el.addEventListener('invalid', function () { el.setCustomValidity(''); el.setCustomValidity(problem(el)); });
+    el.addEventListener('input', function () { el.setCustomValidity(''); });
+  });
+
   // Not live yet → explain what will happen and hide the attachment field
   if (!live) {
     var att = document.getElementById('attachmentField');
