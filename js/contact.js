@@ -1,0 +1,57 @@
+/* contact.js — contact form.
+   • With a Formspree address in js/config.js: sends the message (attachment included) from the page.
+   • Without it: opens the visitor's e-mail app with the message pre-filled (mailto) —
+     the form still works, only the attachment field is hidden because mailto cannot carry files. */
+(function () {
+  'use strict';
+  var cfg = window.SITE_CONFIG || {};
+  var live = !!cfg.formEndpoint && !/X{4,}/.test(cfg.formEndpoint);
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  if (!form) return;
+
+  var t = function (k, fb) { return window.site.t(k, fb); };
+  function say(kind, key, fallback) {
+    status.className = 'status' + (kind ? ' ' + kind : '');
+    status.setAttribute('data-i18n', key);
+    status.textContent = t(key, fallback);
+  }
+
+  // Not live yet → explain what will happen and hide the attachment field
+  if (!live) {
+    var att = document.getElementById('attachmentField');
+    if (att) att.hidden = true;
+    var note = document.getElementById('mailtoNote');
+    if (note) note.hidden = false;
+  }
+
+  // Remember the visitor's address for next time (stored in their own browser only)
+  var emailInput = document.getElementById('fromEmail');
+  try { var saved = localStorage.getItem('visitor_email'); if (saved && emailInput) emailInput.value = saved; } catch (e) {}
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    var data = new FormData(form);
+    try { localStorage.setItem('visitor_email', data.get('email') || ''); } catch (err) {}
+    if (data.get('_gotcha')) return; // honeypot: bots fill the hidden field
+
+    if (!live) {
+      var body = data.get('message') + '\n\n— ' + data.get('email');
+      location.href = 'mailto:' + cfg.contactEmail + '?subject=' + encodeURIComponent(data.get('subject')) + '&body=' + encodeURIComponent(body);
+      say('ok', 'contact.form.mailto_opened', 'Your e-mail app should now be open.');
+      return;
+    }
+
+    var button = form.querySelector('button.submit');
+    button.disabled = true;
+    say('', 'contact.form.sending', 'Sending…');
+    fetch(cfg.formEndpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      .then(function (r) {
+        if (r.ok) { form.reset(); say('ok', 'contact.form.success', 'Message sent successfully. Thank you!'); }
+        else say('err', 'contact.form.error', 'Sending failed. Please try again or email me directly.');
+      })
+      .catch(function () { say('err', 'contact.form.error_network', 'Network error. Please try again.'); })
+      .then(function () { button.disabled = false; });
+  });
+})();
