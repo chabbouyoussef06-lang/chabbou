@@ -1,0 +1,186 @@
+{
+  "meta": {
+    "about": "About — Youssef Chabbou",
+    "contact": "Contact — Youssef Chabbou",
+    "home": "Youssef Chabbou — Aerospace Engineering",
+    "projects": "Projects — Youssef Chabbou",
+    "skills": "Skills — Youssef Chabbou"
+  },
+  "nav": {
+    "about": "About",
+    "about_menu": {
+      "background": "Background",
+      "certs": "Certifications",
+      "cv": "Curriculum Vitae",
+      "who": "Profile"
+    },
+    "contact": "Contact",
+    "projects": "Projects",
+    "projects_menu": {
+      "future": "Future projects",
+      "realized": "Projects realized"
+    },
+    "skills": "Skills"
+  },
+  "ui": {
+    "close_menu": "Close menu",
+    "download": "Download",
+    "field": "Field",
+    "field_value": "Aerospace engineering & systems design",
+    "home": "Home",
+    "intro": "Aerospace engineering · Portfolio",
+    "language": "Language",
+    "menu": "Menu",
+    "method": "Method",
+    "method_value": "From sketches to prototypes — robust, iterative, precise.",
+    "open_menu": "Open menu",
+    "rotate_hint": "Rotate your phone to view larger",
+    "scope": "Scope",
+    "scope_value": "Engineering beyond borders.",
+    "scroll": "Scroll",
+    "section": "Section",
+    "skip": "Skip to content",
+    "theme_day": "☀︎ Day",
+    "theme_night": "☾ Night",
+    "unavailable": "Coming soon",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "sections": {
+    "design": {
+      "eyebrow": "Designing with Purpose",
+      "text": "From sketches to prototypes, every decision carries weight. Robust design, quiet confidence.",
+      "title": "Precision in every detail"
+    },
+    "learning": {
+      "eyebrow": "Lifelong learning",
+      "text": "Endless discovery, purposeful practice, and a constant pursuit of knowledge and mastery.",
+      "title": "Where curiosity fuels growth"
+    },
+    "perspective": {
+      "eyebrow": "Perspective",
+      "text": "Exploring horizons where engineering meets imagination. Ambitious goals, measured execution.",
+      "title": "Shaping the future of aerospace with bold ideas"
+    },
+    "principles": {
+      "eyebrow": "Principles",
+      "text": "Learning is meaningful when it expands horizons, sharpens skills, and connects theory with real-world challenges.",
+      "title": "Creativity · Growth · Precision"
+    },
+    "teamwork": {
+      "eyebrow": "Teamwork",
+      "text": "We move faster together, bridging disciplines, tools, and perspectives.",
+      "title": "Collaboration is the strongest engine"
+    },
+    "worldview": {
+      "eyebrow": "Worldview",
+      "text": "Innovation thrives when knowledge adapts across countries, cultures, and perspectives, proving that ideas have no frontiers.",
+      "title": "Engineering beyond borders"
+    }
+  },
+  "footer": {
+    "brand_tag": "Aerospace · Engineering · Design",
+    "created_by": "This website was entirely created by its owner,<br>Youssef Chabbou, using AI-Augmented Development.",
+    "explore": "Explore"
+  },
+  "about": {
+    "sections": {
+      "background": {
+        "eyebrow": "Background",
+        "p1": "Primary schooling in Tunis, with English studied from the age of seven. Outside the classroom, regular involvement in sports, cultural, and academic clubs supported a steady, well-rounded foundation.",
+        "p1_title": "Early education",
+        "p2": "Attended Lycée Pilote El Menzah 8, a selective high school, with a strong focus on mathematics and physics. German added at seventeen. Active member of the Interact charitable club, an environment that built practical teamwork, communication, and leadership skills.",
+        "p2_title": "Secondary studies",
+        "p3": "Continued my studies in Germany, pursuing aerospace engineering at university level, the framework within which my current technical work has been built.",
+        "p3_title": "Higher education",
+        "photo1": "Lycée Pilote",
+        "photo2": "Interact club",
+        "title": "A structured education across two countries"
+      },
+      "certs": {
+        "admin_service": "Certificate for Administrative Service within a Humanitarian Organization",
+        "amr": "Course Certificate, Autonomous Mobile Robots"
+      },
+      "cv": {
+        "ribbon": "Curriculum Vitae",
+        "row_basic": "Curriculum Vitae",
+        "row_extended": "Curriculum Vitae, Extended Version"
+      },
+      "who": {
+        "flight_text": "Aerospace caught my attention early. A first flight at seven made an impression that stayed: the contrast between raw power and quiet stability set the direction long before I had the words for it.",
+        "flight_title": "Origin",
+        "maker_text": "A long-standing interest in how things work and how they can work better. That instinct to refine, to simplify, to give every component a purpose, shapes my engineering practice today.",
+        "maker_title": "Approach",
+        "now_text": "Currently based in Germany, focused on aviation: mechanical design, embedded systems, and software development for embedded platforms. The aim is steady. Bring rigor to each step, and ship work that performs.",
+        "now_title": "Today",
+        "photo1": "Origin",
+        "photo2": "First flight",
+        "title": "Engineering with focus and intent",
+        "tn": "Born and raised in Tunisia, a context that values curiosity, resilience, and care for craft. Those habits carried into how I approach engineering: deliberate, structured, and built to last.",
+        "tn_title": "Roots"
+      }
+    }
+  },
+  "skills": {
+    "admin": {
+      "eyebrow": "Organizational Skills",
+      "text": "Solid grasp of company structures, legal processes, hierarchies, and international professional protocols.",
+      "title": "Administrative and Procedural Understanding"
+    },
+    "cad": {
+      "eyebrow": "Technical Skills",
+      "text": "Good command of 3D mechanical design and parametric modeling tools, developed through personal and academic projects.",
+      "title": "Computer-Aided Design (CAD)"
+    },
+    "culture": {
+      "eyebrow": "Cultural Skills",
+      "text": "Able to work effectively in multicultural environments and adapt to different work approaches and mindsets.",
+      "title": "Intercultural Adaptability"
+    },
+    "team": {
+      "eyebrow": "Interpersonal Skills",
+      "text": "Experienced in collaborating within diverse teams, sharing ideas, and contributing to a constructive and supportive work environment.",
+      "title": "Team Communication"
+    }
+  },
+  "projects": {
+    "future": {
+      "card_intro": "An upcoming scientific review exploring the technical and commercial factors behind a legendary aircraft's downfall — a project aiming to analyze innovation, ambition, and lessons for future aerospace design.",
+      "cta_participate_html": "If you'd like to participate in this project, contact me <a href=\"contact.html\">here</a>.",
+      "eyebrow": "Roadmap"
+    },
+    "realized": {
+      "card_intro": "A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.",
+      "card_title": "Mechanics in Motion: From Design to Manufacturing",
+      "title": "Realized Projects"
+    }
+  },
+  "contact": {
+    "form": {
+      "attachment_hint": "Optional. Attach relevant file(s).",
+      "attachment_label": "Attachment",
+      "email_label": "Your e-mail",
+      "email_ph": "you@example.com",
+      "error": "Sending failed. Please try again or email me directly.",
+      "error_network": "Network error. Please try again.",
+      "eyebrow": "Send a message",
+      "mailto_note": "Your e-mail app will open with your message ready to send.",
+      "mailto_opened": "Your e-mail app should now be open.",
+      "message_label": "Message",
+      "message_ph": "Write your message…",
+      "privacy_hint": "Your data will only be used to process your message.",
+      "send_btn": "Send",
+      "sending": "Sending…",
+      "subject_label": "Subject",
+      "subject_ph": "Topic…",
+      "success": "Message sent successfully. Thank you!",
+      "title": "Contact form"
+    },
+    "info": {
+      "desc": "You can reach me on LinkedIn or via e-mail. I'm based in Braunschweig, Germany.",
+      "eyebrow": "Contact",
+      "linkedin": "LinkedIn Profile",
+      "title": "Let's connect"
+    }
+  }
+}
