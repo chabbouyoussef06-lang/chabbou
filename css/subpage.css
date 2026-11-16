@@ -93,10 +93,13 @@ html[dir="rtl"] .btn-download{font-family:var(--font-sans);font-style:normal}
   font-size:22px;line-height:1;padding:0 0 3px;cursor:pointer;color:#fff;
   background:rgba(11,95,165,.55);border:1px solid rgba(255,255,255,.4);
   backdrop-filter:blur(10px) saturate(160%);-webkit-backdrop-filter:blur(10px) saturate(160%);
-  transition:background .2s,transform .2s;
+  transition:background .2s,transform .2s,opacity .3s;
 }
 .media-nav:hover{background:rgba(11,95,165,.8)}
 .media-nav:active{transform:translateY(-50%) scale(.94)}
+.media-nav{opacity:0;pointer-events:none}                       /* arrows only while the cursor is over the media */
+.media-stage:hover .media-nav,.media-stage:focus-within .media-nav{opacity:1;pointer-events:auto}
+@media (hover:none){.media-nav{display:none}}                  /* touch screens: swipe + dots */
 .media-nav.prev{left:12px}
 .media-nav.next{right:12px}
 .media-dots{display:flex;justify-content:center;align-items:center;gap:7px;height:42px}
