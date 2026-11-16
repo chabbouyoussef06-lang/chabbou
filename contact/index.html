@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact — Youssef Chabbou</title>
+<link rel="canonical" href="https://chabbouyoussef06-lang.github.io/chabbou/contact/">
+<meta name="description" content="Contact Youssef Chabbou: LinkedIn, e-mail, and a contact form.">
+<meta name="theme-color" content="#0b5fa5">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chabbouyoussef06-lang.github.io/chabbou/contact/">
+<meta property="og:site_name" content="Youssef Chabbou">
+<meta property="og:title" content="Contact — Youssef Chabbou">
+<meta property="og:description" content="Contact Youssef Chabbou: LinkedIn, e-mail, and a contact form.">
+<meta property="og:image" content="https://chabbouyoussef06-lang.github.io/chabbou/assets/images/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/images/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/images/favicon-192.png">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="preload" as="image" href="../assets/images/background.jpg">
+
+<!-- Editorial display font; falls back gracefully if offline -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,500&display=swap" rel="stylesheet">
+
+<script src="../js/boot.js"></script>
+<link rel="stylesheet" href="../css/site.css">
+<link rel="stylesheet" href="../css/subpage.css">
+<script src="../js/site.js" defer></script>
+<script src="../js/config.js" defer></script>
+<script src="../js/contact.js" defer></script>
+</head>
+<body data-page="contact">
+<script src="../js/layout.js" data-slot="header"></script>
+
+<main class="page" id="main">
+    <nav class="breadcrumbs mono" aria-label="Breadcrumb">
+      <a href="../" data-i18n="ui.home">Home</a>
+      <span class="sep">/</span>
+      <span class="current" data-i18n="nav.contact">Contact</span>
+    </nav>
+
+  <div class="sections">
+    <section class="alt-section contact-grid reveal">
+
+      <!-- left: ways to reach me -->
+      <div class="alt-card">
+        <p class="alt-eyebrow" data-i18n="contact.info.eyebrow">Contact</p>
+        <h1 class="alt-title display" data-i18n="contact.info.title">Let's connect</h1>
+        <p class="alt-text" data-i18n="contact.info.desc">You can reach me on LinkedIn or via e-mail. I'm based in Braunschweig, Germany.</p>
+
+        <div class="info-stack">
+          <div class="info-row">
+            <span class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.8v2.1h.1c.5-.9 1.8-2.1 3.8-2.1 4.1 0 4.8 2.7 4.8 6.2V24h-4v-7.1c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V24h-4V8.5z"/></svg></span>
+            <a href="https://de.linkedin.com/in/youssef-chabbou-aa3782374" target="_blank" rel="noopener noreferrer" data-i18n="contact.info.linkedin">LinkedIn Profile</a>
+          </div>
+          <div class="info-row">
+            <span class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8.236l8 6.764 8-6.764V18H4z"/></svg></span>
+            <a href="mailto:Youssefchabbou@outlook.com">Youssefchabbou@outlook.com</a>
+          </div>
+          <div class="info-row">
+            <span class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg></span>
+            <span class="info-value">Braunschweig, Germany</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- right: form -->
+      <div class="alt-card">
+        <p class="alt-eyebrow" data-i18n="contact.form.eyebrow">Send a message</p>
+        <h2 class="alt-title display" data-i18n="contact.form.title">Contact form</h2>
+
+        <form id="contactForm" class="contact-form" enctype="multipart/form-data" novalidate>
+          <div class="field">
+            <label class="label" for="fromEmail" data-i18n="contact.form.email_label">Your e-mail</label>
+            <input class="input" id="fromEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com" data-i18n-attr="placeholder:contact.form.email_ph">
+          </div>
+          <div class="field">
+            <label class="label" for="subject" data-i18n="contact.form.subject_label">Subject</label>
+            <input class="input" id="subject" name="subject" type="text" required placeholder="Topic…" data-i18n-attr="placeholder:contact.form.subject_ph">
+          </div>
+          <div class="field">
+            <label class="label" for="message" data-i18n="contact.form.message_label">Message</label>
+            <textarea class="textarea" id="message" name="message" required placeholder="Write your message…" data-i18n-attr="placeholder:contact.form.message_ph"></textarea>
+          </div>
+          <div class="field" id="attachmentField">
+            <label class="label" for="attachment" data-i18n="contact.form.attachment_label">Attachment</label>
+            <input class="file" id="attachment" name="attachment" type="file">
+            <span class="hint" data-i18n="contact.form.attachment_hint">Optional. Attach relevant file(s).</span>
+          </div>
+          <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <p class="hint" id="mailtoNote" hidden data-i18n="contact.form.mailto_note">Your e-mail app will open with your message ready to send.</p>
+          <button class="submit" type="submit"><span data-i18n="contact.form.send_btn">Send</span><span class="submit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+          <p id="formStatus" class="status" aria-live="polite"></p>
+        </form>
+
+        <p class="hint" data-i18n="contact.form.privacy_hint">Your data will only be used to process your message.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="../js/layout.js" data-slot="footer"></script>
+</body>
+</html>
