@@ -5,12 +5,15 @@ Site statique (HTML / CSS / JS vanilla) publié avec GitHub Pages : https://chab
 ## Structure
 
 ```
-index.html  about.html  skills.html  projects.html  contact.html
+index.html          → /
+about/ skills/ projects/ contact/   (un dossier par page, chacun avec index.html → URLs courtes)
+about.html, skills.html, … (redirections des anciennes adresses)
 css/   site.css (jetons, en-tête, menus, pied de page) · home.css · subpage.css
 js/    boot.js (thème/langue avant affichage) · layout.js (en-tête, menu mobile, pied de page)
        site.js (i18n, thème, menus) · config.js (réglages) · home.js · about.js · projects.js · contact.js
 lang/  en.json · fr.json · de.json · ar.json  (mêmes clés dans les 4 fichiers)
-assets/images · assets/video · assets/docs (PDF à ajouter)
+assets/images (favicon*, signature.png = logo) · assets/video · assets/docs (PDF à ajouter)
+favicon.ico (racine)
 ```
 
 ## Traductions
@@ -23,3 +26,8 @@ Le HTML contient le texte anglais par défaut ; `data-i18n="section.cle"` pour l
 
 ## Ajouter une page
 Copier une page existante, définir `body[data-page]`, ajouter `meta.<page>` dans les JSON et le lien dans `js/layout.js`.
+
+## Adresses
+- Accueil `/` · `/about/` · `/skills/` · `/projects/` · `/contact/` ; ancres : `/about/#cv`, `/projects/#future`…
+- `?lang=fr|de|ar` force la langue (ajouté automatiquement quand on change de langue).
+- Les chemins des scripts sont calculés depuis `js/boot.js` (`window.__root`) : une page peut vivre dans n'importe quel dossier.
