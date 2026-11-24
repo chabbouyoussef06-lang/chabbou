@@ -142,7 +142,14 @@ html[dir="rtl"] .btn-download{font-family:var(--font-sans);font-style:normal}
   font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
 }
 html[dir="rtl"] .fg-tag{font-family:var(--font-sans);letter-spacing:0;font-size:12px}
-@media (max-width:900px){#flight-data.alt-section{grid-template-columns:minmax(0,1fr)}}
+/* GearShock reuses the gallery (wheel tall, CAD and FE result stacked) mirrored: text left, images right */
+#gearshock.alt-section{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}
+#gearshock .alt-card{order:-1}
+#gearshock .fg-profile img{object-fit:contain}
+@media (max-width:900px){
+  #flight-data.alt-section,#gearshock.alt-section{grid-template-columns:minmax(0,1fr)}
+  #gearshock .alt-card{order:0}
+}
 @media (max-width:640px){
   .flight-gallery{grid-template-columns:1fr;border-radius:22px}
   .fg-map{grid-row:auto;min-height:0;aspect-ratio:878/760}

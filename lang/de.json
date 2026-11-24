@@ -162,6 +162,15 @@
       "alt_cockpit": "Cockpitansicht der Cessna 172P im Endanflug auf Keflavík in FlightGear",
       "alt_map": "GPS-Spur des ILS-Anflugs auf einer Karte der Halbinsel Reykjanes",
       "alt_profile": "Höhe über der Entfernung zum Endpunkt im Vergleich zum 3°-Gleitpfad"
+    },
+    "realized3": {
+      "title": "GearShock: Dynamische Untersuchung eines Stirnradgetriebes",
+      "intro": "GearShock ist eine CAD- und Finite-Elemente-Studie eines einstufigen Stirnradgetriebes (Übersetzung 3, Modul 2 mm), das ein Förderband antreibt. Das Getriebe wurde in SolidWorks konstruiert und in Abaqus dynamisch berechnet; das Modell trifft die analytische Zahnkraft auf 2,5 % genau. Im Dauerbetrieb werden die Zähne nicht geschädigt, doch ein plötzliches Blockieren des Bandes setzt die kinetische Energie des Motors innerhalb von etwa einer Millisekunde in den Zähnen frei. Die Radzähne fließen ab etwa 150 U/min und brechen ab etwa 220 U/min, weit unterhalb der Nenndrehzahl von 1 450 U/min; empfohlen wird daher eine Rutschkupplung auf der Abtriebswelle.",
+      "cap_wheel": "Rad und Abtriebswelle",
+      "cap_cad": "CAD · SolidWorks",
+      "alt_wheel": "Zahnrad auf der Abtriebswelle mit Lager",
+      "alt_cad": "CAD-Modell des einstufigen Stirnradgetriebes mit Gehäuse und Lagern",
+      "alt_fe": "Von-Mises-Spannung in den Radzähnen bei einem Bandblockieren, Ergebnis der Finite-Elemente-Analyse"
     }
   },
   "contact": {
