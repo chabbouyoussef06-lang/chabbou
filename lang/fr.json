@@ -162,6 +162,15 @@
       "alt_cockpit": "Vue du cockpit du Cessna 172P en finale vers Keflavík dans FlightGear",
       "alt_map": "Trace GPS de l’approche ILS cartographiée sur la péninsule de Reykjanes",
       "alt_profile": "Altitude en fonction de la distance au point final, comparée à la pente de 3°"
+    },
+    "realized3": {
+      "title": "GearShock : étude dynamique d’un réducteur à engrenages droits",
+      "intro": "GearShock est une étude CAO et par éléments finis d’un réducteur à engrenages droits à un étage (rapport 3, module 2 mm) entraînant un convoyeur à bande. Le réducteur a été conçu sous SolidWorks et analysé dynamiquement avec Abaqus ; le modèle reproduit la force analytique sur la dent à 2,5 % près. En marche normale, les dents ne subissent aucun dommage, mais un blocage soudain de la bande libère l’énergie cinétique du moteur dans les dents en environ une milliseconde. Les dents de la roue plastifient dès environ 150 tr/min et cassent dès environ 220 tr/min, bien en dessous de la vitesse nominale de 1 450 tr/min ; un limiteur de couple sur l’arbre de sortie est donc recommandé.",
+      "cap_wheel": "Roue et arbre de sortie",
+      "cap_cad": "CAO · SolidWorks",
+      "alt_wheel": "Roue dentée montée sur l’arbre de sortie avec son roulement",
+      "alt_cad": "Modèle CAO du réducteur à engrenages droits à un étage avec son carter et ses roulements",
+      "alt_fe": "Contrainte de von Mises dans les dents de la roue lors d’un blocage de la bande, résultat éléments finis"
     }
   },
   "contact": {
