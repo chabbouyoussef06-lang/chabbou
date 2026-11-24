@@ -169,7 +169,6 @@
       "cap_cad": "CAD · SolidWorks",
       "alt_cad": "CAD-Modell des einstufigen Stirnradgetriebes mit Gehäuse und Lagern",
       "alt_fe": "Von-Mises-Spannung in den Radzähnen bei einem Bandblockieren, Ergebnis der Finite-Elemente-Analyse",
-      "alt_chart": "Maximale Zahnspannung beim ersten Stoß über der Motordrehzahl: Das Rad fließt ab etwa 150 U/min und bricht ab etwa 220 U/min",
       "cap_mesh": "FE-Netz · Abaqus",
       "alt_mesh": "Finite-Elemente-Netz von drei Zähnen des Ritzels und des Rades"
     }

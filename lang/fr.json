@@ -169,7 +169,6 @@
       "cap_cad": "CAO · SolidWorks",
       "alt_cad": "Modèle CAO du réducteur à engrenages droits à un étage avec son carter et ses roulements",
       "alt_fe": "Contrainte de von Mises dans les dents de la roue lors d’un blocage de la bande, résultat éléments finis",
-      "alt_chart": "Contrainte maximale dans les dents au premier choc selon la vitesse du moteur : la roue plastifie dès environ 150 tr/min et casse dès environ 220 tr/min",
       "cap_mesh": "Maillage EF · Abaqus",
       "alt_mesh": "Maillage éléments finis de trois dents du pignon et de la roue"
     }

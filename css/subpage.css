@@ -142,14 +142,12 @@ html[dir="rtl"] .btn-download{font-family:var(--font-sans);font-style:normal}
   font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
 }
 html[dir="rtl"] .fg-tag{font-family:var(--font-sans);letter-spacing:0;font-size:12px}
-/* GearShock: four equal tiles (CAD, FE mesh, FE result, stress chart), text on the left */
-#gearshock.alt-section{grid-template-columns:minmax(0,1fr) minmax(0,1.45fr)}
+/* GearShock: FE mesh tall on the left, CAD and FE result stacked on the right; text on the left of the section */
+#gearshock.alt-section{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}
 #gearshock .alt-card{order:-1}
-#gearshock .flight-gallery{grid-template-columns:1fr 1fr}
-#gearshock .flight-gallery figure{aspect-ratio:1.68;background:#d9d3ca}
-#gearshock .flight-gallery img{object-fit:contain}
-#gearshock .fg-cockpit img{object-fit:cover}
-#gearshock .fg-mesh img,#gearshock .fg-profile img,#gearshock .fg-chart img{mix-blend-mode:multiply}
+#gearshock .fg-map{background:#d9d3ca}
+#gearshock .fg-map img,#gearshock .fg-profile img{mix-blend-mode:multiply}
+#gearshock .fg-profile img{object-fit:contain}
 @media (max-width:900px){
   #flight-data.alt-section,#gearshock.alt-section{grid-template-columns:minmax(0,1fr)}
   #gearshock .alt-card{order:0}
