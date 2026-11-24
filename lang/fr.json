@@ -169,8 +169,8 @@
       "cap_cad": "CAO · SolidWorks",
       "alt_cad": "Modèle CAO du réducteur à engrenages droits à un étage avec son carter et ses roulements",
       "alt_fe": "Contrainte de von Mises dans les dents de la roue lors d’un blocage de la bande, résultat éléments finis",
-      "cap_mesh": "Maillage EF · Abaqus",
-      "alt_mesh": "Maillage éléments finis de trois dents du pignon et de la roue"
+      "cap_iso": "Vue isométrique · Abaqus",
+      "alt_iso": "Vue isométrique des dents du pignon en prise, avec la contrainte concentrée au contact"
     }
   },
   "contact": {

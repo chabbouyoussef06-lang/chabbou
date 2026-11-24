@@ -169,8 +169,8 @@
       "cap_cad": "CAD · SolidWorks",
       "alt_cad": "CAD-Modell des einstufigen Stirnradgetriebes mit Gehäuse und Lagern",
       "alt_fe": "Von-Mises-Spannung in den Radzähnen bei einem Bandblockieren, Ergebnis der Finite-Elemente-Analyse",
-      "cap_mesh": "FE-Netz · Abaqus",
-      "alt_mesh": "Finite-Elemente-Netz von drei Zähnen des Ritzels und des Rades"
+      "cap_iso": "Isometrische Ansicht · Abaqus",
+      "alt_iso": "Isometrische Ansicht der im Eingriff stehenden Ritzelzähne mit der Spannung im Kontaktbereich"
     }
   },
   "contact": {
