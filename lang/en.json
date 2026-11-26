@@ -167,7 +167,7 @@
       "title": "GearShock: Dynamic Study of a Spur Gear Reducer",
       "intro": "GearShock is a CAD and finite element study of a single-stage spur gear reducer (ratio 3, module 2 mm) driving a belt conveyor. The gearbox was designed in SolidWorks and analysed dynamically in Abaqus; the model reproduces the analytical tooth force within 2.5 %. Steady running does not harm the teeth, but a sudden belt jam releases the motor’s kinetic energy into them within about a millisecond. The wheel teeth yield from about 150 rpm and break from about 220 rpm, far below the nominal 1,450 rpm, so a torque limiter on the output shaft is recommended.",
       "cap_cad": "CAD · SolidWorks",
-      "alt_cad": "CAD model of the single-stage spur gear reducer with its housing and bearings",
+      "alt_cad": "CAD model of the two shafts fitted with their gears and bearings, housing hidden",
       "alt_fe": "Von Mises stress in the wheel teeth during a belt jam, finite element result",
       "cap_shaft": "Output shaft · SolidWorks",
       "alt_shaft": "CAD model of the output shaft with its shoulders and keyways"
