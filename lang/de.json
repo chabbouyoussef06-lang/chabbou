@@ -169,8 +169,8 @@
       "cap_cad": "CAD · SolidWorks",
       "alt_cad": "CAD-Modell des einstufigen Stirnradgetriebes mit Gehäuse und Lagern",
       "alt_fe": "Von-Mises-Spannung in den Radzähnen bei einem Bandblockieren, Ergebnis der Finite-Elemente-Analyse",
-      "cap_iso": "Isometrische Ansicht · Abaqus",
-      "alt_iso": "Isometrische Ansicht der im Eingriff stehenden Ritzelzähne mit der Spannung im Kontaktbereich"
+      "cap_shaft": "Abtriebswelle · SolidWorks",
+      "alt_shaft": "CAD-Modell der Abtriebswelle mit Absätzen und Passfedernuten"
     }
   },
   "contact": {
