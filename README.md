@@ -1,3 +1,3 @@
 # Youssef Chabbou — Portfolio
 
-https://chabbouyoussef06-lang.github.io/chabbou/
+https://youssefchabbou.github.io/chabbou/
