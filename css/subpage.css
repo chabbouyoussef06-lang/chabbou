@@ -145,8 +145,7 @@ html[dir="rtl"] .fg-tag{font-family:var(--font-sans);letter-spacing:0;font-size:
 /* GearShock: FE mesh tall on the left, CAD and FE result stacked on the right; text on the left of the section */
 #gearshock.alt-section{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}
 #gearshock .alt-card{order:-1}
-#gearshock .fg-map{background:#d9d3ca}
-#gearshock .fg-map img,#gearshock .fg-profile img{mix-blend-mode:multiply}
+#gearshock .fg-profile img{mix-blend-mode:multiply}
 #gearshock .fg-profile img{object-fit:contain}
 @media (max-width:900px){
   #flight-data.alt-section,#gearshock.alt-section{grid-template-columns:minmax(0,1fr)}

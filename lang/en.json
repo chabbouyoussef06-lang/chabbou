@@ -169,8 +169,8 @@
       "cap_cad": "CAD · SolidWorks",
       "alt_cad": "CAD model of the single-stage spur gear reducer with its housing and bearings",
       "alt_fe": "Von Mises stress in the wheel teeth during a belt jam, finite element result",
-      "cap_iso": "Isometric view · Abaqus",
-      "alt_iso": "Isometric view of the pinion teeth in mesh, with the stress concentrated at the contact"
+      "cap_shaft": "Output shaft · SolidWorks",
+      "alt_shaft": "CAD model of the output shaft with its shoulders and keyways"
     }
   },
   "contact": {
