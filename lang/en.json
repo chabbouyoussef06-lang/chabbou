@@ -149,7 +149,7 @@
       "eyebrow": "Roadmap",
       "title": "Taming the Stall with Tiny Fins",
       "intro": "A planned simulation study of passive flow control: could a few small fins on a wing delay the moment the air lets go? Starting early 2027, with more to share once the first results are in.",
-      "alt": "Abstract illustration of airflow over a wing profile"
+      "alt": "Airliner wing in flight above the clouds"
     },
     "realized": {
       "card_intro": "A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.",
@@ -178,7 +178,7 @@
       "eyebrow": "In progress",
       "title": "Rethinking the Cockpit Interface",
       "intro": "I am currently working on a cockpit interface concept for future flight operations. The question: how can AI-assisted information reach pilots clearly and transparently, while the decision stays in their hands? The details stay under wraps for now.",
-      "alt": "Boeing 787 flight deck with its large electronic displays"
+      "alt": "Close-up of an airliner cockpit with its electronic displays"
     }
   },
   "contact": {
