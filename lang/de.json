@@ -18,7 +18,8 @@
     "projects": "Projekte",
     "projects_menu": {
       "future": "Zukünftige Projekte",
-      "realized": "Realisierte Projekte"
+      "realized": "Realisierte Projekte",
+      "current": "Aktuelle Projekte"
     },
     "skills": "Kompetenzen"
   },
@@ -145,9 +146,10 @@
   },
   "projects": {
     "future": {
-      "card_intro": "Eine kommende wissenschaftliche Review, die technische und wirtschaftliche Faktoren hinter dem Scheitern eines legendären Flugzeugs untersucht – mit dem Ziel, Innovation, Ambition und Lehren für zukünftiges Luftfahrtdesign zu analysieren.",
-      "cta_participate_html": "Wenn du an diesem Projekt mitwirken möchtest, kontaktiere mich <a href=\"../contact/\">hier</a>.",
-      "eyebrow": "Roadmap"
+      "eyebrow": "Ausblick",
+      "title": "Strömungsabriss mit winzigen Finnen bändigen",
+      "intro": "Eine geplante Simulationsstudie zur passiven Strömungsbeeinflussung: Können ein paar kleine Finnen auf einem Flügel den Moment verzögern, in dem die Strömung abreißt? Start Anfang 2027, mehr dazu, sobald erste Ergebnisse vorliegen.",
+      "alt": "Abstrakte Illustration der Luftströmung um ein Flügelprofil"
     },
     "realized": {
       "card_intro": "Ein mechanisches Dosenpress-System als erster Schritt zum Recycling leerer Dosen – mit zentralen Koppelgetrieben wie Schlittenführung und Zahnradmechanismus. Zunächst im CAD entwickelt und anschließend mit konventioneller und CNC-Bearbeitung gefertigt. Das Projekt vertiefte mein Verständnis grundlegender mechanischer Prinzipien – eine der Säulen der Luft- und Raumfahrttechnik. Realisiert mit Unterstützung von AFAMEC und dem Engineering-Team.",
@@ -171,6 +173,12 @@
       "alt_fe": "Von-Mises-Spannung in den Radzähnen bei einem Bandblockieren, Ergebnis der Finite-Elemente-Analyse",
       "cap_shaft": "Abtriebswelle · SolidWorks",
       "alt_shaft": "CAD-Modell der Abtriebswelle mit Absätzen und Passfedernuten"
+    },
+    "current": {
+      "eyebrow": "In Arbeit",
+      "title": "Das Cockpit-Interface neu denken",
+      "intro": "Derzeit arbeite ich an einem Cockpit-Interface-Konzept für künftige Flugbetriebsabläufe. Die Frage: Wie lassen sich KI-gestützte Informationen klar und nachvollziehbar zu den Piloten bringen, ohne dass ihnen die Entscheidung abgenommen wird? Die Details bleiben vorerst unter Verschluss.",
+      "alt": "Abstrakte Illustration eines Cockpit-Displays"
     }
   },
   "contact": {
