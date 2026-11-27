@@ -49,33 +49,28 @@
   "sections": {
     "design": {
       "eyebrow": "Gestalten mit Absicht",
-      "text": "Von der Skizze zum Prototyp: jede Entscheidung zählt. Robustes Design, leise Souveränität.",
-      "title": "Präzision in jedem Detail"
+      "text": "Von der ersten Skizze bis zum fertigen Prototyp zählt jede Entscheidung. Robust im Entwurf, leise in der Haltung.",
+      "title": "Präzision, die man spürt."
     },
     "learning": {
       "eyebrow": "Lebenslanges Lernen",
-      "text": "Endlose Entdeckung, zielgerichtete Übung und das beständige Streben nach Wissen und Meisterschaft.",
-      "title": "Wo Neugier Wachstum antreibt"
+      "text": "Neugier, Kreativität und geduldiges Üben machen aus dem Unbekannten das Mögliche.",
+      "title": "Jede Frage ist eine Startbahn."
     },
     "perspective": {
       "eyebrow": "Perspektive",
-      "text": "Horizonte erkunden, wo Ingenieurkunst auf Vorstellungskraft trifft. Ehrgeizige Ziele, gemessene Umsetzung.",
-      "title": "Die Zukunft der Luft- und Raumfahrt mit kühnen Ideen gestalten"
-    },
-    "principles": {
-      "eyebrow": "Grundsätze",
-      "text": "Lernen ist sinnvoll, wenn es Horizonte erweitert, Fähigkeiten schärft und Theorie mit der realen Welt verbindet.",
-      "title": "Kreativität · Wachstum · Präzision"
+      "text": "Wo Ingenieurkunst auf Vorstellungskraft trifft, lernen ehrgeizige Ideen das Fliegen.",
+      "title": "Gebaut für den Himmel. Getrieben vom Staunen."
     },
     "teamwork": {
       "eyebrow": "Teamarbeit",
-      "text": "Gemeinsam kommen wir schneller voran und verbinden Disziplinen, Werkzeuge und Sichtweisen.",
-      "title": "Zusammenarbeit ist der stärkste Motor"
+      "text": "Disziplinen, Werkzeuge und Sichtweisen bewegen sich als Ganzes. Die besten Ideen entstehen nie allein.",
+      "title": "Gemeinsam weiter."
     },
     "worldview": {
       "eyebrow": "Weltsicht",
-      "text": "Innovation gedeiht, wenn sich Wissen an Länder, Kulturen und Perspektiven anpasst. Ideen kennen keine Grenzen.",
-      "title": "Ingenieurkunst ohne Grenzen"
+      "text": "Wissen reist gut. Über Länder, Kulturen und Perspektiven hinweg wird es nur reicher.",
+      "title": "Ideen kennen keine Grenzen."
     }
   },
   "footer": {
