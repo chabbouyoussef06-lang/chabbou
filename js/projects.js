@@ -1,4 +1,4 @@
-/* projects.js — photo / video carousel of the realized project.
+/* projects.js - photo / video carousel of the realized project.
    • Photo slides (3 photos each) advance by themselves; the video slide (3 films) plays once, then the carousel
      goes back to the start.
    • With a mouse, resting the cursor on the media freezes everything: photos stay, videos loop.

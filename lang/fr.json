@@ -1,10 +1,10 @@
 {
   "meta": {
-    "about": "À propos — Youssef Chabbou",
-    "contact": "Contact — Youssef Chabbou",
-    "home": "Youssef Chabbou — Ingénierie aérospatiale",
-    "projects": "Projets — Youssef Chabbou",
-    "skills": "Compétences — Youssef Chabbou"
+    "about": "À propos | Youssef Chabbou",
+    "contact": "Contact | Youssef Chabbou",
+    "home": "Youssef Chabbou | Ingénierie aérospatiale",
+    "projects": "Projets | Youssef Chabbou",
+    "skills": "Compétences | Youssef Chabbou"
   },
   "nav": {
     "about": "À propos",
@@ -33,7 +33,7 @@
     "language": "Langue",
     "menu": "Menu",
     "method": "Méthode",
-    "method_value": "Du croquis au prototype — robuste, itératif, précis.",
+    "method_value": "Du croquis au prototype : robuste, itératif, précis.",
     "open_menu": "Ouvrir le menu",
     "scope": "Portée",
     "scope_value": "Une ingénierie sans frontières.",
@@ -74,7 +74,7 @@
     },
     "worldview": {
       "eyebrow": "Vision du monde",
-      "text": "L'innovation prospère quand le savoir s'adapte aux pays, cultures et perspectives — preuve que les idées n'ont pas de frontières.",
+      "text": "L'innovation prospère quand le savoir s'adapte aux pays, cultures et perspectives, preuve que les idées n'ont pas de frontières.",
       "title": "Une ingénierie sans frontières"
     }
   },
@@ -152,7 +152,7 @@
       "alt": "Aile d'avion de ligne en vol au-dessus des nuages"
     },
     "realized": {
-      "card_intro": "Un système mécanique de presse à canettes comme premier pas vers le recyclage des canettes vides — intégrant des liaisons clés comme la glissière sur rail et des engrenages. D’abord conçu en CAO puis fabriqué par usinage conventionnel et CNC. Ce projet a renforcé ma compréhension des principes mécaniques fondamentaux, l’une des bases de l’ingénierie aérospatiale. Réalisé avec le soutien d’AFAMEC et de son équipe d’ingénierie.",
+      "card_intro": "Un système mécanique de presse à canettes comme premier pas vers le recyclage des canettes vides, intégrant des liaisons clés comme la glissière sur rail et des engrenages. D’abord conçu en CAO puis fabriqué par usinage conventionnel et CNC. Ce projet a renforcé ma compréhension des principes mécaniques fondamentaux, l’une des bases de l’ingénierie aérospatiale. Réalisé avec le soutien d’AFAMEC et de son équipe d’ingénierie.",
       "card_title": "Mécanique en mouvement : du design à la fabrication",
       "title": "Projets réalisés"
     },

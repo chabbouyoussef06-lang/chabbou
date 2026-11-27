@@ -1,4 +1,4 @@
-/* site.js — behaviour shared by every page (loaded with `defer`).
+/* site.js - behaviour shared by every page (loaded with `defer`).
    • translations   (lang/<code>.json, applied to [data-i18n] and [data-i18n-attr])
    • theme toggle   (day / night)
    • drop-down menus, mobile drawer, active page highlight

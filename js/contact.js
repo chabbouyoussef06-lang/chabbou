@@ -1,6 +1,6 @@
-/* contact.js — contact form.
+/* contact.js - contact form.
    • With a Formspree address in js/config.js: sends the message (attachment included) from the page.
-   • Without it: opens the visitor's e-mail app with the message pre-filled (mailto) —
+   • Without it: opens the visitor's e-mail app with the message pre-filled (mailto):
      the form still works, only the attachment field is hidden because mailto cannot carry files. */
 (function () {
   'use strict';
@@ -72,7 +72,7 @@
     if (data.get('_gotcha')) return; // honeypot: bots fill the hidden field
 
     if (!live) {
-      var body = data.get('message') + '\n\n— ' + data.get('email');
+      var body = data.get('message') + '\n\n- ' + data.get('email');
       location.href = 'mailto:' + cfg.contactEmail + '?subject=' + encodeURIComponent(data.get('subject')) + '&body=' + encodeURIComponent(body);
       say('ok', 'contact.form.mailto_opened', 'Your e-mail app should now be open.');
       return;

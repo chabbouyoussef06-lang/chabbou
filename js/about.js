@@ -1,4 +1,4 @@
-/* about.js — keeps the CV / certificate buttons pointing at the right PDF for the chosen
+/* about.js - keeps the CV / certificate buttons pointing at the right PDF for the chosen
    language, and replaces a button by "Coming soon" when the PDF has not been uploaded yet. */
 (function () {
   'use strict';

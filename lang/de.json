@@ -1,10 +1,10 @@
 {
   "meta": {
-    "about": "Über mich — Youssef Chabbou",
-    "contact": "Kontakt — Youssef Chabbou",
-    "home": "Youssef Chabbou — Luft- und Raumfahrttechnik",
-    "projects": "Projekte — Youssef Chabbou",
-    "skills": "Kompetenzen — Youssef Chabbou"
+    "about": "Über mich | Youssef Chabbou",
+    "contact": "Kontakt | Youssef Chabbou",
+    "home": "Youssef Chabbou | Luft- und Raumfahrttechnik",
+    "projects": "Projekte | Youssef Chabbou",
+    "skills": "Kompetenzen | Youssef Chabbou"
   },
   "nav": {
     "about": "Über mich",
@@ -33,7 +33,7 @@
     "language": "Sprache",
     "menu": "Menü",
     "method": "Methode",
-    "method_value": "Von der Skizze zum Prototyp — robust, iterativ, präzise.",
+    "method_value": "Von der Skizze zum Prototyp: robust, iterativ, präzise.",
     "open_menu": "Menü öffnen",
     "scope": "Reichweite",
     "scope_value": "Ingenieurkunst ohne Grenzen.",
@@ -49,7 +49,7 @@
   "sections": {
     "design": {
       "eyebrow": "Gestalten mit Absicht",
-      "text": "Von der Skizze zum Prototyp — jede Entscheidung zählt. Robustes Design, leise Souveränität.",
+      "text": "Von der Skizze zum Prototyp: jede Entscheidung zählt. Robustes Design, leise Souveränität.",
       "title": "Präzision in jedem Detail"
     },
     "learning": {
@@ -74,7 +74,7 @@
     },
     "worldview": {
       "eyebrow": "Weltsicht",
-      "text": "Innovation gedeiht, wenn sich Wissen an Länder, Kulturen und Perspektiven anpasst — Ideen kennen keine Grenzen.",
+      "text": "Innovation gedeiht, wenn sich Wissen an Länder, Kulturen und Perspektiven anpasst. Ideen kennen keine Grenzen.",
       "title": "Ingenieurkunst ohne Grenzen"
     }
   },
