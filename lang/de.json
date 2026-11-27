@@ -252,25 +252,26 @@
     "title": "Impressum und Datenschutz",
     "imprint": {
       "h": "Impressum",
-      "law": "Angaben gemäß § 5 DDG.",
+      "law": "Betreiber der Website und verantwortlich für den Inhalt.",
       "email": "E-Mail",
-      "nature": "Diese Website ist ein persönliches, nicht kommerzielles Portfolio. Verantwortlich für den Inhalt: Youssef Chabbou."
+      "nature": "Dies ist eine persönliche Website. Sie verfolgt keinen kommerziellen Zweck: Es werden weder Waren noch Dienstleistungen angeboten und es werden keine Einnahmen erzielt.",
+      "request": "Die vollständige Postanschrift des Verantwortlichen wird auf Anfrage per E-Mail mitgeteilt."
     },
     "privacy": {
       "h": "Datenschutzerklärung",
-      "intro": "Verantwortlicher im Sinne der DSGVO ist die im Impressum genannte Person. Diese Website erhebt so wenige Daten wie möglich.",
+      "intro": "Verantwortlich für die Verarbeitung personenbezogener Daten ist der im Impressum genannte Betreiber der Website. Diese Website erhebt so wenige Daten wie möglich.",
       "hosting_t": "Hosting",
-      "hosting": "Diese Website wird über GitHub Pages (GitHub Inc., USA) bereitgestellt. Beim Besuch kann GitHub technische Daten wie Ihre IP-Adresse in Server-Logfiles verarbeiten, zur Sicherheit und zum Betrieb des Dienstes. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Details finden Sie in der Datenschutzerklärung von GitHub.",
+      "hosting": "Diese Website wird über GitHub Pages (GitHub Inc., USA) bereitgestellt. Beim Besuch kann GitHub technische Daten wie Ihre IP-Adresse in Server-Logfiles verarbeiten, zur Sicherheit und zum Betrieb des Dienstes. Details finden Sie in der Datenschutzerklärung von GitHub.",
       "fonts_t": "Schriftarten",
       "fonts": "Die auf dieser Website verwendete Schriftart liegt auf demselben Server. Es wird keine Verbindung zu Google oder einem anderen Schriftanbieter hergestellt.",
       "contact_t": "Kontakt",
-      "contact": "Das Kontaktformular sendet nichts an diese Website: Es öffnet Ihr eigenes E-Mail-Programm mit der vorbereiteten Nachricht. Wenn Sie mir per E-Mail schreiben, werden Ihre Adresse und Nachricht nur zur Beantwortung verwendet und gelöscht, sobald sie nicht mehr benötigt werden (Art. 6 Abs. 1 lit. b und f DSGVO).",
+      "contact": "Das Kontaktformular sendet nichts an diese Website: Es öffnet Ihr eigenes E-Mail-Programm mit der vorbereiteten Nachricht. Wenn Sie mir per E-Mail schreiben, werden Ihre Adresse und Nachricht nur zur Beantwortung verwendet und gelöscht, sobald sie nicht mehr benötigt werden.",
       "storage_t": "Lokaler Speicher, Cookies und Analyse",
-      "storage": "Diese Website setzt keine Cookies und verwendet keine Analyse- oder Tracking-Dienste. Der lokale Speicher Ihres Browsers enthält nur Ihre Einstellungen (Sprache, Tag- oder Nachtmodus und, falls Sie sie im Kontaktformular eingeben, Ihre E-Mail-Adresse). Diese bleiben auf Ihrem Gerät und werden nie übertragen. Sie sind erforderlich, um die von Ihnen gewünschten Funktionen bereitzustellen (§ 25 Abs. 2 TDDDG). Sie können sie jederzeit in den Browsereinstellungen löschen.",
+      "storage": "Diese Website setzt keine Cookies und verwendet keine Analyse- oder Tracking-Dienste. Der lokale Speicher Ihres Browsers enthält nur Ihre Einstellungen (Sprache, Tag- oder Nachtmodus und, falls Sie sie im Kontaktformular eingeben, Ihre E-Mail-Adresse). Diese bleiben auf Ihrem Gerät und werden nie übertragen. Sie können sie jederzeit in den Browsereinstellungen löschen.",
       "links_t": "Externe Links",
       "links": "Diese Website verlinkt auf LinkedIn und GitHub. Nach dem Aufruf eines solchen Links gilt die Datenschutzerklärung des jeweiligen Anbieters.",
       "rights_t": "Ihre Rechte",
-      "rights": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15 bis 21 DSGVO) sowie das Recht, sich bei einer Aufsichtsbehörde zu beschweren, zum Beispiel bei der Landesbeauftragten für den Datenschutz Niedersachsen (LfD Niedersachsen)."
+      "rights": "Sie haben das Recht, Auskunft über Ihre Daten zu erhalten, sie zu berichtigen, zu löschen oder ihre Nutzung einzuschränken, sie in einem übertragbaren Format zu erhalten und der Nutzung zu widersprechen. Außerdem können Sie sich bei Ihrer zuständigen Datenschutzbehörde beschweren."
     },
     "copyright": {
       "h": "Urheberrecht",
