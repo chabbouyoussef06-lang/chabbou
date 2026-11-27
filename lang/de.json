@@ -120,7 +120,7 @@
   },
   "skills": {
     "cad": {
-      "eyebrow": "Technische Kompetenzen",
+      "eyebrow": "Hard Skills",
       "title": "Konstruktion und Modellierung: CAD",
       "text": "Dreidimensionale Konstruktion, parametrische Modellierung und technische Zeichnungen, vom Einzelteil bis zur fertigungsreifen Baugruppe.",
       "s1n": "200+",
@@ -129,7 +129,7 @@
       "s2l": "CAD-Programme im Einsatz"
     },
     "sim": {
-      "eyebrow": "Technische Kompetenzen",
+      "eyebrow": "Hard Skills",
       "title": "Simulation und Analyse",
       "text": "Finite-Elemente-Analyse, Flugsimulation und Zerspanungssimulation, mit Ergebnissen, die gegen analytische Werte und Referenzwerte geprüft werden.",
       "s1n": "~40",
@@ -138,7 +138,7 @@
       "s2l": "Flugdatensätze ausgewertet"
     },
     "code": {
-      "eyebrow": "Technische Kompetenzen",
+      "eyebrow": "Hard Skills",
       "title": "Programmierung und Daten",
       "text": "Python für Datenanalyse und Visualisierung, Webentwicklung mit HTML, CSS und JavaScript, Java sowie Tabellenkalkulation für schnelle Berechnungen.",
       "s1n": "3.000+",
@@ -147,7 +147,7 @@
       "s2l": "Programmiersprachen"
     },
     "make": {
-      "eyebrow": "Praktische Kompetenzen",
+      "eyebrow": "Hard Skills",
       "title": "Fertigung",
       "text": "Praktische Arbeit an konventionellen Maschinen, CNC-Bearbeitung, Schweißen und Montage, vom Rohmaterial bis zum funktionierenden Mechanismus.",
       "s1n": "54 h",
@@ -156,7 +156,7 @@
       "s2l": "Fertigungsverfahren"
     },
     "lang": {
-      "eyebrow": "Kommunikative Kompetenzen",
+      "eyebrow": "Soft Skills",
       "title": "Sprachen und Schreiben",
       "text": "Sicher in vier Sprachen, mit Erfahrung im technischen und administrativen Schreiben: Berichte, Protokolle und Präsentationen, wissenschaftliche Dokumente gesetzt in LaTeX.",
       "s1n": "4",
@@ -167,15 +167,15 @@
       "s3l": "der Projektberichte in LaTeX gesetzt"
     },
     "admin": {
-      "eyebrow": "Organisatorische Kompetenzen",
+      "eyebrow": "Soft Skills",
       "title": "Administratives und prozessuales Verständnis",
       "text": "Praxiswissen darüber, wie eine Organisation arbeitet, gewonnen in einem Jahr im Vorstand: Aufsichts- und Führungsaufgaben, Abläufe, strukturierte Dokumente und Datenbanken.",
       "s1n": "1 Jahr",
       "s1l": "im Vorstand"
     },
     "culture": {
-      "eyebrow": "Interkulturelle Kompetenzen",
-      "title": "Interkulturelle Anpassungsfähigkeit",
+      "eyebrow": "Soft Skills",
+      "title": "Internationale Anpassungsfähigkeit",
       "text": "Zusammenarbeit in vielfältigen Teams und mit Menschen aus vielen Regionen der Welt, mit selbstverständlicher Anpassung an unterschiedliche Arbeitsweisen, Sprachen und Sichtweisen."
     }
   },

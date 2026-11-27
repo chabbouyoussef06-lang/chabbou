@@ -33,7 +33,13 @@ section[id]{scroll-margin-top:var(--anchor-offset)}
 .stacked-photos img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform .8s ease}
 .stacked-photos figure:hover img{transform:scale(1.08)}
 #background{align-items:start}
-#background .alt-media{height:100%}
+#background .alt-media{height:auto}
+#background .stacked-photos{grid-template-rows:none;height:auto}
+#background .stacked-photos figure{min-height:0}
+#background .stacked-photos figure:first-child{aspect-ratio:10/11}
+#background .stacked-photos figure:last-child{aspect-ratio:3/2}
+#background .stacked-photos figure:first-child img{object-position:50% 60%}
+#background .stacked-photos figure:last-child img{object-position:50% 0%}
 
 .block-align{padding:0 var(--edge)}
 .eyebrow-stack{
@@ -252,9 +258,9 @@ html[dir="rtl"] .fg-tag{left:10px}
 
 /* ---------- Skills: stat chips + sections without a photo yet ------------ */
 .skill-stats{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:12px 28px}
-.skill-stats li{display:flex;flex-direction:column;gap:2px;min-width:0}
+.skill-stats li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;min-width:0}
 .skill-stats .stat-n{font-family:var(--font-display,'Fraunces',serif);font-size:clamp(28px,3.4vw,40px);line-height:1.05;font-weight:500;color:var(--brand);direction:ltr;unicode-bidi:isolate}
 html[dir="rtl"] .skill-stats .stat-n{font-family:var(--font-sans)}
-.skill-stats .stat-l{font-size:13px;line-height:1.35;color:var(--fg-soft,var(--fg));opacity:.8;max-width:16ch}
+.skill-stats .stat-l{font-size:13px;line-height:1.35;color:var(--fg-soft,var(--fg));opacity:.8;max-width:16ch;text-align:center}
 .alt-section.solo{grid-template-columns:minmax(0,1fr);max-width:760px;margin-left:auto;margin-right:auto}
 @media(max-width:640px){.skill-stats{gap:10px 22px}.skill-stats .stat-l{max-width:none}}

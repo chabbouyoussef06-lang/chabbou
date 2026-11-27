@@ -120,7 +120,7 @@
   },
   "skills": {
     "cad": {
-      "eyebrow": "Technical Skills",
+      "eyebrow": "Hard Skills",
       "title": "Design and Modelling: CAD",
       "text": "Three-dimensional design, parametric modelling and technical drawings, from single parts to complete assemblies ready for manufacturing.",
       "s1n": "200+",
@@ -129,7 +129,7 @@
       "s2l": "CAD software packages used"
     },
     "sim": {
-      "eyebrow": "Technical Skills",
+      "eyebrow": "Hard Skills",
       "title": "Simulation and Analysis",
       "text": "Finite element analysis, flight simulation and machining simulation, with results checked against analytical and reference values.",
       "s1n": "~40",
@@ -138,7 +138,7 @@
       "s2l": "flight data records analysed"
     },
     "code": {
-      "eyebrow": "Technical Skills",
+      "eyebrow": "Hard Skills",
       "title": "Programming and Data",
       "text": "Python for data analysis and visualisation, web development in HTML, CSS and JavaScript, and Java, with spreadsheets for quick numerical work.",
       "s1n": "3,000+",
@@ -147,7 +147,7 @@
       "s2l": "programming languages"
     },
     "make": {
-      "eyebrow": "Practical Skills",
+      "eyebrow": "Hard Skills",
       "title": "Manufacturing",
       "text": "Hands-on work with conventional machines, CNC machining, welding and assembly, from raw material to a working mechanism.",
       "s1n": "54 h",
@@ -156,7 +156,7 @@
       "s2l": "manufacturing processes"
     },
     "lang": {
-      "eyebrow": "Communication Skills",
+      "eyebrow": "Soft Skills",
       "title": "Languages and Writing",
       "text": "Fluent in four languages, with experience in technical and administrative writing: reports, minutes and presentations, with scientific documents typeset in LaTeX.",
       "s1n": "4",
@@ -167,15 +167,15 @@
       "s3l": "of project reports typeset in LaTeX"
     },
     "admin": {
-      "eyebrow": "Organizational Skills",
+      "eyebrow": "Soft Skills",
       "title": "Administrative and Procedural Understanding",
       "text": "Practical knowledge of how an organisation runs, gained during a year on an executive board: supervision and management tasks, procedures, structured documents and databases.",
       "s1n": "1 year",
       "s1l": "on an executive board"
     },
     "culture": {
-      "eyebrow": "Cultural Skills",
-      "title": "Intercultural Adaptability",
+      "eyebrow": "Soft Skills",
+      "title": "International Adaptability",
       "text": "Collaboration within diverse teams and with people from many regions of the world, adapting easily to different working styles, languages and perspectives."
     }
   },
