@@ -32,7 +32,7 @@
 
   // Start fetching the dictionary immediately; site.js picks the promise up.
   window.__lang = lang;
-  window.__dictPromise = fetch(window.__root + 'lang/' + lang + '.json').then(function (r) {
+  window.__dictPromise = fetch(window.__root + 'lang/' + lang + '.json', { cache: 'no-cache' }).then(function (r) {
     if (!r.ok) throw new Error('lang file missing: ' + lang);
     return r.json();
   });
