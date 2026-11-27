@@ -249,3 +249,12 @@ html[dir="rtl"] .input,html[dir="rtl"] .textarea{text-align:right}
 html[dir="rtl"] .media-frame{direction:ltr}
 @media (max-width:640px){.submit{width:100%;justify-content:space-between}}
 html[dir="rtl"] .fg-tag{left:10px}
+
+/* ---------- Skills: stat chips + sections without a photo yet ------------ */
+.skill-stats{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:12px 28px}
+.skill-stats li{display:flex;flex-direction:column;gap:2px;min-width:0}
+.skill-stats .stat-n{font-family:var(--font-display,'Fraunces',serif);font-size:clamp(28px,3.4vw,40px);line-height:1.05;font-weight:500;color:var(--brand);direction:ltr;unicode-bidi:isolate}
+html[dir="rtl"] .skill-stats .stat-n{font-family:var(--font-sans)}
+.skill-stats .stat-l{font-size:13px;line-height:1.35;color:var(--fg-soft,var(--fg));opacity:.8;max-width:16ch}
+.alt-section.solo{grid-template-columns:minmax(0,1fr);max-width:760px;margin-left:auto;margin-right:auto}
+@media(max-width:640px){.skill-stats{gap:10px 22px}.skill-stats .stat-l{max-width:none}}

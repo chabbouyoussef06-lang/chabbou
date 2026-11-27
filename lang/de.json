@@ -123,25 +123,64 @@
     }
   },
   "skills": {
-    "admin": {
-      "eyebrow": "Organisatorische Kompetenzen",
-      "text": "Solides Verständnis für Unternehmensstrukturen, rechtliche Abläufe, Hierarchien und internationale professionelle Protokolle.",
-      "title": "Administratives und prozessuales Verständnis"
-    },
     "cad": {
       "eyebrow": "Technische Kompetenzen",
-      "text": "Gute Beherrschung von Werkzeugen für mechanisches 3D-Design und parametrische Modellierung, gefestigt durch persönliche und akademische Projekte.",
-      "title": "Rechnergestütztes Konstruieren (CAD)"
+      "title": "Konstruktion und Modellierung: CAD",
+      "text": "Dreidimensionale Konstruktion, parametrische Modellierung und technische Zeichnungen, vom Einzelteil bis zur fertigungsreifen Baugruppe.",
+      "s1n": "200+",
+      "s1l": "Teile und Baugruppen modelliert",
+      "s2n": "4",
+      "s2l": "CAD-Systeme im Einsatz"
+    },
+    "sim": {
+      "eyebrow": "Technische Kompetenzen",
+      "title": "Simulation und Analyse",
+      "text": "Finite-Elemente-Analyse, Flugsimulation und Zerspanungssimulation, mit Ergebnissen, die gegen analytische Werte und Referenzwerte geprüft werden.",
+      "s1n": "~40",
+      "s1l": "Simulationen durchgeführt",
+      "s2n": "2.300+",
+      "s2l": "Flugdatensätze ausgewertet"
+    },
+    "code": {
+      "eyebrow": "Technische Kompetenzen",
+      "title": "Programmierung und Daten",
+      "text": "Python für Datenanalyse und Visualisierung, Webentwicklung mit HTML, CSS und JavaScript, Java sowie Tabellenkalkulation für schnelle Berechnungen.",
+      "s1n": "3.000+",
+      "s1l": "Zeilen Code geschrieben",
+      "s2n": "4",
+      "s2l": "Programmiersprachen"
+    },
+    "make": {
+      "eyebrow": "Praktische Kompetenzen",
+      "title": "Fertigung",
+      "text": "Praktische Arbeit an konventionellen Maschinen, CNC-Bearbeitung, Schweißen und Montage, vom Rohmaterial bis zum funktionierenden Mechanismus.",
+      "s1n": "54 h",
+      "s1l": "praktische Bearbeitung und Montage",
+      "s2n": "6",
+      "s2l": "Fertigungsverfahren"
+    },
+    "lang": {
+      "eyebrow": "Kommunikative Kompetenzen",
+      "title": "Sprachen und Schreiben",
+      "text": "Sicher in vier Sprachen, mit Erfahrung im technischen und administrativen Schreiben: Berichte, Protokolle und Präsentationen, wissenschaftliche Dokumente gesetzt in LaTeX.",
+      "s1n": "4",
+      "s1l": "Sprachen, davon zwei Muttersprachen",
+      "s2n": "40+",
+      "s2l": "Dokumente verfasst",
+      "s3n": "100 %",
+      "s3l": "der Projektberichte in LaTeX gesetzt"
+    },
+    "admin": {
+      "eyebrow": "Organisatorische Kompetenzen",
+      "title": "Administratives und prozessuales Verständnis",
+      "text": "Praxiswissen darüber, wie eine Organisation arbeitet, gewonnen in einem Jahr im Vorstand: Aufsichts- und Führungsaufgaben, Abläufe, strukturierte Dokumente und Datenbanken.",
+      "s1n": "1 Jahr",
+      "s1l": "im Vorstand"
     },
     "culture": {
       "eyebrow": "Interkulturelle Kompetenzen",
-      "text": "Fähigkeit, in multikulturellen Umfeldern wirkungsvoll zu arbeiten und sich an unterschiedliche Arbeitsweisen und Denkweisen anzupassen.",
-      "title": "Interkulturelle Anpassungsfähigkeit"
-    },
-    "team": {
-      "eyebrow": "Soziale Kompetenzen",
-      "text": "Erfahrung in der Zusammenarbeit in vielfältigen Teams, im Austausch von Ideen und im Beitrag zu einem konstruktiven und unterstützenden Arbeitsumfeld.",
-      "title": "Teamkommunikation"
+      "title": "Interkulturelle Anpassungsfähigkeit",
+      "text": "Zusammenarbeit in vielfältigen Teams und mit Menschen aus vielen Regionen der Welt, mit selbstverständlicher Anpassung an unterschiedliche Arbeitsweisen, Sprachen und Sichtweisen."
     }
   },
   "projects": {
@@ -152,7 +191,7 @@
       "alt": "Tragfläche eines Verkehrsflugzeugs im Flug über den Wolken"
     },
     "realized": {
-      "card_intro": "Ein mechanisches Dosenpress-System als erster Schritt zum Recycling leerer Dosen – mit zentralen Koppelgetrieben wie Schlittenführung und Zahnradmechanismus. Zunächst im CAD entwickelt und anschließend mit konventioneller und CNC-Bearbeitung gefertigt. Das Projekt vertiefte mein Verständnis grundlegender mechanischer Prinzipien – eine der Säulen der Luft- und Raumfahrttechnik. Realisiert mit Unterstützung von AFAMEC und dem Engineering-Team.",
+      "card_intro": "Ein mechanisches Dosenpress-System als erster Schritt zum Recycling leerer Dosen, mit zentralen Koppelgetrieben wie Schlittenführung und Zahnradmechanismus. Zunächst im CAD entwickelt und anschließend mit konventioneller und CNC-Bearbeitung gefertigt. Das Projekt vertiefte das Verständnis grundlegender mechanischer Prinzipien, eine der Säulen der Luft- und Raumfahrttechnik. Realisiert mit Unterstützung von AFAMEC und dem Engineering-Team.",
       "card_title": "Mechanik in Bewegung: Vom Design zur Fertigung",
       "title": "Realisierte Projekte"
     },
@@ -177,7 +216,7 @@
     "current": {
       "eyebrow": "In Arbeit",
       "title": "Das Cockpit-Interface neu denken",
-      "intro": "Derzeit arbeite ich an einem Cockpit-Interface-Konzept für künftige Flugbetriebsabläufe. Die Frage: Wie lassen sich KI-gestützte Informationen klar und nachvollziehbar zu den Piloten bringen, ohne dass ihnen die Entscheidung abgenommen wird? Die Details bleiben vorerst unter Verschluss.",
+      "intro": "Derzeit entsteht ein Cockpit-Interface-Konzept für künftige Flugbetriebsabläufe. Die Frage: Wie lassen sich KI-gestützte Informationen klar und nachvollziehbar zu den Piloten bringen, ohne dass ihnen die Entscheidung abgenommen wird? Die Details bleiben vorerst unter Verschluss.",
       "alt": "Nahaufnahme eines Verkehrsflugzeug-Cockpits mit elektronischen Anzeigen"
     }
   },
