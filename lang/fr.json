@@ -98,8 +98,9 @@
         "title": "Une formation structurée à travers deux pays"
       },
       "certs": {
+        "internship": "Certificat de stage, AFAMEC",
         "admin_service": "Attestation de service administratif au sein d'une organisation humanitaire",
-        "amr": "Attestation de stage, Robots mobiles autonomes"
+        "amr": "Certificat de formation, Robots mobiles autonomes"
       },
       "cv": {
         "ribbon": "Curriculum Vitae",
