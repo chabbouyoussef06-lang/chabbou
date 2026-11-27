@@ -19,6 +19,7 @@
   ];
   var PROJECTS = [
     [PAGES.projects + '#realized', 'nav.projects_menu.realized', 'Projects realized'],
+    [PAGES.projects + '#current', 'nav.projects_menu.current', 'Current projects'],
     [PAGES.projects + '#future', 'nav.projects_menu.future', 'Future projects']
   ];
   var LANGS = [['en', 'EN', 'English'], ['fr', 'FR', 'Français'], ['de', 'DE', 'Deutsch'], ['ar', 'AR', 'العربية']];

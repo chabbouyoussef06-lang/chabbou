@@ -249,3 +249,7 @@ html[dir="rtl"] .input,html[dir="rtl"] .textarea{text-align:right}
 html[dir="rtl"] .media-frame{direction:ltr}
 @media (max-width:640px){.submit{width:100%;justify-content:space-between}}
 html[dir="rtl"] .fg-tag{left:10px}
+
+/* photo credit line under a project image */
+.alt-media{position:relative}
+.photo-credit{position:absolute;left:12px;bottom:10px;right:12px;font:11px/1.3 var(--font-mono,monospace);letter-spacing:.04em;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7)}

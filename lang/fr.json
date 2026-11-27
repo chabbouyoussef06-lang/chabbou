@@ -18,7 +18,8 @@
     "projects": "Projets",
     "projects_menu": {
       "future": "Projets à venir",
-      "realized": "Projets réalisés"
+      "realized": "Projets réalisés",
+      "current": "Projets en cours"
     },
     "skills": "Compétences"
   },
@@ -145,9 +146,10 @@
   },
   "projects": {
     "future": {
-      "card_intro": "Une revue scientifique à venir, explorant les facteurs techniques et commerciaux derrière l’échec d’un avion légendaire — pour analyser l’innovation, l’ambition et les leçons pour le design aérospatial futur.",
-      "cta_participate_html": "Si vous souhaitez participer à ce projet, contactez-moi <a href=\"../contact/\">ici</a>.",
-      "eyebrow": "Feuille de route"
+      "eyebrow": "Feuille de route",
+      "title": "Dompter le décrochage avec de minuscules ailettes",
+      "intro": "Une étude par simulation, prévue, sur le contrôle passif de l'écoulement : quelques petites ailettes sur une aile peuvent-elles retarder le moment où l'air décroche ? Début en 2027, avec plus de détails dès les premiers résultats.",
+      "alt": "Illustration abstraite de l'écoulement de l'air sur un profil d'aile"
     },
     "realized": {
       "card_intro": "Un système mécanique de presse à canettes comme premier pas vers le recyclage des canettes vides — intégrant des liaisons clés comme la glissière sur rail et des engrenages. D’abord conçu en CAO puis fabriqué par usinage conventionnel et CNC. Ce projet a renforcé ma compréhension des principes mécaniques fondamentaux, l’une des bases de l’ingénierie aérospatiale. Réalisé avec le soutien d’AFAMEC et de son équipe d’ingénierie.",
@@ -171,6 +173,13 @@
       "alt_fe": "Contrainte de von Mises dans les dents de la roue lors d’un blocage de la bande, résultat éléments finis",
       "cap_shaft": "Arbre de sortie · SolidWorks",
       "alt_shaft": "Modèle CAO de l’arbre de sortie avec ses épaulements et ses rainures de clavette"
+    },
+    "current": {
+      "eyebrow": "En cours",
+      "title": "Repenser l'interface du cockpit",
+      "intro": "Je travaille actuellement sur un concept d'interface de cockpit pour les opérations aériennes de demain. La question : comment faire parvenir aux pilotes des informations assistées par IA de façon claire et transparente, tout en leur laissant la décision ? Les détails restent confidentiels pour le moment.",
+      "alt": "Cockpit de Boeing 787 avec ses grands écrans électroniques",
+      "credit": "Cockpit de Boeing 787 · Wikimedia Commons · domaine public"
     }
   },
   "contact": {

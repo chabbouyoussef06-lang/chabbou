@@ -18,7 +18,8 @@
     "projects": "Projects",
     "projects_menu": {
       "future": "Future projects",
-      "realized": "Projects realized"
+      "realized": "Projects realized",
+      "current": "Current projects"
     },
     "skills": "Skills"
   },
@@ -145,9 +146,10 @@
   },
   "projects": {
     "future": {
-      "card_intro": "An upcoming scientific review exploring the technical and commercial factors behind a legendary aircraft's downfall — a project aiming to analyze innovation, ambition, and lessons for future aerospace design.",
-      "cta_participate_html": "If you'd like to participate in this project, contact me <a href=\"../contact/\">here</a>.",
-      "eyebrow": "Roadmap"
+      "eyebrow": "Roadmap",
+      "title": "Taming the Stall with Tiny Fins",
+      "intro": "A planned simulation study of passive flow control: could a few small fins on a wing delay the moment the air lets go? Starting early 2027, with more to share once the first results are in.",
+      "alt": "Abstract illustration of airflow over a wing profile"
     },
     "realized": {
       "card_intro": "A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.",
@@ -171,6 +173,13 @@
       "alt_fe": "Von Mises stress in the wheel teeth during a belt jam, finite element result",
       "cap_shaft": "Output shaft · SolidWorks",
       "alt_shaft": "CAD model of the output shaft with its shoulders and keyways"
+    },
+    "current": {
+      "eyebrow": "In progress",
+      "title": "Rethinking the Cockpit Interface",
+      "intro": "I am currently working on a cockpit interface concept for future flight operations. The question: how can AI-assisted information reach pilots clearly and transparently, while the decision stays in their hands? The details stay under wraps for now.",
+      "alt": "Boeing 787 flight deck with its large electronic displays",
+      "credit": "Boeing 787 flight deck · Wikimedia Commons · public domain"
     }
   },
   "contact": {
