@@ -36,9 +36,9 @@ section[id]{scroll-margin-top:var(--anchor-offset)}
 #background .alt-media{height:auto}
 #background .stacked-photos{grid-template-rows:none;height:auto}
 #background .stacked-photos figure{min-height:0}
-#background .stacked-photos figure:first-child{aspect-ratio:10/11}
+#background .stacked-photos figure:first-child{aspect-ratio:4/5}
 #background .stacked-photos figure:last-child{aspect-ratio:3/2}
-#background .stacked-photos figure:first-child img{object-position:50% 60%}
+#background .stacked-photos figure:first-child img{object-position:50% 50%}
 #background .stacked-photos figure:last-child img{object-position:50% 0%}
 
 .block-align{padding:0 var(--edge)}
