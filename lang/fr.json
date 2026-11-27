@@ -49,33 +49,28 @@
   "sections": {
     "design": {
       "eyebrow": "Concevoir avec intention",
-      "text": "Du croquis au prototype, chaque décision compte. Conception robuste, confiance discrète.",
-      "title": "La précision dans chaque détail"
+      "text": "Du premier croquis au prototype final, chaque décision compte. Solide par conception, discret par nature.",
+      "title": "Une précision qui se ressent."
     },
     "learning": {
       "eyebrow": "Apprentissage continu",
-      "text": "Découverte sans fin, pratique réfléchie, et quête constante du savoir et de la maîtrise.",
-      "title": "Là où la curiosité nourrit la progression"
+      "text": "La curiosité, la créativité et une pratique patiente transforment l’inconnu en possible.",
+      "title": "Chaque question est une piste de décollage."
     },
     "perspective": {
       "eyebrow": "Perspective",
-      "text": "Explorer des horizons où l'ingénierie rencontre l'imagination. Des objectifs ambitieux, une exécution mesurée.",
-      "title": "Façonner l'avenir de l'aérospatial avec des idées audacieuses"
-    },
-    "principles": {
-      "eyebrow": "Principes",
-      "text": "L'apprentissage est précieux quand il élargit les horizons, affine les compétences et relie la théorie au réel.",
-      "title": "Créativité · Progression · Précision"
+      "text": "Là où l’ingénierie rencontre l’imagination, les idées ambitieuses apprennent à voler.",
+      "title": "Conçu pour le ciel. Porté par l’émerveillement."
     },
     "teamwork": {
       "eyebrow": "Travail d'équipe",
-      "text": "On avance plus vite ensemble, en reliant disciplines, outils et perspectives.",
-      "title": "La collaboration est le moteur le plus puissant"
+      "text": "Disciplines, outils et points de vue avancent d’un même élan. Les meilleures idées ne se construisent jamais seul.",
+      "title": "Plus loin, ensemble."
     },
     "worldview": {
       "eyebrow": "Vision du monde",
-      "text": "L'innovation prospère quand le savoir s'adapte aux pays, cultures et perspectives, preuve que les idées n'ont pas de frontières.",
-      "title": "Une ingénierie sans frontières"
+      "text": "Le savoir voyage bien. D’un pays, d’une culture, d’un regard à l’autre, il ne fait que s’enrichir.",
+      "title": "Les idées n’ont pas de frontières."
     }
   },
   "footer": {

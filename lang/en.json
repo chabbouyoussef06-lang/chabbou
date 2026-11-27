@@ -49,33 +49,28 @@
   "sections": {
     "design": {
       "eyebrow": "Designing with Purpose",
-      "text": "From sketches to prototypes, every decision carries weight. Robust design, quiet confidence.",
-      "title": "Precision in every detail"
+      "text": "From the first sketch to the final prototype, every decision carries weight. Strong by design, quiet by nature.",
+      "title": "Precision you can feel."
     },
     "learning": {
       "eyebrow": "Lifelong learning",
-      "text": "Endless discovery, purposeful practice, and a constant pursuit of knowledge and mastery.",
-      "title": "Where curiosity fuels growth"
+      "text": "Curiosity, creativity and patient practice turn the unknown into the possible.",
+      "title": "Every question is a runway."
     },
     "perspective": {
       "eyebrow": "Perspective",
-      "text": "Exploring horizons where engineering meets imagination. Ambitious goals, measured execution.",
-      "title": "Shaping the future of aerospace with bold ideas"
-    },
-    "principles": {
-      "eyebrow": "Principles",
-      "text": "Learning is meaningful when it expands horizons, sharpens skills, and connects theory with real-world challenges.",
-      "title": "Creativity · Growth · Precision"
+      "text": "Where engineering meets imagination, ambitious ideas learn to fly.",
+      "title": "Built for the sky. Driven by wonder."
     },
     "teamwork": {
       "eyebrow": "Teamwork",
-      "text": "We move faster together, bridging disciplines, tools, and perspectives.",
-      "title": "Collaboration is the strongest engine"
+      "text": "Disciplines, tools and perspectives, moving as one. The best ideas are never built alone.",
+      "title": "Farther, together."
     },
     "worldview": {
       "eyebrow": "Worldview",
-      "text": "Innovation thrives when knowledge adapts across countries, cultures, and perspectives, proving that ideas have no frontiers.",
-      "title": "Engineering beyond borders"
+      "text": "Knowledge travels well. Across countries, cultures and perspectives, it only grows richer.",
+      "title": "Ideas have no borders."
     }
   },
   "footer": {
