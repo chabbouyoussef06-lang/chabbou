@@ -251,26 +251,27 @@
     "eyebrow": "Mentions légales",
     "title": "Mentions légales et confidentialité",
     "imprint": {
-      "h": "Mentions légales (Impressum)",
-      "law": "Informations conformément au § 5 DDG (Allemagne).",
+      "h": "Mentions légales",
+      "law": "Propriétaire du site et responsable du contenu.",
       "email": "E-mail",
-      "nature": "Ce site est un portfolio personnel à but non commercial. Responsable du contenu : Youssef Chabbou."
+      "nature": "Ce site est un site personnel. Il n'a aucune vocation commerciale : il ne propose ni biens ni services et ne génère aucun revenu.",
+      "request": "L'adresse postale complète du responsable peut être communiquée sur demande par e-mail."
     },
     "privacy": {
       "h": "Politique de confidentialité",
-      "intro": "Le responsable du traitement au sens du RGPD est la personne désignée dans les mentions légales ci-dessus. Ce site collecte le moins de données possible.",
+      "intro": "Le responsable du traitement des données personnelles est le propriétaire du site désigné dans les mentions légales. Ce site collecte le moins de données possible.",
       "hosting_t": "Hébergement",
-      "hosting": "Ce site est hébergé par GitHub Pages (GitHub Inc., États-Unis). Lors de votre visite, GitHub peut traiter des données techniques, comme votre adresse IP, dans ses journaux serveur, pour la sécurité et le fonctionnement du service. La base légale est l'art. 6, par. 1, point f) du RGPD. Pour plus de détails, consultez la politique de confidentialité de GitHub.",
+      "hosting": "Ce site est hébergé par GitHub Pages (GitHub Inc., États-Unis). Lors de votre visite, GitHub peut traiter des données techniques, comme votre adresse IP, dans ses journaux serveur, pour la sécurité et le fonctionnement du service. Pour plus de détails, consultez la politique de confidentialité de GitHub.",
       "fonts_t": "Polices",
       "fonts": "La police utilisée sur ce site est stockée sur le même serveur. Aucune connexion à Google ou à un autre fournisseur de polices n'est établie.",
       "contact_t": "Contact",
-      "contact": "Le formulaire de contact n'envoie rien à ce site : il ouvre votre propre application e-mail avec le message préparé. Si vous m'écrivez par e-mail, votre adresse et votre message servent uniquement à vous répondre et sont supprimés lorsqu'ils ne sont plus nécessaires (art. 6, par. 1, points b) et f) du RGPD).",
+      "contact": "Le formulaire de contact n'envoie rien à ce site : il ouvre votre propre application e-mail avec le message préparé. Si vous m'écrivez par e-mail, votre adresse et votre message servent uniquement à vous répondre et sont supprimés lorsqu'ils ne sont plus nécessaires.",
       "storage_t": "Stockage local, cookies et statistiques",
-      "storage": "Ce site ne dépose aucun cookie et n'utilise ni statistiques ni suivi. Le stockage local de votre navigateur conserve uniquement vos choix (langue, mode jour ou nuit et, si vous la saisissez dans le formulaire de contact, votre adresse e-mail). Ces données restent sur votre appareil et ne sont jamais transmises. Elles sont nécessaires pour fournir les fonctions demandées (§ 25, al. 2 TDDDG). Vous pouvez les supprimer à tout moment dans les réglages de votre navigateur.",
+      "storage": "Ce site ne dépose aucun cookie et n'utilise ni statistiques ni suivi. Le stockage local de votre navigateur conserve uniquement vos choix (langue, mode jour ou nuit et, si vous la saisissez dans le formulaire de contact, votre adresse e-mail). Ces données restent sur votre appareil et ne sont jamais transmises. Vous pouvez les supprimer à tout moment dans les réglages de votre navigateur.",
       "links_t": "Liens externes",
       "links": "Ce site contient des liens vers LinkedIn et GitHub. Une fois ces liens ouverts, la politique de confidentialité du fournisseur concerné s'applique.",
       "rights_t": "Vos droits",
-      "rights": "Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation du traitement, de portabilité et d'opposition (art. 15 à 21 du RGPD), ainsi que du droit d'introduire une réclamation auprès d'une autorité de contrôle, par exemple le Commissaire régional à la protection des données de Basse-Saxe (LfD Niedersachsen)."
+      "rights": "Vous avez le droit d'accéder à vos données, de les corriger, de les supprimer ou d'en limiter l'usage, de les recevoir dans un format portable et de vous opposer à leur utilisation. Vous pouvez aussi déposer une réclamation auprès de l'autorité de protection des données de votre pays."
     },
     "copyright": {
       "h": "Droits d'auteur",
