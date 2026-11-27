@@ -327,7 +327,8 @@ html[dir="rtl"] .footer-meta{text-align:left}
 }
 @media(max-width:640px){
   :root{--edge:16px}
-  html,body{overflow-x:hidden}
+  html{overflow-x:hidden}
+  body{overflow-x:clip}   /* clip, not hidden: 'hidden' turned <body> into its own scroll box, so window never scrolled (plane, cue) */
   .container{padding:12px 16px}
   .top-band{position:static}
   .top-band header{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:8px}

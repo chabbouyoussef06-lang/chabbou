@@ -105,17 +105,12 @@ html[dir="rtl"] .btn-download{font-family:var(--font-sans);font-style:normal}
 .media-dots{display:flex;justify-content:center;align-items:center;gap:7px;height:42px}
 .media-dot{appearance:none;width:7px;height:7px;padding:0;border:0;border-radius:50%;background:rgba(11,95,165,.35);cursor:pointer;transition:background .2s,transform .2s,width .25s}
 .media-dot.active{background:var(--brand);width:18px;border-radius:999px}
-.rotate-overlay{
-  position:absolute;inset:0;z-index:4;display:none;border-radius:inherit;align-items:center;justify-content:center;pointer-events:none;
-  background:rgba(0,0,0,.28);transition:opacity .4s;
-}
-.rotate-overlay.hidden{opacity:0}
-.rotate-hint{
-  display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;color:#fff;font-size:14px;line-height:1.3;
-  background:rgba(13,17,23,.5);border:1px solid rgba(255,255,255,.2);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-}
-.rotate-icon{width:22px;height:22px;flex:0 0 22px}
+.media-mobile{display:none;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding:0 16px;
+  padding:4px 16px 14px;margin:0 -16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.media-mobile::-webkit-scrollbar{display:none}
+.media-mobile figure{margin:0;flex:0 0 min(72vw,320px);aspect-ratio:517/900;border-radius:22px;overflow:hidden;scroll-snap-align:start;
+  background:rgba(13,17,23,.25);box-shadow:0 14px 24px -12px rgba(0,0,0,.35)}
+.media-mobile img,.media-mobile video{width:100%;height:100%;object-fit:cover;display:block}
 .cta-link{color:var(--brand);font-weight:600;text-underline-offset:3px}
 .alt-card .alt-text+.alt-text{margin-top:14px}
 
@@ -243,7 +238,8 @@ html[dir="rtl"] .submit:hover .submit-icon{transform:translateX(-4px)}
 @media(max-width:640px){
   :root{--anchor-offset:64px}
   .page{padding-top:28px}
-  .rotate-overlay{display:flex}
+  .media-frame{display:none}
+  .media-mobile{display:flex}
   .media-nav{width:34px;height:34px}
   .cv-row{padding:16px 18px}
 }
