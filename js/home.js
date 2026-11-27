@@ -1,4 +1,4 @@
-/* home.js — hero video fade-in, paper plane that follows the scroll, "scroll" cue. */
+/* home.js - hero video fade-in, paper plane that follows the scroll, "scroll" cue. */
 (function () {
   'use strict';
   var stage = document.querySelector('.flight-stage');

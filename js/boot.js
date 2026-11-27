@@ -1,4 +1,4 @@
-/* boot.js — runs first, blocking, in <head>.
+/* boot.js - runs first, blocking, in <head>.
    Decides theme + language BEFORE the page is painted so nothing flashes
    (no white flash in dark mode, no English flash in French/Arabic, no LTR→RTL jump),
    and starts downloading the translation file right away. */

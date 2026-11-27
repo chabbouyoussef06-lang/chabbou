@@ -1,4 +1,4 @@
-/* layout.js — the header, the mobile drawer and the footer exist ONCE, here.
+/* layout.js - the header, the mobile drawer and the footer exist ONCE, here.
    Every page includes this file twice, synchronously:
      <script src="js/layout.js" data-slot="header"></script>   (top of <body>)
      <script src="js/layout.js" data-slot="footer"></script>   (end of <body>)

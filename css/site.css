@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SITE.CSS — shared by every page
+   SITE.CSS - shared by every page
    Tokens · base · header & navigation · mobile drawer · glass components · footer
    The look of the home page is the reference: translucent "liquid glass"
    surfaces over photography, editorial serif titles, mono eyebrows.
@@ -155,7 +155,7 @@ html[dir="rtl"] .top-band nav a::after{left:auto;right:0}
 }
 .lang-menu .toggle[aria-expanded="true"] .caret{transform:rotate(225deg);margin-top:2px}
 
-/* drop-down panel — liquid glass */
+/* drop-down panel - liquid glass */
 .submenu{
   position:absolute;top:100%;left:0;min-width:214px;margin-top:12px;padding:8px;
   background:var(--glass-bg-strong);

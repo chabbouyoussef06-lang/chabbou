@@ -1,10 +1,10 @@
 {
   "meta": {
-    "about": "About — Youssef Chabbou",
-    "contact": "Contact — Youssef Chabbou",
-    "home": "Youssef Chabbou — Aerospace Engineering",
-    "projects": "Projects — Youssef Chabbou",
-    "skills": "Skills — Youssef Chabbou"
+    "about": "About | Youssef Chabbou",
+    "contact": "Contact | Youssef Chabbou",
+    "home": "Youssef Chabbou | Aerospace Engineering",
+    "projects": "Projects | Youssef Chabbou",
+    "skills": "Skills | Youssef Chabbou"
   },
   "nav": {
     "about": "About",
@@ -33,7 +33,7 @@
     "language": "Language",
     "menu": "Menu",
     "method": "Method",
-    "method_value": "From sketches to prototypes — robust, iterative, precise.",
+    "method_value": "From sketches to prototypes: robust, iterative, precise.",
     "open_menu": "Open menu",
     "scope": "Scope",
     "scope_value": "Engineering beyond borders.",
@@ -152,7 +152,7 @@
       "alt": "Airliner wing in flight above the clouds"
     },
     "realized": {
-      "card_intro": "A mechanical can-press system designed as a first step toward recycling empty cans — featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.",
+      "card_intro": "A mechanical can-press system designed as a first step toward recycling empty cans, featuring key mechanical linkages such as rail-slider and gear mechanisms. Initially developed through CAD design and later manufactured using both conventional and CNC machining processes, this project strengthened my understanding of core mechanical principles, one of the fundamental pillars of aerospace engineering. The project was carried out with the support of AFAMEC and its engineering team.",
       "card_title": "Mechanics in Motion: From Design to Manufacturing",
       "title": "Realized Projects"
     },
