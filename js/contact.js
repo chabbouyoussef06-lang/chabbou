@@ -6,6 +6,30 @@
   'use strict';
   var cfg = window.SITE_CONFIG || {};
   var live = !!cfg.formEndpoint && !/X{4,}/.test(cfg.formEndpoint);
+  // Clicking the e-mail address copies it instead of opening a mail app
+  var mailLink = document.getElementById('copyMail');
+  if (mailLink) {
+    var original = mailLink.textContent.trim();
+    mailLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      var done = function () {
+        mailLink.classList.add('is-copied');
+        mailLink.textContent = '\u2713 ' + window.site.t('contact.info.copied', 'Copied to clipboard');
+        clearTimeout(done.timer);
+        done.timer = setTimeout(function () { mailLink.textContent = original; mailLink.classList.remove('is-copied'); }, 2200);
+      };
+      var fallback = function () {
+        var ta = document.createElement('textarea');
+        ta.value = original; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch (err) {}
+        document.body.removeChild(ta);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(original).then(done, fallback);
+      else fallback();
+    });
+  }
+
   var form = document.getElementById('contactForm');
   var status = document.getElementById('formStatus');
   if (!form) return;

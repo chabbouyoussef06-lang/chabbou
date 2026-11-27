@@ -198,8 +198,11 @@
       "title": "Formulaire de contact"
     },
     "info": {
+      "copied": "Adresse copiée",
+      "copy_title": "Cliquer pour copier l’adresse",
       "desc": "Vous pouvez me joindre sur LinkedIn ou par e-mail. Je suis basé à Brunswick (Braunschweig), Allemagne.",
       "eyebrow": "Contact",
+      "github": "Profil GitHub",
       "linkedin": "Profil LinkedIn",
       "title": "Entrons en contact"
     }

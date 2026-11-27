@@ -198,8 +198,11 @@
       "title": "Contact form"
     },
     "info": {
+      "copied": "Copied to clipboard",
+      "copy_title": "Click to copy the address",
       "desc": "You can reach me on LinkedIn or via e-mail. I'm based in Braunschweig, Germany.",
       "eyebrow": "Contact",
+      "github": "GitHub Profile",
       "linkedin": "LinkedIn Profile",
       "title": "Let's connect"
     }

@@ -198,8 +198,11 @@
       "title": "Kontaktformular"
     },
     "info": {
+      "copied": "In die Zwischenablage kopiert",
+      "copy_title": "Klicken, um die Adresse zu kopieren",
       "desc": "Du erreichst mich über LinkedIn oder per E-Mail. Ich lebe in Braunschweig, Deutschland.",
       "eyebrow": "Kontakt",
+      "github": "GitHub-Profil",
       "linkedin": "LinkedIn-Profil",
       "title": "Lass uns vernetzen"
     }
