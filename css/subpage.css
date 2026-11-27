@@ -171,6 +171,8 @@ html[dir="rtl"] .fg-tag{font-family:var(--font-sans);letter-spacing:0;font-size:
 }
 .info-row a,.info-row span.info-value{color:var(--fg);text-decoration:none;min-width:0;font-weight:500;transition:color .2s}
 .info-row a:hover{color:var(--brand)}
+#copyMail{cursor:copy}
+#copyMail.is-copied{color:var(--brand)}
 
 .contact-form{display:grid;grid-template-columns:1fr;gap:14px;min-width:0;margin-top:6px}
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
