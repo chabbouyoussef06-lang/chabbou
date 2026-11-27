@@ -8,6 +8,25 @@
   var box = document.getElementById('realizedMedia');
   if (!box) return;
 
+  // phones: films in the swipe strip play only while they are on screen
+  var strip = document.getElementById('realizedMobile');
+  if (strip && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting && en.intersectionRatio > 0.6) { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { root: strip, threshold: [0, 0.6, 1] });
+    Array.prototype.forEach.call(strip.querySelectorAll('video'), function (v) { io.observe(v); });
+  }
+
+  // the desktop carousel is hidden on phones: do not start it (no hidden films playing) until the screen is wide enough
+  var narrow = window.matchMedia('(max-width:640px)');
+  var started = false;
+  function startCarousel() {
+    if (started) return; started = true;
+
   var stage = box.querySelector('.media-stage') || box;
   var track = box.querySelector('.media-track');
   var slides = Array.prototype.slice.call(track.children);
@@ -83,14 +102,7 @@
   });
 
   show(0);
-
-  /* "Rotate your phone" hint: phones in portrait only, disappears on touch, rotation or after a few seconds */
-  var hint = box.querySelector('.rotate-overlay');
-  if (hint && window.matchMedia('(max-width:640px)').matches && window.innerHeight > window.innerWidth) {
-    var hide = function () { hint.classList.add('hidden'); };
-    box.addEventListener('touchstart', hide, { passive: true, once: true });
-    box.addEventListener('click', hide, { once: true });
-    window.addEventListener('resize', function () { if (window.innerWidth > window.innerHeight) hide(); }, { passive: true });
-    setTimeout(hide, 6000);
-  } else if (hint) { hint.classList.add('hidden'); }
+  }
+  if (!narrow.matches) startCarousel();
+  else if (narrow.addEventListener) narrow.addEventListener('change', function (e) { if (!e.matches) startCarousel(); });
 })();

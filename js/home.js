@@ -4,20 +4,24 @@
   var stage = document.querySelector('.flight-stage');
   var plane = document.querySelector('.plane');
   var cue = document.querySelector('.hero-scroll-cue');
+  var hero = document.querySelector('.hero-cinema');
 
   function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 
   function animatePlane() {
     if (!stage || !plane) return;
     var h = window.innerHeight, p = clamp(window.scrollY / h, 0, 1);
+    // phones: the hero can be taller than the screen, so lift the plane to the bottom of what is visible
+    var lift = hero ? Math.min(0, h - hero.offsetHeight) : 0;
+    var narrow = window.innerWidth <= 640;
     var x = p * Math.min(0.65 * window.innerWidth, 900);
     var climb = 0, startClimb = 0.35;
     if (p > startClimb) {
       var pp = (p - startClimb) / (1 - startClimb), k = 3.2;
       climb = -(Math.expm1(k * pp) / Math.expm1(k)) * (0.55 * window.innerHeight);
     }
-    plane.style.transform = 'translate(' + x + 'px,' + (-12 + climb) + 'px)rotate(' + Math.max(-25, -5 - p * 35) + 'deg)';
-    plane.style.opacity = p < 1 ? 0.95 : 0;
+    plane.style.transform = 'translate(' + x + 'px,' + (-12 + climb + lift) + 'px)rotate(' + Math.max(-25, -5 - p * 35) + 'deg)';
+    plane.style.opacity = p < 1 ? 0.95 * (narrow ? clamp(p / 0.1, 0, 1) : 1) : 0;   // on phones it appears as soon as you scroll, so it never sits on the text
   }
   function updateCue() { if (cue) cue.classList.toggle('is-hidden', window.scrollY > 60); }
 

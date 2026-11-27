@@ -103,9 +103,17 @@ section[id]{scroll-margin-top:120px}
   .section-mark{margin:40px 0 20px}
 }
 @media(max-width:640px){
-  .hero-counter{right:16px;top:74px}
-  .hero-tag{left:16px;top:74px}
-  .hero-cinema{padding:90px 18px 60px}
+  .hero-counter{right:16px;top:84px}
+  .hero-tag{left:16px;top:84px}
+  .hero-cinema{padding:158px 18px 56px;min-height:100svh}
+  .hero-eyebrow{margin-bottom:18px}
+  .hero-title{font-size:clamp(34px,10vw,44px);margin-bottom:20px}
+  .hero-sub{margin-bottom:28px}
+  .hero-scroll-cue{display:none}
+  .plane{width:46px;height:46px}
+  .section-mark .mono{padding:5px 14px;border-radius:999px;background:var(--glass-bg);border:1px solid var(--glass-border);
+    backdrop-filter:blur(12px) saturate(150%);-webkit-backdrop-filter:blur(12px) saturate(150%);color:var(--fg)}
+  .alt-media-tag{display:none}   /* the "0N / 06" marker above each block already says it */
   .hero-meta{gap:20px;padding-top:20px}
   .hero-meta-item{flex:1 1 100%}
 }
