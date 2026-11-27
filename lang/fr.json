@@ -93,8 +93,6 @@
         "p2_title": "Études secondaires",
         "p3": "Études poursuivies en Allemagne, en ingénierie aérospatiale, le cadre dans lequel s'inscrit mon travail technique actuel.",
         "p3_title": "Études supérieures",
-        "photo1": "Lycée Pilote",
-        "photo2": "Club Interact",
         "title": "Une formation structurée à travers deux pays"
       },
       "certs": {
@@ -114,8 +112,6 @@
         "maker_title": "Démarche",
         "now_text": "Basé en Allemagne, je travaille dans le domaine aéronautique : conception mécanique, systèmes embarqués et développement logiciel pour plateformes embarquées. L'objectif reste constant. Apporter de la rigueur à chaque étape et livrer un travail qui tient la route.",
         "now_title": "Aujourd'hui",
-        "photo1": "Origine",
-        "photo2": "Premier vol",
         "title": "Ingénierie avec rigueur et intention",
         "tn": "Né et élevé en Tunisie, un environnement qui valorise la curiosité, la persévérance et le soin du travail bien fait. Ces réflexes se retrouvent dans ma manière d'aborder l'ingénierie : posée, structurée, pensée pour durer.",
         "tn_title": "Racines"
@@ -123,25 +119,64 @@
     }
   },
   "skills": {
-    "admin": {
-      "eyebrow": "Compétences organisationnelles",
-      "text": "Bonne compréhension des structures d'entreprise, des processus juridiques, des hiérarchies et des protocoles professionnels internationaux.",
-      "title": "Compréhension administrative et procédurale"
-    },
     "cad": {
       "eyebrow": "Compétences techniques",
-      "text": "Bonne maîtrise des outils de conception mécanique 3D et de modélisation paramétrique, développée à travers des projets personnels et académiques.",
-      "title": "Conception assistée par ordinateur (CAO)"
+      "title": "Conception et modélisation : CAO",
+      "text": "Conception 3D, modélisation paramétrique et mises en plan, de la pièce isolée à l’assemblage complet prêt à fabriquer.",
+      "s1n": "200+",
+      "s1l": "pièces et assemblages modélisés",
+      "s2n": "4",
+      "s2l": "logiciels de CAO utilisés"
+    },
+    "sim": {
+      "eyebrow": "Compétences techniques",
+      "title": "Simulation et analyse",
+      "text": "Analyse par éléments finis, simulation de vol et simulation d’usinage, avec des résultats confrontés à des valeurs analytiques et de référence.",
+      "s1n": "~40",
+      "s1l": "simulations réalisées",
+      "s2n": "2 300+",
+      "s2l": "enregistrements de vol analysés"
+    },
+    "code": {
+      "eyebrow": "Compétences techniques",
+      "title": "Programmation et données",
+      "text": "Python pour l’analyse et la visualisation de données, développement web en HTML, CSS et JavaScript, Java, et tableurs pour le calcul rapide.",
+      "s1n": "3 000+",
+      "s1l": "lignes de code écrites",
+      "s2n": "4",
+      "s2l": "langages de programmation"
+    },
+    "make": {
+      "eyebrow": "Compétences pratiques",
+      "title": "Fabrication",
+      "text": "Travail manuel sur machines conventionnelles, usinage CNC, soudure et assemblage, de la matière brute au mécanisme fonctionnel.",
+      "s1n": "54 h",
+      "s1l": "d’usinage et d’assemblage en atelier",
+      "s2n": "6",
+      "s2l": "procédés de fabrication"
+    },
+    "lang": {
+      "eyebrow": "Compétences de communication",
+      "title": "Langues et rédaction",
+      "text": "Maîtrise de quatre langues et expérience de la rédaction technique et administrative : rapports, comptes rendus et présentations, avec des documents scientifiques composés sous LaTeX.",
+      "s1n": "4",
+      "s1l": "langues, dont deux maternelles",
+      "s2n": "100+",
+      "s2l": "documents rédigés",
+      "s3n": "100 %",
+      "s3l": "des rapports de projet composés sous LaTeX"
+    },
+    "admin": {
+      "eyebrow": "Compétences organisationnelles",
+      "title": "Compréhension administrative et procédurale",
+      "text": "Connaissance concrète du fonctionnement d’une organisation, acquise pendant un an au sein d’un bureau exécutif : tâches de supervision et de gestion, procédures, documents structurés et bases de données.",
+      "s1n": "1 an",
+      "s1l": "au sein d’un bureau exécutif"
     },
     "culture": {
       "eyebrow": "Compétences culturelles",
-      "text": "Capacité à travailler efficacement en environnement multiculturel et à s'adapter à différentes approches et mentalités professionnelles.",
-      "title": "Adaptabilité interculturelle"
-    },
-    "team": {
-      "eyebrow": "Compétences relationnelles",
-      "text": "Habitué à collaborer au sein d'équipes variées, à partager des idées et à contribuer à un environnement de travail constructif et bienveillant.",
-      "title": "Communication d'équipe"
+      "title": "Adaptabilité interculturelle",
+      "text": "Collaboration au sein d’équipes variées et avec des personnes issues de nombreuses régions du monde, avec une adaptation naturelle à des méthodes de travail, des langues et des points de vue différents."
     }
   },
   "projects": {
@@ -152,7 +187,7 @@
       "alt": "Aile d'avion de ligne en vol au-dessus des nuages"
     },
     "realized": {
-      "card_intro": "Un système mécanique de presse à canettes comme premier pas vers le recyclage des canettes vides, intégrant des liaisons clés comme la glissière sur rail et des engrenages. D’abord conçu en CAO puis fabriqué par usinage conventionnel et CNC. Ce projet a renforcé ma compréhension des principes mécaniques fondamentaux, l’une des bases de l’ingénierie aérospatiale. Réalisé avec le soutien d’AFAMEC et de son équipe d’ingénierie.",
+      "card_intro": "Un système mécanique de presse à canettes comme premier pas vers le recyclage des canettes vides, intégrant des liaisons clés comme la glissière sur rail et des engrenages. D’abord conçu en CAO puis fabriqué par usinage conventionnel et CNC. Ce projet a renforcé la compréhension des principes mécaniques fondamentaux, l’une des bases de l’ingénierie aérospatiale. Réalisé avec le soutien d’AFAMEC et de son équipe d’ingénierie.",
       "card_title": "Mécanique en mouvement : du design à la fabrication",
       "title": "Projets réalisés"
     },
@@ -177,7 +212,7 @@
     "current": {
       "eyebrow": "En cours",
       "title": "Repenser l'interface du cockpit",
-      "intro": "Je travaille actuellement sur un concept d'interface de cockpit pour les opérations aériennes de demain. La question : comment faire parvenir aux pilotes des informations assistées par IA de façon claire et transparente, tout en leur laissant la décision ? Les détails restent confidentiels pour le moment.",
+      "intro": "Un concept d’interface de cockpit pour les opérations aériennes de demain est actuellement en développement. La question : comment faire parvenir aux pilotes des informations assistées par IA de façon claire et transparente, tout en leur laissant la décision ? Les détails restent confidentiels pour le moment.",
       "alt": "Gros plan sur un cockpit d'avion de ligne et ses écrans électroniques"
     }
   },
