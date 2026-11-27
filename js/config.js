@@ -1,5 +1,4 @@
 window.SITE_CONFIG = {
-  formEndpoint: 'https://formspree.io/f/XXXXXXXX',
   contactEmail: 'Youssefchabbou@outlook.com',
 
   docsFolder: 'assets/docs/',

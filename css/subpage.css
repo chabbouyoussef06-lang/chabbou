@@ -264,3 +264,13 @@ html[dir="rtl"] .skill-stats .stat-n{font-family:var(--font-sans)}
 .skill-stats .stat-l{font-size:13px;line-height:1.35;color:var(--fg-soft,var(--fg));opacity:.8;max-width:16ch;text-align:center}
 .alt-section.solo{grid-template-columns:minmax(0,1fr);max-width:760px;margin-left:auto;margin-right:auto}
 @media(max-width:640px){.skill-stats{gap:10px 22px}.skill-stats .stat-l{max-width:none}}
+
+/* ---------- Legal page ---------- */
+.legal-card{max-width:860px;margin:0 auto}
+.legal-card:hover{transform:none}
+.legal-card h2{font-family:var(--font-display);font-weight:300;font-size:clamp(22px,3vw,28px);margin:38px 0 10px;letter-spacing:-.01em}
+.legal-card h2:first-of-type{margin-top:26px}
+.legal-card h3{font-size:15px;font-weight:600;margin:20px 0 6px}
+.legal-card p{margin:0 0 10px;line-height:1.7}
+.legal-card address{font-style:normal;line-height:1.7;margin:0 0 10px}
+.legal-card a{color:var(--brand)}

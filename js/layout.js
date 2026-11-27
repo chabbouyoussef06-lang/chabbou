@@ -9,7 +9,7 @@
   var script = document.currentScript;
   var slot = script && script.getAttribute('data-slot');
   var R = window.__root || '';   // site root, set by boot.js
-  var PAGES = { home: R, about: R + 'about/', skills: R + 'skills/', projects: R + 'projects/', contact: R + 'contact/' };
+  var PAGES = { home: R, about: R + 'about/', skills: R + 'skills/', projects: R + 'projects/', contact: R + 'contact/', legal: R + 'legal/' };
 
   var ABOUT = [
     [PAGES.about + '#profile', 'nav.about_menu.who', 'Profile'],
@@ -81,7 +81,8 @@
         '<a href="' + PAGES.projects + '" data-i18n="nav.projects">Projects</a>' +
         '<a href="' + PAGES.contact + '" data-i18n="nav.contact">Contact</a></div>' +
       '<div class="footer-meta"><span class="footer-meta-line" data-i18n="footer.created_by">This website was entirely created by its owner,<br>Youssef Chabbou, using AI-Augmented Development.</span>' +
-        '<span class="footer-copy">© 2025 Youssef Chabbou</span></div>' +
+        '<a class="footer-legal" href="' + PAGES.legal + '" data-i18n="footer.legal">Legal notice and privacy</a>' +
+        '<span class="footer-copy">© 2025-2026 Youssef Chabbou</span></div>' +
     '</div></footer>';
 
   if (script) script.insertAdjacentHTML('beforebegin', slot === 'footer' ? FOOTER : HEADER);

@@ -76,7 +76,8 @@
   "footer": {
     "brand_tag": "Luftfahrt · Ingenieurwesen · Design",
     "created_by": "Diese Website wurde vollständig vom Eigentümer erstellt,<br>Youssef Chabbou, mit KI-gestützter Entwicklung.",
-    "explore": "Entdecken"
+    "explore": "Entdecken",
+    "legal": "Impressum und Datenschutz"
   },
   "about": {
     "sections": {
@@ -245,5 +246,41 @@
       "linkedin": "LinkedIn-Profil",
       "title": "Lass uns vernetzen"
     }
+  },
+  "legal": {
+    "eyebrow": "Rechtliches",
+    "title": "Impressum und Datenschutz",
+    "imprint": {
+      "h": "Impressum",
+      "law": "Angaben gemäß § 5 DDG.",
+      "email": "E-Mail",
+      "nature": "Diese Website ist ein persönliches, nicht kommerzielles Portfolio. Verantwortlich für den Inhalt: Youssef Chabbou."
+    },
+    "privacy": {
+      "h": "Datenschutzerklärung",
+      "intro": "Verantwortlicher im Sinne der DSGVO ist die im Impressum genannte Person. Diese Website erhebt so wenige Daten wie möglich.",
+      "hosting_t": "Hosting",
+      "hosting": "Diese Website wird über GitHub Pages (GitHub Inc., USA) bereitgestellt. Beim Besuch kann GitHub technische Daten wie Ihre IP-Adresse in Server-Logfiles verarbeiten, zur Sicherheit und zum Betrieb des Dienstes. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Details finden Sie in der Datenschutzerklärung von GitHub.",
+      "fonts_t": "Schriftarten",
+      "fonts": "Die auf dieser Website verwendete Schriftart liegt auf demselben Server. Es wird keine Verbindung zu Google oder einem anderen Schriftanbieter hergestellt.",
+      "contact_t": "Kontakt",
+      "contact": "Das Kontaktformular sendet nichts an diese Website: Es öffnet Ihr eigenes E-Mail-Programm mit der vorbereiteten Nachricht. Wenn Sie mir per E-Mail schreiben, werden Ihre Adresse und Nachricht nur zur Beantwortung verwendet und gelöscht, sobald sie nicht mehr benötigt werden (Art. 6 Abs. 1 lit. b und f DSGVO).",
+      "storage_t": "Lokaler Speicher, Cookies und Analyse",
+      "storage": "Diese Website setzt keine Cookies und verwendet keine Analyse- oder Tracking-Dienste. Der lokale Speicher Ihres Browsers enthält nur Ihre Einstellungen (Sprache, Tag- oder Nachtmodus und, falls Sie sie im Kontaktformular eingeben, Ihre E-Mail-Adresse). Diese bleiben auf Ihrem Gerät und werden nie übertragen. Sie sind erforderlich, um die von Ihnen gewünschten Funktionen bereitzustellen (§ 25 Abs. 2 TDDDG). Sie können sie jederzeit in den Browsereinstellungen löschen.",
+      "links_t": "Externe Links",
+      "links": "Diese Website verlinkt auf LinkedIn und GitHub. Nach dem Aufruf eines solchen Links gilt die Datenschutzerklärung des jeweiligen Anbieters.",
+      "rights_t": "Ihre Rechte",
+      "rights": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15 bis 21 DSGVO) sowie das Recht, sich bei einer Aufsichtsbehörde zu beschweren, zum Beispiel bei der Landesbeauftragten für den Datenschutz Niedersachsen (LfD Niedersachsen)."
+    },
+    "copyright": {
+      "h": "Urheberrecht",
+      "all": "© 2025-2026 Youssef Chabbou. Alle Rechte vorbehalten.",
+      "p": "Alle Texte, Bilder, Grafiken, das Layout und der Quellcode dieser Website sind urheberrechtlich geschützt. Das Kopieren, Vervielfältigen, Verbreiten, Bearbeiten oder Weiterverwenden, ganz oder teilweise, ist ohne meine vorherige schriftliche Zustimmung untersagt. Zitate mit klarem Hinweis auf diese Website sind erlaubt. Namen und Logos Dritter gehören den jeweiligen Inhabern."
+    },
+    "liability": {
+      "h": "Haftungsausschluss",
+      "p": "Die Inhalte werden sorgfältig erstellt, es wird jedoch keine Gewähr für Vollständigkeit, Richtigkeit oder Aktualität übernommen. Für die Inhalte externer Websites, auf die diese Seite verlinkt, bin ich nicht verantwortlich."
+    },
+    "crumb": "Rechtliches"
   }
 }
