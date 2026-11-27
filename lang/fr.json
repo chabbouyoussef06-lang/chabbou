@@ -265,7 +265,7 @@
       "fonts_t": "Polices",
       "fonts": "La police utilisée sur ce site est stockée sur le même serveur. Aucune connexion à Google ou à un autre fournisseur de polices n'est établie.",
       "contact_t": "Contact",
-      "contact": "Le formulaire de contact n'envoie rien à ce site : il ouvre votre propre application e-mail avec le message préparé. Si vous m'écrivez par e-mail, votre adresse et votre message servent uniquement à vous répondre et sont supprimés lorsqu'ils ne sont plus nécessaires.",
+      "contact": "Le formulaire de contact n'envoie rien à ce site : il ouvre votre propre application e-mail avec le message préparé. Si vous m'écrivez par e-mail, votre adresse et votre message servent uniquement à vous répondre.",
       "storage_t": "Stockage local, cookies et statistiques",
       "storage": "Ce site ne dépose aucun cookie et n'utilise ni statistiques ni suivi. Le stockage local de votre navigateur conserve uniquement vos choix (langue, mode jour ou nuit et, si vous la saisissez dans le formulaire de contact, votre adresse e-mail). Ces données restent sur votre appareil et ne sont jamais transmises. Vous pouvez les supprimer à tout moment dans les réglages de votre navigateur.",
       "links_t": "Liens externes",
