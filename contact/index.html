@@ -20,19 +20,16 @@
 <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
 <link rel="preload" as="image" href="../assets/images/background.jpg">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,500&display=swap" rel="stylesheet">
 
 <script src="../js/boot.js?v=6bd4260b"></script>
-<link rel="stylesheet" href="../css/site.css?v=40c152d1">
-<link rel="stylesheet" href="../css/subpage.css?v=9d81c442">
+<link rel="stylesheet" href="../css/site.css?v=7d007ab3">
+<link rel="stylesheet" href="../css/subpage.css?v=ec54b2ab">
 <script src="../js/site.js?v=816ae124" defer></script>
-<script src="../js/config.js?v=8e68b32f" defer></script>
-<script src="../js/contact.js?v=722436dc" defer></script>
+<script src="../js/config.js?v=4ae1e1d8" defer></script>
+<script src="../js/contact.js?v=e45892e3" defer></script>
 </head>
 <body data-page="contact">
-<script src="../js/layout.js?v=465868fa" data-slot="header"></script>
+<script src="../js/layout.js?v=46dbb293" data-slot="header"></script>
 
 <main class="page" id="main">
     <nav class="breadcrumbs mono" aria-label="Breadcrumb">
@@ -75,7 +72,7 @@
         <p class="alt-eyebrow" data-i18n="contact.form.eyebrow">Send a message</p>
         <h2 class="alt-title display" data-i18n="contact.form.title">Contact form</h2>
 
-        <form id="contactForm" class="contact-form" enctype="multipart/form-data" novalidate>
+        <form id="contactForm" class="contact-form" novalidate>
           <div class="field">
             <label class="label" for="fromEmail" data-i18n="contact.form.email_label">Your e-mail</label>
             <input class="input" id="fromEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com" data-i18n-attr="placeholder:contact.form.email_ph">
@@ -88,14 +85,9 @@
             <label class="label" for="message" data-i18n="contact.form.message_label">Message</label>
             <textarea class="textarea" id="message" name="message" required placeholder="Write your message…" data-i18n-attr="placeholder:contact.form.message_ph"></textarea>
           </div>
-          <div class="field" id="attachmentField">
-            <label class="label" for="attachment" data-i18n="contact.form.attachment_label">Attachment</label>
-            <input class="file" id="attachment" name="attachment" type="file">
-            <span class="hint" data-i18n="contact.form.attachment_hint">Optional. Attach relevant file(s).</span>
-          </div>
           <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-          <p class="hint" id="mailtoNote" hidden data-i18n="contact.form.mailto_note">Your e-mail app will open with your message ready to send.</p>
+          <p class="hint" id="mailtoNote" data-i18n="contact.form.mailto_note">Your e-mail app will open with your message ready to send.</p>
           <button class="submit" type="submit"><span data-i18n="contact.form.send_btn">Send</span><span class="submit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
           <p id="formStatus" class="status" aria-live="polite"></p>
         </form>
@@ -106,6 +98,6 @@
   </div>
 </main>
 
-<script src="../js/layout.js?v=465868fa" data-slot="footer"></script>
+<script src="../js/layout.js?v=46dbb293" data-slot="footer"></script>
 </body>
 </html>

@@ -76,7 +76,8 @@
   "footer": {
     "brand_tag": "Aerospace · Engineering · Design",
     "created_by": "This website was entirely created by its owner,<br>Youssef Chabbou, using AI-Augmented Development.",
-    "explore": "Explore"
+    "explore": "Explore",
+    "legal": "Legal notice and privacy"
   },
   "about": {
     "sections": {
@@ -245,5 +246,41 @@
       "linkedin": "LinkedIn Profile",
       "title": "Let's connect"
     }
+  },
+  "legal": {
+    "eyebrow": "Legal",
+    "title": "Legal notice and privacy",
+    "imprint": {
+      "h": "Legal notice (Impressum)",
+      "law": "Information pursuant to § 5 DDG (Germany).",
+      "email": "E-mail",
+      "nature": "This website is a personal, non-commercial portfolio. Responsible for the content: Youssef Chabbou."
+    },
+    "privacy": {
+      "h": "Privacy policy",
+      "intro": "The controller within the meaning of the GDPR is the person named in the legal notice above. This website collects as little data as possible.",
+      "hosting_t": "Hosting",
+      "hosting": "This website is hosted by GitHub Pages (GitHub Inc., USA). When you visit it, GitHub may process technical data such as your IP address in server logs, for security and to operate the service. The legal basis is Art. 6(1)(f) GDPR. Please see GitHub's privacy statement for details.",
+      "fonts_t": "Fonts",
+      "fonts": "The font used on this website is stored on the same server. No connection to Google or any other font provider is made.",
+      "contact_t": "Contact",
+      "contact": "The contact form does not send anything to this website: it opens your own e-mail app with the message prepared. If you write to me by e-mail, your address and message are used only to answer you and are deleted when no longer needed (Art. 6(1)(b) and (f) GDPR).",
+      "storage_t": "Local storage, cookies and analytics",
+      "storage": "This website sets no cookies and uses no analytics or tracking. Your browser's local storage holds only your choices (language, day or night mode and, if you type it into the contact form, your e-mail address). These stay on your device and are never transmitted. They are needed to provide the features you ask for (§ 25(2) TDDDG). You can delete them at any time in your browser settings.",
+      "links_t": "External links",
+      "links": "This website links to LinkedIn and GitHub. Once you follow such a link, the privacy policy of the respective provider applies.",
+      "rights_t": "Your rights",
+      "rights": "You have the right to access, rectification, erasure, restriction of processing, data portability and objection (Art. 15 to 21 GDPR), and to lodge a complaint with a supervisory authority, for example the State Commissioner for Data Protection of Lower Saxony (LfD Niedersachsen)."
+    },
+    "copyright": {
+      "h": "Copyright",
+      "all": "© 2025-2026 Youssef Chabbou. All rights reserved.",
+      "p": "All texts, images, graphics, the layout and the source code of this website are protected by copyright. Copying, reproducing, distributing, modifying or reusing them, in whole or in part, is prohibited without my prior written permission. Quoting with a clear reference to this website is allowed. Names and logos of third parties belong to their respective owners."
+    },
+    "liability": {
+      "h": "Disclaimer",
+      "p": "The content is prepared with care, but no guarantee is given that it is complete, accurate or up to date. I am not responsible for the content of external websites linked from this page."
+    },
+    "crumb": "Legal"
   }
 }
