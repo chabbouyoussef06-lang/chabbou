@@ -27,7 +27,7 @@
     if (dicts[lang]) return Promise.resolve(dicts[lang]);
     var p = (lang === window.__lang && window.__dictPromise)
       ? window.__dictPromise
-      : fetch(window.__root + 'lang/' + lang + '.json').then(function (r) {
+      : fetch(window.__root + 'lang/' + lang + '.json', { cache: 'no-cache' }).then(function (r) {
           if (!r.ok) throw new Error('lang file missing: ' + lang);
           return r.json();
         });
